@@ -437,17 +437,110 @@
   footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
   footer a:hover { color: #fff; }
 
-  /* Responsive */
-  @media (max-width: 900px) {
-    .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
-    .offerings-grid { grid-template-columns: 1fr 1fr; }
-    .why-grid { grid-template-columns: 1fr 1fr; }
-    .testi-grid { grid-template-columns: 1fr 1fr; }
+  /* ── RESPONSIVE ── */
+
+  /* Widescreen (1400px+) */
+  @media (min-width: 1400px) {
+    .container { max-width: 1280px; }
+    .hero-inner { max-width: 760px; }
+    .hero h1 { font-size: 3.8rem; }
+    .hero-sub { font-size: 1.1rem; max-width: 560px; }
+    .about-strip, .offerings, .why-us, .testi-strip, .contact-cta { padding: 6rem 3rem; }
+    .trusted-bar { padding: 3.25rem 3rem; }
+    .offerings-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .why-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .testi-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .two-col { gap: 5rem; }
+    .section-header { max-width: 640px; }
   }
-  @media (max-width: 600px) {
-    .offerings-grid { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr; }
-    .testi-grid { grid-template-columns: 1fr; }
+
+  /* Large desktop (1080–1400px) — base styles apply, minor tuning */
+  @media (max-width: 1400px) and (min-width: 1081px) {
+    .container { max-width: 1080px; }
+  }
+
+  /* Tablet landscape / small desktop (769–1080px) */
+  @media (max-width: 1080px) {
+    .container { padding: 0 1.5rem; }
+    .two-col { gap: 3rem; }
+    .offerings-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .why-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .testi-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .about-strip, .offerings, .why-us, .testi-strip, .contact-cta { padding: 4rem 1.5rem; }
+    .trusted-bar { padding: 2.25rem 1.5rem; }
+  }
+
+  /* Tablet portrait (600–768px) */
+  @media (max-width: 768px) {
+    .hero { padding: 3.5rem 1.5rem; min-height: 100svh; }
+    .hero-inner { max-width: 100%; }
+    .hero h1 { font-size: clamp(1.9rem, 5.5vw, 2.6rem); }
+    .hero-sub { font-size: 0.95rem; max-width: 100%; }
+    .logo { margin-bottom: 2.5rem; }
+    .logo-text { font-size: 1rem; }
+
+    .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+    .offerings-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .why-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .testi-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .about-strip, .offerings, .why-us, .testi-strip, .contact-cta { padding: 3.5rem 1.5rem; }
+    .trusted-bar { padding: 2rem 1.5rem; }
+    .trusted-bar h2 { font-size: 0.88rem; }
+    .section-header { margin-bottom: 2rem; }
+
+    .contact-cta p { margin-bottom: 0; }
+  }
+
+  /* Phone (max 599px) */
+  @media (max-width: 599px) {
+    .hero { padding: 3rem 1.25rem; }
+    .hero h1 { font-size: clamp(1.75rem, 7vw, 2.2rem); line-height: 1.2; }
+    .hero-sub { font-size: 0.9rem; margin-bottom: 2rem; }
+    .badge { font-size: 0.62rem; letter-spacing: 0.12em; padding: 0.3rem 0.9rem; }
+    .logo { margin-bottom: 2rem; }
+    .logo-text { font-size: 0.95rem; }
+
+    .coming-pills { gap: 0.45rem; }
+    .pill { font-size: 0.7rem; padding: 0.32rem 0.75rem; }
+
+    .trusted-bar { padding: 1.75rem 1.25rem; }
+    .trusted-bar h2 { font-size: 0.82rem; }
+    .trusted-bar p { font-size: 0.72rem; }
+
+    .about-strip, .offerings, .why-us, .testi-strip, .contact-cta { padding: 3rem 1.25rem; }
+    .two-col { grid-template-columns: 1fr; gap: 2rem; }
+
+    .offerings-grid { grid-template-columns: 1fr; gap: 0.875rem; }
+    .offering-card { padding: 1.35rem; }
+    .offering-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
+
+    .why-grid { grid-template-columns: 1fr; gap: 0.875rem; }
+    .why-card { padding: 1.35rem; }
+
+    .testi-grid { grid-template-columns: 1fr; gap: 0.875rem; }
+    .testi-card { padding: 1.25rem; }
+
+    .section-header { margin-bottom: 1.75rem; }
+    .section-header h2 { font-size: clamp(1.35rem, 5vw, 1.7rem); }
+    .section-header p { font-size: 0.85rem; }
+
+    .about-strip h2 { font-size: clamp(1.25rem, 5vw, 1.6rem); }
+    .about-strip p { font-size: 0.85rem; }
+
+    .contact-cta h2 { font-size: clamp(1.3rem, 5vw, 1.6rem); }
+    .contact-cta p { font-size: 0.85rem; margin-bottom: 0; }
+
+    footer { padding: 1.75rem 1.25rem; font-size: 0.72rem; }
+  }
+
+  /* Very small phones (max 380px) */
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 1.65rem; }
+    .logo-text { font-size: 0.88rem; }
+    .pill { font-size: 0.65rem; padding: 0.28rem 0.65rem; }
+    .about-strip, .offerings, .why-us, .testi-strip, .contact-cta { padding: 2.5rem 1rem; }
+    .trusted-bar { padding: 1.5rem 1rem; }
   }
 </style>
 </head>
