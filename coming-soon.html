@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Qualitative Research Institute | Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --navy: #1a2744;
+    --blue: #2d4a8a;
+    --mid-blue: #4a6fa5;
+    --light-blue: #d6e4f7;
+    --cream: #f8f5f0;
+    --warm-white: #fdfcfa;
+    --text: #2a2a2a;
+    --muted: #6b7280;
+    --accent: #c8873b;
+    --gold: #D3B574;
+    --border: #e2e8f0;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--warm-white);
+    line-height: 1.7;
+  }
+
+  /* ── HERO / COMING SOON ── */
+  .hero {
+    background: var(--navy);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 50%, rgba(45,74,138,0.4) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 20%, rgba(211,181,116,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 55% 85%, rgba(45,74,138,0.25) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+    width: 100%;
+  }
+
+  .logo {
+    margin-bottom: 3.5rem;
+  }
+  .logo-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.01em;
+    display: block;
+  }
+  .logo-rule {
+    width: 36px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0.75rem auto 0;
+    border-radius: 2px;
+  }
+
+  .badge {
+    display: inline-block;
+    border: 1px solid rgba(211,181,116,0.45);
+    color: var(--gold);
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.35rem 1.1rem;
+    border-radius: 100px;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.68);
+    line-height: 1.8;
+    max-width: 460px;
+    margin: 0 auto 2.75rem;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    justify-content: center;
+    margin-bottom: 3.5rem;
+  }
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    transition: opacity 0.2s;
+  }
+  .btn-gold:hover { opacity: 0.88; }
+  .btn-outline {
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: #fff;
+    padding: 0.78rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); }
+
+  /* Pills */
+  .coming-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    justify-content: center;
+  }
+  .pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 0.38rem 1rem;
+    font-size: 0.76rem;
+    color: rgba(255,255,255,0.75);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .pill::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ── CONTENT BELOW ── */
+
+  /* Trusted bar */
+  .trusted-bar {
+    background: var(--cream);
+    padding: 2.75rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .trusted-bar .eyebrow {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .trusted-bar h2 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.6rem;
+  }
+  .trusted-bar p {
+    font-size: 0.78rem;
+    color: var(--muted);
+    max-width: 820px;
+    margin: 0 auto;
+    line-height: 1.85;
+  }
+
+  /* About strip */
+  .about-strip {
+    background: var(--warm-white);
+    padding: 5rem 2rem;
+  }
+  .container { max-width: 1080px; margin: 0 auto; }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .eyebrow {
+    display: block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .about-strip h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  .about-strip p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 0.85rem;
+  }
+
+  /* Offerings grid */
+  .offerings {
+    background: var(--cream);
+    padding: 5rem 2rem;
+  }
+  .section-header {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 3rem;
+  }
+  .section-header h2 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+  .section-header p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .offering-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .offering-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+    transform: translateY(-2px);
+  }
+  .offering-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+  .offering-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    color: var(--mid-blue);
+    background: var(--light-blue);
+    padding: 0.18rem 0.6rem;
+    border-radius: 100px;
+    margin-bottom: 0.75rem;
+  }
+  .offering-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .offering-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* Why us */
+  .why-us {
+    background: var(--navy);
+    padding: 5rem 2rem;
+    color: #fff;
+  }
+  .why-us .section-header h2 { color: #fff; }
+  .why-us .section-header p { color: rgba(255,255,255,0.6); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .why-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 1.75rem;
+  }
+  .why-icon { font-size: 1.5rem; margin-bottom: 0.9rem; }
+  .why-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .why-card p {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+  }
+
+  /* Testimonial strip */
+  .testi-strip {
+    background: var(--cream);
+    padding: 5rem 2rem;
+  }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+  .testi-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .stars { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+  .testi-card blockquote {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.75;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .testi-author strong {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--navy);
+    font-weight: 500;
+  }
+  .testi-author span {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  /* Contact CTA */
+  .contact-cta {
+    background: var(--warm-white);
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  .contact-cta h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+  .contact-cta p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    line-height: 1.8;
+  }
+  .contact-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--blue); }
+  .btn-secondary {
+    border: 1.5px solid var(--navy);
+    color: var(--navy);
+    padding: 0.78rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--navy); color: #fff; }
+
+  /* Footer */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.45);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.76rem;
+    line-height: 1.8;
+  }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  footer a:hover { color: #fff; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+    .offerings-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .testi-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .offerings-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── COMING SOON HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <div class="logo">
+      <span class="logo-text">The Qualitative Research Institute</span>
+      <div class="logo-rule"></div>
+    </div>
+
+    <span class="badge">Website Coming Soon</span>
+
+    <h1>Expert Qualitative Research Training — <em>Launching Shortly</em></h1>
+
+    <p class="hero-sub">Our full website is on its way. In the meantime, get in touch and we'll help you find the right training or support for your research journey.</p>
+
+    <div class="hero-cta-group">
+      <a href="mailto:hello@clairemoran.com" class="btn-gold">Get in Touch</a>
+      <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank" class="btn-outline">Follow on LinkedIn</a>
+    </div>
+
+    <div class="coming-pills">
+      <span class="pill">Training Programs</span>
+      <span class="pill">The Research Circle Membership</span>
+      <span class="pill">Workshop Booking</span>
+      <span class="pill">1:1 Support Sessions</span>
+      <span class="pill">Free Webinar Series</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── TRUSTED BAR ── -->
+<div class="trusted-bar">
+  <div class="eyebrow">Trusted by researchers across Australia and internationally</div>
+  <h2>Trusted by Researchers from over 100 Universities, Government Agencies, and Research Institutes Globally</h2>
+  <p>The University of Queensland · The University of Melbourne · Monash University · University of New South Wales · University of Western Australia · Royal College of Surgeons, Ireland · QIMR Berghofer Medical Research Institute · Menzies School of Health Research · Australian Department of Defence · The Hong Kong Polytechnic University · Queen's University, Belfast</p>
+</div>
+
+<!-- ── ABOUT ── -->
+<section class="about-strip">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <span class="eyebrow">About</span>
+        <h2>Helping researchers move forward with clarity and confidence</h2>
+        <p>The Qualitative Research Institute offers expert training, consultancy, and support for researchers at every stage of their journey — from PhD candidates navigating their first qualitative project to experienced academics deepening their practice.</p>
+        <p>Led by Claire Moran PhD, our programs combine rigorous methodology with practical, hands-on learning. Whether online or face-to-face, we meet you where you are.</p>
+      </div>
+      <div>
+        <span class="eyebrow">Based in Brisbane · Available Globally</span>
+        <h2>Training delivered in Brisbane, Sydney, Melbourne, and online</h2>
+        <p>Our workshops and programs are available face-to-face across Australia and via online delivery for researchers anywhere in the world. Wherever you are in your research journey, we have something for you.</p>
+        <p>Enquire now to be among the first to access programs when we launch — or to arrange individual support in the meantime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT'S COMING ── -->
+<section class="offerings">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">What's Coming</span>
+      <h2>Programs launching on our new website</h2>
+      <p>Everything you need to build your qualitative research skills — from foundational concepts through to advanced methods and AI integration.</p>
+    </div>
+    <div class="offerings-grid">
+
+      <div class="offering-card">
+        <div class="offering-icon">🎙️</div>
+        <span class="offering-badge">Free · Online</span>
+        <h3>Free Webinar Series</h3>
+        <p>Explore key qualitative research concepts with free, accessible webinars designed to get you started with Claire's teaching style.</p>
+      </div>
+
+      <div class="offering-card">
+        <div class="offering-icon">📖</div>
+        <span class="offering-badge">Self-paced · 6 hours</span>
+        <h3>Essentials of Qualitative Research</h3>
+        <p>A comprehensive online course covering theory, design, data collection, and analysis — at your own pace.</p>
+      </div>
+
+      <div class="offering-card">
+        <div class="offering-icon">🗺️</div>
+        <span class="offering-badge">2-Day Workshop</span>
+        <h3>Research Design Masterclass</h3>
+        <p>Develop a rigorous roadmap for your research project and the skills to navigate each stage with confidence.</p>
+      </div>
+
+      <div class="offering-card">
+        <div class="offering-icon">🔍</div>
+        <span class="offering-badge">2-Day Workshop</span>
+        <h3>Thematic Analysis Masterclass</h3>
+        <p>Master the principles and practice of thematic analysis — and apply them directly to your own research.</p>
+      </div>
+
+      <div class="offering-card">
+        <div class="offering-icon">🤖</div>
+        <span class="offering-badge">2-Day Workshop · Online</span>
+        <h3>AI Tools for Qualitative Research</h3>
+        <p>Integrate AI into your qualitative practice while staying true to the core values of qualitative inquiry.</p>
+      </div>
+
+      <div class="offering-card">
+        <div class="offering-icon">🌐</div>
+        <span class="offering-badge">6 or 12 Month Membership</span>
+        <h3>The Research Circle</h3>
+        <p>Year-round access to all training programs, expert support, monthly Q&amp;A sessions, and a community of fellow researchers.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY US ── -->
+<section class="why-us">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow" style="color:var(--gold);">Why The Qualitative Research Institute</span>
+      <h2>Training built for real researchers</h2>
+      <p>Practical, methodologically sound, and designed around how researchers actually work.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">📋</div>
+        <h3>Practical & Hands-On</h3>
+        <p>Real-world examples and exercises you can apply directly to your own research — not just theory.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎓</div>
+        <h3>Expert-Led</h3>
+        <p>Led by Claire Moran PhD — an experienced qualitative researcher dedicated to building your capability.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🌏</div>
+        <h3>Flexible Delivery</h3>
+        <p>Face-to-face in Brisbane, Sydney, and Melbourne. Online for researchers across Australia and internationally.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="testi-strip">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">What Participants Say</span>
+      <h2>Trusted by researchers across Australia and internationally</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Claire's AI in Qualitative Research Masterclass helped clarify how AI can be used in qualitative research in ways that are both appropriate and methodologically defensible. Highly recommend to my PhD students, ECRs, and colleagues."</blockquote>
+        <div class="testi-author">
+          <strong>Dr Aila Khan</strong>
+          <span>HDR Director, School of Business, Western Sydney University</span>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"The Research Circle helped me cut through feeling overwhelmed and focus on what actually matters in my PhD. It's completely changed my momentum."</blockquote>
+        <div class="testi-author">
+          <strong>Halijah Brewster</strong>
+          <span>PhD Candidate, School of Public Health, University of Queensland</span>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <blockquote>"What sets this masterclass apart is Claire's ability to balance theory with practical application — unlike other training that can leave you more confused."</blockquote>
+        <div class="testi-author">
+          <strong>Wendy Godfrey</strong>
+          <span>PhD Candidate, University of the Sunshine Coast</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT CTA ── -->
+<section class="contact-cta">
+  <div class="container">
+    <span class="eyebrow" style="text-align:center; display:block;">Get in Touch</span>
+    <h2>Ready to move your research forward?</h2>
+    <p>Don't wait for the website to launch. Reach out now and Claire will help you find the right training or support for your research journey.</p>
+    <div class="contact-btns">
+      <a href="mailto:hello@clairemoran.com" class="btn-primary">Email Us</a>
+      <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank" class="btn-secondary">Connect on LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── */
+<footer>
+  <p><strong style="color:#fff; font-weight:500;">The Qualitative Research Institute</strong></p>
+  <p style="margin-top:0.4rem;">
+    <a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a> &nbsp;·&nbsp; +61 (0)400 065 945 &nbsp;·&nbsp; Mount Gravatt, Brisbane
+  </p>
+  <p style="margin-top:0.4rem;">Brisbane · Sydney · Melbourne · Online globally</p>
+  <p style="margin-top:1rem;">© 2025 The Qualitative Research Institute. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
