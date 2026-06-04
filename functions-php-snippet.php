@@ -1,7 +1,6 @@
-<?php
 /**
  * TQRI Blog Builder API
- * Paste this at the BOTTOM of your theme's functions.php
+ * Paste this at the BOTTOM of your theme's functions.php (do NOT include a new <?php tag)
  * Site: https://shawnferrao.com/ (staging)
  */
 
