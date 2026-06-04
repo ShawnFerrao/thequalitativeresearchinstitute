@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TQRI Blog Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #1a2744;
+    --blue:      #2d4a8a;
+    --mid-blue:  #4a6fa5;
+    --light-blue:#d6e4f7;
+    --cream:     #f8f5f0;
+    --warm-white:#fdfcfa;
+    --text:      #2a2a2a;
+    --muted:     #6b7280;
+    --accent:    #c8873b;
+    --gold:      #D3B574;
+    --border:    #e2e8f0;
+    --red:       #dc2626;
+    --green:     #16a34a;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .bb-header {
+    background: var(--navy);
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .bb-header-title {
+    color: #fff; font-size: 1rem; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .bb-header-sub {
+    color: rgba(255,255,255,0.5); font-size: 0.72rem; font-weight: 300;
+    margin-top: 0.1rem;
+  }
+  .bb-header-actions { display: flex; gap: 0.75rem; align-items: center; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.55rem 1.25rem;
+    border-radius: 4px; border: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: all 0.2s; text-decoration: none;
+  }
+  .btn-primary   { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #b5762e; }
+  .btn-secondary { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
+  .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+  .btn-navy  { background: var(--navy); color: #fff; }
+  .btn-navy:hover { background: var(--blue); }
+  .btn-ghost { background: transparent; color: var(--mid-blue); border: 1.5px solid var(--mid-blue); }
+  .btn-ghost:hover { background: var(--mid-blue); color: #fff; }
+  .btn-danger { background: transparent; color: var(--red); border: 1.5px solid var(--red); }
+  .btn-danger:hover { background: var(--red); color: #fff; }
+  .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.72rem; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ── LAYOUT ── */
+  .bb-body { display: grid; grid-template-columns: 360px 1fr; min-height: calc(100vh - 60px); }
+
+  /* ── LEFT PANEL ── */
+  .bb-panel {
+    background: var(--warm-white);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
+  }
+  .bb-panel-section { margin-bottom: 1.75rem; }
+  .bb-panel-section-title {
+    font-size: 0.65rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--muted); margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+  }
+
+  label {
+    display: block; font-size: 0.75rem; font-weight: 500;
+    color: var(--text); margin-bottom: 0.3rem;
+  }
+  input[type=text], input[type=url], textarea, select {
+    width: 100%; font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem; font-weight: 300;
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 0.55rem 0.75rem; color: var(--text);
+    background: #fff; outline: none; transition: border 0.2s;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--mid-blue); }
+  textarea { resize: vertical; line-height: 1.6; }
+  .field { margin-bottom: 1rem; }
+
+  /* ── FEATURED IMAGE ── */
+  .feat-img-box {
+    border: 2px dashed var(--border); border-radius: 6px;
+    padding: 1rem; text-align: center; cursor: pointer;
+    transition: border-color 0.2s; background: #fff;
+  }
+  .feat-img-box:hover { border-color: var(--mid-blue); }
+  .feat-img-box img { max-width: 100%; max-height: 140px; object-fit: cover; border-radius: 4px; }
+  .feat-img-placeholder { font-size: 0.75rem; color: var(--muted); }
+  .feat-img-placeholder span { display: block; font-size: 1.5rem; margin-bottom: 0.35rem; }
+
+  /* ── ADD SECTION PALETTE ── */
+  .section-palette {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .palette-btn {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.65rem 0.5rem;
+    cursor: pointer; text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.7rem; font-weight: 500; color: var(--navy);
+    transition: all 0.15s;
+  }
+  .palette-btn:hover { border-color: var(--mid-blue); background: var(--light-blue); color: var(--blue); }
+  .palette-btn-icon { display: block; font-size: 1.1rem; margin-bottom: 0.2rem; }
+
+  /* ── SECTION LIST ── */
+  .bb-sections { padding: 1.5rem; overflow-y: auto; max-height: calc(100vh - 60px); }
+  .bb-sections-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+  .bb-sections-title { font-size: 0.85rem; font-weight: 600; color: var(--navy); }
+  .bb-empty {
+    text-align: center; padding: 3rem 2rem;
+    color: var(--muted); font-size: 0.85rem;
+    border: 2px dashed var(--border); border-radius: 8px;
+  }
+  .bb-empty-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+
+  /* ── SECTION CARD ── */
+  .section-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 8px; margin-bottom: 0.75rem;
+    overflow: hidden; transition: box-shadow 0.2s;
+  }
+  .section-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .section-card.dragging { opacity: 0.4; }
+  .section-card.drag-over { border-color: var(--mid-blue); box-shadow: 0 0 0 2px var(--light-blue); }
+
+  .section-card-header {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--cream); border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .drag-handle {
+    cursor: grab; color: var(--muted); font-size: 1rem;
+    padding: 0 0.25rem; user-select: none; flex-shrink: 0;
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .section-type-badge {
+    font-size: 0.65rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    background: var(--light-blue); color: var(--blue);
+    padding: 0.15rem 0.5rem; border-radius: 100px; flex-shrink: 0;
+  }
+  .section-summary {
+    font-size: 0.78rem; color: var(--muted);
+    flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .section-card-actions { display: flex; gap: 0.25rem; flex-shrink: 0; }
+  .section-icon-btn {
+    background: transparent; border: none; cursor: pointer;
+    font-size: 0.8rem; padding: 0.2rem 0.3rem;
+    color: var(--muted); border-radius: 3px; transition: all 0.15s;
+  }
+  .section-icon-btn:hover { background: var(--light-blue); color: var(--navy); }
+  .section-icon-btn.delete:hover { background: #fee2e2; color: var(--red); }
+
+  .section-card-body { padding: 1rem; display: none; }
+  .section-card-body.open { display: block; }
+
+  /* ── STATUS BAR ── */
+  .bb-status {
+    position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%);
+    background: var(--navy); color: #fff;
+    padding: 0.65rem 1.5rem; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 400;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    display: none; z-index: 999; max-width: 420px; text-align: center;
+  }
+  .bb-status.visible { display: block; }
+  .bb-status.success { background: var(--green); }
+  .bb-status.error   { background: var(--red); }
+
+  /* ── PREVIEW MODAL ── */
+  .bb-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 1000; display: none; align-items: flex-start;
+    justify-content: center; padding: 2rem; overflow-y: auto;
+  }
+  .bb-modal-overlay.open { display: flex; }
+  .bb-modal {
+    background: #fff; border-radius: 8px;
+    width: 100%; max-width: 780px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .bb-modal-header {
+    background: var(--navy); color: #fff;
+    padding: 1rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .bb-modal-header h3 { font-size: 0.9rem; font-weight: 600; }
+  .bb-modal-close {
+    background: transparent; border: none; color: rgba(255,255,255,0.7);
+    font-size: 1.3rem; cursor: pointer; transition: color 0.2s;
+    line-height: 1;
+  }
+  .bb-modal-close:hover { color: #fff; }
+  .bb-modal-body { padding: 2rem; }
+
+  /* ── PREVIEW CONTENT STYLES ── */
+  .preview-hero {
+    position: relative; border-radius: 6px; overflow: hidden;
+    margin-bottom: 2rem; min-height: 300px;
+    background: var(--navy); display: flex; align-items: flex-end;
+  }
+  .preview-hero img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6;
+  }
+  .preview-hero-text {
+    position: relative; z-index: 2; padding: 2rem; color: #fff;
+  }
+  .preview-eyebrow {
+    font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em;
+    font-weight: 500; color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .preview-hero-text h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 600; line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .preview-hero-text p { font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+
+  .preview-meta {
+    font-size: 0.72rem; color: var(--muted);
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 2rem; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .preview-section { margin-bottom: 2rem; }
+  .preview-section h2 {
+    font-size: 1.25rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+  .preview-section h3 {
+    font-size: 1rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .preview-section p {
+    font-size: 0.9rem; color: var(--text);
+    line-height: 1.8; margin-bottom: 0.75rem;
+  }
+  .preview-intro p {
+    font-size: 1rem; color: var(--text); font-weight: 400;
+    line-height: 1.8; font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+  }
+  .preview-pullquote {
+    border-left: 3px solid var(--gold);
+    padding: 1rem 0 1rem 1.5rem; margin: 1.5rem 0;
+  }
+  .preview-pullquote p {
+    font-size: 1.05rem; font-style: italic; color: var(--navy); font-weight: 400;
+  }
+  .preview-image img {
+    width: 100%; border-radius: 6px; margin-bottom: 0.5rem;
+  }
+  .preview-image figcaption {
+    font-size: 0.72rem; color: var(--muted); text-align: center;
+  }
+  .preview-photo-grid-2 {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  .preview-photo-grid-2 img { width: 100%; height: 220px; object-fit: cover; border-radius: 4px; }
+
+  /* image upload progress */
+  .upload-progress {
+    font-size: 0.72rem; color: var(--mid-blue); margin-top: 0.3rem; display: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="bb-header">
+  <div>
+    <div class="bb-header-title">TQRI Blog Builder</div>
+    <div class="bb-header-sub">The Qualitative Research Institute</div>
+  </div>
+  <div class="bb-header-actions">
+    <button class="btn btn-secondary" onclick="openPreview()">👁 Preview</button>
+    <button class="btn btn-primary" id="publishBtn" onclick="publishPost()">✦ Publish Draft</button>
+  </div>
+</div>
+
+<!-- MAIN BODY -->
+<div class="bb-body">
+
+  <!-- LEFT PANEL: Metadata + Add Sections -->
+  <div class="bb-panel">
+
+    <!-- Post Metadata -->
+    <div class="bb-panel-section">
+      <div class="bb-panel-section-title">Post Details</div>
+
+      <div class="field">
+        <label>Blog Title *</label>
+        <input type="text" id="postTitle" placeholder="e.g. How to Design a Rigorous Interview Study">
+      </div>
+      <div class="field">
+        <label>Subtitle / Excerpt</label>
+        <textarea id="postExcerpt" rows="2" placeholder="A short summary shown in blog listings…"></textarea>
+      </div>
+      <div class="field">
+        <label>Category</label>
+        <select id="postCategory">
+          <option value="">— Loading categories —</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Tags <span style="font-weight:300;color:var(--muted)">(comma separated)</span></label>
+        <input type="text" id="postTags" placeholder="e.g. thematic analysis, research design">
+      </div>
+      <div class="field">
+        <label>Author</label>
+        <input type="text" id="postAuthor" value="Dr Claire Moran">
+      </div>
+    </div>
+
+    <!-- Featured Image -->
+    <div class="bb-panel-section">
+      <div class="bb-panel-section-title">Featured Image</div>
+      <div class="feat-img-box" id="featImgBox" onclick="document.getElementById('featImgInput').click()">
+        <div class="feat-img-placeholder" id="featImgPlaceholder">
+          <span>🖼</span>
+          Click to upload featured image
+        </div>
+        <img id="featImgPreview" style="display:none;" alt="Featured image">
+      </div>
+      <input type="file" id="featImgInput" accept="image/*" style="display:none" onchange="handleFeatImg(this)">
+      <div class="upload-progress" id="featImgProgress">Uploading…</div>
+      <input type="hidden" id="featImgUrl">
+    </div>
+
+    <!-- Add Section Palette -->
+    <div class="bb-panel-section">
+      <div class="bb-panel-section-title">Add Section</div>
+      <div class="section-palette">
+        <button class="palette-btn" onclick="addSection('intro')">
+          <span class="palette-btn-icon">¶</span>Intro Text
+        </button>
+        <button class="palette-btn" onclick="addSection('text')">
+          <span class="palette-btn-icon">📝</span>Text Block
+        </button>
+        <button class="palette-btn" onclick="addSection('subheading')">
+          <span class="palette-btn-icon">H</span>Subheading
+        </button>
+        <button class="palette-btn" onclick="addSection('pullquote')">
+          <span class="palette-btn-icon">"</span>Pull Quote
+        </button>
+        <button class="palette-btn" onclick="addSection('image')">
+          <span class="palette-btn-icon">🖼</span>Single Image
+        </button>
+        <button class="palette-btn" onclick="addSection('photo-grid-2')">
+          <span class="palette-btn-icon">⊞</span>2-Photo Grid
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL: Section List -->
+  <div class="bb-sections">
+    <div class="bb-sections-header">
+      <span class="bb-sections-title">Content Sections</span>
+      <span style="font-size:0.72rem;color:var(--muted)">Drag to reorder</span>
+    </div>
+    <div id="sectionList">
+      <div class="bb-empty" id="emptySections">
+        <div class="bb-empty-icon">✦</div>
+        <div>No sections yet.</div>
+        <div style="margin-top:0.35rem;font-size:0.78rem;">Use "Add Section" on the left to start building your post.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PREVIEW MODAL -->
+<div class="bb-modal-overlay" id="previewModal">
+  <div class="bb-modal">
+    <div class="bb-modal-header">
+      <h3>Post Preview</h3>
+      <button class="bb-modal-close" onclick="closePreview()">×</button>
+    </div>
+    <div class="bb-modal-body" id="previewBody"></div>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="bb-status" id="statusBar"></div>
+
+<script>
+(function () {
+
+  var SITE_URL = 'https://thequalitativeresearchinstitute.com';
+  var TOKEN    = 'tqri-blog-2026-secret';
+  var API      = SITE_URL + '/wp-json';
+
+  var sections = [];
+  var dragSrc  = null;
+
+  /* ── Categories ── */
+  fetch(API + '/wp/v2/categories?per_page=100&hide_empty=false')
+    .then(function(r){ return r.json(); })
+    .then(function(cats){
+      var sel = document.getElementById('postCategory');
+      sel.innerHTML = '<option value="">Uncategorised</option>';
+      cats.forEach(function(c){
+        sel.innerHTML += '<option value="' + c.id + '">' + c.name + '</option>';
+      });
+    })
+    .catch(function(){ /* fail silently */ });
+
+  /* ── Featured Image ── */
+  window.handleFeatImg = function(input) {
+    var file = input.files[0];
+    if (!file) return;
+    var progress = document.getElementById('featImgProgress');
+    progress.style.display = 'block';
+    toBase64(file, function(b64) {
+      fetch(API + '/tqri/v1/upload-image?token=' + TOKEN, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: file.name, mime_type: file.type, data: b64 })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        progress.style.display = 'none';
+        if (res.url) {
+          document.getElementById('featImgUrl').value = res.url;
+          var img = document.getElementById('featImgPreview');
+          img.src = res.url; img.style.display = 'block';
+          document.getElementById('featImgPlaceholder').style.display = 'none';
+        } else {
+          showStatus('Image upload failed: ' + (res.message || 'Unknown error'), 'error');
+        }
+      })
+      .catch(function(e){
+        progress.style.display = 'none';
+        showStatus('Image upload error: ' + e.message, 'error');
+      });
+    });
+  };
+
+  /* ── Add Section ── */
+  window.addSection = function(type) {
+    var id = 'sec-' + Date.now();
+    var sec = { id: id, type: type };
+    switch (type) {
+      case 'intro':       sec.text = ''; break;
+      case 'text':        sec.heading = ''; sec.body = ''; break;
+      case 'subheading':  sec.text = ''; break;
+      case 'pullquote':   sec.text = ''; break;
+      case 'image':       sec.image = ''; sec.caption = ''; break;
+      case 'photo-grid-2': sec.images = ['', '']; break;
+    }
+    sections.push(sec);
+    renderSections();
+    setTimeout(function(){
+      var card = document.getElementById(id);
+      if (card) {
+        toggleCard(id);
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }, 50);
+  };
+
+  function renderSections() {
+    var list = document.getElementById('sectionList');
+    var empty = document.getElementById('emptySections');
+    empty.style.display = sections.length ? 'none' : 'block';
+
+    // Remove old cards
+    Array.from(list.querySelectorAll('.section-card')).forEach(function(el){ el.remove(); });
+
+    sections.forEach(function(sec, idx) {
+      var card = document.createElement('div');
+      card.className = 'section-card';
+      card.id = sec.id;
+      card.draggable = true;
+      card.innerHTML = buildCardHTML(sec, idx);
+      list.appendChild(card);
+      bindCardEvents(card, sec);
+    });
+  }
+
+  function buildCardHTML(sec, idx) {
+    var typeLabels = {
+      intro: 'Intro', text: 'Text Block', subheading: 'Subheading',
+      pullquote: 'Pull Quote', image: 'Image', 'photo-grid-2': '2-Photo Grid'
+    };
+    var summary = getSummary(sec);
+    return '<div class="section-card-header" onclick="toggleCard(\'' + sec.id + '\')">'
+      + '<span class="drag-handle" title="Drag to reorder">⠿</span>'
+      + '<span class="section-type-badge">' + (typeLabels[sec.type] || sec.type) + '</span>'
+      + '<span class="section-summary">' + escHtml(summary) + '</span>'
+      + '<div class="section-card-actions" onclick="event.stopPropagation()">'
+      + (idx > 0 ? '<button class="section-icon-btn" title="Move up" onclick="moveSection(\'' + sec.id + '\',-1)">↑</button>' : '')
+      + (idx < sections.length - 1 ? '<button class="section-icon-btn" title="Move down" onclick="moveSection(\'' + sec.id + '\',1)">↓</button>' : '')
+      + '<button class="section-icon-btn delete" title="Delete" onclick="deleteSection(\'' + sec.id + '\')">✕</button>'
+      + '</div></div>'
+      + '<div class="section-card-body" id="body-' + sec.id + '">'
+      + buildFieldsHTML(sec)
+      + '</div>';
+  }
+
+  function getSummary(sec) {
+    switch (sec.type) {
+      case 'intro': case 'subheading': case 'pullquote':
+        return sec.text || '(empty)';
+      case 'text':
+        return sec.heading || sec.body || '(empty)';
+      case 'image':
+        return sec.caption || (sec.image ? 'Image set' : '(no image)');
+      case 'photo-grid-2':
+        var n = (sec.images || []).filter(Boolean).length;
+        return n + ' / 2 images';
+    }
+    return '';
+  }
+
+  function buildFieldsHTML(sec) {
+    switch (sec.type) {
+      case 'intro':
+        return field('Intro paragraph', textarea(sec.id, 'text', sec.text, 'Opening paragraph for your post…', 4));
+      case 'text':
+        return field('Heading (optional)', input(sec.id, 'heading', sec.heading, 'Section heading'))
+             + field('Body text *', textarea(sec.id, 'body', sec.body, 'Write your content here…', 6));
+      case 'subheading':
+        return field('Subheading text', input(sec.id, 'text', sec.text, 'e.g. Key Considerations'));
+      case 'pullquote':
+        return field('Quote text', textarea(sec.id, 'text', sec.text, '"The most powerful quotes stand alone…"', 3));
+      case 'image':
+        return field('Image', imageUploadField(sec.id, 'image', sec.image, false))
+             + field('Caption (optional)', input(sec.id, 'caption', sec.caption, 'Image caption'));
+      case 'photo-grid-2':
+        return field('Left image', imageUploadField(sec.id, 'img0', sec.images[0], false))
+             + field('Right image', imageUploadField(sec.id, 'img1', sec.images[1], false));
+    }
+    return '';
+  }
+
+  function field(label, content) {
+    return '<div class="field"><label>' + label + '</label>' + content + '</div>';
+  }
+  function input(secId, key, val, ph) {
+    return '<input type="text" data-sec="' + secId + '" data-key="' + key + '" value="' + escAttr(val||'') + '" placeholder="' + escAttr(ph) + '" onchange="updateField(this)">';
+  }
+  function textarea(secId, key, val, ph, rows) {
+    return '<textarea data-sec="' + secId + '" data-key="' + key + '" rows="' + rows + '" placeholder="' + escAttr(ph) + '" onchange="updateField(this)">' + escHtml(val||'') + '</textarea>';
+  }
+  function imageUploadField(secId, key, val, required) {
+    var hasImg = val && val.length > 0;
+    var previewHtml = hasImg ? '<img src="' + escAttr(val) + '" style="max-width:100%;max-height:120px;border-radius:4px;margin-top:0.5rem;" alt="">' : '';
+    return '<div>'
+      + '<div style="display:flex;gap:0.5rem;align-items:center;">'
+      + '<button class="btn btn-ghost btn-sm" type="button" onclick="triggerImgUpload(\'' + secId + '\',\'' + key + '\')">📎 Upload Image</button>'
+      + (hasImg ? '<button class="btn btn-danger btn-sm" type="button" onclick="clearImg(\'' + secId + '\',\'' + key + '\')">Remove</button>' : '')
+      + '</div>'
+      + '<input type="hidden" id="img-' + secId + '-' + key + '" value="' + escAttr(val||'') + '">'
+      + '<input type="file" id="file-' + secId + '-' + key + '" accept="image/*" style="display:none" onchange="handleSectionImg(this,\'' + secId + '\',\'' + key + '\')">'
+      + '<div class="upload-progress" id="prog-' + secId + '-' + key + '">Uploading…</div>'
+      + previewHtml
+      + '</div>';
+  }
+
+  /* ── Field update ── */
+  window.updateField = function(el) {
+    var secId = el.dataset.sec;
+    var key   = el.dataset.key;
+    var sec   = sections.find(function(s){ return s.id === secId; });
+    if (!sec) return;
+    sec[key] = el.value;
+    // update summary without full re-render
+    var card = document.getElementById(secId);
+    if (card) {
+      var sumEl = card.querySelector('.section-summary');
+      if (sumEl) sumEl.textContent = getSummary(sec);
+    }
+  };
+
+  /* ── Image uploads for sections ── */
+  window.triggerImgUpload = function(secId, key) {
+    document.getElementById('file-' + secId + '-' + key).click();
+  };
+
+  window.clearImg = function(secId, key) {
+    var sec = sections.find(function(s){ return s.id === secId; });
+    if (!sec) return;
+    if (key === 'img0') sec.images[0] = '';
+    else if (key === 'img1') sec.images[1] = '';
+    else sec[key] = '';
+    renderSections();
+    setTimeout(function(){ openCard(secId); }, 10);
+  };
+
+  window.handleSectionImg = function(input, secId, key) {
+    var file = input.files[0];
+    if (!file) return;
+    var prog = document.getElementById('prog-' + secId + '-' + key);
+    if (prog) prog.style.display = 'block';
+    toBase64(file, function(b64){
+      fetch(API + '/tqri/v1/upload-image?token=' + TOKEN, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: file.name, mime_type: file.type, data: b64 })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if (prog) prog.style.display = 'none';
+        if (!res.url) { showStatus('Upload failed', 'error'); return; }
+        var sec = sections.find(function(s){ return s.id === secId; });
+        if (!sec) return;
+        if (key === 'img0') sec.images[0] = res.url;
+        else if (key === 'img1') sec.images[1] = res.url;
+        else sec[key] = res.url;
+        renderSections();
+        setTimeout(function(){ openCard(secId); }, 10);
+      })
+      .catch(function(e){
+        if (prog) prog.style.display = 'none';
+        showStatus('Upload error: ' + e.message, 'error');
+      });
+    });
+  };
+
+  /* ── Card open/close ── */
+  window.toggleCard = function(id) {
+    var body = document.getElementById('body-' + id);
+    if (!body) return;
+    body.classList.toggle('open');
+  };
+  function openCard(id) {
+    var body = document.getElementById('body-' + id);
+    if (body) body.classList.add('open');
+  }
+
+  /* ── Move / Delete ── */
+  window.moveSection = function(id, dir) {
+    var idx = sections.findIndex(function(s){ return s.id === id; });
+    if (idx < 0) return;
+    var newIdx = idx + dir;
+    if (newIdx < 0 || newIdx >= sections.length) return;
+    var tmp = sections[idx]; sections[idx] = sections[newIdx]; sections[newIdx] = tmp;
+    renderSections();
+  };
+  window.deleteSection = function(id) {
+    sections = sections.filter(function(s){ return s.id !== id; });
+    renderSections();
+  };
+
+  /* ── Drag & Drop ── */
+  document.getElementById('sectionList').addEventListener('dragstart', function(e) {
+    var card = e.target.closest('.section-card');
+    if (!card) return;
+    dragSrc = card.id;
+    card.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  document.getElementById('sectionList').addEventListener('dragover', function(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    var card = e.target.closest('.section-card');
+    document.querySelectorAll('.section-card').forEach(function(c){ c.classList.remove('drag-over'); });
+    if (card && card.id !== dragSrc) card.classList.add('drag-over');
+  });
+  document.getElementById('sectionList').addEventListener('drop', function(e) {
+    e.preventDefault();
+    var card = e.target.closest('.section-card');
+    document.querySelectorAll('.section-card').forEach(function(c){ c.classList.remove('drag-over','dragging'); });
+    if (!card || !dragSrc || card.id === dragSrc) { dragSrc = null; return; }
+    var srcIdx  = sections.findIndex(function(s){ return s.id === dragSrc; });
+    var destIdx = sections.findIndex(function(s){ return s.id === card.id; });
+    if (srcIdx < 0 || destIdx < 0) { dragSrc = null; return; }
+    var moved = sections.splice(srcIdx, 1)[0];
+    sections.splice(destIdx, 0, moved);
+    dragSrc = null;
+    renderSections();
+  });
+  document.getElementById('sectionList').addEventListener('dragend', function() {
+    document.querySelectorAll('.section-card').forEach(function(c){ c.classList.remove('dragging','drag-over'); });
+    dragSrc = null;
+  });
+
+  /* ── Preview ── */
+  window.openPreview = function() {
+    var title    = document.getElementById('postTitle').value || 'Untitled Post';
+    var excerpt  = document.getElementById('postExcerpt').value;
+    var author   = document.getElementById('postAuthor').value;
+    var featImg  = document.getElementById('featImgUrl').value;
+    var today    = new Date().toLocaleDateString('en-AU', {day:'numeric',month:'long',year:'numeric'});
+
+    var html = '';
+
+    // Hero
+    if (featImg) {
+      html += '<div class="preview-hero">'
+        + '<img src="' + escAttr(featImg) + '" alt="">'
+        + '<div class="preview-hero-text">'
+        + '<div class="preview-eyebrow">The Qualitative Research Institute</div>'
+        + '<h1>' + escHtml(title) + '</h1>'
+        + (excerpt ? '<p>' + escHtml(excerpt) + '</p>' : '')
+        + '</div></div>';
+    } else {
+      html += '<h1 style="font-size:1.75rem;font-weight:600;color:var(--navy);margin-bottom:0.75rem;">' + escHtml(title) + '</h1>';
+      if (excerpt) html += '<p style="color:var(--muted);font-style:italic;margin-bottom:1rem;">' + escHtml(excerpt) + '</p>';
+    }
+
+    html += '<div class="preview-meta">';
+    html += '<span>By ' + escHtml(author) + '</span>';
+    html += '<span>' + today + '</span>';
+    html += '</div>';
+
+    sections.forEach(function(sec) {
+      switch (sec.type) {
+        case 'intro':
+          html += '<div class="preview-section preview-intro"><p>' + escHtml(sec.text || '') + '</p></div>';
+          break;
+        case 'text':
+          html += '<div class="preview-section">';
+          if (sec.heading) html += '<h2>' + escHtml(sec.heading) + '</h2>';
+          if (sec.body) html += '<p>' + escHtml(sec.body).replace(/\n/g, '<br>') + '</p>';
+          html += '</div>';
+          break;
+        case 'subheading':
+          html += '<div class="preview-section"><h3>' + escHtml(sec.text || '') + '</h3></div>';
+          break;
+        case 'pullquote':
+          html += '<div class="preview-pullquote"><p>' + escHtml(sec.text || '') + '</p></div>';
+          break;
+        case 'image':
+          if (sec.image) {
+            html += '<div class="preview-section preview-image"><figure>'
+              + '<img src="' + escAttr(sec.image) + '" alt="' + escAttr(sec.caption||'') + '">'
+              + (sec.caption ? '<figcaption>' + escHtml(sec.caption) + '</figcaption>' : '')
+              + '</figure></div>';
+          }
+          break;
+        case 'photo-grid-2':
+          var imgs = (sec.images || []).filter(Boolean);
+          if (imgs.length) {
+            html += '<div class="preview-section"><div class="preview-photo-grid-2">';
+            imgs.forEach(function(u){ html += '<img src="' + escAttr(u) + '" alt="">'; });
+            html += '</div></div>';
+          }
+          break;
+      }
+    });
+
+    document.getElementById('previewBody').innerHTML = html;
+    document.getElementById('previewModal').classList.add('open');
+  };
+
+  window.closePreview = function() {
+    document.getElementById('previewModal').classList.remove('open');
+  };
+  document.getElementById('previewModal').addEventListener('click', function(e){
+    if (e.target === this) closePreview();
+  });
+
+  /* ── Publish ── */
+  window.publishPost = function() {
+    var title = document.getElementById('postTitle').value.trim();
+    if (!title) { showStatus('Please enter a blog title first.', 'error'); return; }
+
+    var btn = document.getElementById('publishBtn');
+    btn.disabled = true;
+    btn.textContent = 'Publishing…';
+    showStatus('Sending to WordPress…');
+
+    var tags = document.getElementById('postTags').value
+      .split(',').map(function(t){ return t.trim(); }).filter(Boolean);
+
+    var catId = document.getElementById('postCategory').value;
+
+    var payload = {
+      title:              title,
+      slug:               slugify(title),
+      excerpt:            document.getElementById('postExcerpt').value,
+      category_id:        catId ? parseInt(catId) : null,
+      tags:               tags,
+      featured_image_url: document.getElementById('featImgUrl').value,
+      sections:           sections
+    };
+
+    fetch(SITE_URL + '/wp-json/tqri/v1/submit-blog?token=' + TOKEN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      btn.disabled = false;
+      btn.textContent = '✦ Publish Draft';
+      if (res.success && res.edit_url) {
+        showStatus('Draft created! Opening WordPress editor…', 'success');
+        setTimeout(function(){ window.open(res.edit_url, '_blank'); }, 1200);
+      } else {
+        showStatus('Error: ' + (res.message || JSON.stringify(res)), 'error');
+      }
+    })
+    .catch(function(e){
+      btn.disabled = false;
+      btn.textContent = '✦ Publish Draft';
+      showStatus('Network error: ' + e.message, 'error');
+    });
+  };
+
+  /* ── Helpers ── */
+  function showStatus(msg, type) {
+    var bar = document.getElementById('statusBar');
+    bar.textContent = msg;
+    bar.className = 'bb-status visible' + (type ? ' ' + type : '');
+    clearTimeout(bar._timer);
+    bar._timer = setTimeout(function(){
+      bar.classList.remove('visible');
+    }, type === 'success' ? 4000 : 6000);
+  }
+
+  function toBase64(file, cb) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var b64 = e.target.result.split(',')[1];
+      cb(b64);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function slugify(str) {
+    return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  function escHtml(str) {
+    return String(str||'')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+  function escAttr(str) { return escHtml(str); }
+
+})();
+</script>
+</body>
+</html>
