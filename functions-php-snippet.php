@@ -2,7 +2,7 @@
 /**
  * TQRI Blog Builder API
  * Paste this at the BOTTOM of your theme's functions.php
- * Site: https://thequalitativeresearchinstitute.com/
+ * Site: https://shawnferrao.com/ (staging)
  */
 
 define( 'TQRI_SECRET_TOKEN', 'tqri-blog-2026-secret' );
