@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog | Claire Moran — Qualitative Research Insights</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --navy: #1a2744;
+    --blue: #2d4a8a;
+    --mid-blue: #4a6fa5;
+    --light-blue: #d6e4f7;
+    --cream: #f8f5f0;
+    --warm-white: #fdfcfa;
+    --text: #2a2a2a;
+    --muted: #6b7280;
+    --accent: #c8873b;
+    --gold: #D3B574;
+    --border: #e2e8f0;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--warm-white);
+    line-height: 1.7;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    background: var(--navy); padding: 0.4rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.75rem; color: rgba(255,255,255,0.7);
+  }
+  .top-bar a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  .top-bar a:hover { color: #fff; }
+  .top-bar-contact { display: flex; gap: 1.5rem; }
+  .top-bar-social a {
+    color: rgba(255,255,255,0.7); font-size: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.15rem 0.5rem; border-radius: 3px; transition: all 0.2s;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--warm-white); border-bottom: 1px solid var(--border);
+    padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo img { height: 38px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.875rem; font-weight: 400; letter-spacing: 0.02em; transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--navy); }
+  .nav-cta {
+    background: var(--navy); color: #fff; border: none; padding: 0.5rem 1.25rem;
+    border-radius: 4px; font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem; cursor: pointer; text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--blue); }
+
+  /* ── HERO ── */
+  .page-hero {
+    background: var(--navy); color: #fff;
+    padding: 4rem 2rem; position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(45,74,138,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-inner { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; }
+  .page-hero-eyebrow {
+    display: inline-block; text-transform: uppercase; letter-spacing: 0.15em;
+    font-size: 0.72rem; font-weight: 500; color: var(--accent); margin-bottom: 1rem;
+  }
+  .page-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; line-height: 1.2;
+    margin-bottom: 0.75rem; max-width: 580px;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--gold); font-weight: 300; }
+  .page-hero p {
+    font-size: 1rem; color: rgba(255,255,255,0.72);
+    max-width: 480px; margin-bottom: 2rem; font-weight: 300;
+  }
+  .search-wrap {
+    display: flex; max-width: 420px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px; overflow: hidden;
+  }
+  .search-wrap input {
+    flex: 1; background: transparent; border: none;
+    padding: 0.65rem 1rem; color: #fff;
+    font-family: 'Poppins', sans-serif; font-size: 0.875rem; font-weight: 300;
+  }
+  .search-wrap input::placeholder { color: rgba(255,255,255,0.5); }
+  .search-wrap input:focus { outline: none; }
+  .search-wrap button {
+    background: var(--accent); border: none; padding: 0 1.1rem;
+    color: #fff; cursor: pointer; font-size: 0.95rem; transition: background 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .search-wrap button:hover { background: #b5762e; }
+
+  /* ── MAIN LAYOUT ── */
+  .blog-layout {
+    background: var(--warm-white);
+    padding: 3rem 2rem 5rem;
+  }
+  .blog-layout-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 300px;
+    gap: 3rem; align-items: start;
+  }
+
+  /* Global button reset — kills browser default pink/blue hover */
+  button { -webkit-appearance: none; appearance: none; }
+  button:focus { outline: none; }
+
+  /* ── FILTER TABS ── */
+  .filter-tabs {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem;
+  }
+  .filter-btn {
+    background: var(--cream); border: 1px solid var(--border);
+    color: var(--muted); border-radius: 100px;
+    padding: 0.38rem 1rem; font-size: 0.8rem; font-weight: 400;
+    cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+    -webkit-appearance: none; appearance: none;
+  }
+  .filter-btn:hover { background: var(--light-blue); border-color: var(--mid-blue); color: var(--navy); }
+  .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; font-weight: 500; }
+  .filter-btn.active:hover { background: var(--navy); }
+
+  /* ── POST LIST ── */
+  .post-list { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Loading / error */
+  .state-msg {
+    padding: 3rem 1rem; text-align: center;
+    color: var(--muted); font-size: 0.9rem;
+  }
+  .spinner {
+    display: inline-block; width: 24px; height: 24px;
+    border: 3px solid var(--border); border-top-color: var(--mid-blue);
+    border-radius: 50%; animation: spin 0.7s linear infinite; margin-bottom: 0.5rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Post card — horizontal, no image */
+  .post-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.4rem 1.4rem 1.4rem 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    text-decoration: none; color: inherit;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    position: relative;
+  }
+  .post-card:hover {
+    box-shadow: 0 4px 16px rgba(26,39,68,0.08);
+    border-color: #c8d5e8;
+  }
+  .post-card-content { flex: 1; min-width: 0; }
+  .post-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem;
+  }
+  .tag-pill {
+    display: inline-block; font-size: 0.62rem; text-transform: uppercase;
+    letter-spacing: 0.08em; font-weight: 600;
+    color: var(--mid-blue); background: var(--light-blue);
+    padding: 0.18rem 0.6rem; border-radius: 100px;
+  }
+  .tag-pill.cat-thematic { color: #5a3b82; background: #ead8fa; }
+  .tag-pill.cat-codebook { color: #1e5a3b; background: #d4f0e0; }
+  .tag-pill.cat-ai { color: #1e3b7a; background: #dde4f8; }
+  .tag-pill.cat-webinar { color: #7a3b1e; background: #fde8d0; }
+  .tag-pill.blog-tag { color: var(--muted); background: var(--cream); border: 1px solid var(--border); }
+
+  .post-card h3 {
+    font-size: 0.98rem; font-weight: 600; color: var(--navy);
+    line-height: 1.4; margin-bottom: 0.45rem;
+  }
+  .post-card p {
+    font-size: 0.82rem; color: var(--muted);
+    line-height: 1.65; margin-bottom: 0.75rem;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .post-card-foot {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .post-date { font-size: 0.72rem; color: var(--muted); }
+  .read-more {
+    font-size: 0.75rem; font-weight: 500; color: var(--mid-blue);
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    transition: gap 0.2s;
+  }
+  .post-card:hover .read-more { gap: 0.45rem; }
+
+  /* Arrow button on right */
+  .post-arrow {
+    flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--cream); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; color: var(--mid-blue);
+    transition: background 0.2s, color 0.2s; align-self: center;
+  }
+  .post-card:hover .post-arrow { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+  /* No results */
+  .no-results {
+    padding: 2.5rem; text-align: center;
+    color: var(--muted); font-size: 0.88rem;
+    background: var(--cream); border: 1px solid var(--border); border-radius: 8px;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 1.5rem; position: sticky; top: 5rem; }
+
+  .sidebar-widget {
+    background: var(--navy);
+    border-radius: 10px; padding: 1.5rem;
+    color: #fff;
+  }
+  .sidebar-widget.light {
+    background: var(--cream); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .sidebar-widget h3 {
+    font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;
+    color: #fff;
+  }
+  .sidebar-widget.light h3 { color: var(--mid-blue); }
+
+  /* Subscribe widget */
+  .subscribe-desc {
+    font-size: 0.8rem; color: rgba(255,255,255,0.75);
+    line-height: 1.65; margin-bottom: 1rem;
+  }
+  .subscribe-desc em { color: var(--gold); font-style: italic; }
+  .sub-input {
+    width: 100%; background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px; padding: 0.6rem 0.8rem;
+    color: #fff; font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem; font-weight: 300; margin-bottom: 0.65rem;
+  }
+  .sub-input::placeholder { color: rgba(255,255,255,0.45); }
+  .sub-input:focus { outline: none; border-color: var(--gold); }
+  .sub-btn {
+    width: 100%; background: var(--gold); color: var(--navy);
+    border: none; padding: 0.65rem 1rem; border-radius: 6px;
+    font-family: 'Poppins', sans-serif; font-size: 0.85rem;
+    font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+  }
+  .sub-btn:hover { background: #b5762e; }
+  .sub-note { font-size: 0.68rem; color: rgba(255,255,255,0.45); margin-top: 0.5rem; text-align: center; }
+
+  /* Recent posts widget */
+  .recent-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .recent-list li a {
+    text-decoration: none; color: var(--navy);
+    font-size: 0.8rem; font-weight: 400; line-height: 1.45;
+    display: block; margin-bottom: 0.15rem;
+    transition: color 0.2s;
+  }
+  .recent-list li a:hover { color: var(--mid-blue); }
+  .recent-date { font-size: 0.68rem; color: var(--mid-blue); }
+
+  /* Categories widget */
+  .cat-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .cat-list li {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.82rem; color: var(--navy);
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    cursor: pointer; transition: color 0.2s;
+  }
+  .cat-list li:last-child { border-bottom: none; padding-bottom: 0; }
+  .cat-list li:hover { color: var(--mid-blue); }
+  .cat-list li span { color: var(--muted); font-size: 0.75rem; }
+
+  /* ── CTA ── */
+  .cta-strip { background: var(--navy); padding: 4rem 2rem; text-align: center; color: #fff; }
+  .cta-strip .section-label { color: var(--accent); }
+  .cta-strip h2 {
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 600;
+    color: #fff; line-height: 1.3; margin-bottom: 0.75rem;
+  }
+  .cta-strip p { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 2rem; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-gold {
+    background: var(--gold); color: var(--navy); padding: 0.8rem 2rem; border-radius: 4px;
+    text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    display: inline-block; transition: opacity 0.2s; font-family: 'Poppins', sans-serif;
+  }
+  .btn-gold:hover { opacity: 0.88; }
+  .btn-outline-white {
+    border: 1.5px solid rgba(255,255,255,0.6); color: #fff; padding: 0.75rem 2rem; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    display: inline-block; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+  }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.6);
+    padding: 3rem 2rem 2rem; font-size: 0.82rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem;
+  }
+  .footer-brand img { height: 30px; filter: brightness(0) invert(1); margin-bottom: 0.75rem; }
+  .footer-brand p { color: rgba(255,255,255,0.5); line-height: 1.7; margin-top: 0.5rem; }
+  footer h4 {
+    color: #fff; font-weight: 500; margin-bottom: 1rem;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  footer ul a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+  footer ul a:hover { color: #fff; }
+  .footer-bottom {
+    max-width: 1080px; margin: 2rem auto 0;
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    font-size: 0.75rem; color: rgba(255,255,255,0.4);
+  }
+
+  /* ── SCROLL TOP ── */
+  .scroll-top {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: #0D297B; color: #fff; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; pointer-events: none;
+    transition: opacity 0.3s, background 0.2s; z-index: 999;
+  }
+  .scroll-top.visible { opacity: 1; pointer-events: all; }
+  .scroll-top:hover { background: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .blog-layout-inner { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-contact">
+    <a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a>
+    <a href="tel:+61400065945">+61 (0)400 065 945</a>
+    <span>Mount Gravatt, Brisbane</span>
+  </div>
+  <div class="top-bar-social">
+    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://shawnferrao.com/claire-moran/">
+    <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
+    <li><a href="https://shawnferrao.com/claire-moran-training/">Training</a></li>
+    <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
+    <li><a href="https://shawnferrao.com/testimonials/">Testimonials</a></li>
+    <li><a href="https://shawnferrao.com/claire-blogs/" class="active">Blog</a></li>
+  </ul>
+  <a href="https://shawnferrao.com/claire-moran-contact-us/" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-hero-eyebrow">Research Insights</span>
+    <h1>Insights, tips &amp; <em>updates</em> for effective research</h1>
+    <p>Practical guidance and expert advice to enhance your qualitative research skills.</p>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="Search articles…">
+      <button onclick="runSearch()">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN BLOG LAYOUT -->
+<div class="blog-layout">
+  <div class="blog-layout-inner">
+
+    <!-- LEFT: filters + post list -->
+    <div>
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-btn active" data-filter="all">All Articles</button>
+        <!-- injected by JS -->
+      </div>
+      <div class="post-list" id="postList">
+        <div class="state-msg"><div class="spinner"></div><br>Loading articles…</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: sidebar -->
+    <aside class="sidebar">
+
+      <!-- Subscribe -->
+      <div class="sidebar-widget">
+        <h3>Free Research Guide</h3>
+        <p class="subscribe-desc">Subscribe and receive <em>Research Design Simplified: A Practical Guide to Ontology, Epistemology, and Methodology</em> as a free gift.</p>
+        <input class="sub-input" type="email" placeholder="Your email address">
+        <button class="sub-btn">Subscribe →</button>
+        <p class="sub-note">No spam. Unsubscribe anytime.</p>
+      </div>
+
+      <!-- Recent posts -->
+      <div class="sidebar-widget light">
+        <h3>Recent Posts</h3>
+        <ul class="recent-list" id="recentList">
+          <li><span style="color:var(--muted);font-size:0.8rem;">Loading…</span></li>
+        </ul>
+      </div>
+
+      <!-- Categories -->
+      <div class="sidebar-widget light">
+        <h3>Categories</h3>
+        <ul class="cat-list" id="catList">
+          <li><span style="color:var(--muted);font-size:0.8rem;">Loading…</span></li>
+        </ul>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <div style="max-width:1080px;margin:0 auto;">
+    <span class="section-label">Ready to go deeper?</span>
+    <h2>Explore comprehensive training to build your confidence and capability</h2>
+    <p>From self-paced essentials to live masterclasses — find the right program for where you are.</p>
+    <div class="cta-btns">
+      <a href="https://shawnferrao.com/claire-moran-training/" class="btn-gold">Explore Training</a>
+      <a href="https://shawnferrao.com/research-circle/" class="btn-outline-white">The Research Circle</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
+      <p>Training, consultancy, and support to help you move your qualitative research forward with clarity and confidence.</p>
+      <p style="margin-top:0.5rem;">
+        <a href="mailto:hello@clairemoran.com" style="color:rgba(255,255,255,0.55);">hello@clairemoran.com</a> · +61 (0)400 065 945<br>
+        Mount Gravatt, Brisbane
+      </p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
+        <li><a href="https://shawnferrao.com/claire-moran-training/">Training</a></li>
+        <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
+        <li><a href="https://clairemoran.com/faqs/">FAQs</a></li>
+        <li><a href="https://clairemoran.com/contact/">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://shawnferrao.com/claire-blogs/">Blog</a></li>
+        <li><a href="https://shawnferrao.com/testimonials/">Testimonials</a></li>
+        <li><a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Claire Moran. All rights reserved.</span>
+    <span>Brisbane · Sydney · Melbourne · Online globally</span>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  const WP_BASE = 'https://clairemoran.com/wp-json/wp/v2';
+
+  let allPosts = [];
+  let activeFilter = 'all';
+
+  /* Scroll top */
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => scrollBtn.classList.toggle('visible', window.scrollY > 400));
+
+  /* Colour map for tag pills */
+  const catColours = {
+    'thematic analysis': 'cat-thematic',
+    'codebook': 'cat-codebook',
+    'ai in research': 'cat-ai',
+    'ai in qualitative research': 'cat-ai',
+    'webinars': 'cat-webinar',
+    'webinar': 'cat-webinar',
+  };
+  function tagClass(name) { return catColours[name.toLowerCase()] || ''; }
+
+  function stripHTML(html) {
+    const d = document.createElement('div'); d.innerHTML = html;
+    return d.textContent || '';
+  }
+
+  function formatDate(str) {
+    if (!str) return '';
+    const d = new Date(str);
+    if (isNaN(d)) return str;
+    return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function getTerms(post) {
+    const out = [];
+    for (const group of (post._embedded?.['wp:term'] || [])) {
+      for (const t of group) out.push(t);
+    }
+    return out;
+  }
+
+  /* Build a single post card (horizontal) */
+  function postCard(post) {
+    const terms = getTerms(post);
+    const cats  = terms.filter(t => t.taxonomy === 'category');
+    const tags  = terms.filter(t => t.taxonomy === 'post_tag');
+    const title   = stripHTML(post.title?.rendered || '');
+    const excerpt = stripHTML(post.excerpt?.rendered || '').replace(/\[…\]|\[\.\.\.\]/g, '').trim();
+
+    const catPills = cats.map(c =>
+      `<span class="tag-pill ${tagClass(c.name)}">${c.name}</span>`).join('');
+    const tagPills = tags.map(t =>
+      `<span class="tag-pill blog-tag">${t.name}</span>`).join('');
+
+    return `
+      <a class="post-card" href="${post.link}" target="_blank" rel="noopener">
+        <div class="post-card-content">
+          <div class="post-tags">${catPills}${tagPills}</div>
+          <h3>${title}</h3>
+          <p>${excerpt}</p>
+          <div class="post-card-foot">
+            <span class="post-date">${formatDate(post.date)}</span>
+            <span class="read-more">Read more →</span>
+          </div>
+        </div>
+        <div class="post-arrow">→</div>
+      </a>`;
+  }
+
+  /* Render filtered post list */
+  function renderPosts() {
+    const list = document.getElementById('postList');
+    let filtered = allPosts;
+
+    if (activeFilter !== 'all') {
+      const [type, id] = activeFilter.split(':');
+      filtered = allPosts.filter(post =>
+        getTerms(post).some(t =>
+          String(t.id) === id && t.taxonomy === 'category'
+        )
+      );
+    }
+
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(post => {
+        const title = stripHTML(post.title?.rendered || '').toLowerCase();
+        const excerpt = stripHTML(post.excerpt?.rendered || '').toLowerCase();
+        return title.includes(q) || excerpt.includes(q);
+      });
+    }
+
+    if (!filtered.length) {
+      list.innerHTML = `<div class="no-results">No articles match${searchQuery ? ` "${searchQuery}"` : ' this category'}. ${searchQuery ? 'Try different keywords.' : ''}</div>`;
+      return;
+    }
+    list.innerHTML = filtered.map(postCard).join('');
+  }
+
+  /* Build filter tab buttons — categories only */
+  function buildFilters(cats) {
+    const tabs = document.getElementById('filterTabs');
+    const addBtn = (label, val) => {
+      const b = document.createElement('button');
+      b.className = 'filter-btn';
+      b.dataset.filter = val;
+      b.textContent = label;
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        activeFilter = val;
+        searchQuery = '';
+        document.getElementById('searchInput').value = '';
+        renderPosts();
+      });
+      tabs.appendChild(b);
+    };
+    cats.forEach(c => addBtn(c.name, `cat:${c.id}`));
+  }
+
+  /* Search */
+  let searchQuery = '';
+  function runSearch() {
+    searchQuery = document.getElementById('searchInput').value.trim();
+    activeFilter = 'all';
+    document.querySelectorAll('.filter-btn').forEach(b =>
+      b.classList.toggle('active', b.dataset.filter === 'all'));
+    renderPosts();
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const inp = document.getElementById('searchInput');
+    if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
+  });
+
+  /* Populate sidebar recent posts */
+  function renderRecent(posts) {
+    const ul = document.getElementById('recentList');
+    ul.innerHTML = posts.slice(0, 5).map(p => `
+      <li>
+        <a href="${p.link}" target="_blank">${stripHTML(p.title?.rendered || '')}</a>
+        <span class="recent-date">${formatDate(p.date)}</span>
+      </li>`).join('');
+  }
+
+  /* Populate sidebar categories */
+  function renderCats(cats) {
+    const ul = document.getElementById('catList');
+    ul.innerHTML = cats.map(c => `
+      <li onclick="filterByCat('${c.id}','${c.name}')">
+        ${c.name} <span>${c.count}</span>
+      </li>`).join('');
+  }
+
+  function filterByCat(id, name) {
+    activeFilter = `cat:${id}`;
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.filter === activeFilter);
+    });
+    renderPosts();
+    window.scrollTo({ top: document.querySelector('.blog-layout').offsetTop - 80, behavior: 'smooth' });
+  }
+
+  /* Fetch everything */
+  async function init() {
+    try {
+      const [postsRes, catsRes, tagsRes] = await Promise.all([
+        fetch(`${WP_BASE}/posts?per_page=20&_embed=1`),
+        fetch(`${WP_BASE}/categories?per_page=50&hide_empty=true`),
+        fetch(`${WP_BASE}/tags?per_page=50&hide_empty=true`)
+      ]);
+
+      if (!postsRes.ok) throw new Error('Posts unavailable');
+
+      allPosts = await postsRes.json();
+      const cats = catsRes.ok ? (await catsRes.json()).filter(
+        c => c.name.toLowerCase() !== 'uncategorised' && c.name.toLowerCase() !== 'uncategorized'
+      ) : [];
+      const tags = tagsRes.ok ? await tagsRes.json() : [];
+
+      buildFilters(cats);
+      renderPosts();
+      renderRecent(allPosts);
+      renderCats(cats);
+
+    } catch (err) {
+      document.getElementById('postList').innerHTML = `
+        <div class="no-results">
+          Unable to load articles right now.
+          <br><a href="https://clairemoran.com/blog/" style="color:var(--mid-blue);">Visit the blog directly →</a>
+        </div>`;
+      console.error(err);
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>
