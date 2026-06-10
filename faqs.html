@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQs | Claire Moran — Qualitative Research</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  :root {
+    --navy: #1a2744;
+    --blue: #2d4a8a;
+    --mid-blue: #4a6fa5;
+    --cream: #f8f5f0;
+    --warm-white: #fdfcfa;
+    --text: #2a2a2a;
+    --muted: #6b7280;
+    --border: #e2e8f0;
+  }
+  button { -webkit-appearance: none; appearance: none; }
+  button:focus { outline: none; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--warm-white);
+    line-height: 1.7;
+  }
+  /* TOP BAR */
+  .top-bar {
+    background: var(--navy);
+    padding: 0.4rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.75rem; color: rgba(255,255,255,0.7);
+  }
+  .top-bar a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  .top-bar a:hover { color: #fff; }
+  .top-bar-contact { display: flex; gap: 1.5rem; }
+  .top-bar-social a {
+    color: rgba(255,255,255,0.7); font-size: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.15rem 0.5rem; border-radius: 3px; transition: all 0.2s;
+  }
+  .top-bar-social a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo img { height: 38px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.875rem; font-weight: 400;
+    letter-spacing: 0.02em; transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--navy); }
+  .nav-cta {
+    background: var(--navy); color: #fff;
+    border: none; padding: 0.5rem 1.25rem;
+    border-radius: 4px; font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem; cursor: pointer;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--blue); }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --teal: #2A6B7C;
+    --teal-light: #3D8FA4;
+    --cream-dark: #EDE8E0;
+    --text-dark: #1B2D35;
+    --text-mid: #3E5A67;
+    --text-muted: #7A9BAA;
+    --accent: #C4824A;
+    --accent-light: #F2DCC8;
+  }
+
+  .faq-hero,
+  .faq-hero * ,
+  .faq-page-body,
+  .faq-page-body *,
+  .faq-footer,
+  .faq-footer * {
+    font-family: 'Poppins', sans-serif !important;
+  }
+
+  .faq-hero {
+    background: var(--navy);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .faq-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(42,107,124,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .faq-hero-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #A8D4DE;
+    border: 1px solid rgba(168,212,222,0.4);
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.2;
+    max-width: 680px;
+    margin: 0 auto 1.25rem;
+  }
+
+  .faq-hero h1 em {
+    font-style: italic;
+    color: #A8D4DE;
+  }
+
+  .faq-hero > p {
+    color: rgba(255,255,255,0.65);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    font-size: 1.05rem;
+  }
+
+  .faq-hero-search {
+    display: flex;
+    max-width: 440px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .faq-hero-search input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .faq-hero-search input::placeholder {
+    color: rgba(255,255,255,0.45);
+  }
+
+  .faq-hero-search button {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    padding: 0 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .faq-hero-search button:hover {
+    background: #d99055;
+  }
+
+  .faq-page-body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 4rem 2rem 5rem;
+  }
+
+  .faq-category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .faq-tab-btn {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .faq-tab-btn:hover {
+    background: var(--cream-dark);
+    border-color: var(--teal-light);
+    color: var(--teal);
+  }
+
+  .faq-tab-btn.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+  }
+
+  .faq-section {
+    display: none;
+  }
+
+  .faq-section.active {
+    display: block;
+    padding-bottom: 30px;
+  }
+
+  .faq-section-header {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1.5px solid var(--cream-dark);
+  }
+
+  .faq-section-header h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.35rem;
+  }
+
+  .faq-section-header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .faq-accordion {
+    margin-bottom: 0.75rem;
+  }
+
+  .faq-accordion-trigger {
+    width: 100%;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+
+  .faq-accordion-trigger:hover {
+    border-color: var(--teal-light);
+    background: var(--warm-white);
+  }
+
+  .faq-accordion.open .faq-accordion-trigger {
+    border-color: var(--teal);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background: var(--navy);
+  }
+
+  .faq-accordion-question {
+    font-size: 0.975rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1.5;
+    transition: color 0.2s;
+  }
+
+  .faq-accordion.open .faq-accordion-question {
+    color: #fff;
+  }
+
+  .faq-accordion-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+    background: var(--cream);
+  }
+
+  .faq-accordion.open .faq-accordion-icon {
+    background: var(--teal-light);
+    border-color: var(--teal-light);
+    transform: rotate(45deg);
+  }
+
+  .faq-accordion-icon svg {
+    width: 10px;
+    height: 10px;
+    stroke: var(--text-mid);
+    stroke-width: 2.5;
+    fill: none;
+    transition: stroke 0.2s;
+  }
+
+  .faq-accordion.open .faq-accordion-icon svg {
+    stroke: #fff;
+  }
+
+  .faq-accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-accordion.open .faq-accordion-body {
+    max-height: 800px;
+  }
+
+  .faq-accordion-content {
+    background: #fff;
+    border: 1.5px solid var(--teal);
+    border-top: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 1.25rem 1.5rem 1.4rem;
+  }
+
+  .faq-accordion-content p {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .faq-accordion-content p + p {
+    margin-top: 0.75rem;
+  }
+
+  .faq-accordion-content strong {
+    color: var(--text-dark);
+    font-weight: 600;
+  }
+
+  .faq-callout {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .faq-callout p {
+    font-size: 0.9rem;
+    color: #7A4A20;
+  }
+
+  .faq-cta-strip {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+    flex-wrap: wrap;
+  }
+
+  .faq-cta-strip h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.35rem;
+  }
+
+  .faq-cta-strip p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .faq-cta-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .faq-cta-btn:hover {
+    background: #d99055;
+  }
+
+  .faq-accordion.faq-search-hidden {
+    display: none;
+  }
+
+  .faq-section.faq-search-hidden {
+    display: none !important;
+  }
+
+  .faq-no-results {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 3rem 0;
+    font-size: 0.95rem;
+    display: none;
+  }
+
+  .faq-no-results a {
+    color: var(--teal);
+  }
+
+  .faq-footer {
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.825rem;
+  }
+
+  .faq-footer a {
+    color: var(--teal);
+    text-decoration: none;
+  }
+
+  .faq-footer p + p {
+    margin-top: 0.5rem;
+  }
+
+  .faq-hero-search input:focus,
+  .faq-hero-search button:focus,
+  .faq-tab-btn:focus,
+  .faq-accordion-trigger:focus,
+  .faq-cta-btn:focus,
+  .faq-footer a:focus,
+  .faq-no-results a:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(42, 107, 124, 0.25);
+  }
+
+  @media (max-width: 640px) {
+    .faq-hero {
+      padding: 3.5rem 1.25rem 3rem;
+    }
+
+    .faq-page-body {
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    .faq-cta-strip {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-contact">
+    <a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a>
+    <a href="tel:+61400065945">+61 (0)400 065 945</a>
+    <span>Mount Gravatt, Brisbane</span>
+  </div>
+  <div class="top-bar-social">
+    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://shawnferrao.com/claire-moran/">
+    <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://shawnferrao.com/claire-moran/">Home</a></li>
+    <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
+    <li><a href="https://shawnferrao.com/claire-moran-training/">Training</a></li>
+    <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
+    <li><a href="https://shawnferrao.com/testimonials/">Testimonials</a></li>
+    <li><a href="https://shawnferrao.com/claire-blogs/">Blog</a></li>
+  </ul>
+  <a href="https://shawnferrao.com/claire-moran-contact-us/" class="nav-cta">Get in touch</a>
+</nav>
+
+<section class="faq-hero">
+  <div class="faq-hero-tag">Help Centre</div>
+  <h1>Your questions, <em>answered.</em></h1>
+  <p>Everything you need to know about qualitative research training with Dr Claire Moran.</p>
+  <div class="faq-hero-search">
+    <input type="text" id="faq-search-input" placeholder="Search frequently asked questions…" oninput="faqHandleSearch(this.value)">
+    <button type="button">Search</button>
+  </div>
+</section>
+
+<main class="faq-page-body">
+  <div class="faq-category-tabs" role="tablist">
+    <button type="button" class="faq-tab-btn active" onclick="faqSwitchTab('all', this)">All Questions</button>
+    <button type="button" class="faq-tab-btn" onclick="faqSwitchTab('general', this)">General</button>
+    <button type="button" class="faq-tab-btn" onclick="faqSwitchTab('courses', this)">Courses</button>
+    <button type="button" class="faq-tab-btn" onclick="faqSwitchTab('support', this)">Practical &amp; Support</button>
+    <button type="button" class="faq-tab-btn" onclick="faqSwitchTab('booking', this)">Booking &amp; Fees</button>
+    <button type="button" class="faq-tab-btn" onclick="faqSwitchTab('cancellation', this)">Cancellations</button>
+  </div>
+
+  <div id="faq-no-results" class="faq-no-results">No questions match your search. Try different keywords or <a href="mailto:hello@clairemoran.com">get in touch</a>.</div>
+
+  <div class="faq-section active" data-section="general">
+    <div class="faq-section-header">
+      <h2>General FAQs</h2>
+      <p>An introduction to what's on offer and who it's for.</p>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">What kind of qualitative research training is available?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Training options are available for different experience levels — from foundational courses like the <strong>Essentials of Qualitative Research</strong> to more advanced workshops such as the <strong>Thematic Analysis Masterclass</strong>. These courses can be taken as self-paced online programmes or as interactive in-person and live online workshops.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">I'm new to qualitative research. Which course should I start with?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>For beginners, the <strong>Essentials of Qualitative Research</strong> workshop is the ideal starting point. It covers the key characteristics of qualitative research, differences between qualitative and quantitative paradigms, qualitative theoretical frameworks, an introduction to coding and theme generation, and the importance of subjectivity.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">Are the workshops suitable for experienced researchers?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes, absolutely. Experienced researchers benefit greatly from advanced courses like the <strong>Thematic Analysis Masterclass</strong>, which explores nuanced approaches and theoretical perspectives. This option is well-suited for those already familiar with qualitative research.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section active" data-section="courses">
+    <div class="faq-section-header">
+      <h2>Course-Specific FAQs</h2>
+      <p>Details about each programme and what to expect.</p>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">What does the Qualitative Research Design workshop include?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>This 2-day workshop guides participants in developing a clear roadmap for their research, progressing logically from defining the research question to exploring ontology, epistemology, methodology, and data analysis. The workshop also includes interactive sessions and collaborative learning with peers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">What makes the Thematic Analysis Masterclass unique?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>The masterclass provides an in-depth exploration of thematic analysis, guiding participants through each stage with practical exercises and expert support. Key areas include principles, procedural practices, and the theoretical underpinnings of qualitative research and the thematic analysis family.</p>
+          <p>The course also provides insights into using thematic analysis across different data types, and includes comparisons with other qualitative analytic methods.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">What can I expect from the Effective Researcher Workshops?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>These two 3-hour online packages focus on enhancing productivity, confidence, and resilience as a researcher. The first workshop provides tools for productivity, focus, and resilience, while the second focuses on building confidence, connections, and presentation skills.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">Should I choose face-to-face or online?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Both options include the same content — your choice comes down to personal preference and circumstance. All courses are hands-on and interactive, so whichever you choose, you'll have lots of opportunities for practical activities and collaboration.</p>
+          <div class="faq-callout"><p>💡 If you're on the fence: face-to-face offers a useful bonus — in-person peer networking.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section active" data-section="support">
+    <div class="faq-section-header">
+      <h2>Practical &amp; Support FAQs</h2>
+      <p>Guidance on suitability, coaching, and how courses work.</p>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">How do I know which course fits my current research needs?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Each course has a suitability section on the website to help match with your experience level and project phase. Alternatively, feel free to reach out for personalised guidance.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">Is one-on-one coaching available, and what does it involve?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes — one-on-one coaching is available for more personalised support. Each session lasts <strong>90 minutes</strong> and is tailored to address your specific questions and project challenges.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">Will the course content be relevant to my specific field of study?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Courses are designed to be widely applicable across fields that use qualitative research — including social sciences, healthcare, education, business, and more. Examples and guidance are adaptable to a range of disciplines.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">How interactive are the online courses?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Online courses are highly interactive. Live sessions include practical activities, discussions, and breakout groups to encourage collaboration and simulate the face-to-face experience. Additional support is available throughout to help participants feel comfortable and engaged.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">Is the course worth the investment?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Courses provide both theoretical knowledge and practical skills directly applicable to research projects. Hands-on exercises, expert guidance, and comprehensive materials provide a depth of understanding that can be difficult to achieve independently.</p>
+          <p>Many participants find that the skills they acquire ultimately save them time and improve their research quality — making the training a very worthwhile investment.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">I'm a beginner — will the course be too advanced for me?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Not at all. Courses are designed to be accessible at all experience levels. Beginners are encouraged to start with the <strong>Essentials of Qualitative Research</strong> workshop, which provides a solid foundation with clearly explained concepts and beginner-friendly examples.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section active" data-section="booking">
+    <div class="faq-section-header">
+      <h2>Booking &amp; Fees</h2>
+      <p>How to register, course pricing, and discounts.</p>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">How do I register for a course?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Simply click the <strong>Register Now</strong> button on the course page of your choice. You're also welcome to reach out with any questions before registering.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">What are the course fees, and are any discounts available?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Course fees vary by programme, starting at <strong>£69.95</strong> for the Effective Researcher Workshops and up to <strong>£525</strong> for more intensive 2-day workshops. For information on current promotions or group discounts, please get in touch.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">Do you offer a student discount?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>In many cases, students can access funding through their institution to cover course costs. It's recommended that you speak with your supervisor or faculty first.</p>
+          <p>If you're not eligible for funding, please forward confirmation of this (e.g. an email confirming that your request has been declined) to receive a <strong>20% student discount</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">How much time will I need to commit?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Courses are structured to provide maximum benefit within a manageable timeframe. Clear agendas and practical exercises are provided to make the most of each session, ensuring efficient use of your time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section active" data-section="cancellation">
+    <div class="faq-section-header">
+      <h2>Cancellation &amp; Refunds</h2>
+      <p>What to do if your plans change.</p>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">Can I cancel more than 21 days before the training?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes. Cancellation requests received <strong>more than 21 days prior</strong> to the training will not incur charges except for the Eventbrite processing fee, and a full refund applies. Please contact Dr Claire Moran by email to request a cancellation.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">What if I cancel between 7 and 21 days before the training?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Cancellation requests received <strong>more than 7 days but less than 21 days</strong> before training are eligible to have registration transferred to an alternative training date, where available. If no alternative live trainings are available, transfer will be granted to an online, self-paced course.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="faqToggleAccordion(this)">
+        <span class="faq-accordion-question">What if I cancel within 7 days of the training?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Cancellation requests received <strong>within 7 days</strong> of training will not be granted a refund or transferred to an alternative live training. Transfer will be granted to an online, self-paced course instead.</p>
+          <p>Alternatively, your registration may be transferred to a colleague or another person. Such transfer requests must be received at least <strong>1 business day</strong> in advance of the training.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-cta-strip">
+    <div>
+      <h3>Still have questions?</h3>
+      <p>Contact Claire to find out how collaboration could elevate your research skills.</p>
+    </div>
+    <a href="mailto:hello@clairemoran.com" class="faq-cta-btn">Get in Touch →</a>
+  </div>
+</main>
+
+<footer class="faq-footer">
+  <p>Based in Mount Gravatt, Brisbane &nbsp;·&nbsp; Training available in Brisbane, Sydney, Melbourne, and online globally.</p>
+  <p><a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a> &nbsp;·&nbsp; +61 (0)400 065 945</p>
+</footer>
+
+<script>
+  function faqToggleAccordion(trigger) {
+    const accordion = trigger.closest('.faq-accordion');
+    const isOpen = accordion.classList.contains('open');
+    document.querySelectorAll('.faq-accordion.open').forEach(function(a) {
+      a.classList.remove('open');
+    });
+    if (!isOpen) {
+      accordion.classList.add('open');
+    }
+  }
+
+  function faqSwitchTab(section, btn) {
+    document.querySelectorAll('.faq-tab-btn').forEach(function(b) {
+      b.classList.remove('active');
+    });
+
+    btn.classList.add('active');
+
+    const searchInput = document.getElementById('faq-search-input');
+    const searchVal = searchInput ? searchInput.value.trim() : '';
+
+    if (searchVal) {
+      faqHandleSearch(searchVal);
+      return;
+    }
+
+    document.querySelectorAll('.faq-section').forEach(function(s) {
+      if (section === 'all') {
+        s.classList.add('active');
+        s.classList.remove('faq-search-hidden');
+      } else {
+        s.classList.toggle('active', s.dataset.section === section);
+        s.classList.remove('faq-search-hidden');
+      }
+    });
+
+    document.querySelectorAll('.faq-accordion').forEach(function(a) {
+      a.classList.remove('faq-search-hidden');
+    });
+
+    const noResults = document.getElementById('faq-no-results');
+    if (noResults) {
+      noResults.style.display = 'none';
+    }
+  }
+
+  function faqHandleSearch(val) {
+    const q = val.toLowerCase().trim();
+    let anyVisible = false;
+
+    document.querySelectorAll('.faq-section').forEach(function(section) {
+      section.classList.add('active');
+      section.classList.remove('faq-search-hidden');
+
+      let sectionHasVisible = false;
+
+      section.querySelectorAll('.faq-accordion').forEach(function(acc) {
+        const match = !q || acc.textContent.toLowerCase().includes(q);
+        acc.classList.toggle('faq-search-hidden', !match);
+        if (match) {
+          sectionHasVisible = true;
+          anyVisible = true;
+        }
+      });
+
+      if (!sectionHasVisible && q) {
+        section.classList.add('faq-search-hidden');
+      }
+    });
+
+    const noResults = document.getElementById('faq-no-results');
+    if (noResults) {
+      noResults.style.display = (q && !anyVisible) ? 'block' : 'none';
+    }
+
+    if (!q) {
+      const activeBtn = document.querySelector('.faq-tab-btn.active');
+      if (activeBtn) {
+        const btnText = activeBtn.textContent.toLowerCase().replace(/[^a-z]/g, '');
+        faqSwitchTab(btnText === 'allquestions' ? 'all' : btnText, activeBtn);
+      }
+    }
+  }
+</script>
+</body>
+</html>
