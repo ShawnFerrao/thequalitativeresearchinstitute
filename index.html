@@ -283,7 +283,22 @@
     border-radius: 8px; padding: 2rem;
     border: 1px solid var(--border);
   }
-  .vp-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+  .vp-card {
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .vp-card:hover {
+    box-shadow: 0 8px 24px rgba(26,39,68,0.08);
+    transform: translateY(-2px);
+  }
+  .vp-icon {
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: var(--light-blue);
+    color: var(--blue);
+    margin-bottom: 1.25rem;
+  }
+  .vp-icon svg { width: 22px; height: 22px; }
   .vp-card h3 { font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
   .vp-card p { font-size: 1.125rem; color: var(--muted); line-height: 1.7; }
 
@@ -589,17 +604,23 @@
     <h2 class="section-title">Training, consultancy, and support to help you move your qualitative research forward with clarity and confidence</h2>
     <div class="vp-grid">
       <div class="vp-card">
-        <div class="vp-icon">📋</div>
+        <div class="vp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6a1 1 0 0 1 1 1v1H8V5a1 1 0 0 1 1-1z"/><rect x="5" y="6" width="14" height="15" rx="2"/><path d="M9 12h6M9 16h4"/></svg>
+        </div>
         <h3>Practical, Comprehensive Training</h3>
         <p>Gain hands-on experience with real-world examples and practical exercises, giving you the confidence and tools you need to succeed.</p>
       </div>
       <div class="vp-card">
-        <div class="vp-icon">🎓</div>
+        <div class="vp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9 12 5 2 9l10 4 10-4Z"/><path d="M6 11v4c0 1.5 2.5 3 6 3s6-1.5 6-3v-4"/></svg>
+        </div>
         <h3>Expert Guidance</h3>
         <p>Learn from Claire Moran, an experienced qualitative researcher dedicated to simplifying the research process and building your capability.</p>
       </div>
       <div class="vp-card">
-        <div class="vp-icon">🌏</div>
+        <div class="vp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        </div>
         <h3>Flexible Training Options</h3>
         <p>Face-to-face training in Brisbane, Sydney, and Melbourne, plus online programs for researchers across Australia and internationally.</p>
       </div>
