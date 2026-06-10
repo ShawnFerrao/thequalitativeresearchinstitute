@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training | Claire Moran — Qualitative Research</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --navy: #1a2744;
+    --blue: #2d4a8a;
+    --mid-blue: #4a6fa5;
+    --light-blue: #d6e4f7;
+    --card-bg: #e4e8f2;
+    --cream: #f8f5f0;
+    --warm-white: #fdfcfa;
+    --text: #2a2a2a;
+    --muted: #6b7280;
+    --accent: #c8873b;
+    --gold: #D3B574;
+    --border: #e2e8f0;
+  }
+
+  button { -webkit-appearance: none; appearance: none; }
+  button:focus { outline: none; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--warm-white);
+    line-height: 1.7;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    background: var(--navy);
+    padding: 0.4rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.75rem; color: rgba(255,255,255,0.7);
+  }
+  .top-bar a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  .top-bar a:hover { color: #fff; }
+  .top-bar-contact { display: flex; gap: 1.5rem; }
+  .top-bar-social a {
+    color: rgba(255,255,255,0.7); font-size: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.15rem 0.5rem; border-radius: 3px; transition: all 0.2s;
+  }
+  .top-bar-social a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo img { height: 38px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.875rem; font-weight: 400;
+    letter-spacing: 0.02em; transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--navy); }
+  .nav-cta {
+    background: var(--navy); color: #fff;
+    border: none; padding: 0.5rem 1.25rem;
+    border-radius: 4px; font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem; cursor: pointer;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--blue); }
+
+  /* ── HERO ── */
+  .page-hero {
+    background: var(--navy); color: #fff;
+    padding: 3.5rem 2rem 3rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 60% 50%, rgba(45,74,138,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+  .page-hero-eyebrow {
+    display: inline-block;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    font-size: 0.72rem; font-weight: 500;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  .page-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600; line-height: 1.2; margin-bottom: 1.25rem;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--gold); font-weight: 300; }
+  .page-hero p {
+    font-size: 1.05rem; color: rgba(255,255,255,0.78);
+    max-width: 520px; margin: 0 auto; font-weight: 300;
+  }
+
+  /* ── SHARED ── */
+  .container { max-width: 1080px; margin: 0 auto; }
+  .section-label {
+    display: block; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 0.7rem; font-weight: 500; color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600; color: var(--navy); line-height: 1.3; margin-bottom: 1rem;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: #0D297B; color: #fff;
+    padding: 0.75rem 1.75rem; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 0.875rem;
+    display: inline-block; transition: background 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-secondary {
+    border: 1.5px solid var(--navy); color: var(--navy);
+    padding: 0.7rem 1.75rem; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 0.875rem;
+    display: inline-block; transition: all 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-secondary:hover { background: var(--navy); color: #fff; }
+  .btn-gold {
+    background: var(--gold); color: var(--navy);
+    padding: 0.8rem 2rem; border-radius: 4px;
+    text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    display: inline-block; transition: opacity 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-gold:hover { opacity: 0.88; }
+  .btn-outline-white {
+    border: 1.5px solid rgba(255,255,255,0.6); color: #fff;
+    padding: 0.75rem 2rem; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    display: inline-block; transition: all 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+  .btn-free {
+    background: var(--accent); color: #fff;
+    padding: 0.75rem 1.75rem; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 0.875rem;
+    display: inline-block; transition: background 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-free:hover { background: #b5762e; }
+
+  /* ═══════════════════════════════════
+     1. THE RESEARCH CIRCLE (featured)
+  ═══════════════════════════════════ */
+  .rc-wrapper {
+    background: var(--cream);
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  .rc-centered h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600; color: var(--navy); line-height: 1.25; margin-bottom: 0.4rem;
+  }
+  .rc-centered .subtitle {
+    font-size: 1rem; color: var(--muted);
+    font-style: italic; margin-bottom: 1.25rem;
+  }
+  .rc-centered > p {
+    font-size: 0.95rem; color: var(--muted);
+    margin-bottom: 1.75rem; line-height: 1.8;
+  }
+  .rc-perk {
+    background: rgba(26,39,68,0.07);
+    border: 1px solid rgba(26,39,68,0.15);
+    border-radius: 100px; padding: 0.35rem 1rem;
+    font-size: 0.78rem; color: var(--navy);
+  }
+  .rc-centered { max-width: 680px; margin: 0 auto; }
+  .rc-label {
+    display: inline-block; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 0.7rem; font-weight: 500; color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .rc-centered h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600; color: var(--navy); line-height: 1.25; margin-bottom: 0.4rem;
+  }
+  .rc-centered .subtitle {
+    font-size: 1rem; color: var(--muted);
+    font-style: italic; margin-bottom: 1.25rem;
+  }
+  .rc-centered > p {
+    font-size: 0.95rem; color: var(--muted);
+    margin-bottom: 1.75rem; line-height: 1.8;
+  }
+  .rc-perks {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: 2rem; justify-content: center;
+  }
+
+  /* ═══════════════════════════════════
+     2. EXPLORE INDIVIDUAL TRAINING
+        Quick-nav cards grid
+  ═══════════════════════════════════ */
+  .training-nav {
+    background: var(--cream);
+    padding: 4rem 2rem;
+  }
+  .training-nav-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem; margin-top: 2.5rem;
+  }
+  .nav-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.75rem 1.75rem 1.5rem;
+    text-decoration: none; color: var(--text);
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: box-shadow 0.2s, transform 0.2s;
+    min-height: 200px;
+  }
+  .nav-card:hover {
+    box-shadow: 0 6px 20px rgba(26,39,68,0.1);
+    transform: translateY(-2px);
+  }
+  .nav-card-badge {
+    font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.08em; font-weight: 500;
+    color: var(--mid-blue); margin-bottom: 0.6rem;
+  }
+  .nav-card h3 {
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--navy); line-height: 1.3; margin-bottom: 0.6rem;
+  }
+  .nav-card-desc {
+    font-size: 0.82rem; color: var(--muted);
+    line-height: 1.6; flex: 1; margin-bottom: 1rem;
+  }
+  .nav-card-price {
+    font-size: 0.88rem; font-weight: 500;
+    color: var(--accent); margin-top: auto;
+  }
+  .nav-card-arrow {
+    position: absolute; bottom: 1.25rem; right: 1.5rem;
+    font-size: 0.95rem; color: var(--mid-blue);
+    line-height: 1;
+  }
+  /* external link variant (Individual Support) */
+  .nav-card.external .nav-card-arrow {
+    background: var(--navy); color: #fff;
+    width: 22px; height: 22px; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+  }
+
+  /* ═══════════════════════════════════
+     3. DETAILED PROGRAM SECTIONS
+  ═══════════════════════════════════ */
+  .program-section {
+    padding: 5rem 2rem;
+  }
+  .program-section:nth-child(odd) { background: var(--warm-white); }
+  .program-section:nth-child(even) { background: var(--cream); }
+
+  .program-inner {
+    display: grid; grid-template-columns: 1fr 1.1fr;
+    gap: 4rem; align-items: start;
+  }
+  .program-inner.reverse { direction: rtl; }
+  .program-inner.reverse > * { direction: ltr; }
+
+  .program-image {
+    border-radius: 8px; overflow: hidden;
+    aspect-ratio: 4/3; position: sticky; top: 5rem;
+  }
+  .program-image img { width: 100%; height: 100%; object-fit: cover; }
+
+  .program-content .prog-badge {
+    display: inline-block;
+    font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.08em; font-weight: 500;
+    color: var(--mid-blue); background: var(--light-blue);
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+  .program-content .prog-badge.free {
+    color: #5a7a3a; background: #e8f4d4;
+  }
+  .program-content h2 {
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 600; color: var(--navy); line-height: 1.3; margin-bottom: 0.6rem;
+  }
+  .program-content .prog-tagline {
+    font-size: 0.95rem; color: var(--muted);
+    font-style: italic; margin-bottom: 1.25rem; line-height: 1.7;
+  }
+  .prog-suited {
+    background: var(--light-blue);
+    border-radius: 6px; padding: 0.9rem 1.1rem;
+    margin-bottom: 1.25rem;
+  }
+  .prog-suited strong {
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--mid-blue); font-weight: 600;
+    display: block; margin-bottom: 0.3rem;
+  }
+  .prog-suited p { font-size: 0.85rem; color: var(--navy); line-height: 1.6; }
+
+  .prog-block-title {
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.08em; font-weight: 600;
+    color: var(--navy); margin-bottom: 0.6rem; margin-top: 1.1rem;
+  }
+  .prog-list {
+    list-style: none; display: flex; flex-direction: column; gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .prog-list li {
+    font-size: 0.85rem; color: var(--text);
+    display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.5;
+  }
+  .prog-list li::before {
+    content: '→'; color: var(--mid-blue);
+    flex-shrink: 0; font-weight: 500; margin-top: 0.05rem;
+  }
+  .prog-includes li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+
+  .prog-price-row {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    padding-top: 1.5rem; margin-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .prog-price {
+    font-size: 1.2rem; font-weight: 600; color: var(--navy);
+  }
+  .prog-price span { font-size: 0.75rem; color: var(--muted); font-weight: 300; }
+
+  .prog-quote {
+    margin-top: 1.5rem; padding: 1rem 1.25rem;
+    border-left: 3px solid var(--gold);
+    background: rgba(211,181,116,0.07);
+    border-radius: 0 6px 6px 0;
+  }
+  .prog-quote p {
+    font-size: 0.82rem; color: var(--muted);
+    font-style: italic; line-height: 1.7; margin-bottom: 0.4rem;
+  }
+  .prog-quote cite { font-size: 0.75rem; color: var(--navy); font-weight: 500; font-style: normal; }
+
+  /* ═══════════════════════════════════
+     4. INDIVIDUAL SUPPORT
+  ═══════════════════════════════════ */
+  .support-section {
+    background: var(--navy); color: #fff;
+    padding: 5rem 2rem;
+  }
+  .support-header { text-align: center; margin-bottom: 3rem; }
+  .support-header .section-label { color: var(--accent); }
+  .support-header h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600; color: #fff; line-height: 1.3; margin-bottom: 0.75rem;
+  }
+  .support-header p { font-size: 0.95rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; }
+  .support-cards {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-bottom: 2.5rem;
+  }
+  .support-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; padding: 2rem;
+    display: flex; flex-direction: column;
+  }
+  .support-duration {
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.1em; font-weight: 500;
+    color: var(--gold); margin-bottom: 0.75rem;
+  }
+  .support-card h3 {
+    font-size: 1.15rem; font-weight: 600;
+    color: #fff; margin-bottom: 0.6rem;
+  }
+  .support-card p {
+    font-size: 0.875rem; color: rgba(255,255,255,0.7);
+    line-height: 1.7; flex: 1; margin-bottom: 1.5rem;
+  }
+  .support-price {
+    font-size: 1.1rem; font-weight: 500;
+    color: #fff; margin-bottom: 1.25rem;
+  }
+  .support-price span { font-size: 0.75rem; color: rgba(255,255,255,0.5); font-weight: 300; }
+  .support-cta-row { text-align: center; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--cream); padding: 5rem 2rem; }
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem; margin-top: 2.5rem;
+  }
+  .testi-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.75rem;
+    display: flex; flex-direction: column;
+  }
+  .stars { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+  .testi-card p {
+    font-size: 0.83rem; color: var(--muted);
+    line-height: 1.75; font-style: italic; flex: 1; margin-bottom: 1rem;
+  }
+  .testi-author strong { display: block; font-size: 0.8rem; color: var(--navy); font-weight: 500; }
+  .testi-author span { font-size: 0.7rem; color: var(--muted); }
+  .testi-more { text-align: center; margin-top: 2rem; }
+  .testi-more a {
+    color: var(--mid-blue); font-size: 0.85rem;
+    text-decoration: underline; transition: color 0.2s;
+  }
+  .testi-more a:hover { color: var(--navy); }
+
+  /* ── CTA STRIP ── */
+  .cta-strip { background: var(--warm-white); padding: 5rem 2rem; text-align: center; }
+  .cta-strip h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600; color: var(--navy); line-height: 1.3; margin-bottom: 0.75rem;
+  }
+  .cta-strip p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.6);
+    padding: 3rem 2rem 2rem; font-size: 0.82rem;
+  }
+  .footer-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem;
+  }
+  .footer-brand img { height: 30px; filter: brightness(0) invert(1); margin-bottom: 0.75rem; }
+  .footer-brand p { color: rgba(255,255,255,0.5); line-height: 1.7; margin-top: 0.5rem; }
+  footer h4 {
+    color: #fff; font-weight: 500; margin-bottom: 1rem;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  footer ul a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+  footer ul a:hover { color: #fff; }
+  .footer-bottom {
+    max-width: 1080px; margin: 2rem auto 0;
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    font-size: 0.75rem; color: rgba(255,255,255,0.4);
+  }
+
+  /* ── SCROLL TO TOP ── */
+  .scroll-top {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: #0D297B; color: #fff;
+    border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s, background 0.2s; z-index: 999;
+  }
+  .scroll-top.visible { opacity: 1; pointer-events: all; }
+  .scroll-top:hover { background: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .training-nav-grid { grid-template-columns: repeat(2, 1fr); }
+    .program-inner, .program-inner.reverse { grid-template-columns: 1fr; direction: ltr; }
+    .program-image { aspect-ratio: 16/9; position: static; }
+    .support-cards { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+  }  @media (max-width: 600px) {
+    .training-nav-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-contact">
+    <a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a>
+    <a href="tel:+61400065945">+61 (0)400 065 945</a>
+    <span>Mount Gravatt, Brisbane</span>
+  </div>
+  <div class="top-bar-social">
+    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://shawnferrao.com/claire-moran/">
+    <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://shawnferrao.com/claire-moran/">Home</a></li>
+    <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
+    <li><a href="https://shawnferrao.com/claire-moran-training/" class="active">Training</a></li>
+    <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
+    <li><a href="https://shawnferrao.com/testimonials/">Testimonials</a></li>
+    <li><a href="https://shawnferrao.com/claire-blogs/">Blog</a></li>
+  </ul>
+  <a href="https://shawnferrao.com/claire-moran-contact-us/" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- 1. HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-hero-eyebrow">Training &amp; Support</span>
+    <h1>Find the training that fits <em>where you are</em></h1>
+    <p>Online and in-person programs designed for researchers at every stage — from first steps to deep expertise.</p>
+  </div>
+</section>
+
+<!-- 2. THE RESEARCH CIRCLE (featured) -->
+<div class="rc-wrapper" id="research-circle">
+  <div class="container">
+    <div class="rc-centered">
+      <span class="rc-label">Year-round membership</span>
+      <h2>The Research Circle</h2>
+      <p class="subtitle">Your ongoing research home</p>
+      <p>A 6- or 12-month membership for researchers who want expert support, sustained momentum, and a genuine sense of community — beyond what any single course can offer. All individual training programs are included.</p>
+      <div class="rc-perks">
+        <span class="rc-perk">All training included</span>
+        <span class="rc-perk">1:1 &amp; expert support</span>
+        <span class="rc-perk">Monthly Q&amp;A + momentum sessions</span>
+        <span class="rc-perk">Community &amp; connection</span>
+      </div>
+      <a href="https://shawnferrao.com/research-circle/" class="btn-primary" style="padding: 0.8rem 2rem; font-size: 0.9rem;">Explore the Research Circle →</a>
+    </div>
+  </div>
+</div>
+
+<!-- 3. EXPLORE INDIVIDUAL TRAINING OPTIONS — quick-nav cards -->
+<section class="training-nav" id="individual-training">
+  <div class="container">
+    <span class="section-label">Individual training options</span>
+    <h2 class="section-title">Explore individual training options</h2>
+    <div class="training-nav-grid">
+
+      <a href="#webinars" class="nav-card">
+        <div class="nav-card-badge">Free · Online · Webinar</div>
+        <h3>Free Webinar Series</h3>
+        <p class="nav-card-desc">New to qualitative research? Start with a free webinar for a no-commitment introduction to key concepts.</p>
+        <div class="nav-card-price">Free</div>
+        <span class="nav-card-arrow">↓</span>
+      </a>
+
+      <a href="#essentials" class="nav-card">
+        <div class="nav-card-badge">Self-paced · Online · Access anytime</div>
+        <h3>Essentials of Qualitative Research</h3>
+        <p class="nav-card-desc">Brand new to qualitative research? Start here for a solid grounding in core concepts.</p>
+        <div class="nav-card-price">$195 AUD</div>
+        <span class="nav-card-arrow">↓</span>
+      </a>
+
+      <a href="#research-design" class="nav-card">
+        <div class="nav-card-badge">2-Day Workshop</div>
+        <h3>Research Design Masterclass</h3>
+        <p class="nav-card-desc">Ready to design your study? Navigate your research from questions to analysis with confidence.</p>
+        <div class="nav-card-price">$575 AUD</div>
+        <span class="nav-card-arrow">↓</span>
+      </a>
+
+      <a href="#thematic-analysis" class="nav-card">
+        <div class="nav-card-badge">2-Day Workshop</div>
+        <h3>Thematic Analysis Masterclass</h3>
+        <p class="nav-card-desc">In the analysis phase? Master the full TA process with hands-on expert guidance.</p>
+        <div class="nav-card-price">$575 AUD</div>
+        <span class="nav-card-arrow">↓</span>
+      </a>
+
+      <a href="#ai-tools" class="nav-card">
+        <div class="nav-card-badge">2-Day Workshop · Online</div>
+        <h3>AI Tools for Qualitative Research</h3>
+        <p class="nav-card-desc">Want to work smarter? Learn to integrate AI ethically and effectively into your research.</p>
+        <div class="nav-card-price">$575 AUD</div>
+        <span class="nav-card-arrow">↓</span>
+      </a>
+
+      <a href="#individual-support" class="nav-card">
+        <div class="nav-card-badge">45 &amp; 90 min · 1:1 Sessions</div>
+        <h3>Individual Support</h3>
+        <p class="nav-card-desc">Need personalised support? Book a focused session tailored entirely to your research needs.</p>
+        <div class="nav-card-price">From $195 AUD</div>
+        <span class="nav-card-arrow">↓</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM: FREE WEBINAR SERIES -->
+<section class="program-section" id="webinars">
+  <div class="container">
+    <div class="program-inner">
+      <div class="program-image">
+        <img src="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4739-1024x684.jpg" alt="Free Webinar Series">
+      </div>
+      <div class="program-content">
+        <span class="prog-badge free">Free · Online · Webinar</span>
+        <h2>Free Webinar Series</h2>
+        <p class="prog-tagline">Get a taste of Claire's teaching style and explore key qualitative research concepts — free, accessible, and a great way to get started.</p>
+
+        <div class="prog-suited">
+          <strong>Best suited for</strong>
+          <p>Anyone curious about qualitative research or considering further training. A no-commitment introduction to Claire's approach and key concepts.</p>
+        </div>
+
+        <p class="prog-block-title">What's in it for you</p>
+        <ul class="prog-list">
+          <li>An introduction to key qualitative research concepts</li>
+          <li>Practical insights you can apply immediately</li>
+          <li>A feel for Claire's plain-English, hands-on teaching style</li>
+          <li>Q&amp;A opportunities with Claire directly</li>
+        </ul>
+
+        <div class="prog-price-row">
+          <div class="prog-price">Free <span>· No registration fee</span></div>
+          <a href="https://shawnferrao.com/claire-moran-training/" class="btn-free">Register for a Webinar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM: ESSENTIALS -->
+<section class="program-section" id="essentials">
+  <div class="container">
+    <div class="program-inner reverse">
+      <div class="program-image">
+        <img src="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4569-1024x684.jpg" alt="Essentials of Qualitative Research">
+      </div>
+      <div class="program-content">
+        <span class="prog-badge">Self-paced · Online · Access anytime</span>
+        <h2>Essentials of Qualitative Research</h2>
+        <p class="prog-tagline">A thorough grounding in the fundamentals — on-demand and at your own pace.</p>
+
+        <div class="prog-suited">
+          <strong>Best suited for</strong>
+          <p>Those new to qualitative research, or anyone wanting a clearer understanding of core concepts before progressing to a masterclass.</p>
+        </div>
+
+        <p class="prog-block-title">What's in it for you</p>
+        <ul class="prog-list">
+          <li>Qualitative vs quantitative paradigms</li>
+          <li>Types of data and when to use them</li>
+          <li>Introduction to coding and theme development</li>
+          <li>Theoretical underpinnings of qualitative research</li>
+          <li>The importance of subjectivity and reflexivity</li>
+        </ul>
+
+        <p class="prog-block-title">Package includes</p>
+        <ul class="prog-list prog-includes">
+          <li>6-hour video access (self-paced, on-demand)</li>
+          <li>Handouts and answer key</li>
+          <li>PDF of slides</li>
+          <li>Certificate of Completion</li>
+          <li>Option to add one-on-one support</li>
+        </ul>
+
+        <div class="prog-price-row">
+          <div class="prog-price">$195 AUD <span>inc GST · per person</span></div>
+          <a href="https://clairemoran.com/book-new-to-qualitative-research-get-a-handle-on-the-fundamentals/" class="btn-primary" target="_blank">Book Now</a>
+        </div>
+
+        <div class="prog-quote">
+          <p>"I found the self-paced content easily digestible, allowing me to get a sound understanding of the key aspects of qualitative research."</p>
+          <cite>Amelia Stapley — Research Officer, Monash University</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM: RESEARCH DESIGN -->
+<section class="program-section" id="research-design">
+  <div class="container">
+    <div class="program-inner">
+      <div class="program-image">
+        <img src="https://clairemoran.com/wp-content/uploads/2024/11/CLAIRE_Workshop-4581-1024x683.jpg" alt="Research Design Masterclass">
+      </div>
+      <div class="program-content">
+        <span class="prog-badge">2-Day Workshop · In Person or Online</span>
+        <h2>Research Design Masterclass</h2>
+        <p class="prog-tagline">Your roadmap for robust qualitative research design.</p>
+
+        <div class="prog-suited">
+          <strong>Best suited for</strong>
+          <p>Those in the design phase of a qualitative or mixed methods project who want a clearer, more confident approach to their research.</p>
+        </div>
+
+        <p class="prog-block-title">What's in it for you</p>
+        <ul class="prog-list">
+          <li>A clear Research Roadmap from question to analysis</li>
+          <li>Confidence navigating ontological and epistemological choices</li>
+          <li>Hands-on activities that bring concepts to life</li>
+          <li>Connection with a supportive community of researchers</li>
+        </ul>
+
+        <p class="prog-block-title">Package includes</p>
+        <ul class="prog-list prog-includes">
+          <li>12 hours of expertly facilitated training</li>
+          <li>Preparatory questions based on your own project</li>
+          <li>Certificate of Completion</li>
+          <li>Option to add one-on-one support</li>
+        </ul>
+
+        <div class="prog-price-row">
+          <div class="prog-price">$575 AUD <span>inc GST · per person</span></div>
+          <a href="https://clairemoran.com/book-your-roadmap-for-robust-qualitative-research/" class="btn-primary" target="_blank">Book Now</a>
+        </div>
+
+        <div class="prog-quote">
+          <p>"The course was absolutely excellent. You managed to make a nebulous topic very clear, understandable and most importantly implementable!"</p>
+          <cite>Maria Farris — PhD Candidate, University of Technology Sydney</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM: THEMATIC ANALYSIS -->
+<section class="program-section" id="thematic-analysis">
+  <div class="container">
+    <div class="program-inner reverse">
+      <div class="program-image">
+        <img src="https://clairemoran.com/wp-content/uploads/2024/11/CLAIRE_Workshop-4970-1-1024x684.jpg" alt="Thematic Analysis Masterclass">
+      </div>
+      <div class="program-content">
+        <span class="prog-badge">2-Day Workshop · In Person or Online</span>
+        <h2>Thematic Analysis Masterclass</h2>
+        <p class="prog-tagline">Master the principles and process of thematic analysis end-to-end.</p>
+
+        <div class="prog-suited">
+          <strong>Best suited for</strong>
+          <p>Those in the data analysis phase of their project. Suitable for experienced qualitative researchers and those with some qualitative research experience.</p>
+        </div>
+
+        <p class="prog-block-title">What's in it for you</p>
+        <ul class="prog-list">
+          <li>Core aspects of qualitative research</li>
+          <li>Essentialist, contextualist, and constructionist TA approaches</li>
+          <li>Each stage of TA through expert-guided activities</li>
+          <li>Subjectivity and reflexivity in qualitative research</li>
+          <li>TA in relation to discourse analysis, grounded theory, and IPA</li>
+          <li>TA across multiple data types: images, webpages, and more</li>
+        </ul>
+
+        <p class="prog-block-title">Package includes</p>
+        <ul class="prog-list prog-includes">
+          <li>12 hours of expertly facilitated training</li>
+          <li>Preparatory reading to maximise your learning</li>
+          <li>Certificate of Completion</li>
+          <li>Option to add one-on-one support</li>
+        </ul>
+
+        <div class="prog-price-row">
+          <div class="prog-price">$575 AUD <span>inc GST · per person</span></div>
+          <a href="https://clairemoran.com/book-master-the-principles-and-process-of-thematic-analysis/" class="btn-primary" target="_blank">Book Now</a>
+        </div>
+
+        <div class="prog-quote">
+          <p>"What sets this masterclass apart is Claire's ability to balance theory with practical application — unlike other training that can leave you more confused."</p>
+          <cite>Wendy Godfrey — PhD Candidate, University of the Sunshine Coast</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM: AI TOOLS -->
+<section class="program-section" id="ai-tools">
+  <div class="container">
+    <div class="program-inner">
+      <div class="program-image">
+        <img src="https://clairemoran.com/wp-content/uploads/2024/11/CLAIRE_Workshop-4509-1024x684.jpg" alt="AI Tools for Qualitative Research">
+      </div>
+      <div class="program-content">
+        <span class="prog-badge">2-Day Workshop · Online</span>
+        <h2>AI Tools for Qualitative Research</h2>
+        <p class="prog-tagline">Transform the way you work — ethically and effectively.</p>
+
+        <div class="prog-suited">
+          <strong>Best suited for</strong>
+          <p>New and experienced qualitative researchers who want to integrate AI tools effectively and ethically into their research practice.</p>
+        </div>
+
+        <p class="prog-block-title">What's in it for you</p>
+        <ul class="prog-list">
+          <li>AI basics: benefits, limitations, and ethical considerations</li>
+          <li>Automating transcription and summarisation responsibly</li>
+          <li>AI for research planning, scheduling, and organisation</li>
+          <li>Pattern identification and AI-assisted coding and analysis</li>
+          <li>Enhancing literature reviews with AI tools</li>
+          <li>Advanced text analysis across large qualitative datasets</li>
+          <li>AI-assisted writing and publishing — while keeping your voice</li>
+        </ul>
+
+        <p class="prog-block-title">Package includes</p>
+        <ul class="prog-list prog-includes">
+          <li>12 hours of interactive, expertly facilitated training</li>
+          <li>Hands-on practice with leading AI tools</li>
+          <li>Preparatory questions to focus your learning</li>
+          <li>Certificate of Completion</li>
+          <li>Option to add one-on-one support</li>
+        </ul>
+
+        <div class="prog-price-row">
+          <div class="prog-price">$575 AUD <span>inc GST · per person</span></div>
+          <a href="https://clairemoran.com/transform-the-way-you-work-using-ai-tools-for-qualitative-research/" class="btn-primary" target="_blank">Book Now</a>
+        </div>
+
+        <div class="prog-quote">
+          <p>"Claire's AI in Qualitative Research Masterclass helped clarify how AI can be used in qualitative research in ways that are both appropriate and methodologically defensible."</p>
+          <cite>Dr Aila Khan — HDR Director, Western Sydney University</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. INDIVIDUAL SUPPORT -->
+<section class="support-section" id="individual-support">
+  <div class="container">
+    <div class="support-header">
+      <span class="section-label">Individual Support</span>
+      <h2>Individual Support</h2>
+      <p>Two focused session types designed to give you exactly what you need, when you need it.</p>
+    </div>
+    <div class="support-cards">
+      <div class="support-card">
+        <div class="support-duration">45 minutes · 1:1 Session</div>
+        <h3>Research Health Check</h3>
+        <p>A structured diagnostic session to clarify where your research is strong, where it may be stuck, and what to focus on next. Includes a pre-session questionnaire, a 45-minute 1:1 review, and prioritised next-step recommendations.</p>
+        <div class="support-price">$195 AUD <span>inc GST</span></div>
+        <a href="https://calendly.com/claire-clairemoran/research-health-check" class="btn-outline-white" target="_blank">Book a Research Health Check</a>
+      </div>
+      <div class="support-card">
+        <div class="support-duration">90 minutes · 1:1 Session</div>
+        <h3>Research Deep Dive</h3>
+        <p>Deep, tailored support for specific research challenges, decisions, or feedback. A focused 90-minute session built entirely around your project, your questions, and your next steps.</p>
+        <div class="support-price">$295 AUD <span>inc GST</span></div>
+        <a href="https://calendly.com/claire-clairemoran/one-on-one-research-coaching" class="btn-outline-white" target="_blank">Book a Research Deep Dive</a>
+      </div>
+    </div>
+    <div class="support-cta-row">
+      <a href="https://shawnferrao.com/claire-moran-contact-us/" class="btn-gold">Explore support options →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <span class="section-label">What participants say</span>
+    <h2 class="section-title">Trusted by researchers across Australia and internationally</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"The Research Circle helped me cut through feeling overwhelmed and focus on what actually matters in my PhD. It's completely changed my momentum."</p>
+        <div class="testi-author">
+          <strong>Halijah Brewster</strong>
+          <span>PhD Candidate, School of Public Health, University of Queensland</span>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Claire manages to take what could be a dry topic and turn it into an engaging and lively learning experience. I actually feel excited about getting into coding and analysis."</p>
+        <div class="testi-author">
+          <strong>Rachel Barber</strong>
+          <span>PhD Candidate, Central Queensland University</span>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Claire's training has given me much more confidence in conducting thematic analysis and a deeper understanding of the principles behind it. An invaluable experience."</p>
+        <div class="testi-author">
+          <strong>Nick Nijkamp</strong>
+          <span>PhD Candidate &amp; Academic Liaison Officer, CQU</span>
+        </div>
+      </div>
+    </div>
+    <div class="testi-more">
+      <a href="https://shawnferrao.com/testimonials/">Read all testimonials →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <div class="container">
+    <span class="section-label">Ready to begin?</span>
+    <h2>Find out how training and support could elevate your research skills</h2>
+    <p>Not sure where to start? Get in touch and Claire will help you find the right fit.</p>
+    <div class="cta-btns">
+      <a href="https://shawnferrao.com/research-circle/" class="btn-primary">Explore the Research Circle</a>
+      <a href="https://shawnferrao.com/claire-moran-contact-us/" class="btn-secondary">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
+      <p>Training, consultancy, and support to help you move your qualitative research forward with clarity and confidence.</p>
+      <p style="margin-top:0.5rem;">
+        <a href="mailto:hello@clairemoran.com" style="color:rgba(255,255,255,0.55);">hello@clairemoran.com</a> · +61 (0)400 065 945<br>
+        Mount Gravatt, Brisbane
+      </p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
+        <li><a href="https://shawnferrao.com/claire-moran-training/">Training</a></li>
+    <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
+        <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
+        <li><a href="https://clairemoran.com/faqs/">FAQs</a></li>
+        <li><a href="https://shawnferrao.com/claire-moran-contact-us/">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://shawnferrao.com/claire-blogs/">Blog</a></li>
+        <li><a href="https://shawnferrao.com/testimonials/">Testimonials</a></li>
+        <li><a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Claire Moran. All rights reserved.</span>
+    <span>Brisbane · Sydney · Melbourne · Online globally</span>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+  const btn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+</script>
+</body>
+</html>
