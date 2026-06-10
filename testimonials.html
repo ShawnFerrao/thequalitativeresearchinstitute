@@ -339,6 +339,48 @@
     .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
     .footer-inner { grid-template-columns: 1fr; }
   }
+
+  /* ── CONTACT MODAL ── */
+  .contact-modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(26,39,68,0.6);
+    z-index: 2000; align-items: center; justify-content: center; padding: 1rem;
+  }
+  .contact-modal-overlay.active { display: flex; }
+  .contact-modal {
+    background: var(--warm-white); border-radius: 10px; padding: 2.5rem;
+    max-width: 440px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto;
+  }
+  .contact-modal-close {
+    position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+    font-size: 1.5rem; line-height: 1; cursor: pointer; color: var(--muted);
+  }
+  .contact-modal h2 { font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+  .contact-modal > p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
+  .contact-modal .form-group { margin-bottom: 1.1rem; }
+  .contact-modal .form-group label {
+    display: block; font-size: 0.78rem; font-weight: 500; color: var(--navy); margin-bottom: 0.4rem;
+  }
+  .contact-modal .form-group input,
+  .contact-modal .form-group textarea {
+    width: 100%; background: var(--warm-white); border: 1px solid var(--border); border-radius: 6px;
+    padding: 0.7rem 1rem; font-family: 'Poppins', sans-serif; font-size: 0.875rem;
+    font-weight: 300; color: var(--text); -webkit-appearance: none; appearance: none;
+  }
+  .contact-modal .form-group input:focus,
+  .contact-modal .form-group textarea:focus {
+    outline: none; border-color: var(--mid-blue);
+  }
+  .contact-modal .form-group textarea { resize: vertical; min-height: 100px; }
+  .contact-modal .form-submit {
+    width: 100%; background: #0D297B; color: #fff; border: none; padding: 0.85rem 2rem;
+    border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+    font-weight: 500; cursor: pointer; transition: background 0.2s;
+  }
+  .contact-modal .form-submit:hover { background: var(--accent); }
+  .contact-modal .form-success {
+    display: none; background: #e8f4ea; border: 1px solid #a8d5b0; border-radius: 8px;
+    padding: 1rem 1.25rem; margin-top: 1rem; font-size: 0.85rem; color: #1e5a2e; line-height: 1.6;
+  }
 </style>
 </head>
 <body>
@@ -367,7 +409,7 @@
     <li><a href="testimonials.html" class="active">Testimonials</a></li>
     <li><a href="blog.html">Blog</a></li>
   </ul>
-  <a href="training.html" class="nav-cta">Get in touch</a>
+  <a href="#" class="nav-cta" onclick="openContactModal(event)">Get in touch</a>
 </nav>
 
 <!-- HERO -->
@@ -814,6 +856,62 @@
       noResults.style.display = visible === 0 ? 'block' : 'none';
     });
   });
+</script>
+
+<!-- CONTACT MODAL -->
+<div class="contact-modal-overlay" id="contactModalOverlay" onclick="if(event.target===this) closeContactModal()">
+  <div class="contact-modal">
+    <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
+    <h2>Get in touch</h2>
+    <p>Send us a quick message and our team will get back to you within 1–2 business days.</p>
+    <form id="contactModalForm" onsubmit="handleContactModalSubmit(event)">
+      <div class="form-group">
+        <label for="modalName">Name</label>
+        <input type="text" id="modalName" name="name" placeholder="Jane Smith" required>
+      </div>
+      <div class="form-group">
+        <label for="modalPhone">Phone</label>
+        <input type="tel" id="modalPhone" name="phone" placeholder="+61 400 000 000" required>
+      </div>
+      <div class="form-group">
+        <label for="modalCompany">Company / Institution</label>
+        <input type="text" id="modalCompany" name="company" placeholder="University / Organisation">
+      </div>
+      <div class="form-group">
+        <label for="modalMessage">Message</label>
+        <textarea id="modalMessage" name="message" placeholder="Tell us a little about what you're looking for…" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send message →</button>
+      <div class="form-success" id="modalFormSuccess">✓ &nbsp;Thank you — your message has been sent. We'll be in touch within 1–2 business days.</div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openContactModal(e) {
+    if (e) e.preventDefault();
+    document.getElementById('contactModalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeContactModal() {
+    document.getElementById('contactModalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContactModal(); });
+  function handleContactModalSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const success = document.getElementById('modalFormSuccess');
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      form.reset();
+      success.style.display = 'block';
+      btn.textContent = 'Send message →';
+      btn.disabled = false;
+    }, 800);
+  }
 </script>
 </body>
 </html>
