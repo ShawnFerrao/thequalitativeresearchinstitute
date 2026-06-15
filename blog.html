@@ -483,6 +483,16 @@
       tabs.appendChild(b);
     };
     cats.forEach(c => addBtn(c.name, `cat:${c.id}`));
+
+    const allBtn = tabs.querySelector('.filter-btn[data-filter="all"]');
+    allBtn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+      allBtn.classList.add('active');
+      activeFilter = 'all';
+      searchQuery = '';
+      document.getElementById('searchInput').value = '';
+      renderPosts();
+    });
   }
 
   /* Search */
