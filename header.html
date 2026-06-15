@@ -57,6 +57,21 @@
   }
   .nav-cta:hover { background: var(--blue); }
 
+  .nav-item-dropdown { position: relative; }
+  .nav-dropdown {
+    display: none; position: absolute; top: 100%; left: 0;
+    background: var(--warm-white); border: 1px solid var(--border);
+    border-radius: 4px; min-width: 180px; padding: 0.4rem 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08); z-index: 200;
+  }
+  .nav-item-dropdown:hover .nav-dropdown { display: block; }
+  .nav-dropdown li { list-style: none; }
+  .nav-dropdown a {
+    display: block; padding: 0.5rem 1rem;
+    white-space: nowrap;
+  }
+  .nav-dropdown a:hover { background: var(--cream); }
+
   @media (max-width: 600px) {
     .nav-links { display: none; }
     .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
@@ -83,8 +98,12 @@
   <ul class="nav-links">
     <li><a href="/">Home</a></li>
     <li><a href="/about">About</a></li>
-    <li><a href="/training">Training</a></li>
-    <li><a href="/training#research-circle">The Research Circle</a></li>
+    <li class="nav-item-dropdown">
+      <a href="/training">Training</a>
+      <ul class="nav-dropdown">
+        <li><a href="/research-circle">Research Circle</a></li>
+      </ul>
+    </li>
     <li><a href="/testimonials">Testimonials</a></li>
     <li><a href="/blog">Blog</a></li>
     <li><a href="/faqs">FAQs</a></li>
