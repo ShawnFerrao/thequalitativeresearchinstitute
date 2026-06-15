@@ -35,48 +35,7 @@
     line-height: 1.7;
   }
 
-  /* ── TOP BAR ── */
-  .top-bar {
-    background: var(--navy);
-    padding: 0.4rem 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.75rem; color: rgba(255,255,255,0.7);
-  }
-  .top-bar a { color: rgba(255,255,255,0.7); text-decoration: none; }
-  .top-bar a:hover { color: #fff; }
-  .top-bar-contact { display: flex; gap: 1.5rem; }
-  .top-bar-social a {
-    color: rgba(255,255,255,0.7); font-size: 0.8rem;
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 0.15rem 0.5rem; border-radius: 3px; transition: all 0.2s;
-  }
-  .top-bar-social a:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
-  /* ── NAV ── */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--warm-white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 68px;
-  }
-  .nav-logo img { height: 38px; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    text-decoration: none; color: var(--muted);
-    font-size: 0.875rem; font-weight: 400;
-    letter-spacing: 0.02em; transition: color 0.2s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--navy); }
-  .nav-cta {
-    background: var(--navy); color: #fff;
-    border: none; padding: 0.5rem 1.25rem;
-    border-radius: 4px; font-family: 'Poppins', sans-serif;
-    font-size: 0.875rem; cursor: pointer;
-    text-decoration: none; transition: background 0.2s;
-  }
-  .nav-cta:hover { background: var(--blue); }
 
   /* ── HERO ── */
   .hero {
@@ -382,138 +341,25 @@
   .cta-strip p { color: var(--muted); font-size: 1.125rem; margin-bottom: 2rem; }
   .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy); color: rgba(255,255,255,0.6);
-    padding: 3rem 2rem 2rem; font-size: 0.82rem;
-  }
-  .footer-inner {
-    max-width: 1080px; margin: 0 auto;
-    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem;
-  }
-  .footer-brand img { height: 30px; filter: brightness(0) invert(1); margin-bottom: 0.75rem; }
-  .footer-brand p { color: rgba(255,255,255,0.5); line-height: 1.7; margin-top: 0.5rem; }
-  footer h4 {
-    color: #fff; font-weight: 500; margin-bottom: 1rem;
-    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
-  }
-  footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  footer ul a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
-  footer ul a:hover { color: #fff; }
-  .footer-bottom {
-    max-width: 1080px; margin: 2rem auto 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1.5rem;
-    display: flex; justify-content: space-between;
-    flex-wrap: wrap; gap: 1rem;
-    font-size: 0.75rem; color: rgba(255,255,255,0.4);
-  }
 
-  /* ── SCROLL TO TOP ── */
-  .scroll-top {
-    position: fixed; bottom: 2rem; right: 2rem;
-    background: #0D297B; color: #fff;
-    border: none; border-radius: 50%;
-    width: 44px; height: 44px;
-    font-size: 1.1rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s, background 0.2s; z-index: 999;
-  }
-  .scroll-top.visible { opacity: 1; pointer-events: all; }
-  .scroll-top:hover { background: var(--accent); }
-  .scroll-top:focus, .scroll-top:active { outline: none; background: #0D297B; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .vp-grid { grid-template-columns: 1fr 1fr; }
     .training-grid { grid-template-columns: 1fr; }
     .testi-grid { grid-template-columns: 1fr 1fr; }
-    .footer-inner { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     .vp-grid { grid-template-columns: 1fr; }
     .testi-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-    .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
-    .footer-inner { grid-template-columns: 1fr; }
   }
 
-  /* ── CONTACT MODAL ── */
-  .contact-modal-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(26,39,68,0.6);
-    z-index: 2000; align-items: center; justify-content: center; padding: 1rem;
-  }
-  .contact-modal-overlay.active { display: flex; }
-  .contact-modal {
-    background: var(--warm-white); border-radius: 10px; padding: 2.5rem;
-    max-width: 440px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto;
-  }
-  .contact-modal-close {
-    position: absolute; top: 1rem; right: 1rem; background: none; border: none;
-    font-size: 1.5rem; line-height: 1; cursor: pointer; color: var(--muted);
-  }
-  .contact-modal h2 { font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
-  .contact-modal > p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
-  .contact-modal .form-group { margin-bottom: 1.1rem; }
-  .contact-modal .form-group label {
-    display: block; font-size: 0.78rem; font-weight: 500; color: var(--navy); margin-bottom: 0.4rem;
-  }
   .contact-modal .form-group input,
-  .contact-modal .form-group textarea {
-    width: 100%; background: var(--warm-white); border: 1px solid var(--border); border-radius: 6px;
-    padding: 0.7rem 1rem; font-family: 'Poppins', sans-serif; font-size: 0.875rem;
-    font-weight: 300; color: var(--text); -webkit-appearance: none; appearance: none;
-  }
   .contact-modal .form-group input:focus,
-  .contact-modal .form-group textarea:focus {
-    outline: none; border-color: var(--mid-blue);
-  }
-  .contact-modal .form-group textarea { resize: vertical; min-height: 100px; }
-  .contact-modal .form-submit {
-    width: 100%; background: #0D297B; color: #fff; border: none; padding: 0.85rem 2rem;
-    border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 0.9rem;
-    font-weight: 500; cursor: pointer; transition: background 0.2s;
-  }
-  .contact-modal .form-submit:hover { background: var(--accent); }
-  .contact-modal .form-success {
-    display: none; background: #e8f4ea; border: 1px solid #a8d5b0; border-radius: 8px;
-    padding: 1rem 1.25rem; margin-top: 1rem; font-size: 0.85rem; color: #1e5a2e; line-height: 1.6;
-  }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="top-bar">
-  <div class="top-bar-contact">
-    <a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a>
-    <a href="tel:+61400065945">+61 (0)400 065 945</a>
-    <span>Mount Gravatt, Brisbane</span>
-  </div>
-  <div class="top-bar-social">
-    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="index.html">
-    <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="training.html">Training</a></li>
-    <li><a href="training.html#research-circle">The Research Circle</a></li>
-    <li><a href="testimonials.html">Testimonials</a></li>
-    <li><a href="blog.html">Blog</a></li>
-  <li><a href="faqs.html">FAQs</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    </ul>
-  <a href="#" class="nav-cta" onclick="openContactModal(event)">Get in touch</a>
-</nav>
 
 <!-- HERO -->
 <section class="hero">
@@ -730,105 +576,7 @@
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
-      <p>Training, consultancy, and support to help you move your qualitative research forward with clarity and confidence.</p>
-      <p style="margin-top:0.5rem;">
-        <a href="mailto:hello@clairemoran.com" style="color:rgba(255,255,255,0.55);">hello@clairemoran.com</a> · +61 (0)400 065 945<br>
-        Mount Gravatt, Brisbane
-      </p>
-    </div>
-    <div>
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="about.html">About</a></li>
-        <li><a href="training.html">Training</a></li>
-    <li><a href="training.html#research-circle">The Research Circle</a></li>
-        <li><a href="training.html#research-circle">The Research Circle</a></li>
-        <li><a href="faqs.html">FAQs</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="testimonials.html">Testimonials</a></li>
-        <li><a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 Claire Moran. All rights reserved.</span>
-    <span>Brisbane · Sydney · Melbourne · Online globally</span>
-  </div>
-</footer>
 
-<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<script>
-  const btn = document.getElementById('scrollTopBtn');
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 400);
-  });
-</script>
 
-<!-- CONTACT MODAL -->
-<div class="contact-modal-overlay" id="contactModalOverlay" onclick="if(event.target===this) closeContactModal()">
-  <div class="contact-modal">
-    <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
-    <h2>Get in touch</h2>
-    <p>Send us a quick message and our team will get back to you within 1–2 business days.</p>
-    <form id="contactModalForm" onsubmit="handleContactModalSubmit(event)">
-      <div class="form-group">
-        <label for="modalName">Name</label>
-        <input type="text" id="modalName" name="name" placeholder="Jane Smith" required>
-      </div>
-      <div class="form-group">
-        <label for="modalPhone">Phone</label>
-        <input type="tel" id="modalPhone" name="phone" placeholder="+61 400 000 000" required>
-      </div>
-      <div class="form-group">
-        <label for="modalCompany">Company / Institution</label>
-        <input type="text" id="modalCompany" name="company" placeholder="University / Organisation">
-      </div>
-      <div class="form-group">
-        <label for="modalMessage">Message</label>
-        <textarea id="modalMessage" name="message" placeholder="Tell us a little about what you're looking for…" required></textarea>
-      </div>
-      <button type="submit" class="form-submit">Send message →</button>
-      <div class="form-success" id="modalFormSuccess">✓ &nbsp;Thank you — your message has been sent. We'll be in touch within 1–2 business days.</div>
-    </form>
-  </div>
-</div>
-
-<script>
-  function openContactModal(e) {
-    if (e) e.preventDefault();
-    document.getElementById('contactModalOverlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeContactModal() {
-    document.getElementById('contactModalOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContactModal(); });
-  function handleContactModalSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const success = document.getElementById('modalFormSuccess');
-    const btn = form.querySelector('.form-submit');
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-    setTimeout(() => {
-      form.reset();
-      success.style.display = 'block';
-      btn.textContent = 'Send message →';
-      btn.disabled = false;
-    }, 800);
-  }
-</script>
 </body>
 </html>
