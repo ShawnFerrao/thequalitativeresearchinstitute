@@ -407,7 +407,7 @@
 
     // Optional leading star rating line, e.g. "★★★★☆" on its own line
     let stars = '★★★★★';
-    const starMatch = quote.match(/^([★☆]{1,5})\s*\n+\s*([\s\S]*)$/);
+    const starMatch = quote.match(/^([★☆]{1,5})\s*([\s\S]*)$/);
     if (starMatch) {
       stars = starMatch[1].padEnd(5, '☆');
       quote = starMatch[2].trim();
