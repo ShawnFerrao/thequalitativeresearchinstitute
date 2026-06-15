@@ -353,7 +353,9 @@
     To add a testimonial, create a new Post in WordPress with:
       - Title    = Person's name (e.g. "Dr Leanne Rodwell")
       - Excerpt  = Their role / institution (e.g. "Respiratory Scientist, Queensland Government")
-      - Content  = The testimonial quote text
+      - Content  = (Optional) a star rating on its own first line, e.g. ★★★★☆,
+                    followed by a blank line, then the testimonial quote text.
+                    If no star line is given, it defaults to ★★★★★.
       - Categories = "Testimonials" PLUS one sub-category under "Testimonials"
                       (e.g. "One-on-One", "Online", "Thematic Analysis Masterclass",
                        "Research Design", "Institutions") to control which filter tab it appears under.
@@ -401,12 +403,20 @@
 
     const name = stripHTML(post.title?.rendered || '');
     const role = stripHTML(post.excerpt?.rendered || '').replace(/\[…\]|\[\.\.\.\]/g, '').trim();
-    const quote = stripHTML(post.content?.rendered || '').trim();
+    let quote = stripHTML(post.content?.rendered || '').trim();
+
+    // Optional leading star rating line, e.g. "★★★★☆" on its own line
+    let stars = '★★★★★';
+    const starMatch = quote.match(/^([★☆]{1,5})\s*\n+\s*([\s\S]*)$/);
+    if (starMatch) {
+      stars = starMatch[1].padEnd(5, '☆');
+      quote = starMatch[2].trim();
+    }
 
     return `
       <div class="testi-card" data-category="${sub ? sub.id : ''}">
         <span class="testi-tag ${tagClass}">${tagLabel}</span>
-        <div class="stars">★★★★★</div>
+        <div class="stars">${stars}</div>
         <p>"${quote}"</p>
         <div class="testi-author">
           <div class="testi-avatar">${initials(name)}</div>
