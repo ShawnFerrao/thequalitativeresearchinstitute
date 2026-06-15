@@ -543,14 +543,14 @@
         c => c.name.toLowerCase() !== 'uncategorised' && c.name.toLowerCase() !== 'uncategorized'
       ) : [];
 
-      // Exclude testimonial posts/category from the blog
-      const testiCat = cats.find(c => c.slug === 'testimonials' || c.name.toLowerCase() === 'testimonials');
-      if (testiCat) {
-        const testiCatIds = new Set([testiCat.id, ...cats.filter(c => c.parent === testiCat.id).map(c => c.id)]);
+      // Only show posts categorized under the "Blog" parent category
+      const blogCat = cats.find(c => c.slug === 'blog' || c.name.toLowerCase() === 'blog');
+      if (blogCat) {
+        const blogCatIds = new Set([blogCat.id, ...cats.filter(c => c.parent === blogCat.id).map(c => c.id)]);
         allPosts = allPosts.filter(post =>
-          !getTerms(post).some(t => t.taxonomy === 'category' && testiCatIds.has(t.id))
+          getTerms(post).some(t => t.taxonomy === 'category' && blogCatIds.has(t.id))
         );
-        cats = cats.filter(c => !testiCatIds.has(c.id));
+        cats = cats.filter(c => blogCatIds.has(c.id) && c.id !== blogCat.id);
       }
 
       const tags = tagsRes.ok ? await tagsRes.json() : [];
