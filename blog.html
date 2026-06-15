@@ -539,9 +539,19 @@
       if (!postsRes.ok) throw new Error('Posts unavailable');
 
       allPosts = await postsRes.json();
-      const cats = catsRes.ok ? (await catsRes.json()).filter(
+      let cats = catsRes.ok ? (await catsRes.json()).filter(
         c => c.name.toLowerCase() !== 'uncategorised' && c.name.toLowerCase() !== 'uncategorized'
       ) : [];
+
+      // Exclude testimonial posts/category from the blog
+      const testiCat = cats.find(c => c.slug === 'testimonials' || c.name.toLowerCase() === 'testimonials');
+      if (testiCat) {
+        allPosts = allPosts.filter(post =>
+          !getTerms(post).some(t => t.taxonomy === 'category' && t.id === testiCat.id)
+        );
+        cats = cats.filter(c => c.id !== testiCat.id);
+      }
+
       const tags = tagsRes.ok ? await tagsRes.json() : [];
 
       buildFilters(cats);
