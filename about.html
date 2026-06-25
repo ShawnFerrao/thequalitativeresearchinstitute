@@ -266,12 +266,6 @@
   }
   .testi-author-info strong { display: block; font-size: 0.8rem; color: #fff; font-weight: 500; }
   .testi-author-info span { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
-  .testi-more { text-align: center; margin-top: 2rem; }
-  .testi-more a {
-    color: rgba(255,255,255,0.5); font-size: 0.85rem;
-    text-decoration: underline; transition: color 0.2s;
-  }
-  .testi-more a:hover { color: #fff; }
 
   /* ── CTA STRIP ── */
   .cta-strip {
@@ -313,8 +307,15 @@
     .testi-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
+    .page-hero { padding: 3.5rem 1.25rem; }
+    .bio-intro, .pillars, .meet, .testimonials, .cta-strip { padding: 3.5rem 1.25rem; }
+    .trusted-bar { padding: 2.5rem 1.25rem; }
+    .bio-inner, .meet-inner { gap: 2rem; }
     .pillars-grid { grid-template-columns: 1fr; }
     .testi-grid { grid-template-columns: 1fr; }
+    .years-badge { flex-wrap: wrap; }
+    .cta-btns { flex-direction: column; align-items: stretch; }
+    .cta-btns a { text-align: center; }
   }
 
 </style>
@@ -456,9 +457,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="testi-more">
-      <a href="testimonials.html">Read all testimonials →</a>
     </div>
   </div>
 </section>
