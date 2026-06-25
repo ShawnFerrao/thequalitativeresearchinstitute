@@ -35,48 +35,7 @@
     line-height: 1.7;
   }
 
-  /* ── TOP BAR ── */
-  .top-bar {
-    background: var(--navy);
-    padding: 0.4rem 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.75rem; color: rgba(255,255,255,0.7);
-  }
-  .top-bar a { color: rgba(255,255,255,0.7); text-decoration: none; }
-  .top-bar a:hover { color: #fff; }
-  .top-bar-contact { display: flex; gap: 1.5rem; }
-  .top-bar-social a {
-    color: rgba(255,255,255,0.7); font-size: 0.8rem;
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 0.15rem 0.5rem; border-radius: 3px; transition: all 0.2s;
-  }
-  .top-bar-social a:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
-  /* ── NAV ── */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--warm-white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 68px;
-  }
-  .nav-logo img { height: 38px; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    text-decoration: none; color: var(--muted);
-    font-size: 0.875rem; font-weight: 400;
-    letter-spacing: 0.02em; transition: color 0.2s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--navy); }
-  .nav-cta {
-    background: var(--navy); color: #fff;
-    border: none; padding: 0.5rem 1.25rem;
-    border-radius: 4px; font-family: 'Poppins', sans-serif;
-    font-size: 0.875rem; cursor: pointer;
-    text-decoration: none; transition: background 0.2s;
-  }
-  .nav-cta:hover { background: var(--blue); }
 
   /* ── SHARED ── */
   .container { max-width: 1080px; margin: 0 auto; }
@@ -289,86 +248,21 @@
   }
   .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy); color: rgba(255,255,255,0.6);
-    padding: 3rem 2rem 2rem; font-size: 0.82rem;
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-  .footer-inner {
-    max-width: 1080px; margin: 0 auto;
-    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem;
-  }
-  .footer-brand img { height: 30px; filter: brightness(0) invert(1); margin-bottom: 0.75rem; }
-  .footer-brand p { color: rgba(255,255,255,0.5); line-height: 1.7; margin-top: 0.5rem; }
-  footer h4 {
-    color: #fff; font-weight: 500; margin-bottom: 1rem;
-    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
-  }
-  footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  footer ul a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
-  footer ul a:hover { color: #fff; }
-  .footer-bottom {
-    max-width: 1080px; margin: 2rem auto 0;
-    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;
-    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-    font-size: 0.75rem; color: rgba(255,255,255,0.4);
-  }
 
-  /* ── SCROLL TOP ── */
-  .scroll-top {
-    position: fixed; bottom: 2rem; right: 2rem;
-    background: #0D297B; color: #fff; border: none; border-radius: 50%;
-    width: 44px; height: 44px; font-size: 1.1rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    opacity: 0; pointer-events: none; transition: opacity 0.3s, background 0.2s; z-index: 999;
-  }
-  .scroll-top.visible { opacity: 1; pointer-events: all; }
-  .scroll-top:hover { background: var(--accent); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .testi-grid { grid-template-columns: 1fr 1fr; }
-    .footer-inner { grid-template-columns: 1fr 1fr; }
     .stats-row { gap: 1.5rem; }
   }
   @media (max-width: 600px) {
     .testi-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-    .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
-    .footer-inner { grid-template-columns: 1fr; }
   }
+
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="top-bar">
-  <div class="top-bar-contact">
-    <a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a>
-    <a href="tel:+61400065945">+61 (0)400 065 945</a>
-    <span>Mount Gravatt, Brisbane</span>
-  </div>
-  <div class="top-bar-social">
-    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="https://shawnferrao.com/claire-moran/">
-    <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
-  </a>
-  <ul class="nav-links">
-    <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
-    <li><a href="https://shawnferrao.com/claire-moran-training/">Training</a></li>
-    <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
-    <li><a href="https://shawnferrao.com/testimonials/" class="active">Testimonials</a></li>
-    <li><a href="https://shawnferrao.com/claire-blogs/">Blog</a></li>
-  </ul>
-  <a href="https://shawnferrao.com/claire-moran-training/" class="nav-cta">Get in touch</a>
-</nav>
 
 <!-- HERO -->
 <section class="page-hero">
@@ -411,13 +305,8 @@
 <!-- FILTER + TESTIMONIALS -->
 <section class="filter-section">
   <div class="container">
-    <div class="filter-tabs">
+    <div class="filter-tabs" id="filterTabs">
       <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="thematic-analysis">Thematic Analysis Masterclass</button>
-      <button class="filter-btn" data-filter="one-on-one">One-on-One</button>
-      <button class="filter-btn" data-filter="online">Online</button>
-      <button class="filter-btn" data-filter="research-design">Research Design</button>
-      <button class="filter-btn" data-filter="institution">Institutions</button>
     </div>
   </div>
 </section>
@@ -426,306 +315,9 @@
   <div class="container">
     <div class="testi-grid" id="testiGrid">
 
-      <div class="testi-card" data-category="one-on-one">
-        <span class="testi-tag tag-one-on-one">One-on-One</span>
-        <div class="stars">★★★★★</div>
-        <p>"I would recommend a one-on-one with Claire, as I was able to discuss my research results with her, and she viewed it with 'fresh eyes.' She was able to advise on results that needed rethinking or clarification. Thank you, Claire!"</p>
-        <div class="testi-author">
-          <div class="testi-avatar">LR</div>
-          <div class="testi-author-info">
-            <strong>Dr Leanne Rodwell</strong>
-            <span>Respiratory Scientist, Queensland Government</span>
-          </div>
-        </div>
-      </div>
+      <div class="no-results" id="loadingMsg" style="display:block;">Loading testimonials…</div>
 
-      <div class="testi-card" data-category="one-on-one">
-        <span class="testi-tag tag-one-on-one">One-on-One</span>
-        <div class="stars">★★★★★</div>
-        <p>"I would highly recommend a one-on-one with Claire for some personalised training. I had already attended Claire's 2-day Thematic Analysis Masterclass Workshop, which was fantastic. But I wanted some more guidance tailored to my specific context before I started the thematic analysis. As an early career researcher, Claire answered my questions and helped me find clarity for moving forward."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">BB</div>
-          <div class="testi-author-info">
-            <strong>Bev Babbage</strong>
-            <span>PhD Candidate, Charles Darwin University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"This was an incredible course. I loved how Claire demonstrated the range of ways Thematic Analysis can be used, and I really appreciated all the interactive activities. It was so valuable to try out how the theory works in practice. Attending Claire's training has greatly improved my confidence in engaging with qualitative research."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">DW</div>
-          <div class="testi-author-info">
-            <strong>Deborah Wareham</strong>
-            <span>PhD Candidate, Faculty of Medicine, Macquarie University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"I found answers to so many questions I had and also discovered questions (and answers) that I didn't know I had. The exploration of other pattern-based approaches was also great. I would absolutely recommend Claire's training to those using qualitative research methods — I loved it."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">GR</div>
-          <div class="testi-author-info">
-            <strong>Grace Redden</strong>
-            <span>PhD Candidate, Southern Cross University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"I would absolutely recommend Claire's Thematic Analysis Masterclass. She provided excellent demonstration by example of the mechanics of coding data and theme preparation, and her work rate was phenomenal, astonishing and admirable. Thematic analysis as a method would be very difficult to understand without such step-by-step teaching. The course fee for this training was well justified."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">DW</div>
-          <div class="testi-author-info">
-            <strong>Daniel Wickins</strong>
-            <span>PhD Candidate, Australian Centre for Health Service Innovation, QUT</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"Claire Moran's TA Masterclass was such a brilliant and insightful experience and by far the best research workshop I have attended throughout my studies and career. I now feel more confident in my ability to conduct a thorough thematic analysis for my PhD due to the knowledge gained from this workshop."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">SB</div>
-          <div class="testi-author-info">
-            <strong>Sally Brewer</strong>
-            <span>PhD Candidate &amp; Early Career Researcher, Griffith University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"I was looking for guidance from conceptualising my study through to analysing the data. Claire's courses each provided the key concepts I needed. Each training built seamlessly on the last, helping me connect ideas, apply them with confidence, and solidify my learning. These learning experiences have given me the confidence to design my study and analyse my data with clarity and purpose."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">SN</div>
-          <div class="testi-author-info">
-            <strong>Sophie Nielsen</strong>
-            <span>PhD Candidate, University of Melbourne</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"I took Claire's training to gain hands-on experience with thematic analysis, and it exceeded my expectations. I learned that thematic analysis is a flexible tool with different types, and not a methodology as I initially thought. This masterclass strikes a great balance between theory and practice, led by an experienced and passionate instructor who makes complex concepts easy to grasp."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">TG</div>
-          <div class="testi-author-info">
-            <strong>Dr Tiare Gonzalez Vidal</strong>
-            <span>Casual Academic, School of Languages &amp; Cultures, UQ Brisbane</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="research-design">
-        <span class="testi-tag tag-research-design">Research Design</span>
-        <div class="stars">★★★★★</div>
-        <p>"Four of us from Charles Sturt University recently attended Claire's Research Design Masterclass. It was wonderful training. We reflected on how great it was to explore and understand more about the qualitative research design process, and how things link up with one another. The information gave me a clearer and more defensible structure for my intended PhD."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">EK</div>
-          <div class="testi-author-info">
-            <strong>Elsie de Klerk</strong>
-            <span>Lecturer in Rural Health, Three Rivers Dept. of Rural Health, Charles Sturt University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"Thank you so much for the Thematic Analysis Masterclass held at Deakin University. It was an eye-opener not only for the upcoming data analysis but also for structuring my questions and planning participants' experiences. I will highly recommend your courses to my affiliated Universities — a 'must' for any PhD student's journey."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">JE</div>
-          <div class="testi-author-info">
-            <strong>Julio Andres Escudero</strong>
-            <span>PhD Researcher, Centre for Dance Research, Coventry University &amp; Deakin University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"Dr Moran's Thematic Analysis Masterclass provides an up-to-date and comprehensive overview of TA. Her engaging teaching style made for an enjoyable two days, which is frankly rare in my experience of such workshops! I'd recommend this class to anyone seeking a refresher on TA theory or newly minted qualitative researchers looking for practical skills."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">TK</div>
-          <div class="testi-author-info">
-            <strong>Tom Kennedy</strong>
-            <span>PhD Candidate, QIMR Berghofer Medical Research Institute, Brisbane</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"Claire's dynamic mixture of theory, anecdotes, concrete models and Irish wit laid a foundation of thematic bricks and walls which will provide the foundation for my success as a PhD candidate. You have transformed what could have been a very dry subject into a masterclass in pedagogy. It's people like Claire that give research a good name."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">JP</div>
-          <div class="testi-author-info">
-            <strong>Jim Picton</strong>
-            <span>PhD Candidate, Central Queensland University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="online">
-        <span class="testi-tag tag-online">Online</span>
-        <div class="stars">★★★★★</div>
-        <p>"I enrolled in Claire's online Thematic Analysis Masterclass because I live remotely and am doing a fully digital PhD. Her mix of theory to real world impact examples, to group exercises, to break out rooms was refreshing. Day 1 alone was worth every penny. Claire's mix of academic credibility with her Irish approachability and expert story telling make her a gifted trainer. BRILLIANT and extremely useful training."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">MB</div>
-          <div class="testi-author-info">
-            <strong>Megan Bayliss</strong>
-            <span>PhD Candidate &amp; Mental Health Social Worker, Charles Darwin University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="institution">
-        <span class="testi-tag tag-institution">Institution</span>
-        <div class="stars">★★★★★</div>
-        <p>"We have sent multiple cohorts of PhD students and early career researchers to Claire's training sessions over the last few years. Attendees consistently report that the training is easy to follow, comprehensive in its coverage, and very helpful. It offers excellent value for money and I have recommended Claire to many of my Centre Manager colleagues."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">MC</div>
-          <div class="testi-author-info">
-            <strong>Megan Campbell</strong>
-            <span>Australian Centre for Health Services Innovation, QUT</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="institution">
-        <span class="testi-tag tag-institution">Institution</span>
-        <div class="stars">★★★★★</div>
-        <p>"Dr Claire Moran has been running Thematic Analysis Training for QUT Centre for Justice since 2022. We generally run this program for our members twice a year. The feedback has always been so positive. Our members find Claire's training to be informative and useful, and we are currently in our third year of running Claire's training twice yearly."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">BX</div>
-          <div class="testi-author-info">
-            <strong>Brigid Xavier</strong>
-            <span>Centre Coordinator, QUT Centre for Justice</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="institution">
-        <span class="testi-tag tag-institution">Institution</span>
-        <div class="stars">★★★★★</div>
-        <p>"Thank you, Claire, for the amazing support you have given my students to analyse their data and create such great themes. I am so grateful for your workshops, and for the time you have spent with each one of them. I am certain that their PhDs are going to be better for having attended your fantastic sessions."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">HB</div>
-          <div class="testi-author-info">
-            <strong>Assoc. Prof. Harriot Beazley</strong>
-            <span>School of Law and Society, University of the Sunshine Coast</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="one-on-one">
-        <span class="testi-tag tag-one-on-one">One-on-One</span>
-        <div class="stars">★★★★★</div>
-        <p>"I did a one-on-one session with Dr Claire Moran because I was getting a bit lost with my broad research topic and needed some focus. Claire helped clear the clouds and cut through the noise of the topic's complexities to help me focus on a specific aspect I felt was important. I would recommend a one-on-one if you would like some great insight that helps you grow your research skill set."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">PO</div>
-          <div class="testi-author-info">
-            <strong>Patricia O'Loghlen</strong>
-            <span>PhD Student, School of Public Health, University of Queensland</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="one-on-one">
-        <span class="testi-tag tag-one-on-one">One-on-One</span>
-        <div class="stars">★★★★★</div>
-        <p>"I did the session with Dr Claire because I needed more guidance on thematic analysis particularly on coding the data. Claire helped me to see my data in a new dimension. I would confidently recommend a one-on-one session with Claire because it is tailored to your individual project and so you get personalised guidance about your research."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">MM</div>
-          <div class="testi-author-info">
-            <strong>Meab Mdimi</strong>
-            <span>PhD Candidate, School of Public Health, University of Queensland</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"I was honoured to attend the Thematic Analysis Masterclass at UQ. The training boosted my confidence in handling qualitative data and applying thematic analysis effectively. Dr Claire Moran was not only a great trainer but also an inspiring mentor who created a supportive and engaging learning environment."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">AK</div>
-          <div class="testi-author-info">
-            <strong>Ayelign Mengesha Kassie</strong>
-            <span>Senior Research Assistant, School of Public Health, UQ</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"I really enjoyed Dr Claire Moran's Thematic Analysis Masterclass and loved Claire's teaching style. Claire manages to take what could be a dry topic and turn it into an engaging and lively learning experience. I feel like so many pennies dropped for me about what I'm doing in my research and why. I actually feel excited about getting into coding and analysis of my data as a result."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">RB</div>
-          <div class="testi-author-info">
-            <strong>Rachel Barber</strong>
-            <span>PhD Candidate, Central Queensland University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="online">
-        <span class="testi-tag tag-online">Online</span>
-        <div class="stars">★★★★★</div>
-        <p>"I found the self-paced content to be easily digestible, allowing me to get a sound understanding of the key aspects of qualitative research."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">AS</div>
-          <div class="testi-author-info">
-            <strong>Amelia Stapley</strong>
-            <span>Research Officer, Faculty of Pharmacy, Monash University</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"I was a bit of a thematic analysis sceptic, but Claire has well and truly sold me on it! Honestly, I think everyone should do this masterclass."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">JK</div>
-          <div class="testi-author-info">
-            <strong>Jen Kaighin</strong>
-            <span>Lecturer, School of Public Health and Social Work, QUT</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card" data-category="thematic-analysis">
-        <span class="testi-tag">Thematic Analysis Masterclass</span>
-        <div class="stars">★★★★★</div>
-        <p>"Having the opportunity to learn from Claire's expertise and insight makes me genuinely confident in my work now. Regarding sophistication and applicability, this workshop is the best I have ever attended in my career. Claire's practical exercises and visualised training pedagogy using realia and thick examples created a truly remarkable experience!"</p>
-        <div class="testi-author">
-          <div class="testi-avatar">TN</div>
-          <div class="testi-author-info">
-            <strong>Dr Thao Nguyen</strong>
-            <span>School of Education, The University of Queensland</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="no-results" id="noResults">No testimonials match this filter.</div>
+      <div class="no-results" id="noResults" style="display:none;">No testimonials match this filter.</div>
     </div>
   </div>
 </section>
@@ -737,56 +329,16 @@
     <h2>Join hundreds of researchers who've transformed their qualitative skills</h2>
     <p>Explore individual training programs or enquire about The Research Circle membership.</p>
     <div class="cta-btns">
-      <a href="https://shawnferrao.com/claire-moran-training/" class="btn-gold">Explore Training</a>
-      <a href="https://calendly.com/claire-clairemoran/research-circle-enquiry-call" target="_blank" class="btn-outline-white">The Research Circle</a>
+      <a href="training.html" class="btn-gold">Explore Training</a>
+      <a href="/research-circle" class="btn-outline-white">The Research Circle</a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
-      <p>Training, consultancy, and support to help you move your qualitative research forward with clarity and confidence.</p>
-      <p style="margin-top:0.5rem;">
-        <a href="mailto:hello@clairemoran.com" style="color:rgba(255,255,255,0.55);">hello@clairemoran.com</a> · +61 (0)400 065 945<br>
-        Mount Gravatt, Brisbane
-      </p>
-    </div>
-    <div>
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
-        <li><a href="https://shawnferrao.com/claire-moran-training/">Training</a></li>
-        <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
-        <li><a href="https://clairemoran.com/faqs/">FAQs</a></li>
-        <li><a href="https://shawnferrao.com/claire-moran-contact-us/">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="https://shawnferrao.com/claire-blogs/">Blog</a></li>
-        <li><a href="https://shawnferrao.com/testimonials/" class="active">Testimonials</a></li>
-        <li><a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 Claire Moran. All rights reserved.</span>
-    <span>Brisbane · Sydney · Melbourne · Online globally</span>
-  </div>
-</footer>
 
-<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 
 <script>
-  // Scroll to top
-  const btn = document.getElementById('scrollTopBtn');
-  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 400));
-
-  // Video play
   function playVideo() {
     const video = document.getElementById('testiVideo');
     const overlay = document.getElementById('videoOverlay');
@@ -795,25 +347,158 @@
     video.play();
   }
 
-  // Filter functionality
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.testi-card');
-  const noResults = document.getElementById('noResults');
+  /*
+    DYNAMIC TESTIMONIALS — pulled from WordPress Posts
+    ---------------------------------------------------
+    To add a testimonial, create a new Post in WordPress with:
+      - Title    = Person's name (e.g. "Dr Leanne Rodwell")
+      - Excerpt  = Their role / institution (e.g. "Respiratory Scientist, Queensland Government")
+      - Content  = (Optional) a star rating on its own first line, e.g. ★★★★☆,
+                    followed by a blank line, then the testimonial quote text.
+                    If no star line is given, it defaults to ★★★★★.
+      - Categories = "Testimonials" PLUS one sub-category under "Testimonials"
+                      (e.g. "One-on-One", "Online", "Thematic Analysis Masterclass",
+                       "Research Design", "Institutions") to control which filter tab it appears under.
+    The page automatically picks up new posts/categories — no code changes needed.
+  */
+  const WP_BASE = 'https://thequalitativeresearchinstitute.com/wp-json/wp/v2';
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      let visible = 0;
-      cards.forEach(card => {
-        const match = filter === 'all' || card.dataset.category === filter;
-        card.style.display = match ? 'flex' : 'none';
-        if (match) visible++;
+  let allTestimonials = [];
+  let subCats = [];
+  let activeFilter = 'all';
+
+  function stripHTML(html) {
+    const d = document.createElement('div'); d.innerHTML = html;
+    return d.textContent || '';
+  }
+
+  function getTerms(post) {
+    const out = [];
+    for (const group of (post._embedded?.['wp:term'] || [])) {
+      for (const t of group) out.push(t);
+    }
+    return out;
+  }
+
+  function initials(name) {
+    return name.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  }
+
+  function tagSlugClass(slug) {
+    const map = {
+      'one-on-one': 'tag-one-on-one',
+      'institutions': 'tag-institution',
+      'institution': 'tag-institution',
+      'online': 'tag-online',
+      'research-design': 'tag-research-design'
+    };
+    return map[slug] || '';
+  }
+
+  function testiCard(post) {
+    const terms = getTerms(post).filter(t => t.taxonomy === 'category');
+    const sub = terms.find(t => subCats.some(c => c.id === t.id));
+    const tagLabel = sub ? sub.name : 'Testimonial';
+    const tagClass = sub ? tagSlugClass(sub.slug) : '';
+
+    const name = stripHTML(post.title?.rendered || '');
+    const role = stripHTML(post.excerpt?.rendered || '').replace(/\[…\]|\[\.\.\.\]/g, '').trim();
+    let quote = stripHTML(post.content?.rendered || '').trim();
+
+    // Optional leading star rating line, e.g. "★★★★☆" on its own line
+    let stars = '★★★★★';
+    const starMatch = quote.match(/^([★☆]{1,5})\s*([\s\S]*)$/);
+    if (starMatch) {
+      stars = starMatch[1].padEnd(5, '☆');
+      quote = starMatch[2].trim();
+    }
+
+    return `
+      <div class="testi-card" data-category="${sub ? sub.id : ''}">
+        <span class="testi-tag ${tagClass}">${tagLabel}</span>
+        <div class="stars">${stars}</div>
+        <p>"${quote}"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">${initials(name)}</div>
+          <div class="testi-author-info">
+            <strong>${name}</strong>
+            <span>${role}</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function renderTestimonials() {
+    const grid = document.getElementById('testiGrid');
+    const noResults = document.getElementById('noResults');
+
+    let filtered = allTestimonials;
+    if (activeFilter !== 'all') {
+      filtered = allTestimonials.filter(post =>
+        getTerms(post).some(t => String(t.id) === activeFilter && t.taxonomy === 'category')
+      );
+    }
+
+    grid.querySelectorAll('.testi-card, #loadingMsg').forEach(el => el.remove());
+
+    if (!filtered.length) {
+      noResults.style.display = 'block';
+      return;
+    }
+    noResults.style.display = 'none';
+    noResults.insertAdjacentHTML('beforebegin', filtered.map(testiCard).join(''));
+  }
+
+  function buildFilters() {
+    const tabs = document.getElementById('filterTabs');
+    subCats.forEach(c => {
+      const b = document.createElement('button');
+      b.className = 'filter-btn';
+      b.dataset.filter = String(c.id);
+      b.textContent = c.name;
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        activeFilter = String(c.id);
+        renderTestimonials();
       });
-      noResults.style.display = visible === 0 ? 'block' : 'none';
+      tabs.appendChild(b);
     });
-  });
+
+    document.querySelector('.filter-btn[data-filter="all"]').addEventListener('click', function () {
+      document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+      activeFilter = 'all';
+      renderTestimonials();
+    });
+  }
+
+  async function init() {
+    try {
+      const catsRes = await fetch(`${WP_BASE}/categories?per_page=100`);
+      if (!catsRes.ok) throw new Error('Categories unavailable');
+      const cats = await catsRes.json();
+
+      const parent = cats.find(c => c.slug === 'testimonials' || c.name.toLowerCase() === 'testimonials');
+      if (!parent) throw new Error('No "Testimonials" category found');
+
+      subCats = cats.filter(c => c.parent === parent.id);
+
+      const postsRes = await fetch(`${WP_BASE}/posts?per_page=100&_embed=1&categories=${parent.id}`);
+      if (!postsRes.ok) throw new Error('Posts unavailable');
+      allTestimonials = await postsRes.json();
+
+      buildFilters();
+      renderTestimonials();
+    } catch (err) {
+      document.getElementById('loadingMsg').textContent =
+        'Unable to load testimonials right now.';
+      console.error(err);
+    }
+  }
+
+  init();
 </script>
+
 </body>
 </html>

@@ -1,0 +1,113 @@
+<!-- ════════════════════════════════════════════════════════
+     SITE HEADER — paste into your Elementor Header template
+     (HTML widget). Includes the top contact bar and main nav.
+     The CSS below only needs to be added once (e.g. in the
+     header template, or in your theme's Custom CSS).
+════════════════════════════════════════════════════════ -->
+<style>
+  :root {
+    --navy: #1a2744;
+    --blue: #2d4a8a;
+    --mid-blue: #4a6fa5;
+    --light-blue: #d6e4f7;
+    --cream: #f8f5f0;
+    --warm-white: #fdfcfa;
+    --text: #2a2a2a;
+    --muted: #6b7280;
+    --accent: #c8873b;
+    --gold: #D3B574;
+    --border: #e2e8f0;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    background: var(--navy); padding: 0.4rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.75rem; color: rgba(255,255,255,0.7);
+    font-family: 'Poppins', sans-serif;
+  }
+  .top-bar a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  .top-bar a:hover { color: #fff; }
+  .top-bar-contact { display: flex; gap: 1.5rem; }
+  .top-bar-social a {
+    color: rgba(255,255,255,0.7); font-size: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.15rem 0.5rem; border-radius: 3px; transition: all 0.2s;
+  }
+  .top-bar-social a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--warm-white); border-bottom: 1px solid var(--border);
+    padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+    height: 68px; font-family: 'Poppins', sans-serif;
+  }
+  .nav-logo img { height: 38px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.875rem; font-weight: 400; letter-spacing: 0.02em; transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--navy); }
+  .nav-cta {
+    background: var(--navy); color: #fff; border: none; padding: 0.5rem 1.25rem;
+    border-radius: 4px; font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem; cursor: pointer; text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--blue); }
+
+  .nav-item-dropdown { position: relative; }
+  .nav-dropdown {
+    display: none; position: absolute; top: 100%; left: 0;
+    background: var(--warm-white); border: 1px solid var(--border);
+    border-radius: 4px; min-width: 180px; padding: 0.4rem 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08); z-index: 200;
+  }
+  .nav-item-dropdown:hover .nav-dropdown { display: block; }
+  .nav-dropdown li { list-style: none; }
+  .nav-dropdown a {
+    display: block; padding: 0.5rem 1rem;
+    white-space: nowrap;
+  }
+  .nav-dropdown a:hover { background: var(--cream); }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
+  }
+</style>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-contact">
+    <a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a>
+    <a href="tel:+61400065945">+61 (0)400 065 945</a>
+    <span>Mount Gravatt, Brisbane</span>
+  </div>
+  <div class="top-bar-social">
+    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="The Qualitative Research Institute">
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li class="nav-item-dropdown">
+      <a href="/training">Training</a>
+      <ul class="nav-dropdown">
+        <li><a href="/research-circle">Research Circle</a></li>
+      </ul>
+    </li>
+    <li><a href="/testimonials">Testimonials</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/faqs">FAQs</a></li>
+    <li><a href="/contact-us">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="openContactModal(event)">Get in touch</a>
+</nav>

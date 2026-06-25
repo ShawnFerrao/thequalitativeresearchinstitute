@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TQRI Testimonials Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #1a2744;
+    --blue:      #2d4a8a;
+    --mid-blue:  #4a6fa5;
+    --light-blue:#d6e4f7;
+    --cream:     #f8f5f0;
+    --warm-white:#fdfcfa;
+    --text:      #2a2a2a;
+    --muted:     #6b7280;
+    --accent:    #c8873b;
+    --gold:      #D3B574;
+    --border:    #e2e8f0;
+    --red:       #dc2626;
+    --green:     #16a34a;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── LOGIN GATE ── */
+  .login-overlay {
+    position: fixed; inset: 0; background: var(--navy);
+    display: flex; align-items: center; justify-content: center; z-index: 2000;
+  }
+  .login-overlay.hidden { display: none; }
+  .login-box {
+    background: var(--warm-white); border-radius: 8px; padding: 2.5rem;
+    width: 100%; max-width: 360px; box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+  .login-box h1 { font-size: 1.1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; }
+  .login-box p { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .login-box input {
+    width: 100%; font-family: 'Poppins', sans-serif; font-size: 0.85rem;
+    border: 1px solid var(--border); border-radius: 4px; padding: 0.65rem 0.85rem;
+    margin-bottom: 0.75rem; outline: none;
+  }
+  .login-box input:focus { border-color: var(--mid-blue); }
+  .login-box button {
+    width: 100%; background: var(--accent); color: #fff; border: none;
+    border-radius: 4px; padding: 0.65rem; font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: background 0.2s;
+  }
+  .login-box button:hover { background: #b5762e; }
+  .login-error { color: var(--red); font-size: 0.78rem; margin-top: 0.6rem; display: none; }
+
+  .tb-app { display: none; }
+  .tb-app.visible { display: block; }
+
+  /* ── HEADER ── */
+  .tb-header {
+    background: var(--navy);
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .tb-header-title { color: #fff; font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
+  .tb-header-sub { color: rgba(255,255,255,0.5); font-size: 0.72rem; font-weight: 300; margin-top: 0.1rem; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.55rem 1.25rem;
+    border-radius: 4px; border: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: all 0.2s; text-decoration: none;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #b5762e; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ── FORM ── */
+  .tb-body { max-width: 560px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+  .tb-card {
+    background: var(--warm-white); border: 1px solid var(--border);
+    border-radius: 8px; padding: 2rem;
+  }
+  label { display: block; font-size: 0.75rem; font-weight: 500; color: var(--text); margin-bottom: 0.3rem; }
+  input[type=text], input[type=password], textarea, select {
+    width: 100%; font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem; font-weight: 300;
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 0.6rem 0.8rem; color: var(--text);
+    background: #fff; outline: none; transition: border 0.2s;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--mid-blue); }
+  textarea { resize: vertical; line-height: 1.6; }
+  .field { margin-bottom: 1.25rem; }
+  .field small { display: block; margin-top: 0.3rem; font-size: 0.7rem; color: var(--muted); }
+
+  .star-picker { display: flex; gap: 0.25rem; font-size: 1.6rem; cursor: pointer; user-select: none; }
+  .star-picker span { color: var(--border); transition: color 0.15s; }
+  .star-picker span.filled { color: var(--accent); }
+
+  /* ── STATUS BAR ── */
+  .tb-status {
+    position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%);
+    background: var(--navy); color: #fff;
+    padding: 0.65rem 1.5rem; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 400;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    display: none; z-index: 999; max-width: 420px; text-align: center;
+  }
+  .tb-status.visible { display: block; }
+  .tb-status.success { background: var(--green); }
+  .tb-status.error   { background: var(--red); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN GATE -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h1>TQRI Testimonials Builder</h1>
+    <p>Enter the access password to continue.</p>
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+    <button onclick="attemptLogin()">Log in</button>
+    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="tb-app" id="tbApp">
+
+  <div class="tb-header">
+    <div>
+      <div class="tb-header-title">TQRI Testimonials Builder</div>
+      <div class="tb-header-sub">The Qualitative Research Institute</div>
+    </div>
+    <button class="btn btn-primary" id="publishBtn" onclick="publishTestimonial()">✦ Publish Draft</button>
+  </div>
+
+  <div class="tb-body">
+    <div class="tb-card">
+
+      <div class="field">
+        <label>Person's Name *</label>
+        <input type="text" id="tName" placeholder="e.g. Dr Leanne Rodwell">
+      </div>
+
+      <div class="field">
+        <label>Role / Institution</label>
+        <input type="text" id="tRole" placeholder="e.g. PhD Candidate, University of Queensland">
+      </div>
+
+      <div class="field">
+        <label>Star Rating</label>
+        <div class="star-picker" id="starPicker">
+          <span data-val="1">★</span>
+          <span data-val="2">★</span>
+          <span data-val="3">★</span>
+          <span data-val="4">★</span>
+          <span data-val="5">★</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Testimonial Quote *</label>
+        <textarea id="tQuote" rows="5" placeholder="Write the testimonial text here…"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Category</label>
+        <select id="tCategory">
+          <option value="">— Loading categories —</option>
+        </select>
+        <small>Pick which type of testimonial this is — controls which filter tab it appears under on the Testimonials page.</small>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /tb-app -->
+
+<!-- STATUS BAR -->
+<div class="tb-status" id="statusBar"></div>
+
+<script>
+(function () {
+
+  var SITE_URL = 'https://thequalitativeresearchinstitute.com';
+  var TOKEN    = 'tqri-blog-2026-secret';
+  var API      = SITE_URL + '/wp-json';
+
+  /* ── Login gate ──
+     Basic deterrent only — the password check happens in the browser,
+     so don't rely on it to protect anything sensitive. */
+  var ACCESS_PASSWORD = 'tqri2026';
+
+  window.attemptLogin = function() {
+    var val = document.getElementById('loginPassword').value;
+    if (val === ACCESS_PASSWORD) {
+      sessionStorage.setItem('tqriTestiBuilderAuth', '1');
+      document.getElementById('loginOverlay').classList.add('hidden');
+      document.getElementById('tbApp').classList.add('visible');
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  };
+  document.getElementById('loginPassword').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') attemptLogin();
+  });
+  if (sessionStorage.getItem('tqriTestiBuilderAuth') === '1') {
+    document.getElementById('loginOverlay').classList.add('hidden');
+    document.getElementById('tbApp').classList.add('visible');
+  }
+
+  /* ── Star picker ── */
+  var rating = 5;
+  var starEls = document.querySelectorAll('#starPicker span');
+  function renderStars() {
+    starEls.forEach(function(el){
+      el.classList.toggle('filled', parseInt(el.dataset.val) <= rating);
+    });
+  }
+  starEls.forEach(function(el){
+    el.addEventListener('click', function(){
+      rating = parseInt(el.dataset.val);
+      renderStars();
+    });
+  });
+  renderStars();
+
+  var testimonialsCatId = null;
+
+  /* ── Categories — only sub-categories of "Testimonials" ── */
+  fetch(API + '/wp/v2/categories?per_page=100&hide_empty=false')
+    .then(function(r){ return r.json(); })
+    .then(function(cats){
+      var sel = document.getElementById('tCategory');
+      var parent = cats.find(function(c){
+        return c.slug === 'testimonials' || c.name.toLowerCase() === 'testimonials';
+      });
+      testimonialsCatId = parent ? parent.id : null;
+      var subCats = parent ? cats.filter(function(c){ return c.parent === parent.id; }) : [];
+      sel.innerHTML = '<option value="">— None —</option>';
+      subCats.forEach(function(c){
+        sel.innerHTML += '<option value="' + c.id + '">' + c.name + '</option>';
+      });
+    })
+    .catch(function(){ /* fail silently */ });
+
+  /* ── Publish ── */
+  window.publishTestimonial = function() {
+    var name  = document.getElementById('tName').value.trim();
+    var role  = document.getElementById('tRole').value.trim();
+    var quote = document.getElementById('tQuote').value.trim();
+
+    if (!name)  { showStatus('Please enter the person\'s name.', 'error'); return; }
+    if (!quote) { showStatus('Please enter the testimonial quote.', 'error'); return; }
+
+    var btn = document.getElementById('publishBtn');
+    btn.disabled = true;
+    btn.textContent = 'Publishing…';
+    showStatus('Sending to WordPress…');
+
+    var stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    var subCatId = document.getElementById('tCategory').value;
+    var categoryIds = [];
+    if (testimonialsCatId) categoryIds.push(testimonialsCatId);
+    if (subCatId) categoryIds.push(parseInt(subCatId));
+
+    var payload = {
+      title:              name,
+      slug:               slugify(name),
+      excerpt:            role,
+      category_id:        categoryIds[0] || null,
+      category_ids:       categoryIds,
+      tags:               [],
+      featured_image_url: '',
+      sections: [
+        { id: 'sec-1', type: 'intro', text: stars + '\n\n' + quote }
+      ]
+    };
+
+    fetch(SITE_URL + '/wp-json/tqri/v1/submit-blog?token=' + TOKEN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      btn.disabled = false;
+      btn.textContent = '✦ Publish Draft';
+      if (res.success && res.edit_url) {
+        showStatus('Draft created! Opening WordPress editor…', 'success');
+        setTimeout(function(){ window.open(res.edit_url, '_blank'); }, 1200);
+      } else {
+        showStatus('Error: ' + (res.message || JSON.stringify(res)), 'error');
+      }
+    })
+    .catch(function(e){
+      btn.disabled = false;
+      btn.textContent = '✦ Publish Draft';
+      showStatus('Network error: ' + e.message, 'error');
+    });
+  };
+
+  /* ── Helpers ── */
+  function showStatus(msg, type) {
+    var bar = document.getElementById('statusBar');
+    bar.textContent = msg;
+    bar.className = 'tb-status visible' + (type ? ' ' + type : '');
+    clearTimeout(bar._timer);
+    bar._timer = setTimeout(function(){
+      bar.classList.remove('visible');
+    }, type === 'success' ? 4000 : 6000);
+  }
+
+  function slugify(str) {
+    return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+})();
+</script>
+</body>
+</html>

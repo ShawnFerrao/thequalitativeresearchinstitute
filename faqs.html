@@ -28,50 +28,7 @@
     line-height: 1.7;
   }
   /* TOP BAR */
-  .top-bar {
-    background: var(--navy);
-    padding: 0.4rem 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.75rem; color: rgba(255,255,255,0.7);
-  }
-  .top-bar a { color: rgba(255,255,255,0.7); text-decoration: none; }
-  .top-bar a:hover { color: #fff; }
-  .top-bar-contact { display: flex; gap: 1.5rem; }
-  .top-bar-social a {
-    color: rgba(255,255,255,0.7); font-size: 0.8rem;
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 0.15rem 0.5rem; border-radius: 3px; transition: all 0.2s;
-  }
-  .top-bar-social a:hover { background: rgba(255,255,255,0.1); color: #fff; }
   /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--warm-white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 68px;
-  }
-  .nav-logo img { height: 38px; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    text-decoration: none; color: var(--muted);
-    font-size: 0.875rem; font-weight: 400;
-    letter-spacing: 0.02em; transition: color 0.2s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--navy); }
-  .nav-cta {
-    background: var(--navy); color: #fff;
-    border: none; padding: 0.5rem 1.25rem;
-    border-radius: 4px; font-family: 'Poppins', sans-serif;
-    font-size: 0.875rem; cursor: pointer;
-    text-decoration: none; transition: background 0.2s;
-  }
-  .nav-cta:hover { background: var(--blue); }
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
-    .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
-  }
 
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -84,15 +41,6 @@
     --text-muted: #7A9BAA;
     --accent: #C4824A;
     --accent-light: #F2DCC8;
-  }
-
-  .faq-hero,
-  .faq-hero * ,
-  .faq-page-body,
-  .faq-page-body *,
-  .faq-footer,
-  .faq-footer * {
-    font-family: 'Poppins', sans-serif !important;
   }
 
   .faq-hero {
@@ -435,23 +383,8 @@
     color: var(--teal);
   }
 
-  .faq-footer {
-    background: var(--cream);
-    border-top: 1px solid var(--border);
-    padding: 2rem;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.825rem;
-  }
 
-  .faq-footer a {
-    color: var(--teal);
-    text-decoration: none;
-  }
 
-  .faq-footer p + p {
-    margin-top: 0.5rem;
-  }
 
   .faq-hero-search input:focus,
   .faq-hero-search button:focus,
@@ -478,37 +411,11 @@
       text-align: center;
     }
   }
+
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="top-bar">
-  <div class="top-bar-contact">
-    <a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a>
-    <a href="tel:+61400065945">+61 (0)400 065 945</a>
-    <span>Mount Gravatt, Brisbane</span>
-  </div>
-  <div class="top-bar-social">
-    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="https://shawnferrao.com/claire-moran/">
-    <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
-  </a>
-  <ul class="nav-links">
-    <li><a href="https://shawnferrao.com/claire-moran/">Home</a></li>
-    <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
-    <li><a href="https://shawnferrao.com/claire-moran-training/">Training</a></li>
-    <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
-    <li><a href="https://shawnferrao.com/testimonials/">Testimonials</a></li>
-    <li><a href="https://shawnferrao.com/claire-blogs/">Blog</a></li>
-  </ul>
-  <a href="https://calendly.com/claire-clairemoran/researchcheckin" target="_blank" class="nav-cta">Get in touch</a>
-</nav>
 
 <section class="faq-hero">
   <div class="faq-hero-tag">Help Centre</div>
@@ -821,10 +728,6 @@
   </div>
 </main>
 
-<footer class="faq-footer">
-  <p>Based in Mount Gravatt, Brisbane &nbsp;·&nbsp; Training available in Brisbane, Sydney, Melbourne, and online globally.</p>
-  <p><a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a> &nbsp;·&nbsp; +61 (0)400 065 945</p>
-</footer>
 
 <script>
   function faqToggleAccordion(trigger) {
@@ -911,5 +814,6 @@
     }
   }
 </script>
+
 </body>
 </html>

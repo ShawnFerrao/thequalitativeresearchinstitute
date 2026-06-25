@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Research Circle | The Qualitative Research Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --navy: #1a2744;
+    --blue: #2d4a8a;
+    --mid-blue: #4a6fa5;
+    --light-blue: #d6e4f7;
+    --card-bg: #e4e8f2;
+    --cream: #f8f5f0;
+    --warm-white: #fdfcfa;
+    --text: #2a2a2a;
+    --muted: #6b7280;
+    --accent: #DDA15E;
+    --eyebrow: #DDA15E;
+    --gold: #D3B574;
+    --border: #e2e8f0;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--warm-white);
+    line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .page-hero {
+    background: var(--navy); color: #fff;
+    padding: 3.5rem 2rem 3rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 60% 50%, rgba(45,74,138,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+  .page-hero-eyebrow {
+    display: inline-block;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    font-size: 0.72rem; font-weight: 500;
+    color: var(--eyebrow); margin-bottom: 1rem;
+  }
+  .page-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600; line-height: 1.2; margin-bottom: 1.25rem;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--gold); font-weight: 300; }
+  .page-hero p {
+    font-size: 1.05rem; color: rgba(255,255,255,0.78);
+    max-width: 520px; margin: 0 auto; font-weight: 300;
+  }
+
+  /* ── SHARED ── */
+  .container { max-width: 1080px; margin: 0 auto; }
+  .section-label {
+    display: block; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 0.7rem; font-weight: 500; color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600; color: var(--navy); line-height: 1.3; margin-bottom: 1rem;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: #0D297B; color: #fff;
+    padding: 0.75rem 1.75rem; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 0.875rem;
+    display: inline-block; transition: background 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-secondary {
+    border: 1.5px solid var(--navy); color: var(--navy);
+    padding: 0.7rem 1.75rem; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 0.875rem;
+    display: inline-block; transition: all 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-secondary:hover { background: var(--navy); color: #fff; }
+  .btn-outline-white {
+    border: 1.5px solid rgba(255,255,255,0.6); color: #fff;
+    padding: 0.75rem 2rem; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    display: inline-block; transition: all 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+  /* ── INTRO ── */
+  .rc-intro {
+    background: var(--cream);
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  .rc-centered { max-width: 680px; margin: 0 auto; }
+  .rc-label {
+    display: inline-block; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 0.7rem; font-weight: 500; color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .rc-centered h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600; color: var(--navy); line-height: 1.25; margin-bottom: 0.4rem;
+  }
+  .rc-centered .subtitle {
+    font-size: 1.125rem; color: var(--muted);
+    font-style: italic; margin-bottom: 1.25rem;
+  }
+  .rc-centered > p {
+    font-size: 1.125rem; color: var(--muted);
+    margin-bottom: 1.75rem; line-height: 1.8;
+  }
+  .rc-perks {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: 2rem; justify-content: center;
+  }
+  .rc-perk {
+    background: rgba(26,39,68,0.07);
+    border: 1px solid rgba(26,39,68,0.15);
+    border-radius: 100px; padding: 0.35rem 1rem;
+    font-size: 0.78rem; color: var(--navy);
+  }
+
+  /* ── INCLUDES GRID ── */
+  .rc-includes {
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  .rc-includes-header { max-width: 680px; margin: 0 auto 3rem; }
+  .rc-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    text-align: left;
+  }
+  .rc-card {
+    background: var(--card-bg);
+    border-radius: 8px; padding: 1.75rem;
+  }
+  .rc-card h3 {
+    font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem;
+  }
+  .rc-card p { font-size: 0.9rem; color: var(--muted); }
+
+  /* ── MEMBERSHIP OPTIONS ── */
+  .rc-plans {
+    background: var(--navy); color: #fff;
+    padding: 5rem 2rem; text-align: center;
+  }
+  .rc-plans-header { max-width: 680px; margin: 0 auto 3rem; }
+  .rc-plans-header .section-title { color: #fff; }
+  .rc-plans-header p { color: rgba(255,255,255,0.75); font-size: 1.05rem; }
+  .rc-plan-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+    max-width: 760px; margin: 0 auto;
+  }
+  .rc-plan {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px; padding: 2rem; text-align: left;
+  }
+  .rc-plan h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .rc-plan .price { font-size: 1.6rem; font-weight: 600; color: var(--gold); margin-bottom: 0.75rem; }
+  .rc-plan p { font-size: 0.9rem; color: rgba(255,255,255,0.75); margin-bottom: 1.25rem; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--blue); color: #fff;
+    padding: 4rem 2rem; text-align: center;
+  }
+  .cta-section h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; margin-bottom: 0.75rem; }
+  .cta-section p { color: rgba(255,255,255,0.8); margin-bottom: 1.75rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  @media (max-width: 800px) {
+    .rc-grid { grid-template-columns: 1fr; }
+    .rc-plan-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-hero-eyebrow">Year-round membership</span>
+    <h1>The <em>Research Circle</em></h1>
+    <p>Your ongoing research home — expert support, sustained momentum, and a genuine sense of community, all year round.</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="rc-intro">
+  <div class="container">
+    <div class="rc-centered">
+      <span class="rc-label">What it is</span>
+      <h2>A community built around your research</h2>
+      <p class="subtitle">For researchers who want more than a single course</p>
+      <p>A 6- or 12-month membership for researchers who want expert support, sustained momentum, and a genuine sense of community — beyond what any single course can offer. All individual training programs are included, alongside ongoing guidance as your project evolves.</p>
+      <div class="rc-perks">
+        <span class="rc-perk">All training included</span>
+        <span class="rc-perk">1:1 &amp; expert support</span>
+        <span class="rc-perk">Monthly Q&amp;A + momentum sessions</span>
+        <span class="rc-perk">Community &amp; connection</span>
+      </div>
+      <a href="#join" class="btn-primary" style="padding: 0.8rem 2rem; font-size: 0.9rem;">View membership options →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section class="rc-includes">
+  <div class="container">
+    <div class="rc-includes-header">
+      <span class="section-label">What's included</span>
+      <h2 class="section-title">Everything you need to keep moving forward</h2>
+    </div>
+    <div class="rc-grid">
+      <div class="rc-card">
+        <h3>All individual training</h3>
+        <p>Full access to every training program — webinars, essentials, research design, thematic analysis, AI tools, and more.</p>
+      </div>
+      <div class="rc-card">
+        <h3>1:1 expert support</h3>
+        <p>Personalised guidance from Claire whenever you hit a roadblock or need a second opinion on your approach.</p>
+      </div>
+      <div class="rc-card">
+        <h3>Monthly Q&amp;A sessions</h3>
+        <p>Live momentum sessions to ask questions, troubleshoot, and stay accountable to your research goals.</p>
+      </div>
+      <div class="rc-card">
+        <h3>Community &amp; connection</h3>
+        <p>Join a community of like-minded researchers for peer support, discussion, and shared learning.</p>
+      </div>
+      <div class="rc-card">
+        <h3>Ongoing momentum</h3>
+        <p>Stay on track over the long haul with structure, check-ins, and a community that keeps you accountable.</p>
+      </div>
+      <div class="rc-card">
+        <h3>Flexible commitment</h3>
+        <p>Choose a 6- or 12-month membership to suit the stage and pace of your research project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP OPTIONS -->
+<section class="rc-plans" id="join">
+  <div class="container">
+    <div class="rc-plans-header">
+      <span class="section-label" style="color: var(--gold);">Membership options</span>
+      <h2 class="section-title">Choose the term that suits you</h2>
+      <p>Both options include full access to all training and ongoing support — the only difference is how long you're with us.</p>
+    </div>
+    <div class="rc-plan-grid">
+      <div class="rc-plan">
+        <h3>6-Month Membership</h3>
+        <div class="price">Get in touch for pricing</div>
+        <p>A focused half-year of training, support, and community — ideal for a defined project phase.</p>
+        <a href="#" class="btn-outline-white" onclick="openContactModal(event)">Enquire now</a>
+      </div>
+      <div class="rc-plan">
+        <h3>12-Month Membership</h3>
+        <div class="price">Get in touch for pricing</div>
+        <p>A full year of ongoing support and momentum — best value for sustained research projects.</p>
+        <a href="#" class="btn-outline-white" onclick="openContactModal(event)">Enquire now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to join The Research Circle?</h2>
+  <p>Get in touch and Claire will help you find the right membership for your research journey.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-secondary" style="border-color:#fff;color:#fff;" onclick="openContactModal(event)">Get in touch</a>
+    <a href="/training" class="btn-outline-white">Explore individual training</a>
+  </div>
+</section>
+
+</body>
+</html>
