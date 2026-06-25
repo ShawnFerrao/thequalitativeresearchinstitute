@@ -201,10 +201,14 @@
     margin-bottom: 0.75rem;
   }
 
-  .faq-accordion-trigger {
+  .faq-accordion-trigger,
+  .faq-accordion-trigger:focus,
+  .faq-accordion-trigger:focus-visible,
+  .faq-accordion-trigger:active {
     width: 100%;
-    background: #fff;
-    border: 1.5px solid var(--border);
+    background: #fff !important;
+    color: inherit;
+    border: 1.5px solid var(--border) !important;
     border-radius: 12px;
     padding: 1.1rem 1.5rem;
     display: flex;
@@ -218,8 +222,15 @@
 
   .faq-accordion-trigger:hover {
     border-color: var(--mid-blue) !important;
-    background: var(--warm-white);
+    background: var(--warm-white) !important;
     box-shadow: 0 4px 14px rgba(26,39,68,0.06);
+  }
+
+  .faq-accordion.open .faq-accordion-trigger:focus,
+  .faq-accordion.open .faq-accordion-trigger:focus-visible,
+  .faq-accordion.open .faq-accordion-trigger:active {
+    background: var(--navy) !important;
+    border-color: var(--navy) !important;
   }
 
   .faq-accordion.open .faq-accordion-trigger {
