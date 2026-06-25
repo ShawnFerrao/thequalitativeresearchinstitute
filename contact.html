@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact | The Qualitative Research Institute</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -30,8 +30,14 @@
     background: var(--warm-white);
     line-height: 1.7;
   }
+  p { font-family: 'Inter', sans-serif; }
+  a { -webkit-tap-highlight-color: transparent; }
 
-  button { -webkit-appearance: none; appearance: none; }
+  button {
+    -webkit-appearance: none; appearance: none;
+    font-family: 'Poppins', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
   button:focus { outline: none; }
 
 
@@ -56,7 +62,8 @@
     font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; line-height: 1.2; margin-bottom: 1rem;
   }
   .page-hero p {
-    font-size: 1rem; color: rgba(255,255,255,0.75); font-weight: 300; max-width: 480px; margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem; color: rgba(255,255,255,0.78); font-weight: 300; max-width: 480px; margin: 0 auto;
   }
 
   /* ── SHARED ── */
@@ -79,7 +86,8 @@
     color: var(--navy); line-height: 1.3; margin-bottom: 0.6rem;
   }
   .contact-form-wrap > p {
-    font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem;
   }
   .form-group { margin-bottom: 1.25rem; }
   .form-group label {
@@ -113,14 +121,16 @@
     font-weight: 500; cursor: pointer; transition: background 0.2s;
     margin-top: 0.5rem;
   }
-  .form-submit:hover { background: var(--accent); }
+  .form-submit:hover { background: var(--accent) !important; }
+  .form-submit:disabled { opacity: 0.7; cursor: default; }
 
   /* Success message */
   .form-success {
     display: none; background: #e8f4ea;
     border: 1px solid #a8d5b0; border-radius: 8px;
     padding: 1.25rem 1.5rem; margin-top: 1rem;
-    font-size: 0.875rem; color: #1e5a2e; line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem; color: #1e5a2e; line-height: 1.6;
   }
 
   /* ── SIDEBAR / CONTACT INFO ── */
@@ -140,20 +150,22 @@
   }
   .info-item:last-child { margin-bottom: 0; }
   .info-icon {
-    width: 34px; height: 34px; border-radius: 8px;
+    width: 36px; height: 36px; border-radius: 8px;
     background: var(--light-blue); flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.95rem;
   }
+  .info-icon svg { width: 17px; height: 17px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
   .info-item-text strong {
     display: block; font-size: 0.78rem; font-weight: 600;
-    color: var(--navy); margin-bottom: 0.1rem;
+    color: var(--navy); margin-bottom: 0.2rem;
   }
-  .info-item-text a {
-    color: var(--mid-blue); text-decoration: none; font-size: 0.875rem; transition: color 0.2s;
+  .info-item-text a,
+  .info-item-text a:visited {
+    color: var(--mid-blue); text-decoration: none; font-size: 0.9rem; transition: color 0.2s;
+    font-family: 'Inter', sans-serif;
   }
-  .info-item-text a:hover { color: var(--navy); }
-  .info-item-text span { color: var(--muted); font-size: 0.875rem; }
+  .info-item-text a:hover { color: var(--navy) !important; }
+  .info-item-text span { color: var(--muted); font-size: 0.9rem; font-family: 'Inter', sans-serif; }
 
   /* Schedule card */
   .schedule-card {
@@ -168,15 +180,17 @@
     line-height: 1.35; margin-bottom: 0.6rem;
   }
   .schedule-card p {
-    font-size: 0.82rem; color: rgba(255,255,255,0.7);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem; color: rgba(255,255,255,0.72);
     line-height: 1.7; margin-bottom: 1.25rem;
   }
-  .btn-gold {
+  .btn-gold,
+  .btn-gold:visited {
     background: var(--gold); color: var(--navy); padding: 0.75rem 1.5rem;
     border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.875rem;
     display: inline-block; transition: opacity 0.2s; font-family: 'Poppins', sans-serif;
   }
-  .btn-gold:hover { opacity: 0.88; }
+  .btn-gold:hover { opacity: 0.88 !important; }
 
   /* Training options strip */
   .options-card {
@@ -187,14 +201,15 @@
     font-size: 0.82rem; font-weight: 600; text-transform: uppercase;
     letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem;
   }
-  .option-link {
+  .option-link,
+  .option-link:visited {
     display: flex; align-items: center; justify-content: space-between;
     padding: 0.75rem 0; border-bottom: 1px solid var(--border);
     text-decoration: none; color: var(--navy);
-    font-size: 0.85rem; font-weight: 400; transition: color 0.2s;
+    font-size: 0.875rem; font-weight: 400; transition: color 0.2s;
   }
   .option-link:last-child { border-bottom: none; padding-bottom: 0; }
-  .option-link:hover { color: var(--mid-blue); }
+  .option-link:hover { color: var(--mid-blue) !important; }
   .option-link span { font-size: 0.75rem; color: var(--muted); }
 
   /* ── FAQ STRIP ── */
@@ -206,22 +221,34 @@
     font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 600;
     color: var(--navy); line-height: 1.3; margin-bottom: 0.6rem;
   }
-  .faq-strip p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
-  .btn-secondary {
+  .faq-strip p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem; color: var(--muted); margin-bottom: 1.5rem; max-width: 560px;
+  }
+  .btn-secondary,
+  .btn-secondary:visited {
     border: 1.5px solid var(--navy); color: var(--navy); padding: 0.7rem 1.75rem;
     border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 0.875rem;
     display: inline-block; transition: all 0.2s; font-family: 'Poppins', sans-serif;
   }
-  .btn-secondary:hover { background: var(--navy); color: #fff; }
-
-
+  .btn-secondary:hover { background: var(--navy) !important; color: #fff !important; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
   }
+  @media (max-width: 700px) {
+    .page-hero { padding: 3.5rem 1.25rem; }
+    .contact-section { padding: 3.5rem 1.25rem; }
+    .faq-strip { padding: 3.5rem 1.25rem; }
+    .schedule-card, .info-card, .options-card { padding: 1.5rem; }
+  }
   @media (max-width: 600px) {
     .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .info-item { gap: 0.7rem; }
+    .option-link { font-size: 0.82rem; }
   }
 </style>
 </head>
@@ -307,28 +334,28 @@
         <div class="info-card">
           <h3>Contact details</h3>
           <div class="info-item">
-            <div class="info-icon">✉️</div>
+            <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"></path><path d="M3.5 6.5 12 13l8.5-6.5"></path></svg></div>
             <div class="info-item-text">
               <strong>Email</strong>
               <a href="mailto:hello@thequalitativeresearchinstitute.com">hello@thequalitativeresearchinstitute.com</a>
             </div>
           </div>
           <div class="info-item">
-            <div class="info-icon">📞</div>
+            <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A14 14 0 0 1 3 6a2 2 0 0 1 2-2Z"></path></svg></div>
             <div class="info-item-text">
               <strong>Phone</strong>
               <a href="tel:+61400065945">+61 (0)400 065 945</a>
             </div>
           </div>
           <div class="info-item">
-            <div class="info-icon">📍</div>
+            <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg></div>
             <div class="info-item-text">
               <strong>Location</strong>
               <span>Mount Gravatt, Brisbane<br>Training in Brisbane, Sydney, Melbourne &amp; online</span>
             </div>
           </div>
           <div class="info-item">
-            <div class="info-icon">💼</div>
+            <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"></rect><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></div>
             <div class="info-item-text">
               <strong>LinkedIn</strong>
               <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">Connect with us</a>
@@ -339,10 +366,10 @@
         <!-- Quick links to training -->
         <div class="options-card">
           <h3>Explore options</h3>
-          <a href="training.html" class="option-link">
+          <a href="/training" class="option-link">
             Individual Training Programs <span>→</span>
           </a>
-          <a href="training.html#research-circle" class="option-link">
+          <a href="/research-circle" class="option-link">
             The Research Circle <span>→</span>
           </a>
           <a href="https://calendly.com/claire-clairemoran/research-health-check" class="option-link" target="_blank">
@@ -364,7 +391,7 @@
     <span class="section-label">Before you reach out</span>
     <h2>Have a question? Check the FAQs first.</h2>
     <p>Many common questions about training, booking, and the Research Circle are answered on our FAQ page.</p>
-    <a href="faqs.html" class="btn-secondary">View FAQs →</a>
+    <a href="/faqs" class="btn-secondary">View FAQs →</a>
   </div>
 </section>
 
@@ -372,7 +399,6 @@
 
 <script>
 
-  // Form submit — shows success message (connect to backend/email service for real sends)
   function handleSubmit(e) {
     e.preventDefault();
     const form = document.getElementById('contactForm');
@@ -382,14 +408,34 @@
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
 
-    // Simulate send — replace this block with your actual form handler / API call
-    setTimeout(() => {
-      form.reset();
-      success.style.display = 'block';
-      submitBtn.textContent = 'Send message →';
-      submitBtn.disabled = false;
-      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 800);
+    const payload = {
+      name: `${form.firstName.value} ${form.lastName.value}`.trim(),
+      phone: form.phone.value || form.email.value,
+      company: form.enquiry.value,
+      message: `Email: ${form.email.value}\n\n${form.message.value}`,
+    };
+
+    fetch('https://thequalitativeresearchinstitute.com/wp-json/tqri/v1/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Request failed');
+        return res.json();
+      })
+      .then(() => {
+        form.reset();
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      })
+      .catch(() => {
+        alert('Sorry, something went wrong sending your message. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      })
+      .finally(() => {
+        submitBtn.textContent = 'Send message →';
+        submitBtn.disabled = false;
+      });
   }
 </script>
 </body>
