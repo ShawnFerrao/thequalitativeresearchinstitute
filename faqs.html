@@ -22,8 +22,13 @@
     --gold: #D3B574;
     --border: #e2e8f0;
   }
-  button { -webkit-appearance: none; appearance: none; font-family: 'Poppins', sans-serif; }
+  button {
+    -webkit-appearance: none; appearance: none;
+    font-family: 'Poppins', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
   button:focus { outline: none; }
+  a { -webkit-tap-highlight-color: transparent; }
   body {
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
@@ -150,13 +155,15 @@
     white-space: nowrap;
   }
 
-  .faq-tab-btn:hover {
+  .faq-tab-btn:hover,
+  .faq-tab-btn:active {
     background: var(--cream-dark);
     border-color: var(--mid-blue);
     color: var(--navy);
   }
 
-  .faq-tab-btn.active {
+  .faq-tab-btn.active,
+  .faq-tab-btn.active:active {
     background: var(--navy);
     border-color: var(--navy);
     color: #fff;
