@@ -35,54 +35,6 @@
     line-height: 1.7;
   }
 
-  /* ── TOP BAR ── */
-  .top-bar {
-    background: var(--navy);
-    padding: 0.4rem 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.75rem; color: rgba(255,255,255,0.7);
-  }
-  .top-bar a { color: rgba(255,255,255,0.7); text-decoration: none; }
-  .top-bar a:hover { color: #fff; }
-  .top-bar-contact { display: flex; gap: 1.5rem; }
-  .top-bar-social a {
-    color: rgba(255,255,255,0.7); font-size: 0.8rem;
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 0.15rem 0.5rem; border-radius: 3px; transition: all 0.2s;
-  }
-  .top-bar-social a:hover { background: rgba(255,255,255,0.1); color: #fff; }
-
-  /* ── NAV ── */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--warm-white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 68px;
-  }
-  .nav-logo {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.25rem; font-weight: 600;
-    color: var(--navy); letter-spacing: 0.01em;
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    text-decoration: none; color: var(--muted);
-    font-size: 0.875rem; font-weight: 400;
-    letter-spacing: 0.02em; transition: color 0.2s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--navy); }
-  .nav-cta {
-    background: var(--navy); color: #fff;
-    border: none; padding: 0.5rem 1.25rem;
-    border-radius: 4px; font-family: 'Poppins', sans-serif;
-    font-size: 0.875rem; cursor: pointer;
-    text-decoration: none; transition: background 0.2s;
-  }
-  .nav-cta:hover { background: var(--blue); }
-
   /* ── HERO ── */
   .hero {
     position: relative; min-height: 90vh;
@@ -356,89 +308,17 @@
   .cta-strip p { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; }
   .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy); color: rgba(255,255,255,0.6);
-    padding: 3rem 2rem 2rem; font-size: 0.82rem;
-  }
-  .footer-inner {
-    max-width: 1080px; margin: 0 auto;
-    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem;
-  }
-  .footer-brand img { height: 30px; filter: brightness(0) invert(1); margin-bottom: 0.75rem; }
-  .footer-brand p { color: rgba(255,255,255,0.5); line-height: 1.7; margin-top: 0.5rem; }
-  footer h4 {
-    color: #fff; font-weight: 500; margin-bottom: 1rem;
-    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
-  }
-  footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  footer ul a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
-  footer ul a:hover { color: #fff; }
-  .footer-bottom {
-    max-width: 1080px; margin: 2rem auto 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1.5rem;
-    display: flex; justify-content: space-between;
-    flex-wrap: wrap; gap: 1rem;
-    font-size: 0.75rem; color: rgba(255,255,255,0.4);
-  }
-
-  /* ── SCROLL TO TOP ── */
-  .scroll-top {
-    position: fixed; bottom: 2rem; right: 2rem;
-    background: #0D297B; color: #fff;
-    border: none; border-radius: 50%;
-    width: 44px; height: 44px;
-    font-size: 1.1rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s, background 0.2s; z-index: 999;
-  }
-  .scroll-top.visible { opacity: 1; pointer-events: all; }
-  .scroll-top:hover { background: var(--accent); }
-  .scroll-top:focus, .scroll-top:active { outline: none; background: #0D297B; }
-
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .vp-grid { grid-template-columns: 1fr 1fr; }
     .training-grid { grid-template-columns: 1fr; }
-    .footer-inner { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     .vp-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-    .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; }
-    .footer-inner { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-
-<!-- TOP BAR -->
-<div class="top-bar">
-  <div class="top-bar-contact">
-    <a href="mailto:hello@clairemoran.com">hello@clairemoran.com</a>
-    <a href="tel:+61400065945">+61 (0)400 065 945</a>
-    <span>Mount Gravatt, Brisbane</span>
-  </div>
-  <div class="top-bar-social">
-    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="https://shawnferrao.com/claire-moran/">Claire Moran</a>
-  <ul class="nav-links">
-    <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
-    <li><a href="https://shawnferrao.com/claire-moran-training/">Training</a></li>
-    <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
-    <li><a href="https://shawnferrao.com/testimonials/">Testimonials</a></li>
-    <li><a href="https://shawnferrao.com/claire-blogs/">Blog</a></li>
-  </ul>
-  <a href="https://shawnferrao.com/claire-moran-training/" class="nav-cta">Get in touch</a>
-</nav>
 
 <!-- HERO -->
 <section class="hero">
@@ -617,48 +497,5 @@
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="https://clairemoran.com/wp-content/uploads/2024/09/Logo_Blue_transparent-300x75.png" alt="Claire Moran">
-      <p>Training, consultancy, and support to help you move your qualitative research forward with clarity and confidence.</p>
-      <p style="margin-top:0.5rem;">
-        <a href="mailto:hello@clairemoran.com" style="color:rgba(255,255,255,0.55);">hello@clairemoran.com</a> · +61 (0)400 065 945<br>
-        Mount Gravatt, Brisbane
-      </p>
-    </div>
-    <div>
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="https://shawnferrao.com/claire-moran-about-us/">About</a></li>
-        <li><a href="https://shawnferrao.com/claire-moran-training/">Training</a></li>
-        <li><a href="https://shawnferrao.com/research-circle/">The Research Circle</a></li>
-        <li><a href="https://clairemoran.com/faqs/">FAQs</a></li>
-        <li><a href="https://shawnferrao.com/claire-moran-contact-us/">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Resources</h4>
-      <ul>
-        <li><a href="https://shawnferrao.com/claire-blogs/">Blog</a></li>
-        <li><a href="https://shawnferrao.com/testimonials/">Testimonials</a></li>
-        <li><a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 Claire Moran. All rights reserved.</span>
-    <span>Brisbane · Sydney · Melbourne · Online globally</span>
-  </div>
-</footer>
-
-<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<script>
-  const btn = document.getElementById('scrollTopBtn');
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 400);
-  });
-</script>
 </body>
 </html>
