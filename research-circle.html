@@ -83,7 +83,7 @@
     display: inline-block; transition: background 0.2s;
     font-family: 'Poppins', sans-serif;
   }
-  .btn-primary:hover { background: var(--accent); }
+  .btn-primary:hover { background: var(--accent) !important; }
   .btn-secondary {
     border: 1.5px solid var(--navy); color: var(--navy);
     padding: 0.7rem 1.75rem; border-radius: 4px;
@@ -91,7 +91,7 @@
     display: inline-block; transition: all 0.2s;
     font-family: 'Poppins', sans-serif;
   }
-  .btn-secondary:hover { background: var(--navy); color: #fff; }
+  .btn-secondary:hover { background: var(--navy) !important; color: #fff !important; }
   .btn-outline-white {
     border: 1.5px solid rgba(255,255,255,0.6); color: #fff;
     padding: 0.75rem 2rem; border-radius: 4px;
@@ -99,7 +99,7 @@
     display: inline-block; transition: all 0.2s;
     font-family: 'Poppins', sans-serif;
   }
-  .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1) !important; border-color: #fff !important; }
 
   /* ── INTRO ── */
   .rc-intro {
@@ -180,7 +180,7 @@
     border-radius: 8px; padding: 2rem; text-align: left;
     transition: border-color 0.2s, transform 0.2s;
   }
-  .rc-plan:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+  .rc-plan:hover { border-color: rgba(255,255,255,0.3) !important; transform: translateY(-2px); }
   .rc-plan h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
   .rc-plan .price {
     display: inline-block;
