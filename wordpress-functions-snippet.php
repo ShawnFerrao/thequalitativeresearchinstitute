@@ -187,6 +187,44 @@ function tqri_upload_image( WP_REST_Request $request ) {
 	);
 }
 
+// ── Contact Form Submission ─────────────────────────────────────────────────
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'tqri/v1', '/contact-form', array(
+		'methods'             => 'POST',
+		'callback'            => 'tqri_submit_contact_form',
+		'permission_callback' => '__return_true',
+	) );
+} );
+
+function tqri_submit_contact_form( WP_REST_Request $request ) {
+	$body    = $request->get_json_params();
+	$name    = sanitize_text_field( $body['name'] ?? '' );
+	$phone   = sanitize_text_field( $body['phone'] ?? '' );
+	$company = sanitize_text_field( $body['company'] ?? '' );
+	$message = sanitize_textarea_field( $body['message'] ?? '' );
+
+	if ( empty( $name ) || empty( $phone ) || empty( $message ) ) {
+		return new WP_Error( 'missing_fields', 'Name, phone, and message are required', array( 'status' => 400 ) );
+	}
+
+	$to      = 'hello@thequalitativeresearchinstitute.com';
+	$subject = 'New enquiry from ' . $name . ' (TQRI website)';
+	$body_text  = "New contact form submission:\n\n";
+	$body_text .= "Name: $name\n";
+	$body_text .= "Phone: $phone\n";
+	$body_text .= "Company / Institution: " . ( $company ?: '—' ) . "\n\n";
+	$body_text .= "Message:\n$message\n";
+
+	$headers = array( 'Content-Type: text/plain; charset=UTF-8' );
+	$sent    = wp_mail( $to, $subject, $body_text, $headers );
+
+	if ( ! $sent ) {
+		return new WP_Error( 'mail_failed', 'Could not send email', array( 'status' => 500 ) );
+	}
+
+	return array( 'success' => true );
+}
+
 // ── CORS for blog/testimonials builder pages ──────────────────────────────────
 add_action( 'rest_api_init', function () {
 	remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );

@@ -205,11 +205,33 @@
     const btn = form.querySelector('.form-submit');
     btn.textContent = 'Sending…';
     btn.disabled = true;
-    setTimeout(() => {
-      form.reset();
-      success.style.display = 'block';
-      btn.textContent = 'Send message →';
-      btn.disabled = false;
-    }, 800);
+
+    const payload = {
+      name: form.name.value,
+      phone: form.phone.value,
+      company: form.company.value,
+      message: form.message.value,
+    };
+
+    fetch('https://thequalitativeresearchinstitute.com/wp-json/tqri/v1/contact-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Request failed');
+        return res.json();
+      })
+      .then(() => {
+        form.reset();
+        success.style.display = 'block';
+      })
+      .catch(() => {
+        alert('Sorry, something went wrong sending your message. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      })
+      .finally(() => {
+        btn.textContent = 'Send message →';
+        btn.disabled = false;
+      });
   }
 </script>
