@@ -192,10 +192,13 @@
     padding: 0.2rem 0.65rem; border-radius: 100px;
     margin-bottom: 0.9rem; align-self: flex-start;
   }
-  .testi-tag.tag-one-on-one { color: #7a3b1e; background: #fde8d0; }
-  .testi-tag.tag-institution { color: #3b5a1e; background: #ddf0cc; }
-  .testi-tag.tag-online { color: #3b4a7a; background: #dde4f8; }
-  .testi-tag.tag-research-design { color: #5a1e7a; background: #ead8f8; }
+  .testi-tag.tag-ai              { color: #1e4a6b; background: #d6eaf8; }
+  .testi-tag.tag-one-to-one     { color: #7a3b1e; background: #fde8d0; }
+  .testi-tag.tag-research-design { color: #3b5a1e; background: #ddf0cc; }
+  .testi-tag.tag-essentials      { color: #3b4a7a; background: #dde4f8; }
+  .testi-tag.tag-circle          { color: #5a3b1e; background: #faebd0; }
+  .testi-tag.tag-thematic        { color: #5a1e7a; background: #ead8f8; }
+  .testi-tag.tag-handbook        { color: #1e5a4a; background: #d0f0e8; }
 
   .stars { color: var(--accent); font-size: 0.72rem; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
   .testi-card p {
@@ -331,7 +334,7 @@
     <h2>Join hundreds of researchers who've transformed their qualitative skills</h2>
     <p>Explore individual training programs or enquire about The Research Circle membership.</p>
     <div class="cta-btns">
-      <a href="training.html" class="btn-gold">Explore Training</a>
+      <a href="/training" class="btn-gold">Explore Training</a>
       <a href="/research-circle" class="btn-outline-white">The Research Circle</a>
     </div>
   </div>
@@ -388,11 +391,13 @@
 
   function tagSlugClass(slug) {
     const map = {
-      'one-on-one': 'tag-one-on-one',
-      'institutions': 'tag-institution',
-      'institution': 'tag-institution',
-      'online': 'tag-online',
-      'research-design': 'tag-research-design'
+      'ai-in-research':                        'tag-ai',
+      'one-to-one-research-consultation':      'tag-one-to-one',
+      'research-design-methodology':           'tag-research-design',
+      'the-essentials-of-qualitative-research':'tag-essentials',
+      'the-research-circle':                   'tag-circle',
+      'thematic-analysis-qualitative-analysis':'tag-thematic',
+      'thematic-analysis-companion-handbook':  'tag-handbook',
     };
     return map[slug] || '';
   }
