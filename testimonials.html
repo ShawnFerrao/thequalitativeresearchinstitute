@@ -405,7 +405,7 @@
   function testiCard(post) {
     const terms = getTerms(post).filter(t => t.taxonomy === 'category');
     const sub = terms.find(t => subCats.some(c => c.id === t.id));
-    const tagLabel = sub ? sub.name : 'Testimonial';
+    const tagLabel = sub ? stripHTML(sub.name) : 'Testimonial';
     const tagClass = sub ? tagSlugClass(sub.slug) : '';
 
     const name = stripHTML(post.title?.rendered || '');
@@ -462,7 +462,7 @@
       const b = document.createElement('button');
       b.className = 'filter-btn';
       b.dataset.filter = String(c.id);
-      b.textContent = c.name;
+      b.textContent = stripHTML(c.name);
       b.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
         b.classList.add('active');
