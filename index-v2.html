@@ -362,6 +362,102 @@
   .cta-strip p { font-family: 'Inter', sans-serif; color: var(--muted); font-size: 1rem; margin-bottom: 2rem; }
   .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
+  /* ── LEAD MAGNET POPUP ── */
+  .lm-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(26,39,68,0.65); z-index: 3000;
+    align-items: center; justify-content: center; padding: 1rem;
+  }
+  .lm-overlay.active { display: flex; }
+  .lm-modal {
+    background: var(--warm-white); border-radius: 12px;
+    max-width: 780px; width: 100%; position: relative;
+    display: grid; grid-template-columns: 1fr 1fr;
+    overflow: hidden; box-shadow: 0 24px 60px rgba(26,39,68,0.25);
+    max-height: 90vh;
+  }
+  .lm-left {
+    background: var(--navy); color: #fff;
+    padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center;
+  }
+  .lm-eyebrow {
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em;
+    font-weight: 500; color: var(--gold); margin-bottom: 1rem;
+  }
+  .lm-left h2 {
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    font-weight: 600; line-height: 1.25; margin-bottom: 1rem; color: #fff;
+  }
+  .lm-left h2 em { font-style: italic; color: var(--gold); font-weight: 300; }
+  .lm-left p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem; color: rgba(255,255,255,0.72);
+    line-height: 1.7; margin-bottom: 1.5rem;
+  }
+  .lm-perks { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .lm-perks li {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem; color: rgba(255,255,255,0.8);
+    display: flex; align-items: flex-start; gap: 0.5rem;
+  }
+  .lm-perks li::before { content: '✓'; color: var(--gold); font-weight: 600; flex-shrink: 0; }
+  .lm-right {
+    padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center;
+  }
+  .lm-close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: none; border: none; font-size: 1.5rem; line-height: 1;
+    cursor: pointer; color: rgba(255,255,255,0.5); z-index: 1;
+    transition: color 0.2s;
+  }
+  .lm-close:hover { color: #fff !important; }
+  .lm-right h3 {
+    font-size: 1.2rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .lm-right > p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem; color: var(--muted); margin-bottom: 1.75rem; line-height: 1.6;
+  }
+  .lm-form-group { margin-bottom: 1rem; }
+  .lm-form-group label {
+    display: block; font-size: 0.75rem; font-weight: 500;
+    color: var(--navy); margin-bottom: 0.4rem;
+  }
+  .lm-form-group input {
+    width: 100%; border: 1px solid var(--border); border-radius: 6px;
+    padding: 0.7rem 1rem; font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem; font-weight: 300; color: var(--text);
+    background: var(--warm-white); -webkit-appearance: none; appearance: none;
+  }
+  .lm-form-group input:focus { outline: none; border-color: var(--mid-blue); }
+  .lm-submit {
+    width: 100%; background: #0D297B; color: #fff; border: none;
+    padding: 0.85rem 2rem; border-radius: 6px;
+    font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+    font-weight: 500; cursor: pointer; transition: background 0.2s; margin-bottom: 0.75rem;
+  }
+  .lm-submit:hover { background: var(--accent) !important; }
+  .lm-skip {
+    text-align: center; font-size: 0.75rem; color: var(--muted);
+    cursor: pointer; background: none; border: none;
+    font-family: 'Poppins', sans-serif; width: 100%;
+    transition: color 0.2s;
+  }
+  .lm-skip:hover { color: var(--navy) !important; }
+  .lm-success {
+    display: none; background: #e8f4ea; border: 1px solid #a8d5b0;
+    border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem;
+    font-family: 'Inter', sans-serif; font-size: 0.85rem;
+    color: #1e5a2e; line-height: 1.6;
+  }
+  @media (max-width: 640px) {
+    .lm-modal { grid-template-columns: 1fr; }
+    .lm-left { padding: 2rem 1.5rem; }
+    .lm-right { padding: 2rem 1.5rem; }
+    .lm-close { color: var(--muted); }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .vp-grid { grid-template-columns: 1fr 1fr; }
@@ -573,6 +669,50 @@
   </div>
 </section>
 
+<!-- LEAD MAGNET POPUP -->
+<div class="lm-overlay" id="lmOverlay" onclick="if(event.target===this)closeLm()">
+  <div class="lm-modal">
+    <button class="lm-close" onclick="closeLm()" aria-label="Close">&times;</button>
+
+    <!-- Left: offer -->
+    <div class="lm-left">
+      <span class="lm-eyebrow">Free guide</span>
+      <h2>Research Design <em>Simplified</em></h2>
+      <p>Subscribe to our newsletter and receive this practical guide to Ontology, Epistemology, and Methodology as a free gift.</p>
+      <ul class="lm-perks">
+        <li>Understand key research design concepts</li>
+        <li>Practical frameworks you can apply today</li>
+        <li>Written for qualitative researchers at every stage</li>
+      </ul>
+    </div>
+
+    <!-- Right: form -->
+    <div class="lm-right">
+      <h3>Get your free guide</h3>
+      <p>Enter your email below and we'll send it straight to your inbox.</p>
+      <form id="lmForm" onsubmit="handleLmSubmit(event)" novalidate>
+        <input type="hidden" name="post_id" value="32">
+        <input type="hidden" name="form_id" value="newsletter">
+        <input type="hidden" name="referer_title" value="Homepage Popup">
+        <input type="hidden" name="queried_id" value="32">
+        <input type="hidden" name="action" value="elementor_pro_forms_send_form">
+
+        <div class="lm-form-group">
+          <label for="lmName">First name</label>
+          <input type="text" id="lmName" name="form_fields[name]" placeholder="Jane" required>
+        </div>
+        <div class="lm-form-group">
+          <label for="lmEmail">Email address</label>
+          <input type="email" id="lmEmail" name="form_fields[email]" placeholder="you@university.edu.au" required>
+        </div>
+        <button type="submit" class="lm-submit" id="lmSubmitBtn">Subscribe &amp; get the guide →</button>
+        <button type="button" class="lm-skip" onclick="closeLm()">No thanks, I'll skip the free guide</button>
+        <div class="lm-success" id="lmSuccess">✓ &nbsp;Check your inbox — your free guide is on its way!</div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script>
   (async function () {
     const grid = document.getElementById('homeTestiGrid');
@@ -622,6 +762,49 @@
       grid.remove();
     }
   })();
+</script>
+
+<script>
+  // Lead magnet popup
+  function closeLm() {
+    document.getElementById('lmOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+    sessionStorage.setItem('lm_dismissed', '1');
+  }
+  function handleLmSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('lmForm');
+    const btn  = document.getElementById('lmSubmitBtn');
+    const success = document.getElementById('lmSuccess');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    const fd = new FormData(form);
+    fd.append('_nonce', (window.elementorFrontend && window.elementorFrontend.config && window.elementorFrontend.config.nonce) || '');
+    fetch('/wp-admin/admin-ajax.php', { method: 'POST', body: fd })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success === false) throw new Error('error');
+        form.reset();
+        success.style.display = 'block';
+        btn.style.display = 'none';
+        form.querySelector('.lm-skip').style.display = 'none';
+      })
+      .catch(() => {
+        alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
+        btn.textContent = 'Subscribe & get the guide →';
+        btn.disabled = false;
+      });
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLm(); });
+  // Auto-show after 3 s, once per session
+  window.addEventListener('load', function() {
+    if (!sessionStorage.getItem('lm_dismissed')) {
+      setTimeout(function() {
+        document.getElementById('lmOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }, 3000);
+    }
+  });
 </script>
 </body>
 </html>
