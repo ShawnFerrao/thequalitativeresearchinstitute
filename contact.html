@@ -274,28 +274,35 @@
         <span class="section-label">Send a message</span>
         <h2>How can we help you?</h2>
         <p>Fill in the form below and our team will be in touch within 1–2 business days. Prefer to talk? Use the scheduling link on the right.</p>
-        <form id="contactForm" onsubmit="handleSubmit(event)">
+        <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
+          <!-- Elementor routing — directs submission to the correct form handler -->
+          <input type="hidden" name="post_id" value="32">
+          <input type="hidden" name="form_id" value="5de85a7">
+          <input type="hidden" name="referer_title" value="Contact Us">
+          <input type="hidden" name="queried_id" value="32">
+          <input type="hidden" name="action" value="elementor_pro_forms_send_form">
+
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">First name</label>
-              <input type="text" id="firstName" name="firstName" placeholder="Jane" required>
+              <input type="text" id="firstName" name="form_fields[Fname]" placeholder="Jane" required>
             </div>
             <div class="form-group">
               <label for="lastName">Last name</label>
-              <input type="text" id="lastName" name="lastName" placeholder="Smith" required>
+              <input type="text" id="lastName" name="form_fields[Lname]" placeholder="Smith" required>
             </div>
           </div>
           <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" id="email" name="email" placeholder="jane@university.edu.au" required>
+            <input type="email" id="email" name="form_fields[email]" placeholder="jane@university.edu.au" required>
           </div>
           <div class="form-group">
             <label for="phone">Phone number <span class="optional">(optional)</span></label>
-            <input type="tel" id="phone" name="phone" placeholder="+61 400 000 000">
+            <input type="tel" id="phone" name="form_fields[Phone]" placeholder="+61 400 000 000">
           </div>
           <div class="form-group">
             <label for="enquiry">What are you enquiring about?</label>
-            <select id="enquiry" name="enquiry" required>
+            <select id="enquiry" name="form_fields[field_4d54f99]" required>
               <option value="" disabled selected>Select an option…</option>
               <option>Training programs — general enquiry</option>
               <option>Essentials of Qualitative Research</option>
@@ -310,7 +317,7 @@
           </div>
           <div class="form-group">
             <label for="message">Your message</label>
-            <textarea id="message" name="message" placeholder="Tell us a little about where you are in your research journey and what you're hoping to get support with…" required></textarea>
+            <textarea id="message" name="form_fields[message]" placeholder="Tell us a little about where you are in your research journey and what you're hoping to get support with…" required></textarea>
           </div>
           <button type="submit" class="form-submit">Send message →</button>
           <div class="form-success" id="formSuccess">
@@ -408,56 +415,27 @@
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
 
-    // Populate the hidden Elementor form fields
-    const widget = document.querySelector('[data-id="5de85a7"]');
-    const ef = widget ? widget.querySelector('form') : null;
-    if (!ef || !widget) {
-      submitBtn.textContent = 'Send message →'; submitBtn.disabled = false;
-      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-      return;
-    }
+    const formData = new FormData(form);
+    formData.append('_nonce', window.elementorFrontend?.config?.nonce || '');
 
-    ef.querySelector('#form-field-Fname').value         = form.firstName.value;
-    ef.querySelector('#form-field-Lname').value         = form.lastName.value;
-    ef.querySelector('#form-field-email').value         = form.email.value;
-    ef.querySelector('#form-field-Phone').value         = form.phone.value;
-    ef.querySelector('#form-field-field_4d54f99').value = form.enquiry.value;
-    ef.querySelector('#form-field-message').value       = form.message.value;
-
-    // Watch for Elementor's success/error message appearing in the widget
-    const observer = new MutationObserver(function (mutations) {
-      for (const mutation of mutations) {
-        for (const node of mutation.addedNodes) {
-          if (!node.classList) continue;
-          if (node.classList.contains('elementor-message-success')) {
-            observer.disconnect();
-            clearTimeout(timer);
-            form.reset();
-            success.style.display = 'block';
-            success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            submitBtn.textContent = 'Send message →'; submitBtn.disabled = false;
-            return;
-          }
-          if (node.classList.contains('elementor-message-danger')) {
-            observer.disconnect();
-            clearTimeout(timer);
-            submitBtn.textContent = 'Send message →'; submitBtn.disabled = false;
-            alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-            return;
-          }
-        }
-      }
-    });
-    observer.observe(widget, { childList: true, subtree: true });
-
-    const timer = setTimeout(function () {
-      observer.disconnect();
-      submitBtn.textContent = 'Send message →'; submitBtn.disabled = false;
-      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-    }, 15000);
-
-    // Click Elementor's own submit button — it handles AJAX, nonce, and email
-    ef.querySelector('button[type="submit"]').click();
+    fetch('/wp-admin/admin-ajax.php', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success === false) throw new Error('Form error');
+        form.reset();
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      })
+      .catch(() => {
+        alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      })
+      .finally(() => {
+        submitBtn.textContent = 'Send message →';
+        submitBtn.disabled = false;
+      });
   }
 </script>
 </body>
