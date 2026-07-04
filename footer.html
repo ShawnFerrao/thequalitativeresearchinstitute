@@ -256,17 +256,18 @@
       alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
     }, 15000);
 
-    jQuery(document)
+    const $widget = jQuery('[data-id="5de85a7"]');
+    $widget
       .one('elementor/forms/submit_success.tqri-modal', function () {
         clearTimeout(timer);
-        jQuery(document).off('elementor/forms/submit_error.tqri-modal');
+        $widget.off('elementor/forms/submit_error.tqri-modal');
         form.reset();
         success.style.display = 'block';
         btn.textContent = 'Send message →'; btn.disabled = false;
       })
       .one('elementor/forms/submit_error.tqri-modal', function () {
         clearTimeout(timer);
-        jQuery(document).off('elementor/forms/submit_success.tqri-modal');
+        $widget.off('elementor/forms/submit_success.tqri-modal');
         btn.textContent = 'Send message →'; btn.disabled = false;
         alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
       });
