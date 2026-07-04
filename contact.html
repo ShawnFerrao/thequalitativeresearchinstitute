@@ -408,38 +408,56 @@
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
 
-    // POST directly to Elementor's AJAX endpoint
-    const formData = new FormData();
-    formData.append('action', 'elementor_pro_forms_send_form');
-    formData.append('data[post_id]', '32');
-    formData.append('data[form_id]', '5de85a7');
-    formData.append('data[referer_title]', 'Contact');
-    formData.append('data[queried_id]', '32');
-    formData.append('data[form_fields][Fname]', form.firstName.value);
-    formData.append('data[form_fields][Lname]', form.lastName.value);
-    formData.append('data[form_fields][email]', form.email.value);
-    formData.append('data[form_fields][Phone]', form.phone.value);
-    formData.append('data[form_fields][field_4d54f99]', form.enquiry.value);
-    formData.append('data[form_fields][message]', form.message.value);
-    formData.append('_nonce', window.elementorFrontend?.config?.nonce || '');
+    // Populate the hidden Elementor form fields
+    const ef = document.querySelector('[data-id="5de85a7"] form');
+    if (!ef) {
+      submitBtn.textContent = 'Send message →'; submitBtn.disabled = false;
+      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      return;
+    }
 
-    fetch('/wp-admin/admin-ajax.php', {
-      method: 'POST',
-      body: formData,
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success === false) throw new Error('Form error');
-        form.reset();
-        success.style.display = 'block';
-        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      })
-      .catch(() => {
-        alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-      })
-      .finally(() => {
-        submitBtn.textContent = 'Send message →'; submitBtn.disabled = false;
-      });
+    ef.querySelector('#form-field-Fname').value         = form.firstName.value;
+    ef.querySelector('#form-field-Lname').value         = form.lastName.value;
+    ef.querySelector('#form-field-email').value         = form.email.value;
+    ef.querySelector('#form-field-Phone').value         = form.phone.value;
+    ef.querySelector('#form-field-field_4d54f99').value = form.enquiry.value;
+    ef.querySelector('#form-field-message').value       = form.message.value;
+
+    // Watch for Elementor's success/error message appearing in the widget
+    const widget = document.querySelector('[data-id="5de85a7"]');
+    const observer = new MutationObserver(function (mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!node.classList) continue;
+          if (node.classList.contains('elementor-message-success')) {
+            observer.disconnect();
+            clearTimeout(timer);
+            form.reset();
+            success.style.display = 'block';
+            success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            submitBtn.textContent = 'Send message →'; submitBtn.disabled = false;
+            return;
+          }
+          if (node.classList.contains('elementor-message-danger')) {
+            observer.disconnect();
+            clearTimeout(timer);
+            submitBtn.textContent = 'Send message →'; submitBtn.disabled = false;
+            alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(widget, { childList: true, subtree: true });
+
+    const timer = setTimeout(function () {
+      observer.disconnect();
+      submitBtn.textContent = 'Send message →'; submitBtn.disabled = false;
+      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+    }, 15000);
+
+    // Click Elementor's own submit button — it handles AJAX, nonce, and email
+    ef.querySelector('button[type="submit"]').click();
   }
 </script>
 </body>
