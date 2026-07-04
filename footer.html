@@ -249,28 +249,40 @@
     ef.querySelector('#form-field-field_4d54f99').value   = document.getElementById('modalEnquiry').value || 'Training programs — general enquiry';
     ef.querySelector('#form-field-message').value         = fullMsg;
 
+    // Watch the Elementor widget for its success/error message appearing in the DOM
+    const widget = document.querySelector('[data-id="5de85a7"]');
+    const observer = new MutationObserver(function (mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!node.classList) continue;
+          if (node.classList.contains('elementor-message-success') ||
+              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
+            observer.disconnect();
+            clearTimeout(timer);
+            form.reset();
+            success.style.display = 'block';
+            btn.textContent = 'Send message →'; btn.disabled = false;
+            return;
+          }
+          if (node.classList.contains('elementor-message-danger') ||
+              node.classList.contains('elementor-error')) {
+            observer.disconnect();
+            clearTimeout(timer);
+            btn.textContent = 'Send message →'; btn.disabled = false;
+            alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(widget, { childList: true, subtree: true });
+
     // Timeout fallback (15 s)
     const timer = setTimeout(function () {
-      jQuery(document).off('.tqri-modal');
+      observer.disconnect();
       btn.textContent = 'Send message →'; btn.disabled = false;
       alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
     }, 15000);
-
-    const $widget = jQuery('[data-id="5de85a7"]');
-    $widget
-      .one('elementor/forms/submit_success.tqri-modal', function () {
-        clearTimeout(timer);
-        $widget.off('elementor/forms/submit_error.tqri-modal');
-        form.reset();
-        success.style.display = 'block';
-        btn.textContent = 'Send message →'; btn.disabled = false;
-      })
-      .one('elementor/forms/submit_error.tqri-modal', function () {
-        clearTimeout(timer);
-        $widget.off('elementor/forms/submit_success.tqri-modal');
-        btn.textContent = 'Send message →'; btn.disabled = false;
-        alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-      });
 
     // Hand off to Elementor — it handles AJAX, nonce, and email delivery
     jQuery(ef).trigger('submit');
