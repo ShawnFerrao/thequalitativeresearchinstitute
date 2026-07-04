@@ -84,12 +84,14 @@
     display: block; font-size: 0.78rem; font-weight: 500; color: var(--navy); margin-bottom: 0.4rem;
   }
   .contact-modal .form-group input,
+  .contact-modal .form-group select,
   .contact-modal .form-group textarea {
     width: 100%; background: var(--warm-white); border: 1px solid var(--border); border-radius: 6px;
     padding: 0.7rem 1rem; font-family: 'Poppins', sans-serif; font-size: 0.875rem;
     font-weight: 300; color: var(--text); -webkit-appearance: none; appearance: none;
   }
   .contact-modal .form-group input:focus,
+  .contact-modal .form-group select:focus,
   .contact-modal .form-group textarea:focus {
     outline: none; border-color: var(--mid-blue);
   }
@@ -172,6 +174,21 @@
         <input type="tel" id="modalPhone" name="phone" placeholder="+61 400 000 000">
       </div>
       <div class="form-group">
+        <label for="modalEnquiry">Enquiry</label>
+        <select id="modalEnquiry" name="enquiry" required>
+          <option value="" disabled selected>Select an option…</option>
+          <option>Training programs — general enquiry</option>
+          <option>Essentials of Qualitative Research</option>
+          <option>Research Design Masterclass</option>
+          <option>Thematic Analysis Masterclass</option>
+          <option>AI Tools for Qualitative Research</option>
+          <option>The Research Circle membership</option>
+          <option>Individual Support (Research Health Check / Deep Dive)</option>
+          <option>Group or institutional training</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label for="modalCompany">Company / Institution</label>
         <input type="text" id="modalCompany" name="company" placeholder="University / Organisation">
       </div>
@@ -229,7 +246,7 @@
     ef.querySelector('#form-field-Lname').value           = nameParts.slice(1).join(' ') || '';
     ef.querySelector('#form-field-email').value           = document.getElementById('modalEmail').value || '';
     ef.querySelector('#form-field-Phone').value           = document.getElementById('modalPhone').value || '';
-    ef.querySelector('#form-field-field_4d54f99').value   = 'Training programs — general enquiry';
+    ef.querySelector('#form-field-field_4d54f99').value   = document.getElementById('modalEnquiry').value || 'Training programs — general enquiry';
     ef.querySelector('#form-field-message').value         = fullMsg;
 
     // Timeout fallback (15 s)
