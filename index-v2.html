@@ -773,21 +773,20 @@
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    // Find the Elementor newsletter form by its rendered field IDs
-    // Elementor renders field id="name" as #form-field-name
-    const nameEl  = document.getElementById('form-field-name');
-    const emailEl = document.getElementById('form-field-email');
-    const ef = nameEl ? nameEl.closest('form') : null;
+    // Find the Elementor newsletter form by its HTML id attribute (set via Form ID in Elementor)
+    const ef = document.getElementById('Newsletter');
 
-    if (!ef || !emailEl) {
+    if (!ef) {
       btn.textContent = 'Download the Free Decision Guide →'; btn.disabled = false;
       alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
       return;
     }
 
-    // Populate the Elementor form fields
-    nameEl.value  = document.getElementById('lmName').value;
-    emailEl.value = document.getElementById('lmEmail').value;
+    // Populate the Elementor form fields (query within the specific form to avoid duplicate ID collisions)
+    const nameEl  = ef.querySelector('#form-field-name');
+    const emailEl = ef.querySelector('#form-field-email');
+    if (nameEl)  nameEl.value  = document.getElementById('lmName').value;
+    if (emailEl) emailEl.value = document.getElementById('lmEmail').value;
 
     // Watch for Elementor's success/error response
     const widget = ef.closest('[data-id]') || ef.parentElement;

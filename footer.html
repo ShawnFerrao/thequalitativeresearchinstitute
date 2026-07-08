@@ -161,30 +161,25 @@
     <h2>Get in touch</h2>
     <p>Send us a quick message and our team will get back to you within 1–2 business days.</p>
     <form id="contactModalForm" onsubmit="handleContactModalSubmit(event)" novalidate>
-      <input type="hidden" name="post_id" value="32">
-      <input type="hidden" name="form_id" value="Contact">
-      <input type="hidden" name="referer_title" value="Get in touch">
-      <input type="hidden" name="queried_id" value="32">
-      <input type="hidden" name="action" value="elementor_pro_forms_send_form">
       <div class="form-group">
         <label for="modalFname">First name</label>
-        <input type="text" id="modalFname" name="form_fields[Fname]" placeholder="Jane" required>
+        <input type="text" id="modalFname" placeholder="Jane" required>
       </div>
       <div class="form-group">
         <label for="modalLname">Last name</label>
-        <input type="text" id="modalLname" name="form_fields[Lname]" placeholder="Smith" required>
+        <input type="text" id="modalLname" placeholder="Smith" required>
       </div>
       <div class="form-group">
         <label for="modalEmail">Email</label>
-        <input type="email" id="modalEmail" name="form_fields[email]" placeholder="jane@university.edu.au" required>
+        <input type="email" id="modalEmail" placeholder="jane@university.edu.au" required>
       </div>
       <div class="form-group">
         <label for="modalPhone">Phone</label>
-        <input type="tel" id="modalPhone" name="form_fields[Phone]" placeholder="+61 400 000 000">
+        <input type="tel" id="modalPhone" placeholder="+61 400 000 000">
       </div>
       <div class="form-group">
         <label for="modalEnquiry">Enquiry</label>
-        <select id="modalEnquiry" name="form_fields[field_4d54f99]" required>
+        <select id="modalEnquiry" required>
           <option value="" disabled selected>Select an option…</option>
           <option>Training programs — general enquiry</option>
           <option>Essentials of Qualitative Research</option>
@@ -198,12 +193,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="modalCompany">Company / Institution</label>
-        <input type="text" id="modalCompany" name="form_fields[company]" placeholder="University / Organisation">
-      </div>
-      <div class="form-group">
         <label for="modalMessage">Message</label>
-        <textarea id="modalMessage" name="form_fields[message]" placeholder="Tell us a little about what you're looking for…" required></textarea>
+        <textarea id="modalMessage" placeholder="Tell us a little about what you're looking for…" required></textarea>
       </div>
       <button type="submit" class="form-submit">Send message →</button>
       <div class="form-success" id="modalFormSuccess">✓ &nbsp;Thank you — your message has been sent. We'll be in touch within 1–2 business days.</div>
@@ -236,21 +227,60 @@
     const btn = form.querySelector('.form-submit');
     btn.textContent = 'Sending…';
     btn.disabled = true;
-    const fd = new FormData(form);
-    fd.append('_nonce', (window.elementorFrontend && window.elementorFrontend.config && window.elementorFrontend.config.nonce) || '');
-    fetch('/wp-admin/admin-ajax.php', { method: 'POST', body: fd })
-      .then(r => r.json())
-      .then(data => {
-        if (data.success === false) throw new Error('error');
-        form.reset();
-        success.style.display = 'block';
-      })
-      .catch(() => {
-        alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-      })
-      .finally(() => {
-        btn.textContent = 'Send message →';
-        btn.disabled = false;
-      });
+
+    // Find the Elementor contact form by widget data-id
+    const ef = document.querySelector('[data-id="5de85a7"] form');
+    if (!ef) {
+      btn.textContent = 'Send message →'; btn.disabled = false;
+      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      return;
+    }
+
+    // Populate Elementor form fields (within this specific form to avoid ID collisions)
+    const fName    = ef.querySelector('#form-field-Fname');
+    const fLname   = ef.querySelector('#form-field-Lname');
+    const fEmail   = ef.querySelector('#form-field-email');
+    const fPhone   = ef.querySelector('#form-field-Phone');
+    const fEnquiry = ef.querySelector('#form-field-Enquiry');
+    const fMessage = ef.querySelector('#form-field-message');
+    if (fName)    fName.value    = document.getElementById('modalFname').value || '';
+    if (fLname)   fLname.value   = document.getElementById('modalLname').value || '';
+    if (fEmail)   fEmail.value   = document.getElementById('modalEmail').value || '';
+    if (fPhone)   fPhone.value   = document.getElementById('modalPhone').value || '';
+    if (fEnquiry) fEnquiry.value = document.getElementById('modalEnquiry').value || '';
+    if (fMessage) fMessage.value = document.getElementById('modalMessage').value || '';
+
+    // Watch Elementor widget for success/error message nodes
+    const widget = document.querySelector('[data-id="5de85a7"]');
+    const observer = new MutationObserver(function(mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!node.classList) continue;
+          if (node.classList.contains('elementor-message-success') ||
+              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
+            observer.disconnect(); clearTimeout(timer);
+            form.reset();
+            success.style.display = 'block';
+            btn.textContent = 'Send message →'; btn.disabled = false;
+            return;
+          }
+          if (node.classList.contains('elementor-message-danger') || node.classList.contains('elementor-error')) {
+            observer.disconnect(); clearTimeout(timer);
+            btn.textContent = 'Send message →'; btn.disabled = false;
+            alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(widget, { childList: true, subtree: true });
+
+    const timer = setTimeout(function() {
+      observer.disconnect();
+      btn.textContent = 'Send message →'; btn.disabled = false;
+      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+    }, 15000);
+
+    jQuery(ef).trigger('submit');
   }
 </script>
