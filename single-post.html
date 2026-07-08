@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Blog | The Qualitative Research Institute</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --navy: #1a2744;
+    --blue: #2d4a8a;
+    --mid-blue: #4a6fa5;
+    --light-blue: #d6e4f7;
+    --cream: #f8f5f0;
+    --warm-white: #fdfcfa;
+    --text: #2a2a2a;
+    --muted: #6b7280;
+    --accent: #DDA15E;
+    --gold: #D3B574;
+    --border: #e2e8f0;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--warm-white);
+    line-height: 1.7;
+  }
+
+  /* ── POST HERO ── */
+  .post-hero {
+    background: var(--navy); color: #fff;
+    padding: 4rem 2rem 3rem; position: relative; overflow: hidden;
+  }
+  .post-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(45,74,138,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .post-hero-inner { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; }
+  .post-hero-meta {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .post-hero-cat {
+    display: inline-block; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 0.72rem; font-weight: 500; color: var(--accent);
+  }
+  .post-hero-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem; color: rgba(255,255,255,0.5);
+  }
+  .post-hero h1 {
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 600; line-height: 1.2;
+    margin-bottom: 1rem; max-width: 760px;
+  }
+  .post-hero-excerpt {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem; color: rgba(255,255,255,0.7);
+    max-width: 640px; line-height: 1.7; font-weight: 300;
+  }
+  .post-hero-featured {
+    margin-top: 2.5rem; border-radius: 8px; overflow: hidden;
+    max-height: 420px;
+  }
+  .post-hero-featured img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  /* ── LAYOUT ── */
+  .post-layout {
+    max-width: 1080px; margin: 0 auto;
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ── POST CONTENT ── */
+  .post-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem; line-height: 1.85; color: var(--text);
+  }
+  .post-body h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.45rem; font-weight: 600; color: var(--navy);
+    margin: 2.25rem 0 0.75rem;
+  }
+  .post-body h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem; font-weight: 600; color: var(--navy);
+    margin: 1.75rem 0 0.6rem;
+  }
+  .post-body h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem; font-weight: 500; color: var(--navy);
+    margin: 1.5rem 0 0.5rem;
+  }
+  .post-body p { margin-bottom: 1.25rem; }
+  .post-body ul, .post-body ol {
+    margin: 0 0 1.25rem 1.5rem;
+  }
+  .post-body li { margin-bottom: 0.4rem; }
+  .post-body a { color: var(--blue); text-decoration: underline; }
+  .post-body a:hover { color: var(--navy); }
+  .post-body blockquote {
+    border-left: 3px solid var(--gold);
+    margin: 1.75rem 0; padding: 1rem 1.5rem;
+    background: var(--cream); border-radius: 0 6px 6px 0;
+    font-style: italic; color: var(--navy);
+    font-family: 'Poppins', sans-serif; font-size: 1.05rem; font-weight: 300;
+  }
+  .post-body img {
+    max-width: 100%; border-radius: 8px; margin: 1.5rem 0;
+    display: block;
+  }
+  .post-body hr {
+    border: none; border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+  .post-body figure { margin: 1.5rem 0; }
+  .post-body figcaption {
+    font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 0.5rem;
+  }
+
+  /* Post tags */
+  .post-tags { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+  .post-tags-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--muted); margin-bottom: 0.75rem; font-weight: 500;
+  }
+  .post-tags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .post-tag {
+    background: var(--cream); border: 1px solid var(--border);
+    border-radius: 20px; padding: 0.3rem 0.85rem;
+    font-size: 0.78rem; color: var(--navy); text-decoration: none;
+    font-family: 'Inter', sans-serif; transition: background 0.2s;
+  }
+  .post-tag:hover { background: var(--light-blue); }
+
+  /* Author card */
+  .author-card {
+    margin-top: 2.5rem; background: var(--cream);
+    border-radius: 10px; padding: 1.75rem;
+    display: flex; gap: 1.25rem; align-items: flex-start;
+  }
+  .author-avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--navy); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 600;
+    flex-shrink: 0;
+  }
+  .author-info h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.3rem;
+  }
+  .author-info p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin: 0;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 2rem; }
+  .sidebar-widget {
+    background: var(--cream); border-radius: 10px; padding: 1.5rem;
+  }
+  .sidebar-widget h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.75rem; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--navy);
+    margin-bottom: 1.1rem; padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Recent posts */
+  .sidebar-posts { display: flex; flex-direction: column; gap: 1rem; }
+  .sidebar-post { display: flex; gap: 0.85rem; align-items: flex-start; text-decoration: none; }
+  .sidebar-post-thumb {
+    width: 60px; height: 60px; border-radius: 6px; object-fit: cover;
+    flex-shrink: 0; background: var(--border);
+  }
+  .sidebar-post-thumb-placeholder {
+    width: 60px; height: 60px; border-radius: 6px; flex-shrink: 0;
+    background: var(--light-blue);
+  }
+  .sidebar-post-info {}
+  .sidebar-post-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem; font-weight: 500; color: var(--navy);
+    line-height: 1.4; display: block; margin-bottom: 0.25rem;
+    transition: color 0.2s;
+  }
+  .sidebar-post:hover .sidebar-post-title { color: var(--blue); }
+  .sidebar-post-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem; color: var(--muted);
+  }
+
+  /* Categories */
+  .sidebar-cats { display: flex; flex-direction: column; gap: 0.5rem; }
+  .sidebar-cat {
+    display: flex; justify-content: space-between; align-items: center;
+    text-decoration: none; color: var(--text); font-family: 'Inter', sans-serif;
+    font-size: 0.875rem; padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border); transition: color 0.2s;
+  }
+  .sidebar-cat:last-child { border-bottom: none; }
+  .sidebar-cat:hover { color: var(--blue); }
+  .sidebar-cat-count {
+    font-size: 0.75rem; color: var(--muted);
+    background: var(--border); border-radius: 10px;
+    padding: 0.1rem 0.5rem;
+  }
+
+  /* Sidebar CTA */
+  .sidebar-cta {
+    background: var(--navy); border-radius: 10px; padding: 1.75rem;
+    text-align: center; color: #fff;
+  }
+  .sidebar-cta h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 0.6rem;
+  }
+  .sidebar-cta p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem; color: rgba(255,255,255,0.65);
+    line-height: 1.6; margin-bottom: 1.25rem;
+  }
+  .sidebar-cta a {
+    display: inline-block; background: var(--accent); color: #fff;
+    text-decoration: none; padding: 0.6rem 1.4rem;
+    border-radius: 4px; font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem; font-weight: 500; transition: background 0.2s;
+  }
+  .sidebar-cta a:hover { background: #c8873b; }
+
+  /* ── RELATED POSTS ── */
+  .related-section {
+    background: var(--cream); padding: 4rem 2rem;
+  }
+  .related-inner { max-width: 1080px; margin: 0 auto; }
+  .related-eyebrow {
+    display: inline-block; text-transform: uppercase; letter-spacing: 0.15em;
+    font-size: 0.72rem; font-weight: 500; color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .related-inner > h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 2rem;
+  }
+  .related-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem;
+  }
+  .related-card {
+    background: var(--warm-white); border-radius: 10px;
+    overflow: hidden; border: 1px solid var(--border);
+    display: flex; flex-direction: column; text-decoration: none;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .related-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-3px); }
+  .related-card-thumb {
+    width: 100%; height: 180px; object-fit: cover; display: block;
+    background: var(--light-blue);
+  }
+  .related-card-thumb-placeholder {
+    width: 100%; height: 180px; background: var(--light-blue);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--mid-blue); font-size: 2rem;
+  }
+  .related-card-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+  .related-card-cat {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--accent); font-weight: 500; margin-bottom: 0.4rem;
+  }
+  .related-card-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem; font-weight: 600; color: var(--navy);
+    line-height: 1.4; margin-bottom: 0.5rem; flex: 1;
+  }
+  .related-card-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem; color: var(--muted); margin-top: auto;
+  }
+
+  /* ── CTA STRIP ── */
+  .cta-strip {
+    background: var(--navy); color: #fff;
+    padding: 4rem 2rem; text-align: center;
+  }
+  .cta-strip h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 0.75rem;
+  }
+  .cta-strip p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem; color: rgba(255,255,255,0.7);
+    margin-bottom: 2rem; font-weight: 300;
+  }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #fff; border: none;
+    padding: 0.75rem 2rem; border-radius: 4px;
+    font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+    font-weight: 500; cursor: pointer; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #c8873b; }
+  .btn-outline {
+    background: transparent; color: #fff;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 0.75rem 2rem; border-radius: 4px;
+    font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+    font-weight: 400; text-decoration: none; transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+  /* ── SKELETON ── */
+  .skeleton {
+    background: linear-gradient(90deg, #e8eaf0 25%, #f0f2f7 50%, #e8eaf0 75%);
+    background-size: 200% 100%; animation: shimmer 1.4s infinite;
+    border-radius: 4px;
+  }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  /* ── ERROR ── */
+  .post-error {
+    max-width: 560px; margin: 5rem auto; padding: 2rem; text-align: center;
+  }
+  .post-error h2 { font-size: 1.4rem; color: var(--navy); margin-bottom: 0.5rem; }
+  .post-error p { font-family: 'Inter', sans-serif; color: var(--muted); margin-bottom: 1.5rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .post-layout { grid-template-columns: 1fr; }
+    .sidebar { display: contents; }
+    .sidebar-widget, .sidebar-cta { display: none; }
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .related-grid { grid-template-columns: 1fr; }
+    .author-card { flex-direction: column; }
+    .post-layout { padding: 2rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Post hero — populated by JS -->
+<div id="postHero" class="post-hero">
+  <div class="post-hero-inner">
+    <div class="post-hero-meta">
+      <span class="post-hero-cat skeleton" id="heroCategory" style="width:80px;height:14px;display:inline-block;"></span>
+      <span class="post-hero-date skeleton" id="heroDate" style="width:100px;height:12px;display:inline-block;"></span>
+    </div>
+    <h1 id="heroTitle" class="skeleton" style="height:2.8rem;max-width:700px;margin-bottom:1rem;">&nbsp;</h1>
+    <p id="heroExcerpt" class="post-hero-excerpt skeleton" style="height:3rem;max-width:600px;">&nbsp;</p>
+  </div>
+</div>
+
+<!-- Error state (hidden by default) -->
+<div class="post-error" id="postError" style="display:none;">
+  <h2>Post not found</h2>
+  <p>We couldn't load this article. It may have been moved or deleted.</p>
+  <a href="/blog" class="btn-primary">Back to blog</a>
+</div>
+
+<!-- Main layout -->
+<div class="post-layout" id="postLayout">
+
+  <!-- Article body -->
+  <article>
+    <div class="post-body" id="postBody">
+      <p class="skeleton" style="height:1rem;margin-bottom:0.75rem;">&nbsp;</p>
+      <p class="skeleton" style="height:1rem;margin-bottom:0.75rem;width:90%;">&nbsp;</p>
+      <p class="skeleton" style="height:1rem;margin-bottom:0.75rem;width:80%;">&nbsp;</p>
+      <p class="skeleton" style="height:1rem;margin-bottom:2rem;width:70%;">&nbsp;</p>
+      <p class="skeleton" style="height:1rem;margin-bottom:0.75rem;">&nbsp;</p>
+      <p class="skeleton" style="height:1rem;margin-bottom:0.75rem;width:85%;">&nbsp;</p>
+    </div>
+
+    <!-- Tags -->
+    <div class="post-tags" id="postTags" style="display:none;">
+      <p class="post-tags-label">Tags</p>
+      <div class="post-tags-list" id="postTagsList"></div>
+    </div>
+
+    <!-- Author card -->
+    <div class="author-card" id="authorCard" style="display:none;">
+      <div class="author-avatar" id="authorAvatar">CM</div>
+      <div class="author-info">
+        <h4 id="authorName">Dr. Claire Moran</h4>
+        <p>Qualitative research trainer, consultant, and author. Founder of The Qualitative Research Institute. PhD in Education, specialising in qualitative methodology.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-widget sidebar-cta">
+      <h3>Ready to go deeper?</h3>
+      <p>Explore our training programs and community for qualitative researchers.</p>
+      <a href="/training">View training →</a>
+    </div>
+
+    <div class="sidebar-widget">
+      <h3>Recent posts</h3>
+      <div class="sidebar-posts" id="sidebarRecentPosts">
+        <div class="skeleton" style="height:60px;border-radius:6px;"></div>
+        <div class="skeleton" style="height:60px;border-radius:6px;"></div>
+        <div class="skeleton" style="height:60px;border-radius:6px;"></div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <h3>Categories</h3>
+      <div class="sidebar-cats" id="sidebarCategories">
+        <div class="skeleton" style="height:32px;border-radius:4px;"></div>
+        <div class="skeleton" style="height:32px;border-radius:4px;"></div>
+        <div class="skeleton" style="height:32px;border-radius:4px;"></div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- Related posts -->
+<section class="related-section" id="relatedSection" style="display:none;">
+  <div class="related-inner">
+    <span class="related-eyebrow">Keep reading</span>
+    <h2>Related articles</h2>
+    <div class="related-grid" id="relatedGrid"></div>
+  </div>
+</section>
+
+<!-- CTA strip -->
+<section class="cta-strip">
+  <h2>Ready to move your research forward?</h2>
+  <p>Training, community, and one-to-one support for qualitative researchers at every stage.</p>
+  <div class="cta-btns">
+    <a href="/training" class="btn-primary">Explore training</a>
+    <a href="#" class="btn-outline" onclick="openContactModal(event)">Get in touch</a>
+  </div>
+</section>
+
+<script>
+const BASE = 'https://thequalitativeresearchinstitute.com/wp-json/wp/v2';
+
+function stripHTML(html) {
+  const d = document.createElement('div');
+  d.innerHTML = html;
+  return d.textContent || d.innerText || '';
+}
+
+function fmtDate(str) {
+  return new Date(str).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function getSlug() {
+  // Works on both pretty URLs (/2026/07/08/my-post/) and ?p=123
+  const parts = window.location.pathname.replace(/\/$/, '').split('/').filter(Boolean);
+  return parts[parts.length - 1] || null;
+}
+
+async function loadPost() {
+  const slug = getSlug();
+  if (!slug) { showError(); return; }
+
+  try {
+    // Fetch post by slug
+    const res = await fetch(`${BASE}/posts?slug=${slug}&_embed=true`);
+    const posts = await res.json();
+    if (!posts.length) { showError(); return; }
+    const post = posts[0];
+
+    // Hero
+    document.getElementById('pageTitle').textContent = stripHTML(post.title.rendered) + ' | The Qualitative Research Institute';
+    const heroTitle = document.getElementById('heroTitle');
+    heroTitle.innerHTML = post.title.rendered;
+    heroTitle.className = '';
+    heroTitle.removeAttribute('style');
+
+    const heroDate = document.getElementById('heroDate');
+    heroDate.textContent = fmtDate(post.date);
+    heroDate.className = 'post-hero-date';
+    heroDate.removeAttribute('style');
+
+    // Category from embed
+    const cats = post._embedded?.['wp:term']?.[0] || [];
+    const primaryCat = cats.find(c => c.taxonomy === 'category' && c.slug !== 'uncategorized') || cats[0];
+    const heroCategory = document.getElementById('heroCategory');
+    if (primaryCat) {
+      heroCategory.textContent = primaryCat.name;
+      heroCategory.className = 'post-hero-cat';
+      heroCategory.removeAttribute('style');
+    } else {
+      heroCategory.remove();
+    }
+
+    // Featured image in hero
+    const featImg = post._embedded?.['wp:featuredmedia']?.[0];
+    if (featImg?.source_url) {
+      const heroImg = document.createElement('div');
+      heroImg.className = 'post-hero-featured';
+      heroImg.innerHTML = `<img src="${featImg.source_url}" alt="${stripHTML(post.title.rendered)}" loading="eager">`;
+      document.querySelector('.post-hero-inner').appendChild(heroImg);
+    }
+
+    // Excerpt
+    const heroExcerpt = document.getElementById('heroExcerpt');
+    if (post.excerpt?.rendered) {
+      heroExcerpt.innerHTML = stripHTML(post.excerpt.rendered);
+      heroExcerpt.className = 'post-hero-excerpt';
+      heroExcerpt.removeAttribute('style');
+    } else {
+      heroExcerpt.remove();
+    }
+
+    // Post body
+    const postBody = document.getElementById('postBody');
+    postBody.innerHTML = post.content.rendered;
+
+    // Tags
+    const tags = post._embedded?.['wp:term']?.[1] || [];
+    if (tags.length) {
+      const tagsList = document.getElementById('postTagsList');
+      tagsList.innerHTML = tags.map(t =>
+        `<a class="post-tag" href="/blog?tag=${t.slug}">${t.name}</a>`
+      ).join('');
+      document.getElementById('postTags').style.display = 'block';
+    }
+
+    // Author card
+    const author = post._embedded?.author?.[0];
+    if (author) {
+      document.getElementById('authorName').textContent = author.name;
+      const initials = author.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      document.getElementById('authorAvatar').textContent = initials;
+      document.getElementById('authorCard').style.display = 'flex';
+    } else {
+      document.getElementById('authorCard').style.display = 'flex';
+    }
+
+    // Related posts (same category)
+    if (primaryCat) {
+      loadRelated(post.id, primaryCat.id);
+    }
+
+  } catch (e) {
+    showError();
+  }
+}
+
+async function loadRelated(currentId, catId) {
+  try {
+    const res = await fetch(`${BASE}/posts?categories=${catId}&per_page=3&exclude=${currentId}&_embed=true`);
+    const posts = await res.json();
+    if (!posts.length) return;
+
+    const grid = document.getElementById('relatedGrid');
+    grid.innerHTML = posts.map(p => {
+      const img = p._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+      const cats = p._embedded?.['wp:term']?.[0] || [];
+      const cat = cats.find(c => c.taxonomy === 'category' && c.slug !== 'uncategorized');
+      return `
+        <a class="related-card" href="${p.link}">
+          ${img
+            ? `<img class="related-card-thumb" src="${img}" alt="${stripHTML(p.title.rendered)}" loading="lazy">`
+            : `<div class="related-card-thumb-placeholder">✍</div>`
+          }
+          <div class="related-card-body">
+            ${cat ? `<span class="related-card-cat">${cat.name}</span>` : ''}
+            <h3 class="related-card-title">${stripHTML(p.title.rendered)}</h3>
+            <span class="related-card-date">${fmtDate(p.date)}</span>
+          </div>
+        </a>`;
+    }).join('');
+
+    document.getElementById('relatedSection').style.display = 'block';
+  } catch (e) { /* silently skip */ }
+}
+
+async function loadSidebar() {
+  // Recent posts
+  try {
+    const res = await fetch(`${BASE}/posts?per_page=5&_embed=true`);
+    const posts = await res.json();
+    const container = document.getElementById('sidebarRecentPosts');
+    container.innerHTML = posts.map(p => {
+      const img = p._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+      return `
+        <a class="sidebar-post" href="${p.link}">
+          ${img
+            ? `<img class="sidebar-post-thumb" src="${img}" alt="${stripHTML(p.title.rendered)}" loading="lazy">`
+            : `<div class="sidebar-post-thumb-placeholder"></div>`
+          }
+          <div class="sidebar-post-info">
+            <span class="sidebar-post-title">${stripHTML(p.title.rendered)}</span>
+            <span class="sidebar-post-date">${fmtDate(p.date)}</span>
+          </div>
+        </a>`;
+    }).join('');
+  } catch (e) {
+    document.getElementById('sidebarRecentPosts').innerHTML = '';
+  }
+
+  // Categories
+  try {
+    const res = await fetch(`${BASE}/categories?per_page=20&hide_empty=true`);
+    const cats = await res.json();
+    const filtered = cats.filter(c => c.slug !== 'uncategorized');
+    const container = document.getElementById('sidebarCategories');
+    container.innerHTML = filtered.map(c => `
+      <a class="sidebar-cat" href="/blog?category=${c.slug}">
+        <span>${c.name}</span>
+        <span class="sidebar-cat-count">${c.count}</span>
+      </a>`
+    ).join('');
+  } catch (e) {
+    document.getElementById('sidebarCategories').innerHTML = '';
+  }
+}
+
+function showError() {
+  document.getElementById('postHero').style.display = 'none';
+  document.getElementById('postLayout').style.display = 'none';
+  document.getElementById('postError').style.display = 'block';
+}
+
+loadPost();
+loadSidebar();
+</script>
+
+</body>
+</html>
