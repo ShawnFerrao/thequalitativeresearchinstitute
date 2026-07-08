@@ -162,12 +162,8 @@
     <p>Send us a quick message and our team will get back to you within 1–2 business days.</p>
     <form id="contactModalForm" onsubmit="handleContactModalSubmit(event)" novalidate>
       <div class="form-group">
-        <label for="modalFname">First name</label>
-        <input type="text" id="modalFname" placeholder="Jane" required>
-      </div>
-      <div class="form-group">
-        <label for="modalLname">Last name</label>
-        <input type="text" id="modalLname" placeholder="Smith" required>
+        <label for="modalName">Name</label>
+        <input type="text" id="modalName" placeholder="Jane Smith" required>
       </div>
       <div class="form-group">
         <label for="modalEmail">Email</label>
@@ -191,6 +187,10 @@
           <option>Group or institutional training</option>
           <option>Something else</option>
         </select>
+      </div>
+      <div class="form-group">
+        <label for="modalCompany">Company / Institution</label>
+        <input type="text" id="modalCompany" placeholder="University of Queensland">
       </div>
       <div class="form-group">
         <label for="modalMessage">Message</label>
@@ -228,59 +228,38 @@
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    // The Elementor contact form widget lives in the footer template, so it's always in the DOM
-    const ef = document.querySelector('[data-id="5de85a7"] form');
-    if (!ef) {
-      btn.textContent = 'Send message →'; btn.disabled = false;
-      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-      return;
-    }
+    const nonce = (window.elementorFrontend &&
+                   window.elementorFrontend.config &&
+                   window.elementorFrontend.config.nonces &&
+                   window.elementorFrontend.config.nonces.atomicFormsSendForm) || '';
 
-    // Populate Elementor form fields (scoped to this widget to avoid duplicate-ID collisions)
-    const fName    = ef.querySelector('#form-field-Fname');
-    const fLname   = ef.querySelector('#form-field-Lname');
-    const fEmail   = ef.querySelector('#form-field-email');
-    const fPhone   = ef.querySelector('#form-field-Phone');
-    const fEnquiry = ef.querySelector('#form-field-Enquiry');
-    const fMessage = ef.querySelector('#form-field-message');
-    if (fName)    fName.value    = document.getElementById('modalFname').value || '';
-    if (fLname)   fLname.value   = document.getElementById('modalLname').value || '';
-    if (fEmail)   fEmail.value   = document.getElementById('modalEmail').value || '';
-    if (fPhone)   fPhone.value   = document.getElementById('modalPhone').value || '';
-    if (fEnquiry) fEnquiry.value = document.getElementById('modalEnquiry').value || '';
-    if (fMessage) fMessage.value = document.getElementById('modalMessage').value || '';
+    const fd = new FormData();
+    fd.append('action',        'elementor_pro_forms_send_form');
+    fd.append('post_id',       '32');
+    fd.append('form_id',       '5de85a7');
+    fd.append('queried_id',    '233');
+    fd.append('referer_title', 'Contact Us');
+    fd.append('_nonce',        nonce);
+    fd.append('form_fields[name]',           document.getElementById('modalName').value);
+    fd.append('form_fields[email]',          document.getElementById('modalEmail').value);
+    fd.append('form_fields[Phone]',          document.getElementById('modalPhone').value);
+    fd.append('form_fields[field_4d54f99]',  document.getElementById('modalEnquiry').value);
+    fd.append('form_fields[Company]',        document.getElementById('modalCompany').value);
+    fd.append('form_fields[message]',        document.getElementById('modalMessage').value);
 
-    // Watch Elementor widget for success/error message nodes
-    const widget = document.querySelector('[data-id="5de85a7"]');
-    const observer = new MutationObserver(function(mutations) {
-      for (const mutation of mutations) {
-        for (const node of mutation.addedNodes) {
-          if (!node.classList) continue;
-          if (node.classList.contains('elementor-message-success') ||
-              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
-            observer.disconnect(); clearTimeout(timer);
-            form.reset();
-            success.style.display = 'block';
-            btn.textContent = 'Send message →'; btn.disabled = false;
-            return;
-          }
-          if (node.classList.contains('elementor-message-danger') || node.classList.contains('elementor-error')) {
-            observer.disconnect(); clearTimeout(timer);
-            btn.textContent = 'Send message →'; btn.disabled = false;
-            alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-            return;
-          }
-        }
-      }
-    });
-    observer.observe(widget, { childList: true, subtree: true });
-
-    const timer = setTimeout(function() {
-      observer.disconnect();
-      btn.textContent = 'Send message →'; btn.disabled = false;
-      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-    }, 15000);
-
-    jQuery(ef).trigger('submit');
+    fetch('/wp-admin/admin-ajax.php', { method: 'POST', body: fd })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.success === false) throw new Error('server error');
+        form.reset();
+        success.style.display = 'block';
+      })
+      .catch(function() {
+        alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      })
+      .finally(function() {
+        btn.textContent = 'Send message →';
+        btn.disabled = false;
+      });
   }
 </script>
