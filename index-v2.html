@@ -779,19 +779,25 @@
     btn.textContent = 'Sending…';
     btn.disabled = true;
     const fd = new FormData(form);
-    fd.append('_nonce', (window.elementorFrontend && window.elementorFrontend.config && window.elementorFrontend.config.nonce) || '');
+    const nonce = (window.elementorProFrontend && window.elementorProFrontend.config && window.elementorProFrontend.config.nonce)
+               || (window.elementorFrontend && window.elementorFrontend.config && window.elementorFrontend.config.nonce)
+               || '';
+    fd.append('_nonce', nonce);
     fetch('/wp-admin/admin-ajax.php', { method: 'POST', body: fd })
       .then(r => r.json())
       .then(data => {
-        if (data.success === false) throw new Error('error');
+        if (data.success === false) {
+          const msg = (data.data && data.data.message) ? data.data.message : 'unknown error';
+          throw new Error(msg);
+        }
         form.reset();
         success.style.display = 'block';
         btn.style.display = 'none';
         form.querySelector('.lm-skip').style.display = 'none';
       })
-      .catch(() => {
-        alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
-        btn.textContent = 'Subscribe & get the guide →';
+      .catch((err) => {
+        alert('Sorry, something went wrong (' + err.message + '). Please email us at hello@thequalitativeresearchinstitute.com.');
+        btn.textContent = 'Download the Free Decision Guide →';
         btn.disabled = false;
       });
   }
