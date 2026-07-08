@@ -773,25 +773,21 @@
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    // Find the hidden Elementor newsletter form widget in the DOM
-    // Look for any Elementor form whose form_id hidden field matches
-    let ef = null;
-    document.querySelectorAll('form').forEach(function(f) {
-      const fid = f.querySelector('input[name="form_id"]');
-      if (fid && (fid.value === 'Newsletter' || fid.value === 'newsletter')) ef = f;
-    });
+    // Find the Elementor newsletter form by its rendered field IDs
+    // Elementor renders field id="name" as #form-field-name
+    const nameEl  = document.getElementById('form-field-name');
+    const emailEl = document.getElementById('form-field-email');
+    const ef = nameEl ? nameEl.closest('form') : null;
 
-    if (!ef) {
+    if (!ef || !emailEl) {
       btn.textContent = 'Download the Free Decision Guide →'; btn.disabled = false;
       alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
       return;
     }
 
     // Populate the Elementor form fields
-    const nameField = ef.querySelector('[id*="name"],[name*="name"]');
-    const emailField = ef.querySelector('[id*="email"],[name*="email"]:not([name="form_id"])');
-    if (nameField) nameField.value = document.getElementById('lmName').value;
-    if (emailField) emailField.value = document.getElementById('lmEmail').value;
+    nameEl.value  = document.getElementById('lmName').value;
+    emailEl.value = document.getElementById('lmEmail').value;
 
     // Watch for Elementor's success/error response
     const widget = ef.closest('[data-id]') || ef.parentElement;
