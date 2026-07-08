@@ -691,12 +691,6 @@
       <h3>Get your free decision guide</h3>
       <p>Enter your details below and we'll send it straight to your inbox.</p>
       <form id="lmForm" onsubmit="handleLmSubmit(event)" novalidate>
-        <input type="hidden" name="post_id" value="32">
-        <input type="hidden" name="form_id" value="Newsletter">
-        <input type="hidden" name="referer_title" value="Homepage Popup">
-        <input type="hidden" name="queried_id" value="32">
-        <input type="hidden" name="action" value="elementor_pro_forms_send_form">
-
         <div class="lm-form-group">
           <label for="lmName">First name</label>
           <input type="text" id="lmName" name="form_fields[name]" placeholder="Jane" required>
@@ -778,28 +772,60 @@
     const success = document.getElementById('lmSuccess');
     btn.textContent = 'Sending…';
     btn.disabled = true;
-    const fd = new FormData(form);
-    const nonce = (window.elementorProFrontend && window.elementorProFrontend.config && window.elementorProFrontend.config.nonce)
-               || (window.elementorFrontend && window.elementorFrontend.config && window.elementorFrontend.config.nonce)
-               || '';
-    fd.append('_nonce', nonce);
-    fetch('/wp-admin/admin-ajax.php', { method: 'POST', body: fd })
-      .then(r => r.json())
-      .then(data => {
-        if (data.success === false) {
-          const msg = (data.data && data.data.message) ? data.data.message : 'unknown error';
-          throw new Error(msg);
+
+    // Find the hidden Elementor newsletter form widget in the DOM
+    // Look for any Elementor form whose form_id hidden field matches
+    let ef = null;
+    document.querySelectorAll('form').forEach(function(f) {
+      const fid = f.querySelector('input[name="form_id"]');
+      if (fid && (fid.value === 'Newsletter' || fid.value === 'newsletter')) ef = f;
+    });
+
+    if (!ef) {
+      btn.textContent = 'Download the Free Decision Guide →'; btn.disabled = false;
+      alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
+      return;
+    }
+
+    // Populate the Elementor form fields
+    const nameField = ef.querySelector('[id*="name"],[name*="name"]');
+    const emailField = ef.querySelector('[id*="email"],[name*="email"]:not([name="form_id"])');
+    if (nameField) nameField.value = document.getElementById('lmName').value;
+    if (emailField) emailField.value = document.getElementById('lmEmail').value;
+
+    // Watch for Elementor's success/error response
+    const widget = ef.closest('[data-id]') || ef.parentElement;
+    const observer = new MutationObserver(function(mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!node.classList) continue;
+          if (node.classList.contains('elementor-message-success') ||
+              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
+            observer.disconnect(); clearTimeout(timer);
+            form.reset();
+            success.style.display = 'block';
+            btn.style.display = 'none';
+            document.getElementById('lmForm').querySelector('.lm-skip').style.display = 'none';
+            return;
+          }
+          if (node.classList.contains('elementor-message-danger') || node.classList.contains('elementor-error')) {
+            observer.disconnect(); clearTimeout(timer);
+            btn.textContent = 'Download the Free Decision Guide →'; btn.disabled = false;
+            alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
+            return;
+          }
         }
-        form.reset();
-        success.style.display = 'block';
-        btn.style.display = 'none';
-        form.querySelector('.lm-skip').style.display = 'none';
-      })
-      .catch((err) => {
-        alert('Sorry, something went wrong (' + err.message + '). Please email us at hello@thequalitativeresearchinstitute.com.');
-        btn.textContent = 'Download the Free Decision Guide →';
-        btn.disabled = false;
-      });
+      }
+    });
+    observer.observe(widget, { childList: true, subtree: true });
+
+    const timer = setTimeout(function() {
+      observer.disconnect();
+      btn.textContent = 'Download the Free Decision Guide →'; btn.disabled = false;
+      alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
+    }, 15000);
+
+    jQuery(ef).trigger('submit');
   }
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLm(); });
   // Auto-show after 3 s, once per session
