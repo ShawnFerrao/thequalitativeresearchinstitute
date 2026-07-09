@@ -782,20 +782,31 @@ body {
   <div class="radar-inner">
     <div class="radar-text">
       <span class="radar-eyebrow">Visual comparison</span>
-      <h2 class="radar-title">How the three approaches differ across five key dimensions</h2>
-      <p class="radar-desc">Each approach has a different profile — not better or worse, but suited to different research purposes, team structures, and epistemological positions. This chart maps those differences so you can see at a glance where each approach excels and where it is less suited.</p>
+      <h2 class="radar-title">See where your study sits — live as you answer</h2>
+      <p class="radar-desc">Each of the five axes maps to one of your questions. As you answer, a <strong style="color:#c8a352;">gold dashed line</strong> plots your study's profile against the three approaches. When you finish, the closest match is highlighted. The chart shows five dimensions:</p>
+      <ul style="font-family:'Inter',sans-serif;font-size:0.82rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem;padding-left:1.1rem;">
+        <li><strong style="color:var(--navy);">Interpretive aim</strong> — are you categorising, mapping, or interpreting?</li>
+        <li><strong style="color:var(--navy);">Reliability focus</strong> — how central is consistency across coders?</li>
+        <li><strong style="color:var(--navy);">Team-based</strong> — does your context require multi-coder accountability?</li>
+        <li><strong style="color:var(--navy);">Coding flexibility</strong> — are codes fixed, evolving, or fully open?</li>
+        <li><strong style="color:var(--navy);">Theoretical depth</strong> — how much does epistemological framing drive your analysis?</li>
+      </ul>
       <div class="radar-legend">
         <div class="radar-legend-item">
           <div class="radar-dot cr"></div>
-          <span><span class="radar-legend-name">Coding Reliability TA</span> <span class="radar-legend-tag">— "small q"</span></span>
+          <span><span class="radar-legend-name">Coding Reliability TA</span></span>
         </div>
         <div class="radar-legend-item">
           <div class="radar-dot cf"></div>
-          <span><span class="radar-legend-name">Codebook / Coding Frame TA</span> <span class="radar-legend-tag">— "medium q"</span></span>
+          <span><span class="radar-legend-name">Codebook / Coding Frame TA</span></span>
         </div>
         <div class="radar-legend-item">
           <div class="radar-dot rta"></div>
-          <span><span class="radar-legend-name">Reflexive TA</span> <span class="radar-legend-tag">— "big Q"</span></span>
+          <span><span class="radar-legend-name">Reflexive TA</span></span>
+        </div>
+        <div class="radar-legend-item">
+          <div style="width:10px;height:10px;border-radius:50%;background:#c8a352;flex-shrink:0;"></div>
+          <span><span class="radar-legend-name" style="color:#c8a352;">Your study</span> <span class="radar-legend-tag">— updates as you answer</span></span>
         </div>
       </div>
     </div>
@@ -881,94 +892,153 @@ const SCORES = [
 ];
 
 // ── RADAR CHART ────────────────────────────────────────────────
-(function drawRadar() {
-  const canvas = document.getElementById('radarCanvas');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const cx = W / 2, cy = H / 2 + 10;
-  const R = Math.min(W, H) * 0.36;
+// 5 axes map directly to the 5 questions:
+// [0] Interpretive aim     ← Q1: organise→0.1, map→0.5, interpret→0.95
+// [1] Reliability focus    ← Q3: neutral→0.95, shared→0.5, reflexive→0.05
+// [2] Team-based           ← Q5: multi-site→0.95, applied→0.65, solo→0.1
+// [3] Coding flexibility   ← Q2: topic→0.1, patterned→0.5, constructed→0.95
+// [4] Theoretical depth    ← Q4: reliability→0.1, transparency→0.5, reflexivity→0.95
 
-  const axes = [
-    'Interpretive\ndepth',
-    'Consistency &\nreliability',
-    'Team\nscalability',
-    'Coding\nflexibility',
-    'Theoretical\nengagement',
-  ];
-  const N = axes.length;
+// Per-answer user profile value for each axis
+const Q_PROFILE = [
+  [0.10, 0.50, 0.95],  // Q1 → axis 0 (interpretive aim)
+  [0.10, 0.50, 0.95],  // Q2 → axis 3 (coding flexibility)
+  [0.95, 0.50, 0.05],  // Q3 → axis 1 (reliability focus)
+  [0.10, 0.50, 0.95],  // Q4 → axis 4 (theoretical depth)
+  [0.95, 0.65, 0.10],  // Q5 → axis 2 (team-based)
+];
+// Which radar axis each question drives
+const Q_AXIS = [0, 3, 1, 4, 2];
 
-  // Scores per approach (0–1): [interpretive, consistency, team, flexibility, theoretical]
-  const approaches = [
-    { name: 'CR',  color: '#2d4a8a', fill: 'rgba(45,74,138,0.12)',  values: [0.15, 0.95, 0.90, 0.15, 0.20] },
-    { name: 'CF',  color: '#a85d20', fill: 'rgba(168,93,32,0.12)',   values: [0.55, 0.55, 0.75, 0.55, 0.50] },
-    { name: 'RTA', color: '#1a5c3a', fill: 'rgba(26,92,58,0.12)',    values: [0.95, 0.10, 0.20, 0.95, 0.90] },
-  ];
+const canvas = document.getElementById('radarCanvas');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+const cx = W / 2, cy = H / 2 + 8;
+const R = Math.min(W, H) * 0.34;
 
-  function pt(i, r) {
-    const angle = (Math.PI * 2 * i / N) - Math.PI / 2;
-    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
-  }
+const AXES = [
+  'Interpretive aim',
+  'Reliability focus',
+  'Team-based',
+  'Coding flexibility',
+  'Theoretical depth',
+];
+const N = AXES.length;
+
+// Fixed approach profiles: [interp, reliability, team, flexibility, theoretical]
+const APPROACHES = [
+  { label: 'Coding Reliability', color: '#2d4a8a', fill: 'rgba(45,74,138,0.10)',  v: [0.10, 0.95, 0.90, 0.10, 0.10] },
+  { label: 'Codebook TA',        color: '#a85d20', fill: 'rgba(168,93,32,0.10)',  v: [0.50, 0.55, 0.70, 0.55, 0.50] },
+  { label: 'Reflexive TA',       color: '#1a5c3a', fill: 'rgba(26,92,58,0.10)',   v: [0.95, 0.08, 0.15, 0.95, 0.95] },
+];
+
+// Current animated user profile (starts null per axis)
+let userProfile = [null, null, null, null, null];
+let animFrame = null;
+let animTarget = [0,0,0,0,0];
+let animCurrent = [0,0,0,0,0];
+
+function pt(i, r) {
+  const angle = (Math.PI * 2 * i / N) - Math.PI / 2;
+  return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+}
+
+function drawRadar(highlightKey) {
+  ctx.clearRect(0, 0, W, H);
 
   // Grid rings
-  ctx.strokeStyle = '#dde1ec';
-  ctx.lineWidth = 1;
-  [0.25, 0.5, 0.75, 1].forEach(fraction => {
+  [0.25, 0.5, 0.75, 1].forEach(f => {
     ctx.beginPath();
     for (let i = 0; i < N; i++) {
-      const p = pt(i, R * fraction);
+      const p = pt(i, R * f);
       i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
     }
     ctx.closePath();
-    ctx.stroke();
+    ctx.strokeStyle = '#dde1ec'; ctx.lineWidth = 1; ctx.stroke();
   });
 
-  // Axis spokes
-  ctx.strokeStyle = '#dde1ec';
+  // Spokes
   for (let i = 0; i < N; i++) {
     const p = pt(i, R);
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(p.x, p.y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(p.x, p.y);
+    ctx.strokeStyle = '#dde1ec'; ctx.lineWidth = 1; ctx.stroke();
   }
 
-  // Approach polygons
-  approaches.forEach(ap => {
+  // Approach polygons (dim non-winner when result shown)
+  APPROACHES.forEach(ap => {
+    const dimmed = highlightKey && ap.label !== APPROACHES.find(a => a._key === highlightKey)?.label;
+    const alpha = dimmed ? 0.35 : 1;
+    ctx.globalAlpha = alpha;
     ctx.beginPath();
     for (let i = 0; i < N; i++) {
-      const p = pt(i, R * ap.values[i]);
+      const p = pt(i, R * ap.v[i]);
       i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
     }
     ctx.closePath();
-    ctx.fillStyle = ap.fill;
-    ctx.fill();
-    ctx.strokeStyle = ap.color;
-    ctx.lineWidth = 2.5;
-    ctx.stroke();
-
-    // Dots
-    for (let i = 0; i < N; i++) {
-      const p = pt(i, R * ap.values[i]);
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
-      ctx.fillStyle = ap.color;
-      ctx.fill();
-    }
+    ctx.fillStyle = ap.fill; ctx.fill();
+    ctx.strokeStyle = ap.color; ctx.lineWidth = 2; ctx.stroke();
+    ctx.globalAlpha = 1;
   });
 
-  // Axis labels
-  const LBL_PAD = 18;
-  ctx.fillStyle = '#4a5568';
-  ctx.font = '500 11px Inter, Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  for (let i = 0; i < N; i++) {
-    const p = pt(i, R + LBL_PAD);
-    const lines = axes[i].split('\n');
-    const lineH = 14;
-    lines.forEach((line, li) => {
-      const yOff = (li - (lines.length - 1) / 2) * lineH;
-      ctx.fillText(line, p.x, p.y + yOff);
-    });
+  // User profile polygon (gold, animated)
+  const hasAny = animCurrent.some(v => v > 0.01);
+  if (hasAny) {
+    ctx.beginPath();
+    for (let i = 0; i < N; i++) {
+      const v = animCurrent[i];
+      const p = pt(i, R * v);
+      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(211,181,116,0.18)';
+    ctx.fill();
+    ctx.strokeStyle = '#c8a352';
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([5,3]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Dots on user profile
+    for (let i = 0; i < N; i++) {
+      if (animCurrent[i] > 0.01) {
+        const p = pt(i, R * animCurrent[i]);
+        ctx.beginPath(); ctx.arc(p.x, p.y, 4.5, 0, Math.PI*2);
+        ctx.fillStyle = '#c8a352'; ctx.fill();
+      }
+    }
   }
-})();
+
+  // Axis labels
+  for (let i = 0; i < N; i++) {
+    const p = pt(i, R + PAD);
+    ctx.fillText(AXES[i], p.x, p.y);
+  }
+}
+
+// Tag each approach with its key for highlight matching
+APPROACHES[0]._key = 'CR';
+APPROACHES[1]._key = 'CF';
+APPROACHES[2]._key = 'RTA';
+
+// Animate user profile update
+function animateProfile(target) {
+  if (animFrame) cancelAnimationFrame(animFrame);
+  const speed = 0.12;
+  function step() {
+    let done = true;
+    for (let i = 0; i < N; i++) {
+      const diff = target[i] - animCurrent[i];
+      if (Math.abs(diff) > 0.005) { animCurrent[i] += diff * speed; done = false; }
+      else animCurrent[i] = target[i];
+    }
+    drawRadar(window._highlightKey);
+    if (!done) animFrame = requestAnimationFrame(step);
+  }
+  step();
+}
+
+// Initial static draw
+drawRadar(null);
 
 const DATA = {
   CR: {
@@ -1026,21 +1096,21 @@ function pick(q, opt) {
 
   // Update button states
   for (let i = 0; i < 3; i++) {
-    const btn = document.getElementById(`q${q}o${i}`);
-    btn.classList.toggle('selected', i === opt);
+    document.getElementById(`q${q}o${i}`).classList.toggle('selected', i === opt);
   }
-
-  // Mark question block as answered
   document.getElementById(`qb-${q}`).classList.add('answered');
-
-  // Update pip
   document.getElementById(`pip${q}`).classList.add('done');
 
-  // Update result if all answered
+  // Update radar: map this answer to its axis
+  const axisIdx = Q_AXIS[q];
+  animTarget[axisIdx] = Q_PROFILE[q][opt];
+  animateProfile([...animTarget]);
+
   const allDone = answers.every(a => a !== null);
-  if (allDone) renderResult();
-  else {
-    // Reset score bars if user changes an answer after completion
+  if (allDone) {
+    renderResult();
+  } else {
+    window._highlightKey = null;
     document.getElementById('scoreChartWrap').classList.remove('visible');
     document.getElementById('resultCard').classList.remove('has-result');
     document.getElementById('resultContent').innerHTML = '';
@@ -1071,6 +1141,11 @@ function renderResult() {
 
   const max = Math.max(totals.CR, totals.CF, totals.RTA);
   const winners = Object.keys(totals).filter(k => totals[k] === max);
+
+  // Highlight winning approach on radar
+  window._highlightKey = winners.length === 1 ? winners[0] : null;
+  drawRadar(window._highlightKey);
+
   const card = document.getElementById('resultCard');
   const content = document.getElementById('resultContent');
 
@@ -1143,6 +1218,9 @@ function retake() {
   document.getElementById('resultContent').innerHTML = '';
   document.getElementById('scoreChartWrap').classList.remove('visible');
   ['barCR','barCF','barRTA'].forEach(id => document.getElementById(id).style.width = '0%');
+  animTarget = [0,0,0,0,0]; animCurrent = [0,0,0,0,0];
+  window._highlightKey = null;
+  drawRadar(null);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
