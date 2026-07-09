@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Which Type of Thematic Analysis? — QRI Visual Guide</title>
+<style>
+/* ─── RESET & BASE ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:      #1a2744;
+  --navy-mid:  #243358;
+  --ink:       #1c1e2c;
+  --muted:     #6b7a99;
+  --border:    #d8dce8;
+  --paper:     #ffffff;
+  --light:     #f4f5f8;
+
+  --cr:        #2b4c99;
+  --cr-light:  #e8edf8;
+  --cr-mid:    #b8c8e8;
+
+  --cf:        #a85d20;
+  --cf-light:  #f5ece0;
+  --cf-mid:    #e8c4a0;
+
+  --rta:       #1a5c3a;
+  --rta-light: #e2f0e8;
+  --rta-mid:   #a8d0b8;
+
+  --gold:      #c8a352;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  color: var(--ink);
+  background: #888;
+}
+
+/* ─── PAGE SHELL ───────────────────────────────────────────── */
+.page {
+  width: 210mm;
+  height: 297mm;
+  background: var(--paper);
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto 2mm;
+  display: flex;
+  flex-direction: column;
+}
+
+@media print {
+  body { background: none; margin: 0; }
+  .page {
+    margin: 0;
+    page-break-after: always;
+    break-after: page;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+}
+
+/* ─── SHARED COMPONENTS ────────────────────────────────────── */
+.eyebrow {
+  font-size: 6.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.rule { height: 1px; background: var(--border); }
+.rule--navy { background: rgba(255,255,255,0.15); }
+
+/* ─── APPROACH BADGES ──────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+.badge-cr  { background: var(--cr);  color: #fff; }
+.badge-cf  { background: var(--cf);  color: #fff; }
+.badge-rta { background: var(--rta); color: #fff; }
+
+/* approach color accents */
+.cr-color  { color: var(--cr); }
+.cf-color  { color: var(--cf); }
+.rta-color { color: var(--rta); }
+
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE 1 — COVER
+═══════════════════════════════════════════════════════════ */
+.cover {
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18mm 20mm;
+  gap: 0;
+}
+
+.cover-kicker {
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 7mm;
+}
+
+.cover h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: normal;
+  line-height: 1.25;
+  color: #fff;
+  max-width: 130mm;
+  margin-bottom: 5mm;
+}
+
+.cover-sub {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.65);
+  max-width: 110mm;
+  line-height: 1.65;
+  margin-bottom: 12mm;
+}
+
+/* Spectrum bar */
+.spectrum-bar {
+  width: 120mm;
+  margin-bottom: 10mm;
+}
+.spectrum-track {
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--cr), #7b6ec0, var(--cf), #8a9040, var(--rta));
+  margin-bottom: 5mm;
+}
+.spectrum-labels {
+  display: flex;
+  justify-content: space-between;
+}
+.spectrum-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+.spectrum-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+}
+.spectrum-dot.cr  { background: var(--cr); }
+.spectrum-dot.cf  { background: var(--cf); }
+.spectrum-dot.rta { background: var(--rta); }
+.spectrum-item-name {
+  font-size: 7px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  text-align: center;
+}
+.spectrum-item-tag {
+  font-size: 6px;
+  color: rgba(255,255,255,0.45);
+}
+.spectrum-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4mm;
+  font-size: 6px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cover-footer {
+  position: absolute;
+  bottom: 10mm;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 18mm;
+}
+.cover-footer-brand {
+  font-size: 7.5px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+}
+.cover-footer-brand strong {
+  display: block;
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+  margin-bottom: 1px;
+}
+.cover-qmark {
+  font-family: Georgia, serif;
+  font-size: 72px;
+  color: rgba(255,255,255,0.05);
+  line-height: 1;
+  position: absolute;
+  bottom: 14mm;
+  right: 22mm;
+  user-select: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE 2 — AT A GLANCE
+═══════════════════════════════════════════════════════════ */
+.inner { padding: 12mm 14mm; }
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 7mm;
+  padding-bottom: 4mm;
+  border-bottom: 1px solid var(--border);
+}
+.page-header-left {}
+.page-header-title {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: normal;
+  color: var(--ink);
+  margin-top: 2px;
+  line-height: 1.25;
+}
+.page-number {
+  font-size: 7px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Three glance cards */
+.glance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4mm;
+  margin-bottom: 6mm;
+}
+.glance-card {
+  border-radius: 4px;
+  overflow: hidden;
+}
+.glance-card-head {
+  padding: 5mm 5mm 4mm;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.glance-card-head.cr  { background: var(--cr);  color: #fff; }
+.glance-card-head.cf  { background: var(--cf);  color: #fff; }
+.glance-card-head.rta { background: var(--rta); color: #fff; }
+.glance-card-tag {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.glance-card-name {
+  font-family: Georgia, serif;
+  font-size: 11.5px;
+  font-weight: normal;
+  line-height: 1.25;
+}
+.glance-card-body {
+  padding: 4mm 5mm;
+  background: var(--light);
+  display: flex;
+  flex-direction: column;
+  gap: 3mm;
+}
+.glance-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+}
+.glance-row-label {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.glance-row-val {
+  font-size: 8.5px;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+/* Philosophical positions strip */
+.philosophy-strip {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 4mm;
+  margin-top: 0;
+}
+.philosophy-item {
+  padding: 3.5mm 4mm;
+  border-radius: 3px;
+  border-left: 3px solid;
+}
+.philosophy-item.cr  { border-color: var(--cr);  background: var(--cr-light); }
+.philosophy-item.cf  { border-color: var(--cf);  background: var(--cf-light); }
+.philosophy-item.rta { border-color: var(--rta); background: var(--rta-light); }
+.philosophy-item-label {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.philosophy-item.cr  .philosophy-item-label { color: var(--cr); }
+.philosophy-item.cf  .philosophy-item-label { color: var(--cf); }
+.philosophy-item.rta .philosophy-item-label { color: var(--rta); }
+.philosophy-item-text {
+  font-size: 8px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* Key question boxes */
+.key-questions {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 4mm;
+  margin-top: 4mm;
+}
+.kq-box {
+  padding: 3.5mm 4mm;
+  background: var(--navy);
+  border-radius: 3px;
+}
+.kq-label {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+.kq-text {
+  font-size: 8px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* page footer */
+.page-foot {
+  margin-top: auto;
+  padding-top: 3mm;
+  padding-bottom: 4mm;
+  padding-left: 14mm;
+  padding-right: 14mm;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-foot-brand {
+  font-size: 6.5px;
+  color: var(--muted);
+}
+.page-foot-num {
+  font-size: 6.5px;
+  color: var(--muted);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE 3 — COMPARISON MATRIX
+═══════════════════════════════════════════════════════════ */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8px;
+}
+.matrix-table th, .matrix-table td {
+  padding: 3mm 3.5mm;
+  vertical-align: top;
+  line-height: 1.45;
+}
+.matrix-table thead tr th {
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+th.col-dim {
+  text-align: left;
+  color: var(--muted);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  width: 22%;
+  border-bottom: 2px solid var(--border);
+}
+th.col-cr  { background: var(--cr);  color: #fff; width: 26%; border-bottom: 2px solid var(--cr); }
+th.col-cf  { background: var(--cf);  color: #fff; width: 26%; border-bottom: 2px solid var(--cf); }
+th.col-rta { background: var(--rta); color: #fff; width: 26%; border-bottom: 2px solid var(--rta); }
+
+.matrix-table tbody td {
+  border-bottom: 1px solid var(--border);
+}
+.matrix-table tbody td.dim-cell {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--light);
+  vertical-align: middle;
+}
+.matrix-table tbody td.cr-cell  { background: var(--cr-light); }
+.matrix-table tbody td.cf-cell  { background: var(--cf-light); }
+.matrix-table tbody td.rta-cell { background: var(--rta-light); }
+
+.matrix-table tbody td strong {
+  display: block;
+  font-size: 8.5px;
+  font-weight: 700;
+  margin-bottom: 1.5px;
+  color: var(--ink);
+}
+.matrix-table tbody td span {
+  font-size: 7.5px;
+  color: #555;
+  line-height: 1.45;
+}
+.matrix-note {
+  font-size: 7.5px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 4mm;
+  padding: 3mm 4mm;
+  background: var(--light);
+  border-radius: 3px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   PAGES 4-6 — DEEP DIVE
+═══════════════════════════════════════════════════════════ */
+.deep-banner {
+  height: 24mm;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 14mm 5mm;
+  position: relative;
+  overflow: hidden;
+}
+.deep-banner.cr  { background: var(--cr); }
+.deep-banner.cf  { background: var(--cf); }
+.deep-banner.rta { background: var(--rta); }
+.deep-banner-tag {
+  font-size: 6.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 3px;
+}
+.deep-banner h2 {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: normal;
+  color: #fff;
+  line-height: 1.15;
+}
+.deep-banner-q {
+  font-size: 8.5px;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+  margin-top: 2px;
+}
+.deep-banner-deco {
+  position: absolute;
+  right: 14mm;
+  bottom: 4mm;
+  font-family: Georgia, serif;
+  font-size: 60px;
+  color: rgba(255,255,255,0.08);
+  line-height: 1;
+  user-select: none;
+}
+
+.deep-body {
+  padding: 7mm 14mm 5mm;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5mm;
+  flex: 1;
+}
+
+.deep-col {}
+
+.deep-section-title {
+  font-size: 6.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3mm;
+}
+.deep-section-title.cr  { color: var(--cr); }
+.deep-section-title.cf  { color: var(--cf); }
+.deep-section-title.rta { color: var(--rta); }
+
+.deep-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2mm;
+  margin-bottom: 4mm;
+}
+.deep-list li {
+  font-size: 8.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  display: flex;
+  gap: 2.5mm;
+}
+.deep-list li::before {
+  content: '—';
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.5px;
+}
+.deep-list.cr  li::before { color: var(--cr); }
+.deep-list.cf  li::before { color: var(--cf); }
+.deep-list.rta li::before { color: var(--rta); }
+
+.deep-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5mm;
+  margin-bottom: 4mm;
+}
+.deep-fact {
+  padding: 3mm;
+  border-radius: 3px;
+  background: var(--light);
+}
+.deep-fact.cr  { background: var(--cr-light); }
+.deep-fact.cf  { background: var(--cf-light); }
+.deep-fact.rta { background: var(--rta-light); }
+.deep-fact-label {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5px;
+}
+.deep-fact.cr  .deep-fact-label { color: var(--cr); }
+.deep-fact.cf  .deep-fact-label { color: var(--cf); }
+.deep-fact.rta .deep-fact-label { color: var(--rta); }
+.deep-fact-val {
+  font-size: 8px;
+  line-height: 1.45;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.watchout {
+  padding: 3.5mm 4mm;
+  border-radius: 3px;
+  border-left: 3px solid;
+  margin-top: auto;
+}
+.watchout.cr  { border-color: var(--cr);  background: var(--cr-light); }
+.watchout.cf  { border-color: var(--cf);  background: var(--cf-light); }
+.watchout.rta { border-color: var(--rta); background: var(--rta-light); }
+.watchout-label {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.watchout.cr  .watchout-label { color: var(--cr); }
+.watchout.cf  .watchout-label { color: var(--cf); }
+.watchout.rta .watchout-label { color: var(--rta); }
+.watchout-text {
+  font-size: 8px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.quality-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2mm;
+  margin-bottom: 4mm;
+}
+.quality-chip {
+  font-size: 7px;
+  padding: 1.5px 6px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.quality-chip.cr  { background: var(--cr-mid);  color: #fff; }
+.quality-chip.cf  { background: var(--cf-mid);  color: #fff; }
+.quality-chip.rta { background: var(--rta-mid); color: #fff; }
+
+.deep-col-full {
+  grid-column: 1 / -1;
+}
+
+/* divider within a page */
+.col-rule {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE 7 — MISMATCHES
+═══════════════════════════════════════════════════════════ */
+.mismatch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5mm;
+}
+.mismatch-card {
+  padding: 4mm;
+  border-radius: 3px;
+  background: var(--light);
+  border-top: 2.5px solid var(--border);
+}
+.mismatch-flag {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #b34040;
+  display: block;
+  margin-bottom: 2px;
+}
+.mismatch-problem {
+  font-size: 8.5px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: 2.5mm;
+}
+.mismatch-why {
+  font-size: 7.5px;
+  color: #555;
+  line-height: 1.5;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE 8 — STATEMENT BUILDER
+═══════════════════════════════════════════════════════════ */
+.stmt-template {
+  font-family: Georgia, serif;
+  font-size: 10.5px;
+  line-height: 1.8;
+  color: var(--ink);
+  padding: 5mm 6mm;
+  background: var(--light);
+  border-radius: 4px;
+  margin-bottom: 5mm;
+}
+.stmt-blank {
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold);
+  font-style: italic;
+}
+
+.stmt-examples {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3.5mm;
+  margin-bottom: 5mm;
+}
+.stmt-ex {
+  padding: 4mm;
+  border-radius: 3px;
+  border-top: 2.5px solid;
+}
+.stmt-ex.cr  { border-color: var(--cr);  background: var(--cr-light); }
+.stmt-ex.cf  { border-color: var(--cf);  background: var(--cf-light); }
+.stmt-ex.rta { border-color: var(--rta); background: var(--rta-light); }
+.stmt-ex-label {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2mm;
+}
+.stmt-ex.cr  .stmt-ex-label { color: var(--cr); }
+.stmt-ex.cf  .stmt-ex-label { color: var(--cf); }
+.stmt-ex.rta .stmt-ex-label { color: var(--rta); }
+.stmt-ex-text {
+  font-family: Georgia, serif;
+  font-size: 8px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* CTA strip */
+.cta-strip {
+  background: var(--navy);
+  padding: 5mm 6mm;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4mm;
+  margin-top: auto;
+}
+.cta-strip-text {}
+.cta-strip-title {
+  font-family: Georgia, serif;
+  font-size: 11px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.cta-strip-sub {
+  font-size: 7.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+  max-width: 110mm;
+}
+.cta-strip-url {
+  font-size: 7.5px;
+  color: var(--gold);
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+</style>
+</head>
+<body>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 1 — COVER
+═══════════════════════════════════════════════════════ -->
+<div class="page cover">
+  <p class="cover-kicker">Visual Guide · Dr Claire Moran · The Qualitative Research Institute</p>
+  <h1>Which type of thematic analysis is right for your study?</h1>
+  <p class="cover-sub">A clear, visual framework for choosing the approach that matches your analytic aim, philosophical position, and quality criteria.</p>
+
+  <div class="spectrum-bar">
+    <div class="spectrum-track"></div>
+    <div class="spectrum-labels">
+      <div class="spectrum-item">
+        <div class="spectrum-dot cr"></div>
+        <span class="spectrum-item-name">Coding Reliability TA</span>
+        <span class="spectrum-item-tag">"small q"</span>
+      </div>
+      <div class="spectrum-item">
+        <div class="spectrum-dot cf"></div>
+        <span class="spectrum-item-name">Codebook / Coding Frame TA</span>
+        <span class="spectrum-item-tag">"medium q"</span>
+      </div>
+      <div class="spectrum-item">
+        <div class="spectrum-dot rta"></div>
+        <span class="spectrum-item-name">Reflexive TA</span>
+        <span class="spectrum-item-tag">"big Q"</span>
+      </div>
+    </div>
+    <div class="spectrum-axis">
+      <span>← Structured · Consistent · Categorical</span>
+      <span>Interpretive · Reflexive · Generative →</span>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="cover-footer-brand">
+      <strong>The Qualitative Research Institute</strong>
+      Dr Claire Moran PhD<br>
+      thequalitativeresearchinstitute.com
+    </div>
+  </div>
+  <div class="cover-qmark">TA</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 2 — AT A GLANCE
+═══════════════════════════════════════════════════════ -->
+<div class="page" style="display:flex;flex-direction:column;">
+  <div class="inner" style="flex:1;display:flex;flex-direction:column;">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <span class="eyebrow">At a glance</span>
+        <p class="page-header-title">Three approaches, each designed for<br>a different analytic purpose</p>
+      </div>
+      <span class="page-number">2 of 8</span>
+    </div>
+
+    <div class="glance-grid">
+      <!-- CR -->
+      <div class="glance-card">
+        <div class="glance-card-head cr">
+          <span class="glance-card-tag">Coding Reliability TA</span>
+          <span class="glance-card-name">Consistency<br>across coders</span>
+        </div>
+        <div class="glance-card-body">
+          <div class="glance-row">
+            <span class="glance-row-label">Analytic aim</span>
+            <span class="glance-row-val">Systematically categorise responses with demonstrable consistency</span>
+          </div>
+          <div class="glance-row">
+            <span class="glance-row-label">Theme definition</span>
+            <span class="glance-row-val">A category of shared content that can be reliably identified</span>
+          </div>
+          <div class="glance-row">
+            <span class="glance-row-label">Researcher role</span>
+            <span class="glance-row-val">Neutral classifier applying consistent rules across data</span>
+          </div>
+          <div class="glance-row">
+            <span class="glance-row-label">Primary quality marker</span>
+            <span class="glance-row-val">Inter-rater reliability</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CF -->
+      <div class="glance-card">
+        <div class="glance-card-head cf">
+          <span class="glance-card-tag">Codebook / Coding Frame TA</span>
+          <span class="glance-card-name">Shared framework,<br>auditable decisions</span>
+        </div>
+        <div class="glance-card-body">
+          <div class="glance-row">
+            <span class="glance-row-label">Analytic aim</span>
+            <span class="glance-row-val">Map patterned responses using a shared, evolving codebook</span>
+          </div>
+          <div class="glance-row">
+            <span class="glance-row-label">Theme definition</span>
+            <span class="glance-row-val">A patterned response that can be identified and verified by others</span>
+          </div>
+          <div class="glance-row">
+            <span class="glance-row-label">Researcher role</span>
+            <span class="glance-row-val">Interpretive mapper working within an auditable framework</span>
+          </div>
+          <div class="glance-row">
+            <span class="glance-row-label">Primary quality marker</span>
+            <span class="glance-row-val">Transparency and traceable decisions</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RTA -->
+      <div class="glance-card">
+        <div class="glance-card-head rta">
+          <span class="glance-card-tag">Reflexive TA</span>
+          <span class="glance-card-name">Patterns of<br>shared meaning</span>
+        </div>
+        <div class="glance-card-body">
+          <div class="glance-row">
+            <span class="glance-row-label">Analytic aim</span>
+            <span class="glance-row-val">Interpret the meaning people make of their lived experiences</span>
+          </div>
+          <div class="glance-row">
+            <span class="glance-row-label">Theme definition</span>
+            <span class="glance-row-val">A pattern of shared meaning the researcher actively constructs</span>
+          </div>
+          <div class="glance-row">
+            <span class="glance-row-label">Researcher role</span>
+            <span class="glance-row-val">Reflexive co-constructor — subjectivity is a resource, not a problem</span>
+          </div>
+          <div class="glance-row">
+            <span class="glance-row-label">Primary quality marker</span>
+            <span class="glance-row-val">Reflexivity and interpretive depth</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="philosophy-strip">
+      <div class="philosophy-item cr">
+        <div class="philosophy-item-label">CR — Philosophical position</div>
+        <div class="philosophy-item-text">Post-positivist. Reality is knowable; researcher bias is a threat to be managed. Reliability and replicability matter.</div>
+      </div>
+      <div class="philosophy-item cf">
+        <div class="philosophy-item-label">CF — Philosophical position</div>
+        <div class="philosophy-item-text">Constructivist-pragmatist. Knowledge is co-constructed but must be traceable and auditable for applied contexts.</div>
+      </div>
+      <div class="philosophy-item rta">
+        <div class="philosophy-item-label">RTA — Philosophical position</div>
+        <div class="philosophy-item-text">Constructivist-interpretivist. Meaning is co-constructed. Researcher subjectivity is acknowledged, explored, and used.</div>
+      </div>
+    </div>
+
+    <div class="key-questions">
+      <div class="kq-box">
+        <div class="kq-label">CR — The key question</div>
+        <div class="kq-text">"Can we categorise these responses consistently across multiple coders?"</div>
+      </div>
+      <div class="kq-box">
+        <div class="kq-label">CF — The key question</div>
+        <div class="kq-text">"Can we map these patterns in a way others can follow and verify?"</div>
+      </div>
+      <div class="kq-box">
+        <div class="kq-label">RTA — The key question</div>
+        <div class="kq-text">"What meanings are these people making, and what can I say about why?"</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-foot">
+    <span class="page-foot-brand">The Qualitative Research Institute · Dr Claire Moran PhD</span>
+    <span class="page-foot-num">2 of 8</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 3 — COMPARISON MATRIX
+═══════════════════════════════════════════════════════ -->
+<div class="page" style="display:flex;flex-direction:column;">
+  <div class="inner" style="flex:1;display:flex;flex-direction:column;">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <span class="eyebrow">Side by side</span>
+        <p class="page-header-title">How the three approaches differ<br>across five key dimensions</p>
+      </div>
+      <span class="page-number">3 of 8</span>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th class="col-dim">Dimension</th>
+          <th class="col-cr">Coding Reliability TA</th>
+          <th class="col-cf">Codebook / Coding Frame TA</th>
+          <th class="col-rta">Reflexive TA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="dim-cell">Analytic aim</td>
+          <td class="cr-cell"><strong>Categorise reliably</strong><span>Systematically identify and group content with consistency across coders</span></td>
+          <td class="cf-cell"><strong>Map patterns transparently</strong><span>Identify and document patterns using a shared, evolving framework</span></td>
+          <td class="rta-cell"><strong>Interpret meaning</strong><span>Construct rich interpretive accounts of how people make sense of experience</span></td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Theme definition</td>
+          <td class="cr-cell"><strong>A reliable category</strong><span>Identified by applying rules that multiple coders can follow consistently</span></td>
+          <td class="cf-cell"><strong>A mapped pattern</strong><span>Documented in a codebook and verifiable by others reading the same data</span></td>
+          <td class="rta-cell"><strong>Constructed meaning</strong><span>Actively generated by the researcher through sustained engagement with data</span></td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Researcher role</td>
+          <td class="cr-cell"><strong>Neutral classifier</strong><span>Applies consistent rules; subjectivity is a source of bias to control</span></td>
+          <td class="cf-cell"><strong>Interpretive mapper</strong><span>Uses judgement within a transparent structure; decisions are traceable</span></td>
+          <td class="rta-cell"><strong>Reflexive co-constructor</strong><span>Subjectivity is a resource, not a threat; reflexivity is embedded in the method</span></td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Coding approach</td>
+          <td class="cr-cell"><strong>Structured & fixed</strong><span>Codebook established before or early in analysis; coded by multiple researchers</span></td>
+          <td class="cf-cell"><strong>Shared & evolving</strong><span>Codebook developed collaboratively; refined as analysis proceeds</span></td>
+          <td class="rta-cell"><strong>Flexible & personal</strong><span>Codes developed and revised by the researcher; reflects evolving interpretation</span></td>
+        </tr>
+        <tr>
+          <td class="dim-cell">Quality markers</td>
+          <td class="cr-cell"><strong>Inter-rater reliability</strong><span>Cohen's kappa or similar; percentage agreement; structured audit trail</span></td>
+          <td class="cf-cell"><strong>Transparency</strong><span>Detailed codebook, member checking, audit trail, reflexive memo-writing</span></td>
+          <td class="rta-cell"><strong>Reflexivity & depth</strong><span>Reflexive journal, thick description, coherence of interpretive argument</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="matrix-note">
+      <strong>How to read this table:</strong> Read across a row to compare how each approach handles the same question. Read down a column to build a complete picture of one approach. No approach is inherently superior — the right choice depends on your research question, design, and the epistemological tradition you are working within.
+    </p>
+
+  </div>
+  <div class="page-foot">
+    <span class="page-foot-brand">The Qualitative Research Institute · Dr Claire Moran PhD</span>
+    <span class="page-foot-num">3 of 8</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 4 — DEEP DIVE: CODING RELIABILITY TA
+═══════════════════════════════════════════════════════ -->
+<div class="page" style="display:flex;flex-direction:column;">
+
+  <div class="deep-banner cr">
+    <div>
+      <div class="deep-banner-tag">Deep dive · Approach 1 of 3</div>
+      <h2>Coding Reliability TA</h2>
+      <div class="deep-banner-q">"How can we categorise these responses consistently?"</div>
+    </div>
+    <div class="deep-banner-deco">CR</div>
+  </div>
+
+  <div class="deep-body">
+    <div class="deep-col">
+      <p class="deep-section-title cr">When to use it</p>
+      <ul class="deep-list cr">
+        <li>Multi-site studies where consistency across research teams matters</li>
+        <li>Applied or evaluation research requiring replicable categorisation</li>
+        <li>Studies that need to demonstrate methodological rigour to stakeholders who value reliability metrics</li>
+        <li>Large datasets where systematic, rule-based coding is practical and necessary</li>
+        <li>Research explicitly framed within a post-positivist or quantitative-adjacent paradigm</li>
+      </ul>
+
+      <p class="deep-section-title cr">What it looks like in practice</p>
+      <ul class="deep-list cr">
+        <li>A codebook is developed (often prior to analysis) with clear definitions and decision rules</li>
+        <li>Two or more coders apply the codebook independently to the same data</li>
+        <li>Inter-rater reliability is calculated (Cohen's kappa, percentage agreement)</li>
+        <li>Discrepancies are discussed and resolved through consensus or adjudication</li>
+        <li>Analysis reports the reliability statistics alongside thematic findings</li>
+      </ul>
+    </div>
+
+    <div class="deep-col">
+      <p class="deep-section-title cr">Key concepts</p>
+      <div class="deep-facts">
+        <div class="deep-fact cr">
+          <div class="deep-fact-label">Epistemology</div>
+          <div class="deep-fact-val">Post-positivist</div>
+        </div>
+        <div class="deep-fact cr">
+          <div class="deep-fact-label">Theme type</div>
+          <div class="deep-fact-val">Reliable category</div>
+        </div>
+        <div class="deep-fact cr">
+          <div class="deep-fact-label">Coder count</div>
+          <div class="deep-fact-val">Multiple (≥2)</div>
+        </div>
+        <div class="deep-fact cr">
+          <div class="deep-fact-label">Codebook</div>
+          <div class="deep-fact-val">Fixed / pre-defined</div>
+        </div>
+      </div>
+
+      <p class="deep-section-title cr">Quality markers</p>
+      <div class="quality-chips">
+        <span class="quality-chip cr">Inter-rater reliability</span>
+        <span class="quality-chip cr">Cohen's kappa</span>
+        <span class="quality-chip cr">% agreement</span>
+        <span class="quality-chip cr">Audit trail</span>
+        <span class="quality-chip cr">Codebook fidelity</span>
+      </div>
+
+      <p class="deep-section-title cr">What to cite</p>
+      <ul class="deep-list cr">
+        <li>Braun &amp; Clarke (2013) <em>Successful qualitative research</em></li>
+        <li>Boyatzis (1998) <em>Transforming qualitative information</em></li>
+        <li>Hill et al. (1997) Consensual Qualitative Research</li>
+      </ul>
+
+      <div class="watchout cr">
+        <div class="watchout-label">Watch out for</div>
+        <div class="watchout-text">Using inter-rater reliability language while conducting what is actually Reflexive TA. If your coding is evolving and personal, IRR is not appropriate — it is a quality marker for a different approach.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="page-foot-brand">The Qualitative Research Institute · Dr Claire Moran PhD</span>
+    <span class="page-foot-num">4 of 8</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 5 — DEEP DIVE: CODEBOOK TA
+═══════════════════════════════════════════════════════ -->
+<div class="page" style="display:flex;flex-direction:column;">
+
+  <div class="deep-banner cf">
+    <div>
+      <div class="deep-banner-tag">Deep dive · Approach 2 of 3</div>
+      <h2>Codebook / Coding Frame TA</h2>
+      <div class="deep-banner-q">"Can we map these patterns in a way others can follow and verify?"</div>
+    </div>
+    <div class="deep-banner-deco">CF</div>
+  </div>
+
+  <div class="deep-body">
+    <div class="deep-col">
+      <p class="deep-section-title cf">When to use it</p>
+      <ul class="deep-list cf">
+        <li>Applied, policy, or organisational research where findings must be auditable</li>
+        <li>Multi-researcher teams that need a shared analytic framework</li>
+        <li>Studies where stakeholders require transparency about how categories were derived</li>
+        <li>Research requiring comparability across datasets or time-points</li>
+        <li>Work within a constructivist-pragmatist paradigm valuing both interpretation and accountability</li>
+      </ul>
+
+      <p class="deep-section-title cf">What it looks like in practice</p>
+      <ul class="deep-list cf">
+        <li>A codebook is developed collaboratively and refined as analysis proceeds</li>
+        <li>Team members code independently and compare; differences are discussed, not measured statistically</li>
+        <li>The codebook documents code definitions, examples, and decision rules</li>
+        <li>Member checking or peer debriefing may be used to support credibility</li>
+        <li>Reflexive memos track how interpretive decisions were made</li>
+      </ul>
+    </div>
+
+    <div class="deep-col">
+      <p class="deep-section-title cf">Key concepts</p>
+      <div class="deep-facts">
+        <div class="deep-fact cf">
+          <div class="deep-fact-label">Epistemology</div>
+          <div class="deep-fact-val">Constructivist-pragmatist</div>
+        </div>
+        <div class="deep-fact cf">
+          <div class="deep-fact-label">Theme type</div>
+          <div class="deep-fact-val">Mapped pattern</div>
+        </div>
+        <div class="deep-fact cf">
+          <div class="deep-fact-label">Coder count</div>
+          <div class="deep-fact-val">Often multiple</div>
+        </div>
+        <div class="deep-fact cf">
+          <div class="deep-fact-label">Codebook</div>
+          <div class="deep-fact-val">Shared &amp; evolving</div>
+        </div>
+      </div>
+
+      <p class="deep-section-title cf">Quality markers</p>
+      <div class="quality-chips">
+        <span class="quality-chip cf">Detailed codebook</span>
+        <span class="quality-chip cf">Audit trail</span>
+        <span class="quality-chip cf">Member checking</span>
+        <span class="quality-chip cf">Peer debriefing</span>
+        <span class="quality-chip cf">Reflexive memos</span>
+      </div>
+
+      <p class="deep-section-title cf">What to cite</p>
+      <ul class="deep-list cf">
+        <li>Braun &amp; Clarke (2013) <em>Successful qualitative research</em></li>
+        <li>Ritchie &amp; Spencer (1994) Framework analysis</li>
+        <li>Gale et al. (2013) Using the framework method</li>
+      </ul>
+
+      <div class="watchout cf">
+        <div class="watchout-label">Watch out for</div>
+        <div class="watchout-text">Describing your codebook as "fixed" when it evolved, or claiming full inductive analysis when a prior framework guided coding. Be precise about what your process actually was — reviewers notice inconsistencies.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="page-foot-brand">The Qualitative Research Institute · Dr Claire Moran PhD</span>
+    <span class="page-foot-num">5 of 8</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 6 — DEEP DIVE: REFLEXIVE TA
+═══════════════════════════════════════════════════════ -->
+<div class="page" style="display:flex;flex-direction:column;">
+
+  <div class="deep-banner rta">
+    <div>
+      <div class="deep-banner-tag">Deep dive · Approach 3 of 3</div>
+      <h2>Reflexive TA</h2>
+      <div class="deep-banner-q">"What meanings are these people making, and what can I say about why?"</div>
+    </div>
+    <div class="deep-banner-deco">RTA</div>
+  </div>
+
+  <div class="deep-body">
+    <div class="deep-col">
+      <p class="deep-section-title rta">When to use it</p>
+      <ul class="deep-list rta">
+        <li>Studies exploring how people make meaning of lived experience</li>
+        <li>Solo or small-team research where the researcher's interpretation is central</li>
+        <li>Work within a constructivist or interpretivist paradigm</li>
+        <li>Research where the goal is a rich, contextual, theoretically-engaged account</li>
+        <li>Studies where researcher positionality is acknowledged as shaping the analysis</li>
+      </ul>
+
+      <p class="deep-section-title rta">What it looks like in practice</p>
+      <ul class="deep-list rta">
+        <li>Researcher reads data deeply and generates initial codes that reflect their engagement</li>
+        <li>Codes are personal and evolving — not shared for reliability checking</li>
+        <li>Themes are constructed through an iterative, non-linear process</li>
+        <li>A reflexive journal documents interpretive moves and researcher positioning</li>
+        <li>The final analysis tells a coherent story grounded in data and theory</li>
+      </ul>
+    </div>
+
+    <div class="deep-col">
+      <p class="deep-section-title rta">Key concepts</p>
+      <div class="deep-facts">
+        <div class="deep-fact rta">
+          <div class="deep-fact-label">Epistemology</div>
+          <div class="deep-fact-val">Constructivist-interpretivist</div>
+        </div>
+        <div class="deep-fact rta">
+          <div class="deep-fact-label">Theme type</div>
+          <div class="deep-fact-val">Constructed meaning</div>
+        </div>
+        <div class="deep-fact rta">
+          <div class="deep-fact-label">Coder count</div>
+          <div class="deep-fact-val">Typically solo</div>
+        </div>
+        <div class="deep-fact rta">
+          <div class="deep-fact-label">Codebook</div>
+          <div class="deep-fact-val">None / flexible notes</div>
+        </div>
+      </div>
+
+      <p class="deep-section-title rta">Quality markers</p>
+      <div class="quality-chips">
+        <span class="quality-chip rta">Reflexive journal</span>
+        <span class="quality-chip rta">Thick description</span>
+        <span class="quality-chip rta">Interpretive depth</span>
+        <span class="quality-chip rta">Theoretical coherence</span>
+        <span class="quality-chip rta">Positionality statement</span>
+      </div>
+
+      <p class="deep-section-title rta">What to cite</p>
+      <ul class="deep-list rta">
+        <li>Braun &amp; Clarke (2006, 2019, 2022) foundational papers &amp; book</li>
+        <li>Braun &amp; Clarke (2021) <em>Thematic Analysis: A Practical Guide</em></li>
+        <li>Terry et al. (2017) Thematic analysis as a reflexive methodology</li>
+      </ul>
+
+      <div class="watchout rta">
+        <div class="watchout-label">Watch out for</div>
+        <div class="watchout-text">Claiming Reflexive TA while using inter-rater reliability or a fixed codebook — these are incompatible. Reflexive TA treats researcher subjectivity as a strength; applying reliability checks contradicts its epistemological foundations.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span class="page-foot-brand">The Qualitative Research Institute · Dr Claire Moran PhD</span>
+    <span class="page-foot-num">6 of 8</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 7 — COMMON MISMATCHES
+═══════════════════════════════════════════════════════ -->
+<div class="page" style="display:flex;flex-direction:column;">
+  <div class="inner" style="flex:1;display:flex;flex-direction:column;">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <span class="eyebrow">Common pitfalls</span>
+        <p class="page-header-title">Signs your analytic approach<br>needs clarification</p>
+      </div>
+      <span class="page-number">7 of 8</span>
+    </div>
+
+    <p style="font-size:8.5px;color:#555;line-height:1.6;margin-bottom:5mm;">These are not signs your study is flawed. They are signs your analytic logic needs to be made more explicit — and can usually be resolved through a clearer articulation of your choices.</p>
+
+    <div class="mismatch-grid">
+      <div class="mismatch-card">
+        <span class="mismatch-flag">Mismatch</span>
+        <div class="mismatch-problem">Using inter-rater reliability while claiming to do Reflexive TA</div>
+        <div class="mismatch-why">IRR is a quality marker for Coding Reliability TA. Reflexive TA treats researcher subjectivity as a resource — applying reliability checks directly contradicts its epistemological foundations.</div>
+      </div>
+      <div class="mismatch-card">
+        <span class="mismatch-flag">Mismatch</span>
+        <div class="mismatch-problem">Calling themes "patterns of shared meaning" but treating them as topic summaries</div>
+        <div class="mismatch-why">Language from Reflexive TA with practices from Coding Reliability TA creates incoherence that reviewers and examiners will notice and question.</div>
+      </div>
+      <div class="mismatch-card">
+        <span class="mismatch-flag">Mismatch</span>
+        <div class="mismatch-problem">Using a fixed codebook while describing coding as reflexive and organic</div>
+        <div class="mismatch-why">A fixed codebook is a feature of Coding Reliability or Codebook TA. Reflexive TA coding is flexible and evolving — the two approaches are not compatible in the same study.</div>
+      </div>
+      <div class="mismatch-card">
+        <span class="mismatch-flag">Mismatch</span>
+        <div class="mismatch-problem">Claiming inductive analysis while applying a predefined framework</div>
+        <div class="mismatch-why">Inductive and deductive describe where codes come from, not which TA approach you are using. Clarify whether your framework was developed from the data or applied to it — and name the approach that fits.</div>
+      </div>
+      <div class="mismatch-card">
+        <span class="mismatch-flag">Mismatch</span>
+        <div class="mismatch-problem">Receiving conflicting advice from supervisors or reviewers</div>
+        <div class="mismatch-why">This often means different people are assuming different TA approaches. Making your approach explicit — and articulating why it fits your study — usually resolves the confusion quickly.</div>
+      </div>
+      <div class="mismatch-card">
+        <span class="mismatch-flag">Mismatch</span>
+        <div class="mismatch-problem">Feeling unsure how to justify your analytic choices in writing</div>
+        <div class="mismatch-why">If you cannot complete the coherence statement on the next page, your approach likely needs clarification — not more data or more codes. The issue is conceptual, not empirical.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:5mm;padding:4mm 5mm;background:var(--light);border-radius:3px;">
+      <p style="font-size:8px;color:var(--muted);line-height:1.55;"><strong style="color:var(--ink);">A note on the word "thematic analysis" in the literature.</strong> Many published studies describe their method as "thematic analysis" without specifying which approach they used. As a result, practices from different approaches are sometimes conflated. Being explicit about which approach you are using — and why — is not pedantry. It demonstrates methodological literacy and protects the integrity of your findings.</p>
+    </div>
+
+  </div>
+  <div class="page-foot">
+    <span class="page-foot-brand">The Qualitative Research Institute · Dr Claire Moran PhD</span>
+    <span class="page-foot-num">7 of 8</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 8 — STATEMENT BUILDER + CTA
+═══════════════════════════════════════════════════════ -->
+<div class="page" style="display:flex;flex-direction:column;">
+  <div class="inner" style="flex:1;display:flex;flex-direction:column;">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <span class="eyebrow">Putting it together</span>
+        <p class="page-header-title">Can you complete this sentence?</p>
+      </div>
+      <span class="page-number">8 of 8</span>
+    </div>
+
+    <p style="font-size:8.5px;color:#555;line-height:1.6;margin-bottom:4mm;">When you can write this sentence clearly and completely, your analytic approach is coherent. If you get stuck on any blank, that is useful information — it points to exactly what needs clarification before you write up your methods.</p>
+
+    <div class="stmt-template">
+      I am using <span class="stmt-blank">type of TA</span> to <span class="stmt-blank">analytic aim</span> because <span class="stmt-blank">reason it fits my study</span>. This means I understand themes as <span class="stmt-blank">your definition</span>, coding as <span class="stmt-blank">your function for coding</span>, and quality as <span class="stmt-blank">your criteria</span>.
+    </div>
+
+    <div class="stmt-examples">
+      <div class="stmt-ex cr">
+        <div class="stmt-ex-label">Coding Reliability TA — example</div>
+        <div class="stmt-ex-text">"I am using Coding Reliability TA to systematically categorise participant responses because consistency across coders is essential for our multi-site study. This means I understand themes as categories, coding as a structured and consistent process, and quality as inter-rater reliability."</div>
+      </div>
+      <div class="stmt-ex cf">
+        <div class="stmt-ex-label">Codebook TA — example</div>
+        <div class="stmt-ex-text">"I am using Codebook TA to map patterned responses across policy contexts because the research needs to be auditable and usable by stakeholders. This means I understand themes as patterned responses, coding as a shared evolving framework, and quality as transparency and traceable decisions."</div>
+      </div>
+      <div class="stmt-ex rta">
+        <div class="stmt-ex-label">Reflexive TA — example</div>
+        <div class="stmt-ex-text">"I am using Reflexive TA to interpret the meaning people make of their experiences because conceptual insight matters more than categorisation. This means I understand themes as patterns of shared meaning I generate, coding as a flexible interpretive process, and quality as reflexivity and depth."</div>
+      </div>
+    </div>
+
+    <div class="cta-strip" style="margin-top:auto;">
+      <div class="cta-strip-text">
+        <div class="cta-strip-title">Not sure which approach fits your study?</div>
+        <div class="cta-strip-sub">Use the free interactive decision tool to work through four questions and get a clear recommendation. Or book a Research Health Check with Dr Claire Moran for one-to-one guidance on your specific study.</div>
+      </div>
+      <div>
+        <div class="cta-strip-url">thequalitativeresearchinstitute.com</div>
+        <div style="font-size:6.5px;color:rgba(255,255,255,0.35);margin-top:2px;">Interactive tool · Training · Individual support</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-foot">
+    <span class="page-foot-brand">The Qualitative Research Institute · Dr Claire Moran PhD</span>
+    <span class="page-foot-num">8 of 8</span>
+  </div>
+</div>
+
+</body>
+</html>
