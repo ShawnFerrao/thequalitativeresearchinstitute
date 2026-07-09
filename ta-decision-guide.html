@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Which Type of Thematic Analysis Is Right for Your Study? | QRI</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -21,859 +21,699 @@ html { scroll-behavior: smooth; }
   --gold:       #D3B574;
   --border:     #e2e8f0;
 
-  /* type tints */
-  --cr-hue:    #4a6fa5;
-  --cf-hue:    #DDA15E;
-  --rta-hue:   #1a2744;
+  --cr-color:  #2d4a8a;
+  --cf-color:  #8a4f10;
+  --rta-color: #1a2744;
 }
 
 body {
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
   background: var(--cream);
   color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  line-height: 1.7;
 }
 
-/* ── TOP BAR ── */
-.topbar {
+/* ── PAGE INTRO ── */
+.page-intro {
   background: var(--navy);
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
+  padding: 3.5rem 2rem 3rem;
+  text-align: center;
 }
-.topbar-brand {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: rgba(255,255,255,0.7);
-  letter-spacing: 0.04em;
-  text-decoration: none;
-}
-.topbar-brand strong { color: #fff; font-weight: 600; }
-.progress-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-.progress-label {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.5);
-  white-space: nowrap;
-  font-family: 'Inter', sans-serif;
-}
-.progress-bar {
-  width: 160px;
-  height: 3px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: var(--gold);
-  border-radius: 2px;
-  transition: width 0.4s ease;
-  width: 0%;
-}
-
-/* ── MAIN STAGE ── */
-.stage {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1.5rem;
-  overflow: hidden;
-}
-
-/* ── CARD ── */
-.card {
-  background: var(--warm-white);
-  border-radius: 14px;
-  padding: 3rem 3.5rem;
-  max-width: 680px;
-  width: 100%;
-  box-shadow: 0 4px 32px rgba(26,39,68,0.08);
-  position: relative;
-}
-
-/* ── QUESTION SCREEN ── */
-.screen {
-  display: none;
-}
-.screen.active {
-  display: block;
-  animation: fadeSlideIn 0.35s ease both;
-}
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.q-step {
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.6rem;
-  font-family: 'Inter', sans-serif;
-}
-.q-headline {
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--navy);
-  line-height: 1.4;
-  margin-bottom: 0.5rem;
-  text-wrap: balance;
-}
-.q-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-bottom: 2rem;
-  line-height: 1.65;
-}
-
-/* ── OPTIONS ── */
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.75rem;
-}
-.option-btn {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  border: 1.5px solid var(--border);
-  border-radius: 9px;
-  background: var(--warm-white);
-  cursor: pointer;
-  text-align: left;
-  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
-  width: 100%;
-  font-family: 'Poppins', sans-serif;
-}
-.option-btn:hover {
-  border-color: var(--mid-blue);
-  background: #f0f5fc;
-  box-shadow: 0 2px 10px rgba(45,74,138,0.08);
-}
-.option-btn.selected {
-  border-color: var(--navy);
-  background: #eef2fa;
-  box-shadow: 0 2px 12px rgba(26,39,68,0.12);
-}
-.opt-indicator {
-  flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border);
-  margin-top: 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.18s, background 0.18s;
-}
-.option-btn.selected .opt-indicator {
-  border-color: var(--navy);
-  background: var(--navy);
-}
-.opt-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #fff;
-  opacity: 0;
-  transition: opacity 0.15s;
-}
-.option-btn.selected .opt-dot { opacity: 1; }
-.opt-text { flex: 1; }
-.opt-label {
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--navy);
-  display: block;
-  margin-bottom: 0.15rem;
-}
-.opt-desc {
-  font-size: 0.78rem;
-  color: var(--muted);
-  font-family: 'Inter', sans-serif;
-  line-height: 1.5;
-}
-
-/* ── NAV BUTTONS ── */
-.card-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.btn-back {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.82rem;
-  color: var(--muted);
-  padding: 0.5rem 0;
-  transition: color 0.2s;
-}
-.btn-back:hover { color: var(--navy); }
-.btn-back:disabled { opacity: 0; pointer-events: none; }
-.btn-next {
-  background: var(--navy);
-  color: #fff;
-  border: none;
-  border-radius: 7px;
-  padding: 0.75rem 1.75rem;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.btn-next:hover { background: var(--blue); }
-.btn-next:disabled {
-  background: var(--border);
-  color: var(--muted);
-  cursor: not-allowed;
-}
-
-/* ── INTRO SCREEN ── */
-.intro-eyebrow {
+.page-intro .eyebrow {
   display: inline-block;
   font-size: 0.68rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
-  background: rgba(221,161,94,0.1);
-  border-radius: 4px;
-  padding: 0.25rem 0.6rem;
-  margin-bottom: 1.25rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
   font-family: 'Inter', sans-serif;
 }
-.intro-title {
-  font-size: 1.65rem;
+.page-intro h1 {
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
   font-weight: 600;
-  color: var(--navy);
+  color: #fff;
   line-height: 1.3;
-  margin-bottom: 0.75rem;
+  max-width: 640px;
+  margin: 0 auto 0.85rem;
   text-wrap: balance;
 }
-.intro-sub {
+.page-intro .lead {
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 2rem;
+  color: rgba(255,255,255,0.6);
   max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
 }
-.intro-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2.25rem;
-}
-.intro-pill {
-  font-size: 0.75rem;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  padding: 0.35rem 0.85rem;
-  border-radius: 20px;
-  border: 1.5px solid var(--border);
-  color: var(--navy);
-}
-.btn-start {
-  background: var(--navy);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0.9rem 2.25rem;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.925rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.btn-start:hover { background: var(--blue); }
 
-/* ── RESULT SCREEN ── */
-.result-type-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-family: 'Inter', sans-serif;
-  padding: 0.3rem 0.75rem;
-  border-radius: 20px;
-  margin-bottom: 1.25rem;
-}
-.result-type-badge.cr  { background: rgba(74,111,165,0.12); color: #2d4a8a; }
-.result-type-badge.cf  { background: rgba(221,161,94,0.15); color: #9a5f1a; }
-.result-type-badge.rta { background: rgba(26,39,68,0.1);    color: var(--navy); }
-
-.result-title {
-  font-size: 1.55rem;
-  font-weight: 600;
-  color: var(--navy);
-  line-height: 1.3;
-  margin-bottom: 0.5rem;
-  text-wrap: balance;
-}
-.result-subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  color: var(--muted);
-  margin-bottom: 1.75rem;
-  font-style: italic;
-}
-.result-divider {
-  height: 1px;
-  background: var(--border);
-  margin-bottom: 1.5rem;
-}
-.result-grid {
+/* ── MAIN LAYOUT ── */
+.page-body {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  grid-template-columns: 1fr 340px;
+  gap: 2.5rem;
+  align-items: start;
 }
-.result-cell {
-  background: var(--cream);
-  border-radius: 8px;
-  padding: 1rem 1.1rem;
+
+/* ── QUESTIONS PANEL ── */
+.questions-panel {}
+
+.q-block {
+  background: var(--warm-white);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 1.25rem;
+  border: 1.5px solid var(--border);
+  transition: border-color 0.2s;
 }
-.result-cell-label {
+.q-block.answered { border-color: #c5d3e8; }
+
+.q-number {
   font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--gold);
   margin-bottom: 0.4rem;
   font-family: 'Inter', sans-serif;
 }
-.result-cell-value {
-  font-size: 0.83rem;
-  color: var(--navy);
-  font-weight: 500;
-  line-height: 1.45;
-}
-
-.result-description {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  color: var(--text);
-  line-height: 1.75;
-  margin-bottom: 1.5rem;
-}
-
-.result-markers-title {
-  font-size: 0.72rem;
+.q-text {
+  font-size: 1.05rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 0.65rem;
-  font-family: 'Inter', sans-serif;
+  color: var(--navy);
+  margin-bottom: 0.25rem;
+  line-height: 1.35;
+  text-wrap: balance;
 }
-.result-markers {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.75rem;
-}
-.marker-chip {
-  font-size: 0.75rem;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  padding: 0.3rem 0.75rem;
-  border-radius: 20px;
-}
-.marker-chip.cr  { background: rgba(74,111,165,0.1);  color: #2d4a8a; }
-.marker-chip.cf  { background: rgba(221,161,94,0.15); color: #9a5f1a; }
-.marker-chip.rta { background: rgba(26,39,68,0.08);   color: var(--navy); }
-
-.result-warning {
-  background: rgba(221,161,94,0.1);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 6px 6px 0;
-  padding: 0.85rem 1rem;
-  margin-bottom: 1.75rem;
-}
-.result-warning p {
+.q-hint {
   font-family: 'Inter', sans-serif;
   font-size: 0.8rem;
-  color: #7a4a10;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  line-height: 1.55;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--warm-white);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.15s, background 0.15s;
+}
+.opt:hover { border-color: #a8bedc; background: #f5f8fd; }
+.opt.selected { border-color: var(--navy); background: #edf1fa; }
+
+.opt-radio {
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  margin-top: 3px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.opt.selected .opt-radio { border-color: var(--navy); background: var(--navy); }
+.opt-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; opacity: 0; transition: opacity 0.12s; }
+.opt.selected .opt-dot { opacity: 1; }
+
+.opt-content { flex: 1; }
+.opt-label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--navy); margin-bottom: 0.1rem; line-height: 1.35; }
+.opt-note { font-size: 0.75rem; color: var(--muted); font-family: 'Inter', sans-serif; line-height: 1.45; }
+
+/* ── RESULT PANEL (sticky) ── */
+.result-panel {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.result-card {
+  background: var(--warm-white);
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.result-card.has-result { border-color: #c5d3e8; }
+
+.result-pending {
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+.result-pending-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.2rem;
+}
+.result-pending p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--muted);
   line-height: 1.6;
 }
-.result-warning strong { font-weight: 600; }
 
-.result-cta {
-  background: var(--navy);
-  border-radius: 10px;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+.result-content { display: none; }
+.result-card.has-result .result-pending { display: none; }
+.result-card.has-result .result-content { display: block; }
+
+.result-header {
+  padding: 1.5rem 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--border);
 }
-.result-cta-text {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.8);
+.result-type-badge {
+  display: inline-flex;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  padding: 0.22rem 0.65rem;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+}
+.result-type-badge.cr  { background: rgba(45,74,138,0.1);  color: var(--cr-color); }
+.result-type-badge.cf  { background: rgba(221,161,94,0.15); color: var(--cf-color); }
+.result-type-badge.rta { background: rgba(26,39,68,0.08);   color: var(--rta-color); }
+.result-type-badge.mixed { background: rgba(211,181,116,0.15); color: #7a5f1a; }
+
+.result-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.3;
+  margin-bottom: 0.2rem;
+}
+.result-assoc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+}
+
+.result-body { padding: 1.25rem 1.5rem; }
+
+.result-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.72;
+  margin-bottom: 1.25rem;
+}
+
+.result-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.result-fact {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  font-size: 0.78rem;
   font-family: 'Inter', sans-serif;
   line-height: 1.5;
 }
-.result-cta-text strong {
-  display: block;
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.2rem;
-}
-.result-cta-btns {
-  display: flex;
-  gap: 0.65rem;
-  flex-wrap: wrap;
-  flex-shrink: 0;
-}
-.btn-pdf {
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  border-radius: 6px;
-  padding: 0.6rem 1.1rem;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.8rem;
+.fact-key {
   font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
+  color: var(--navy);
   white-space: nowrap;
-  transition: background 0.2s;
+  flex-shrink: 0;
+  min-width: 60px;
+}
+.fact-val { color: var(--text); }
+
+.result-watch {
+  background: rgba(221,161,94,0.09);
+  border-left: 2.5px solid var(--accent);
+  padding: 0.65rem 0.85rem;
+  border-radius: 0 6px 6px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  color: #7a4a10;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+.result-watch strong { font-weight: 600; }
+
+.result-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+.chip {
+  font-size: 0.7rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  padding: 0.22rem 0.65rem;
+  border-radius: 20px;
+}
+.chip.cr  { background: rgba(45,74,138,0.08);  color: var(--cr-color); }
+.chip.cf  { background: rgba(221,161,94,0.12); color: var(--cf-color); }
+.chip.rta { background: rgba(26,39,68,0.07);   color: var(--rta-color); }
+.chip.mixed { background: rgba(211,181,116,0.12); color: #7a5f1a; }
+
+/* ── STATEMENT BOX ── */
+.statement-box {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.79rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+.statement-box .stmt-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.statement-box em { color: var(--navy); font-style: normal; font-weight: 500; }
+
+/* ── CTA ── */
+.result-cta {
+  background: var(--navy);
+  padding: 1.25rem 1.5rem;
+}
+.result-cta p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.55;
+  margin-bottom: 0.85rem;
+}
+.result-cta p strong { color: #fff; font-weight: 500; display: block; margin-bottom: 0.15rem; font-family: 'Poppins', sans-serif; font-size: 0.82rem; }
+.cta-btns { display: flex; flex-direction: column; gap: 0.5rem; }
+.btn-pdf {
+  display: block; text-align: center;
+  background: var(--gold); color: var(--navy);
+  border: none; border-radius: 6px; padding: 0.65rem 1rem;
+  font-family: 'Poppins', sans-serif; font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.15s;
 }
 .btn-pdf:hover { background: #c9a95f; }
 .btn-retake {
-  background: rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.85);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  padding: 0.6rem 1.1rem;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
+  display: block; text-align: center;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px; padding: 0.55rem 1rem;
+  font-family: 'Poppins', sans-serif; font-size: 0.78rem; font-weight: 400;
+  cursor: pointer; transition: background 0.15s; width: 100%;
 }
-.btn-retake:hover { background: rgba(255,255,255,0.2); }
+.btn-retake:hover { background: rgba(255,255,255,0.15); color: #fff; }
 
-/* ── MIXED RESULT ── */
+/* ── SCORE TRACKER ── */
+.score-bar {
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.score-pip {
+  flex: 1; height: 4px; border-radius: 2px;
+  background: var(--border);
+  transition: background 0.3s;
+}
+.score-pip.done { background: var(--gold); }
+
+/* ── MIXED ── */
 .mixed-note {
-  background: #f0f5fc;
-  border-radius: 8px;
-  padding: 1rem 1.1rem;
-  margin-bottom: 1.5rem;
   font-family: 'Inter', sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: #2d4a8a;
-  line-height: 1.6;
+  background: rgba(74,111,165,0.07);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
 }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 640px) {
-  .card { padding: 2rem 1.5rem; }
-  .result-grid { grid-template-columns: 1fr; }
-  .progress-bar { width: 100px; }
-  .intro-title { font-size: 1.35rem; }
-  .result-title { font-size: 1.25rem; }
-  .result-cta { flex-direction: column; }
+@media (max-width: 860px) {
+  .page-body { grid-template-columns: 1fr; }
+  .result-panel { position: static; }
+  .result-card { margin-top: 0; }
+}
+@media (max-width: 540px) {
+  .page-intro { padding: 2.5rem 1.25rem 2rem; }
+  .q-block { padding: 1.35rem 1.25rem; }
+  .page-body { padding: 2rem 1rem 3rem; gap: 1.5rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <a href="/" class="topbar-brand"><strong>The Qualitative Research Institute</strong> &nbsp;·&nbsp; Dr Claire Moran</a>
-  <div class="progress-wrap">
-    <span class="progress-label" id="progressLabel">—</span>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  </div>
+<!-- INTRO -->
+<div class="page-intro">
+  <span class="eyebrow">Free decision guide</span>
+  <h1>Which type of thematic analysis is right for your study?</h1>
+  <p class="lead">Answer four questions about how your study actually works — and get a clear recommendation with the reasoning behind it.</p>
 </div>
 
-<!-- STAGE -->
-<div class="stage">
-  <div class="card">
+<!-- BODY -->
+<div class="page-body">
 
-    <!-- INTRO -->
-    <div class="screen active" id="screen-intro">
-      <div class="intro-eyebrow">Decision guide</div>
-      <h1 class="intro-title">Which type of thematic analysis is right for your study?</h1>
-      <p class="intro-sub">Thematic analysis is a family of approaches — not a single method. This short guide walks you through six questions to identify the approach that fits your research question, analytic aim, and methodological assumptions.</p>
-      <div class="intro-pills">
-        <span class="intro-pill">Coding Reliability TA</span>
-        <span class="intro-pill">Codebook / Coding Frame TA</span>
-        <span class="intro-pill">Reflexive TA</span>
+  <!-- LEFT: QUESTIONS -->
+  <div class="questions-panel">
+
+    <!-- Q1 -->
+    <div class="q-block" id="qb-0">
+      <div class="q-number">Question 1</div>
+      <div class="q-text">What are you fundamentally trying to do with your data?</div>
+      <div class="q-hint">Start here — your analytic aim is the most important factor in choosing an approach.</div>
+      <div class="options">
+        <button class="opt" onclick="pick(0,0)" id="q0o0" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Organise and summarise what participants said</span>
+            <span class="opt-note">Categorise the data; topic coverage and consistency matter most.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(0,1)" id="q0o1" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Map patterned responses across cases, groups, or settings</span>
+            <span class="opt-note">Compare across the dataset; support applied, policy, or evaluation insights.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(0,2)" id="q0o2" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Interpret meanings or critically interrogate the data</span>
+            <span class="opt-note">Understand experience, assumptions, or sense-making beneath the surface.</span>
+          </div>
+        </button>
       </div>
-      <button class="btn-start" onclick="startQuiz()">Begin the guide →</button>
     </div>
 
-    <!-- QUESTIONS (generated by JS) -->
-    <div id="question-container"></div>
+    <!-- Q2 -->
+    <div class="q-block" id="qb-1">
+      <div class="q-number">Question 2</div>
+      <div class="q-text">What is a "theme" in your study?</div>
+      <div class="q-hint">This is where many researchers get confused — be honest about what you expect themes to be.</div>
+      <div class="options">
+        <button class="opt" onclick="pick(1,0)" id="q1o0" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">A topic summary — what participants talked about</span>
+            <span class="opt-note">Themes function mainly as categories that organise the content of responses.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(1,1)" id="q1o1" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">A patterned response mapped across the dataset</span>
+            <span class="opt-note">Themes show what responses look like across cases, groups, or settings.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(1,2)" id="q1o2" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">A pattern of shared meaning I actively construct</span>
+            <span class="opt-note">Themes are outputs of interpretation — not discovered, but generated through analysis.</span>
+          </div>
+        </button>
+      </div>
+    </div>
 
-    <!-- RESULT -->
-    <div class="screen" id="screen-result"></div>
+    <!-- Q3 -->
+    <div class="q-block" id="qb-2">
+      <div class="q-number">Question 3</div>
+      <div class="q-text">How are you positioned as a researcher?</div>
+      <div class="q-hint">These are not different levels of skill. They are different analytic roles — each is appropriate in the right context.</div>
+      <div class="options">
+        <button class="opt" onclick="pick(2,0)" id="q2o0" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Applying codes as consistently and neutrally as possible</span>
+            <span class="opt-note">Researcher subjectivity is something to manage or minimise.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(2,1)" id="q2o1" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Using interpretation and judgement within a shared structure</span>
+            <span class="opt-note">You make analytic decisions, but within an agreed framework or codebook.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(2,2)" id="q2o2" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Actively contributing to meaning-making — reflexivity is central</span>
+            <span class="opt-note">Your subjectivity is a resource to engage with thoughtfully, not a problem to remove.</span>
+          </div>
+        </button>
+      </div>
+    </div>
 
+    <!-- Q4 -->
+    <div class="q-block" id="qb-3">
+      <div class="q-number">Question 4</div>
+      <div class="q-text">What matters most for demonstrating quality in your analysis?</div>
+      <div class="q-hint">Using the wrong quality criteria for your approach weakens your research. Inter-rater reliability, for example, is appropriate in Coding Reliability TA — but not in Reflexive TA.</div>
+      <div class="options">
+        <button class="opt" onclick="pick(3,0)" id="q3o0" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Consistency, reliability, inter-rater agreement</span>
+            <span class="opt-note">Quality is demonstrated through systematic, replicable processes.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(3,1)" id="q3o1" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Transparency, auditability, traceable analytic decisions</span>
+            <span class="opt-note">Quality is demonstrated through a clear, visible decision trail.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(3,2)" id="q3o2" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Reflexivity, interpretive depth, coherent analytic choices</span>
+            <span class="opt-note">Quality is demonstrated through thoughtful engagement with the data and your own role.</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /questions-panel -->
+
+  <!-- RIGHT: RESULT -->
+  <div class="result-panel">
+    <div class="result-card" id="resultCard">
+
+      <!-- Score pips -->
+      <div class="score-bar">
+        <div class="score-pip" id="pip0"></div>
+        <div class="score-pip" id="pip1"></div>
+        <div class="score-pip" id="pip2"></div>
+        <div class="score-pip" id="pip3"></div>
+      </div>
+
+      <!-- Pending state -->
+      <div class="result-pending">
+        <div class="result-pending-icon">→</div>
+        <p>Answer the four questions and your recommended approach will appear here — with a full explanation of why it fits your study.</p>
+      </div>
+
+      <!-- Result content (hidden until all answered) -->
+      <div class="result-content" id="resultContent"></div>
+
+    </div>
   </div>
-</div>
+
+</div><!-- /page-body -->
 
 <script>
-const QUESTIONS = [
-  {
-    id: 'aim',
-    step: 'Question 1 of 6',
-    headline: 'What is your main analytic aim?',
-    sub: 'Think about what you are fundamentally trying to do with your qualitative data.',
-    options: [
-      { label: 'Organise and summarise what participants said',
-        desc: 'Categorise data consistently; consistency and topic coverage matter most.',
-        scores: { CR: 2, CF: 0, RTA: 0 } },
-      { label: 'Map patterned responses across cases, groups, or settings',
-        desc: 'Identify shared patterns, compare across groups, or support applied insights.',
-        scores: { CR: 0, CF: 2, RTA: 0 } },
-      { label: 'Interpret meanings or critically interrogate the data',
-        desc: 'Understand experience, sense-making, or underlying assumptions.',
-        scores: { CR: 0, CF: 0, RTA: 2 } },
-    ]
-  },
-  {
-    id: 'role',
-    step: 'Question 2 of 6',
-    headline: 'How are you positioned as a researcher?',
-    sub: 'These are not different levels of skill — they are different analytic roles.',
-    options: [
-      { label: 'Applying codes as consistently and neutrally as possible',
-        desc: 'Researcher subjectivity is something to manage or minimise.',
-        scores: { CR: 2, CF: 0, RTA: 0 } },
-      { label: 'Using interpretation and judgement within a shared structure',
-        desc: 'The researcher makes analytic decisions but within an agreed framework.',
-        scores: { CR: 0, CF: 2, RTA: 0 } },
-      { label: 'Actively contributing to meaning-making through reflexivity',
-        desc: 'Your subjectivity is a resource to engage with, not a problem to remove.',
-        scores: { CR: 0, CF: 0, RTA: 2 } },
-    ]
-  },
-  {
-    id: 'coding',
-    step: 'Question 3 of 6',
-    headline: 'What is coding doing in your study?',
-    sub: 'How flexible your coding is, and what it is expected to produce, is one of the clearest differences between TA approaches.',
-    options: [
-      { label: 'Applying a predefined framework and supporting coder agreement',
-        desc: 'Codes are developed early; inter-rater reliability or consistency matters.',
-        scores: { CR: 2, CF: 1, RTA: 0 } },
-      { label: 'Organising data within a shared, evolving codebook',
-        desc: 'A coding frame is useful, but it may develop as analysis progresses.',
-        scores: { CR: 0, CF: 2, RTA: 0 } },
-      { label: 'Generating interpretive insight and developing meaning',
-        desc: 'Coding is flexible and evolving; it produces analytic outputs, not categories.',
-        scores: { CR: 0, CF: 0, RTA: 2 } },
-    ]
-  },
-  {
-    id: 'theme',
-    step: 'Question 4 of 6',
-    headline: 'What do you mean by a "theme"?',
-    sub: 'This is where many researchers get confused. Be honest about what you expect themes to be.',
-    options: [
-      { label: 'A topic summary — what participants talked about',
-        desc: 'Themes function mainly as categories that organise the data.',
-        scores: { CR: 2, CF: 1, RTA: 0 } },
-      { label: 'A patterned response mapped across cases or groups',
-        desc: 'Themes show what responses look like across the dataset.',
-        scores: { CR: 0, CF: 2, RTA: 0 } },
-      { label: 'A pattern of shared meaning developed through interpretation',
-        desc: 'Themes are not discovered in the data — they are actively generated.',
-        scores: { CR: 0, CF: 0, RTA: 2 } },
-    ]
-  },
-  {
-    id: 'context',
-    step: 'Question 5 of 6',
-    headline: 'What best describes your research context?',
-    sub: 'Practical context shapes which approach is realistic and appropriate.',
-    options: [
-      { label: 'Multiple coders; consistency and replicability matter',
-        desc: 'Team-based; funders, ethics boards, or journals expect reliability markers.',
-        scores: { CR: 2, CF: 1, RTA: 0 } },
-      { label: 'Applied, policy, evaluation, or team-based research',
-        desc: 'The research needs to be usable, auditable, and understandable to others.',
-        scores: { CR: 0, CF: 2, RTA: 0 } },
-      { label: 'PhD, thesis, or theory-informed qualitative study',
-        desc: 'Solo or small-team; the focus is on meaning, experience, or sense-making.',
-        scores: { CR: 0, CF: 0, RTA: 2 } },
-    ]
-  },
-  {
-    id: 'rigour',
-    step: 'Question 6 of 6',
-    headline: 'What kind of rigour do you prioritise?',
-    sub: 'Using the wrong quality criteria for your chosen approach weakens your research. For example, inter-rater reliability is appropriate in Coding Reliability TA — but not in Reflexive TA.',
-    options: [
-      { label: 'Consistency, reliability, inter-rater agreement',
-        desc: 'Quality is demonstrated through consistency, replicability, and structured processes.',
-        scores: { CR: 2, CF: 0, RTA: 0 } },
-      { label: 'Transparency, auditability, traceable analytic decisions',
-        desc: 'Quality is demonstrated through clarity and a visible decision trail.',
-        scores: { CR: 0, CF: 2, RTA: 0 } },
-      { label: 'Reflexivity, interpretive depth, coherent analytic engagement',
-        desc: 'Quality is demonstrated through reflexivity and meaningful analytic choices.',
-        scores: { CR: 0, CF: 0, RTA: 2 } },
-    ]
-  }
+const answers = [null, null, null, null];
+
+// Scores: each answer is [CR_pts, CF_pts, RTA_pts]
+const SCORES = [
+  [[2,0,0],[0,2,0],[0,0,2]], // Q1
+  [[2,1,0],[0,2,0],[0,0,2]], // Q2
+  [[2,0,0],[0,2,0],[0,0,2]], // Q3
+  [[2,0,0],[0,2,0],[0,0,2]], // Q4
 ];
 
-const RESULTS = {
+const DATA = {
   CR: {
     cls: 'cr',
     badge: 'Coding Reliability TA',
-    badgeNote: 'Often associated with "small q" qualitative research',
-    title: 'Coding Reliability Thematic Analysis',
-    description: 'Your answers suggest that consistency, structure, and systematic categorisation are central to your study. Coding Reliability TA is designed exactly for this context — where multiple coders need to apply codes in the same way, frameworks are developed early, and reliability or agreement is an important marker of quality. In this approach, researcher subjectivity is usually treated as something to manage or minimise, and themes function mainly as topic summaries that organise and categorise the data.',
-    cells: [
-      { label: 'Themes are', value: 'Topic summaries and categories' },
-      { label: 'Researcher role', value: 'Neutral, consistent code application' },
-      { label: 'Coding is', value: 'Predefined, structured, applied early' },
-      { label: 'Quality markers', value: 'Reliability, replicability, consistency' },
+    assoc: 'Often associated with "small q" qualitative research',
+    name: 'Coding Reliability Thematic Analysis',
+    desc: 'Your study calls for consistency and systematic categorisation. In this approach, multiple coders apply codes in the same way, frameworks are developed early, and reliability is a central quality marker. Researcher subjectivity is treated as something to manage. Themes function as topic summaries.',
+    facts: [
+      { k: 'Themes', v: 'Topic summaries and categories' },
+      { k: 'Coding', v: 'Predefined framework, applied consistently' },
+      { k: 'Role', v: 'Neutral, consistent code application' },
+      { k: 'Quality', v: 'Reliability, replicability, consistency' },
     ],
-    markers: ['Inter-rater reliability', 'Codebook applied early', 'Multiple coders', 'Systematic categorisation', 'Structured process'],
-    warning: '<strong>Watch for:</strong> If you are also claiming that your analysis is reflexive or interpretive, that creates a mismatch. These approaches are not compatible within the same study.'
+    chips: ['Inter-rater reliability', 'Structured codebook', 'Multiple coders', 'Replicable process'],
+    watch: '<strong>Watch for:</strong> If you are also claiming your analysis is reflexive or interpretive, that creates a methodological mismatch. These are not compatible in the same study.',
+    stmt: (name) => `I am using <em>Coding Reliability TA</em> to <em>systematically categorise and summarise</em> my data. This means I understand themes as <em>topic categories</em>, coding as <em>a consistent, structured process</em>, and quality as <em>reliability and replicability</em>.`,
   },
   CF: {
     cls: 'cf',
     badge: 'Codebook / Coding Frame TA',
-    badgeNote: 'Often associated with "medium q" qualitative research',
-    title: 'Codebook / Coding Frame Thematic Analysis',
-    description: 'Your answers suggest that you need a structured but adaptive approach — one that supports teamwork, applied purposes, or comparative analysis while leaving room for interpretation. Codebook or Coding Frame TA sits between highly structured and highly interpretive approaches. You use interpretation and judgement, but within an agreed analytic framework. The coding frame may evolve as analysis progresses, and themes show patterned responses across the dataset rather than simply summarising what was said.',
-    cells: [
-      { label: 'Themes are', value: 'Patterned responses across cases or groups' },
-      { label: 'Researcher role', value: 'Interpretive within a structured framework' },
-      { label: 'Coding is', value: 'Shared, structured, may evolve' },
-      { label: 'Quality markers', value: 'Transparency, auditability, clear decisions' },
+    assoc: 'Often associated with "medium q" qualitative research',
+    name: 'Codebook / Coding Frame Thematic Analysis',
+    desc: 'Your study calls for a structured but adaptive approach — one that supports teamwork, applied purposes, or cross-case comparison while leaving room for interpretation. You use judgement, but within a shared analytic framework. The codebook may evolve. Themes show patterned responses across the dataset.',
+    facts: [
+      { k: 'Themes', v: 'Patterned responses across cases or groups' },
+      { k: 'Coding', v: 'Shared framework, may evolve during analysis' },
+      { k: 'Role', v: 'Interpretive within a structured process' },
+      { k: 'Quality', v: 'Transparency, auditability, traceable decisions' },
     ],
-    markers: ['Shared coding frame', 'Team-based analysis', 'Applied / policy research', 'Traceable decisions', 'Structured but adaptive'],
-    warning: '<strong>Watch for:</strong> If your coding is flexible and evolving with no shared structure, or if you are working solo on a PhD with no applied purpose, Reflexive TA may be a better fit.'
+    chips: ['Shared coding frame', 'Team-based', 'Applied / policy research', 'Auditable decisions'],
+    watch: '<strong>Watch for:</strong> If your coding is entirely flexible with no shared structure, or if you are working solo on conceptual or interpretive research, Reflexive TA may be a better fit.',
+    stmt: () => `I am using <em>Codebook / Coding Frame TA</em> to <em>map patterned responses</em> across my dataset. This means I understand themes as <em>patterned responses</em>, coding as <em>a shared, structured but adaptive process</em>, and quality as <em>transparency and traceable analytic decisions</em>.`,
   },
   RTA: {
     cls: 'rta',
     badge: 'Reflexive TA',
-    badgeNote: 'Often associated with "big Q" qualitative research',
-    title: 'Reflexive Thematic Analysis',
-    description: 'Your answers suggest that interpretation, meaning, and the researcher\'s analytic role are central to your study. Reflexive TA is designed for exactly this context. Themes are not inputs into analysis — they are outputs of analysis, actively generated by the researcher through deep engagement with the data. Coding is flexible and evolving. Reflexivity is not a quality add-on; it is built into the entire analytic process. This approach does not use coding reliability or fixed codebooks as markers of quality.',
-    cells: [
-      { label: 'Themes are', value: 'Patterns of shared meaning — actively generated' },
-      { label: 'Researcher role', value: 'Active, reflexive contributor to meaning-making' },
-      { label: 'Coding is', value: 'Flexible, evolving, interpretive' },
-      { label: 'Quality markers', value: 'Reflexivity, depth, coherent analytic choices' },
+    assoc: 'Often associated with "big Q" qualitative research',
+    name: 'Reflexive Thematic Analysis',
+    desc: 'Your study calls for interpretation and meaning-making. In Reflexive TA, themes are not discovered in the data — they are actively generated through your engagement with it. Coding is flexible and evolving. Reflexivity is not a quality add-on; it is built into the entire analytic process. This approach does not use coding reliability or fixed codebooks as quality markers.',
+    facts: [
+      { k: 'Themes', v: 'Patterns of shared meaning you actively generate' },
+      { k: 'Coding', v: 'Flexible, evolving, interpretive' },
+      { k: 'Role', v: 'Active, reflexive contributor to meaning-making' },
+      { k: 'Quality', v: 'Reflexivity, depth, coherent analytic choices' },
     ],
-    markers: ['No inter-rater reliability', 'Flexible, evolving coding', 'Reflexivity throughout', 'Interpretive insight', 'Solo or PhD research'],
-    warning: '<strong>Watch for:</strong> If you are using a fixed codebook, seeking inter-rater reliability, or working in a team that needs an auditable process, Reflexive TA is not the right fit — even if it sounds appealing.'
-  }
+    chips: ['No inter-rater reliability', 'Flexible coding', 'Reflexivity throughout', 'Interpretive depth'],
+    watch: '<strong>Watch for:</strong> If you are seeking inter-rater reliability, using a fixed codebook, or working in an applied context with audit requirements, Reflexive TA is not the right fit — even if it sounds appealing.',
+    stmt: () => `I am using <em>Reflexive TA</em> to <em>interpret meanings and generate conceptual insight</em> from my data. This means I understand themes as <em>patterns of shared meaning I actively construct</em>, coding as <em>a flexible, interpretive process</em>, and quality as <em>reflexivity and interpretive depth</em>.`,
+  },
 };
 
-let scores = { CR: 0, CF: 0, RTA: 0 };
-let answers = {};
-let currentQ = 0;
+function pick(q, opt) {
+  answers[q] = opt;
 
-function startQuiz() {
-  document.getElementById('screen-intro').classList.remove('active');
-  showQuestion(0);
-}
-
-function buildQuestion(index) {
-  const q = QUESTIONS[index];
-  const container = document.getElementById('question-container');
-  let html = `<div class="screen active" id="screen-q${index}">
-    <div class="q-step">${q.step}</div>
-    <h2 class="q-headline">${q.headline}</h2>
-    <p class="q-sub">${q.sub}</p>
-    <div class="options">`;
-  q.options.forEach((opt, i) => {
-    const sel = answers[q.id] === i ? 'selected' : '';
-    html += `<button class="option-btn ${sel}" onclick="selectOption(${index}, ${i})" type="button">
-      <div class="opt-indicator"><div class="opt-dot"></div></div>
-      <div class="opt-text">
-        <span class="opt-label">${opt.label}</span>
-        <span class="opt-desc">${opt.desc}</span>
-      </div>
-    </button>`;
-  });
-  html += `</div>
-    <div class="card-nav">
-      <button class="btn-back" onclick="goBack(${index})" ${index === 0 ? 'disabled' : ''}>← Back</button>
-      <button class="btn-next" id="btn-next-${index}" onclick="goNext(${index})" ${answers[q.id] !== undefined ? '' : 'disabled'}>
-        ${index < QUESTIONS.length - 1 ? 'Next →' : 'See my result →'}
-      </button>
-    </div>
-  </div>`;
-  container.innerHTML = html;
-  updateProgress(index);
-}
-
-function showQuestion(index) {
-  currentQ = index;
-  buildQuestion(index);
-}
-
-function selectOption(qIndex, optIndex) {
-  const q = QUESTIONS[qIndex];
-  answers[q.id] = optIndex;
-  // rebuild to show selected state
-  buildQuestion(qIndex);
-}
-
-function goNext(qIndex) {
-  const q = QUESTIONS[qIndex];
-  if (answers[q.id] === undefined) return;
-  document.getElementById('question-container').innerHTML = '';
-  if (qIndex < QUESTIONS.length - 1) {
-    showQuestion(qIndex + 1);
-  } else {
-    showResult();
+  // Update button states
+  for (let i = 0; i < 3; i++) {
+    const btn = document.getElementById(`q${q}o${i}`);
+    btn.classList.toggle('selected', i === opt);
   }
+
+  // Mark question block as answered
+  document.getElementById(`qb-${q}`).classList.add('answered');
+
+  // Update pip
+  document.getElementById(`pip${q}`).classList.add('done');
+
+  // Update result if all answered
+  const allDone = answers.every(a => a !== null);
+  if (allDone) renderResult();
 }
 
-function goBack(qIndex) {
-  document.getElementById('question-container').innerHTML = '';
-  if (qIndex === 0) {
-    document.getElementById('screen-intro').classList.add('active');
-    updateProgress(-1);
-  } else {
-    showQuestion(qIndex - 1);
-  }
-}
-
-function updateProgress(qIndex) {
-  const total = QUESTIONS.length;
-  const fill = qIndex < 0 ? 0 : ((qIndex + 1) / total) * 100;
-  const label = qIndex < 0 ? '—' : `${qIndex + 1} / ${total}`;
-  document.getElementById('progressFill').style.width = fill + '%';
-  document.getElementById('progressLabel').textContent = label;
-}
-
-function calcScores() {
-  const s = { CR: 0, CF: 0, RTA: 0 };
-  QUESTIONS.forEach(q => {
-    const sel = answers[q.id];
-    if (sel !== undefined) {
-      const sc = q.options[sel].scores;
-      s.CR  += sc.CR  || 0;
-      s.CF  += sc.CF  || 0;
-      s.RTA += sc.RTA || 0;
-    }
+function renderResult() {
+  const totals = { CR: 0, CF: 0, RTA: 0 };
+  answers.forEach((ans, qi) => {
+    const [cr, cf, rta] = SCORES[qi][ans];
+    totals.CR  += cr;
+    totals.CF  += cf;
+    totals.RTA += rta;
   });
-  return s;
-}
 
-function showResult() {
-  const s = calcScores();
-  const max = Math.max(s.CR, s.CF, s.RTA);
-  const winners = Object.keys(s).filter(k => s[k] === max);
+  const max = Math.max(totals.CR, totals.CF, totals.RTA);
+  const winners = Object.keys(totals).filter(k => totals[k] === max);
+  const card = document.getElementById('resultCard');
+  const content = document.getElementById('resultContent');
 
-  const screen = document.getElementById('screen-result');
+  card.classList.add('has-result');
 
   if (winners.length === 1) {
-    const r = RESULTS[winners[0]];
-    screen.innerHTML = buildResultHTML(r, false);
+    const r = DATA[winners[0]];
+    const facts = r.facts.map(f =>
+      `<div class="result-fact"><span class="fact-key">${f.k}</span><span class="fact-val">${f.v}</span></div>`
+    ).join('');
+    const chips = r.chips.map(c => `<span class="chip ${r.cls}">${c}</span>`).join('');
+    content.innerHTML = `
+      <div class="result-header">
+        <div class="result-type-badge ${r.cls}">${r.badge}</div>
+        <div class="result-name">${r.name}</div>
+        <div class="result-assoc">${r.assoc}</div>
+      </div>
+      <div class="result-body">
+        <p class="result-desc">${r.desc}</p>
+        <div class="result-facts">${facts}</div>
+        <div class="result-chips">${chips}</div>
+        <div class="result-watch"><p>${r.watch}</p></div>
+        <div class="statement-box">
+          <span class="stmt-label">Your analysis statement</span>
+          ${r.stmt()}
+        </div>
+        <div class="result-cta">
+          <p><strong>Download the full decision guide</strong>Includes congruence checks, common mismatches, and a detailed walkthrough of all three approaches.</p>
+          <div class="cta-btns">
+            <a href="/thematic-analysis-decision-guide.pdf" class="btn-pdf" download>Download PDF →</a>
+            <button class="btn-retake" onclick="retake()">Start again</button>
+          </div>
+        </div>
+      </div>`;
   } else {
-    // tie — show mixed
-    screen.innerHTML = buildMixedHTML(winners, s);
+    // Mixed result
+    const names = { CR: 'Coding Reliability TA', CF: 'Codebook TA', RTA: 'Reflexive TA' };
+    const list = winners.map(k => `<strong>${names[k]}</strong>`).join(' and ');
+    content.innerHTML = `
+      <div class="result-header">
+        <div class="result-type-badge mixed">Further reflection needed</div>
+        <div class="result-name">Your answers point to more than one approach</div>
+        <div class="result-assoc">This is useful to know — not a sign something is wrong</div>
+      </div>
+      <div class="result-body">
+        <div class="mixed-note">Your responses are evenly split between ${list}. This usually means your analytic logic needs to be made more explicit — not that your study is flawed.</div>
+        <p class="result-desc">Work through these questions in writing: <em>Am I summarising, mapping, or interpreting? What is my researcher role? What are my codes doing? What do I mean by a theme? What quality criteria fit my approach?</em> Clarity here often resolves the uncertainty.</p>
+        <div class="result-cta">
+          <p><strong>The full guide walks through each question</strong>Includes detailed prompts, congruence checks, and descriptions of all three approaches.</p>
+          <div class="cta-btns">
+            <a href="/thematic-analysis-decision-guide.pdf" class="btn-pdf" download>Download PDF →</a>
+            <button class="btn-retake" onclick="retake()">Start again</button>
+          </div>
+        </div>
+      </div>`;
   }
 
-  screen.classList.add('active');
-  document.getElementById('progressFill').style.width = '100%';
-  document.getElementById('progressLabel').textContent = 'Complete';
-}
-
-function buildResultHTML(r, isMixed) {
-  const cellsHTML = r.cells.map(c =>
-    `<div class="result-cell">
-      <div class="result-cell-label">${c.label}</div>
-      <div class="result-cell-value">${c.value}</div>
-    </div>`
-  ).join('');
-
-  const markersHTML = r.markers.map(m =>
-    `<span class="marker-chip ${r.cls}">${m}</span>`
-  ).join('');
-
-  return `
-    <div class="result-type-badge ${r.cls}">${r.badge}</div>
-    <h2 class="result-title">${r.title}</h2>
-    <p class="result-subtitle">${r.badgeNote}</p>
-    <div class="result-divider"></div>
-    <p class="result-description">${r.description}</p>
-    <div class="result-grid">${cellsHTML}</div>
-    <div class="result-markers-title">Quality markers for this approach</div>
-    <div class="result-markers">${markersHTML}</div>
-    <div class="result-warning"><p>${r.warning}</p></div>
-    <div class="result-cta">
-      <div class="result-cta-text">
-        <strong>Go deeper with the full decision guide</strong>
-        Download Claire's PDF guide for a complete walkthrough including congruence checks, common mismatches, and further reading.
-      </div>
-      <div class="result-cta-btns">
-        <a href="/thematic-analysis-decision-guide.pdf" class="btn-pdf" download>Download PDF</a>
-        <button class="btn-retake" onclick="retake()">Retake →</button>
-      </div>
-    </div>`;
-}
-
-function buildMixedHTML(winners, s) {
-  const names = { CR: 'Coding Reliability TA', CF: 'Codebook / Coding Frame TA', RTA: 'Reflexive TA' };
-  const list = winners.map(k => `<strong>${names[k]}</strong>`).join(' and ');
-  let html = `
-    <div class="result-type-badge cf">Unclear fit — further reflection needed</div>
-    <h2 class="result-title">Your answers point to more than one approach</h2>
-    <p class="result-subtitle">This is useful information, not a problem.</p>
-    <div class="result-divider"></div>
-    <div class="mixed-note">Your responses are evenly split between ${list}. In Claire's guide, this usually signals that your analytic logic needs to be made more explicit — not that your study is flawed. The five orientation questions below can help you clarify.</div>
-    <p class="result-description">Ask yourself: <em>Am I summarising, mapping, or interpreting? What role am I playing? What are my codes doing? What do I mean by a theme? What quality criteria am I using?</em> Answering these clearly often resolves the uncertainty.</p>
-    <div class="result-cta">
-      <div class="result-cta-text">
-        <strong>The full guide walks through each of these questions</strong>
-        Claire's decision guide includes detailed prompts, congruence checks, and descriptions of all three approaches.
-      </div>
-      <div class="result-cta-btns">
-        <a href="/thematic-analysis-decision-guide.pdf" class="btn-pdf" download>Download PDF</a>
-        <button class="btn-retake" onclick="retake()">Retake →</button>
-      </div>
-    </div>`;
-  return html;
+  // Smooth scroll to result on mobile
+  if (window.innerWidth < 860) {
+    setTimeout(() => document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
 }
 
 function retake() {
-  scores = { CR: 0, CF: 0, RTA: 0 };
-  answers = {};
-  currentQ = 0;
-  document.getElementById('screen-result').classList.remove('active');
-  document.getElementById('screen-result').innerHTML = '';
-  document.getElementById('question-container').innerHTML = '';
-  document.getElementById('screen-intro').classList.add('active');
-  document.getElementById('progressFill').style.width = '0%';
-  document.getElementById('progressLabel').textContent = '—';
+  answers.fill(null);
+  document.querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.q-block').forEach(b => b.classList.remove('answered'));
+  document.querySelectorAll('.score-pip').forEach(p => p.classList.remove('done'));
+  document.getElementById('resultCard').classList.remove('has-result');
+  document.getElementById('resultContent').innerHTML = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 </body>
