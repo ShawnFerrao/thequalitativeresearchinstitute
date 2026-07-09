@@ -566,6 +566,65 @@ body {
 }
 .btn-secondary:hover { border-color: var(--navy); }
 
+/* ── PRINT / PDF ── */
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  body { background: #fff; }
+
+  /* Remove scroll animations — everything visible */
+  .reveal { opacity: 1 !important; transform: none !important; }
+
+  /* Hero: compact, no huge whitespace */
+  .hero { padding: 2.5rem 2rem 2rem; page-break-after: avoid; }
+  .hero h1 { font-size: 1.9rem; }
+
+  /* Each major section starts on a fresh page */
+  .section, .deep, .statement-section, .cta-section {
+    page-break-before: always;
+    break-before: page;
+    padding: 2rem 0;
+  }
+
+  /* At-a-glance cards: keep together, don't split mid-card */
+  .glance-card { page-break-inside: avoid; break-inside: avoid; }
+
+  /* Matrix: keep on one page if possible; avoid row splits */
+  .matrix-wrap { page-break-inside: avoid; break-inside: avoid; overflow: visible; }
+  .matrix tr { page-break-inside: avoid; break-inside: avoid; }
+
+  /* Deep-dive sections: each approach on its own page */
+  .deep { page-break-before: always; break-before: page; }
+  .deep-inner { page-break-inside: avoid; break-inside: avoid; }
+  .deep-facts { page-break-inside: avoid; break-inside: avoid; }
+  .watchout { page-break-inside: avoid; break-inside: avoid; }
+
+  /* Mismatch cards: don't split */
+  .mismatch-card { page-break-inside: avoid; break-inside: avoid; }
+
+  /* Statement section */
+  .statement-template { page-break-inside: avoid; break-inside: avoid; }
+  .stmt-example { page-break-inside: avoid; break-inside: avoid; }
+
+  /* CTA: compact */
+  .cta-section { background: #f5f3ee !important; }
+  .cta-inner { grid-template-columns: 1fr; }
+  .btn-primary, .btn-secondary { border: 1.5px solid #1a2744; padding: 0.5rem 1rem; }
+
+  /* Headings: avoid orphaned headings */
+  h2, h3 { page-break-after: avoid; break-after: avoid; }
+  .section-label { page-break-after: avoid; break-after: avoid; }
+
+  /* Max width for print */
+  .section-inner, .deep-inner, .mismatch-grid, .stmt-examples, .cta-inner {
+    max-width: 100%;
+    padding: 0 1.5rem;
+  }
+
+  /* Hide web-only noise */
+  .scroll-reveal { opacity: 1 !important; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 820px) {
   .glance-grid { grid-template-columns: 1fr; }
