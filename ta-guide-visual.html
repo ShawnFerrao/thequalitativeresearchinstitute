@@ -568,61 +568,93 @@ body {
 
 /* ── PRINT / PDF ── */
 @media print {
+  @page { size: A4; margin: 12mm 14mm; }
+  @page :first { margin: 0; }
+
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-  body { background: #fff; }
+  body { background: #fff; font-size: 0.82rem; }
 
-  /* Remove scroll animations — everything visible */
+  /* Reveal: everything visible */
   .reveal { opacity: 1 !important; transform: none !important; }
 
-  /* Hero: compact, no huge whitespace */
-  .hero { padding: 2.5rem 2rem 2rem; page-break-after: avoid; }
-  .hero h1 { font-size: 1.9rem; }
+  /* ── COVER PAGE: fill full A4 ── */
+  .hero {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2.5rem;
+    page-break-after: always;
+    break-after: page;
+    box-sizing: border-box;
+  }
+  .hero h1 { font-size: 2.1rem; }
+  .hero-sub { font-size: 1rem; max-width: 520px; margin: 1rem auto 0; }
+  .spectrum { margin-top: 2.5rem; }
 
-  /* Each major section starts on a fresh page */
+  /* ── SECTIONS: fresh page each ── */
   .section, .deep, .statement-section, .cta-section {
     page-break-before: always;
     break-before: page;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
   }
 
-  /* At-a-glance cards: keep together, don't split mid-card */
-  .glance-card { page-break-inside: avoid; break-inside: avoid; }
+  /* Containers: full width */
+  .container, .container--narrow {
+    max-width: 100%;
+    padding: 0;
+  }
 
-  /* Matrix: keep on one page if possible; avoid row splits */
-  .matrix-wrap { page-break-inside: avoid; break-inside: avoid; overflow: visible; }
+  /* ── AT-A-GLANCE CARDS ── */
+  .glance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .glance-card { page-break-inside: avoid; break-inside: avoid; padding: 1rem 1.1rem; }
+
+  /* ── MATRIX: shrink to fit one page ── */
+  .matrix-wrap {
+    overflow: visible;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-top: 1rem;
+  }
+  .matrix {
+    font-size: 0.72rem;
+    width: 100%;
+  }
+  .matrix th, .matrix td {
+    padding: 0.55rem 0.6rem;
+    font-size: 0.72rem;
+  }
+  .matrix thead th { font-size: 0.73rem; padding: 0.6rem; }
   .matrix tr { page-break-inside: avoid; break-inside: avoid; }
+  .matrix td strong { font-size: 0.74rem; }
+  .matrix td small { font-size: 0.66rem; }
 
-  /* Deep-dive sections: each approach on its own page */
+  /* ── DEEP-DIVE sections ── */
   .deep { page-break-before: always; break-before: page; }
-  .deep-inner { page-break-inside: avoid; break-inside: avoid; }
-  .deep-facts { page-break-inside: avoid; break-inside: avoid; }
+  .deep-inner { grid-template-columns: 1fr 1fr; page-break-inside: avoid; break-inside: avoid; }
+  .deep-facts { grid-template-columns: 1fr 1fr; page-break-inside: avoid; break-inside: avoid; }
   .watchout { page-break-inside: avoid; break-inside: avoid; }
 
-  /* Mismatch cards: don't split */
-  .mismatch-card { page-break-inside: avoid; break-inside: avoid; }
+  /* ── MISMATCHES ── */
+  .mismatch-grid { grid-template-columns: 1fr 1fr; }
+  .mismatch-card { page-break-inside: avoid; break-inside: avoid; padding: 0.9rem; }
 
-  /* Statement section */
+  /* ── STATEMENT ── */
   .statement-template { page-break-inside: avoid; break-inside: avoid; }
+  .stmt-examples { grid-template-columns: 1fr; }
   .stmt-example { page-break-inside: avoid; break-inside: avoid; }
 
-  /* CTA: compact */
+  /* ── CTA ── */
   .cta-section { background: #f5f3ee !important; }
-  .cta-inner { grid-template-columns: 1fr; }
-  .btn-primary, .btn-secondary { border: 1.5px solid #1a2744; padding: 0.5rem 1rem; }
+  .cta-inner { grid-template-columns: 1fr; gap: 1rem; }
 
-  /* Headings: avoid orphaned headings */
-  h2, h3 { page-break-after: avoid; break-after: avoid; }
-  .section-label { page-break-after: avoid; break-after: avoid; }
-
-  /* Max width for print */
-  .section-inner, .deep-inner, .mismatch-grid, .stmt-examples, .cta-inner {
-    max-width: 100%;
-    padding: 0 1.5rem;
-  }
-
-  /* Hide web-only noise */
-  .scroll-reveal { opacity: 1 !important; }
+  /* Headings: never orphaned */
+  h2, h3, .section-label { page-break-after: avoid; break-after: avoid; }
+  .section-title { font-size: 1.35rem; }
+  .section-intro { font-size: 0.82rem; }
 }
 
 /* ── RESPONSIVE ── */
