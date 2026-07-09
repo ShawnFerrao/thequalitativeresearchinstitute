@@ -374,16 +374,192 @@ body {
   margin-bottom: 1.25rem;
 }
 
+/* ── SCORE CHART ── */
+.score-chart-wrap {
+  padding: 1rem 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: none;
+}
+.score-chart-wrap.visible { display: block; }
+.score-chart-title {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  font-family: 'Inter', sans-serif;
+}
+.score-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.72rem;
+  font-family: 'Inter', sans-serif;
+}
+.score-bar-label {
+  width: 110px;
+  flex-shrink: 0;
+  font-weight: 500;
+  color: var(--navy);
+}
+.score-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--cream);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s cubic-bezier(.4,0,.2,1);
+  width: 0%;
+}
+.score-bar-fill.cr  { background: #2d4a8a; }
+.score-bar-fill.cf  { background: #a85d20; }
+.score-bar-fill.rta { background: #1a5c3a; }
+.score-bar-pct {
+  width: 28px;
+  text-align: right;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── RADAR SECTION ── */
+.radar-section {
+  background: var(--warm-white);
+  border-top: 1px solid var(--border);
+  padding: 4rem 2rem;
+}
+.radar-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.radar-text {}
+.radar-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.75rem;
+  font-family: 'Inter', sans-serif;
+}
+.radar-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+.radar-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+.radar-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.radar-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+}
+.radar-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.radar-dot.cr  { background: #2d4a8a; }
+.radar-dot.cf  { background: #a85d20; }
+.radar-dot.rta { background: #1a5c3a; }
+.radar-legend-name { font-weight: 600; color: var(--navy); }
+.radar-legend-tag  { color: var(--muted); font-style: italic; }
+
+.radar-canvas-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#radarCanvas { max-width: 100%; }
+
+/* ── CONGRUENCE TABLE ── */
+.congruence-section {
+  padding: 3.5rem 2rem 4rem;
+  background: var(--cream);
+}
+.congruence-inner { max-width: 1040px; margin: 0 auto; }
+.congruence-eyebrow {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold);
+  display: block; margin-bottom: 0.75rem; font-family: 'Inter', sans-serif;
+}
+.congruence-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 600; color: var(--navy);
+  line-height: 1.3; margin-bottom: 0.6rem; text-wrap: balance;
+}
+.congruence-sub {
+  font-family: 'Inter', sans-serif; font-size: 0.88rem;
+  color: var(--muted); line-height: 1.7; margin-bottom: 2rem;
+  max-width: 620px;
+}
+.cong-table {
+  width: 100%; border-collapse: collapse;
+  font-family: 'Inter', sans-serif; font-size: 0.82rem;
+}
+.cong-table th, .cong-table td {
+  padding: 0.8rem 1rem; text-align: left;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.45;
+}
+.cong-table thead th {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; padding: 0.65rem 1rem;
+}
+.cong-table thead th:first-child { background: #e8ecf5; color: var(--muted); }
+.cong-table thead th.th-cr  { background: #2d4a8a; }
+.cong-table thead th.th-cf  { background: #a85d20; }
+.cong-table thead th.th-rta { background: #1a5c3a; }
+.cong-table tbody td:first-child {
+  font-weight: 600; color: var(--navy);
+  background: #f4f6fb; width: 20%;
+}
+.cong-table tbody tr:last-child td { border-bottom: none; }
+.tick { color: #2d7a3a; font-size: 1rem; }
+.cross { color: #b34040; font-size: 1rem; }
+.partial { color: #a85d20; font-size: 0.9rem; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 860px) {
   .page-body { grid-template-columns: 1fr; }
   .result-panel { position: static; }
   .result-card { margin-top: 0; }
+  .radar-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .radar-canvas-wrap { order: -1; }
 }
 @media (max-width: 540px) {
   .page-intro { padding: 2.5rem 1.25rem 2rem; }
   .q-block { padding: 1.35rem 1.25rem; }
   .page-body { padding: 2rem 1rem 3rem; gap: 1.5rem; }
+  .cong-table { font-size: 0.75rem; }
+  .cong-table th, .cong-table td { padding: 0.6rem 0.65rem; }
 }
 </style>
 </head>
@@ -393,7 +569,7 @@ body {
 <div class="page-intro">
   <span class="eyebrow">Free decision guide</span>
   <h1>Which type of thematic analysis is right for your study?</h1>
-  <p class="lead">Answer four questions about how your study actually works — and get a clear recommendation with the reasoning behind it.</p>
+  <p class="lead">Answer five questions about how your study actually works — and get a clear recommendation with the reasoning behind it.</p>
 </div>
 
 <!-- BODY -->
@@ -522,6 +698,36 @@ body {
       </div>
     </div>
 
+    <!-- Q5 -->
+    <div class="q-block" id="qb-4">
+      <div class="q-number">Question 5</div>
+      <div class="q-text">What does your research context look like?</div>
+      <div class="q-hint">The team structure and purpose of your research often determine which approach is practical and credible to your audience.</div>
+      <div class="options">
+        <button class="opt" onclick="pick(4,0)" id="q4o0" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Multi-site, multi-coder, or team-based research</span>
+            <span class="opt-note">The study spans teams, sites, or coders — agreement and consistency across people matters.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(4,1)" id="q4o1" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Applied, policy, or evaluation research — findings must be accountable</span>
+            <span class="opt-note">Stakeholders need to be able to follow your analytic decisions and scrutinise them.</span>
+          </div>
+        </button>
+        <button class="opt" onclick="pick(4,2)" id="q4o2" type="button">
+          <div class="opt-radio"><div class="opt-dot"></div></div>
+          <div class="opt-content">
+            <span class="opt-label">Solo or small-team exploratory or academic research</span>
+            <span class="opt-note">The research is primarily driven by interpretive insight rather than external accountability.</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
   </div><!-- /questions-panel -->
 
   <!-- RIGHT: RESULT -->
@@ -534,6 +740,27 @@ body {
         <div class="score-pip" id="pip1"></div>
         <div class="score-pip" id="pip2"></div>
         <div class="score-pip" id="pip3"></div>
+        <div class="score-pip" id="pip4"></div>
+      </div>
+
+      <!-- Score breakdown chart (shown after completion) -->
+      <div class="score-chart-wrap" id="scoreChartWrap">
+        <div class="score-chart-title">How your answers align with each approach</div>
+        <div class="score-bar-row">
+          <span class="score-bar-label">Coding Reliability</span>
+          <div class="score-bar-track"><div class="score-bar-fill cr" id="barCR"></div></div>
+          <span class="score-bar-pct" id="pctCR"></span>
+        </div>
+        <div class="score-bar-row">
+          <span class="score-bar-label">Codebook TA</span>
+          <div class="score-bar-track"><div class="score-bar-fill cf" id="barCF"></div></div>
+          <span class="score-bar-pct" id="pctCF"></span>
+        </div>
+        <div class="score-bar-row">
+          <span class="score-bar-label">Reflexive TA</span>
+          <div class="score-bar-track"><div class="score-bar-fill rta" id="barRTA"></div></div>
+          <span class="score-bar-pct" id="pctRTA"></span>
+        </div>
       </div>
 
       <!-- Pending state -->
@@ -550,16 +777,198 @@ body {
 
 </div><!-- /page-body -->
 
+<!-- ── RADAR CHART ── -->
+<div class="radar-section">
+  <div class="radar-inner">
+    <div class="radar-text">
+      <span class="radar-eyebrow">Visual comparison</span>
+      <h2 class="radar-title">How the three approaches differ across five key dimensions</h2>
+      <p class="radar-desc">Each approach has a different profile — not better or worse, but suited to different research purposes, team structures, and epistemological positions. This chart maps those differences so you can see at a glance where each approach excels and where it is less suited.</p>
+      <div class="radar-legend">
+        <div class="radar-legend-item">
+          <div class="radar-dot cr"></div>
+          <span><span class="radar-legend-name">Coding Reliability TA</span> <span class="radar-legend-tag">— "small q"</span></span>
+        </div>
+        <div class="radar-legend-item">
+          <div class="radar-dot cf"></div>
+          <span><span class="radar-legend-name">Codebook / Coding Frame TA</span> <span class="radar-legend-tag">— "medium q"</span></span>
+        </div>
+        <div class="radar-legend-item">
+          <div class="radar-dot rta"></div>
+          <span><span class="radar-legend-name">Reflexive TA</span> <span class="radar-legend-tag">— "big Q"</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="radar-canvas-wrap">
+      <canvas id="radarCanvas" width="420" height="380"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONGRUENCE TABLE ── -->
+<div class="congruence-section">
+  <div class="congruence-inner">
+    <span class="congruence-eyebrow">Congruence check</span>
+    <h2 class="congruence-title">Does your approach match your design choices?</h2>
+    <p class="congruence-sub">Methodological congruence means that your research question, analytic approach, quality criteria, and write-up language all point in the same direction. Use this table to check for mismatches before you submit.</p>
+    <table class="cong-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="th-cr">Coding Reliability TA</th>
+          <th class="th-cf">Codebook TA</th>
+          <th class="th-rta">Reflexive TA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Inter-rater reliability</td>
+          <td><span class="tick">✓ Required</span></td>
+          <td><span class="partial">○ Not standard</span></td>
+          <td><span class="cross">✗ Inappropriate</span></td>
+        </tr>
+        <tr>
+          <td>Fixed codebook</td>
+          <td><span class="tick">✓ Yes</span></td>
+          <td><span class="partial">○ Evolving</span></td>
+          <td><span class="cross">✗ No</span></td>
+        </tr>
+        <tr>
+          <td>Multiple coders</td>
+          <td><span class="tick">✓ Required</span></td>
+          <td><span class="partial">○ Often yes</span></td>
+          <td><span class="cross">✗ Typically solo</span></td>
+        </tr>
+        <tr>
+          <td>Reflexivity statements</td>
+          <td><span class="cross">✗ Not central</span></td>
+          <td><span class="partial">○ Encouraged</span></td>
+          <td><span class="tick">✓ Essential</span></td>
+        </tr>
+        <tr>
+          <td>Member checking</td>
+          <td><span class="partial">○ Optional</span></td>
+          <td><span class="tick">✓ Common</span></td>
+          <td><span class="partial">○ Context-dependent</span></td>
+        </tr>
+        <tr>
+          <td>Themes described as…</td>
+          <td>Topic categories</td>
+          <td>Patterned responses</td>
+          <td>Constructed meanings</td>
+        </tr>
+        <tr>
+          <td>Cite Braun &amp; Clarke (2006)?</td>
+          <td><span class="partial">○ With caution</span></td>
+          <td><span class="partial">○ With caution</span></td>
+          <td><span class="tick">✓ Primary source</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <script>
-const answers = [null, null, null, null];
+const answers = [null, null, null, null, null];
 
 // Scores: each answer is [CR_pts, CF_pts, RTA_pts]
 const SCORES = [
-  [[2,0,0],[0,2,0],[0,0,2]], // Q1
-  [[2,1,0],[0,2,0],[0,0,2]], // Q2
-  [[2,0,0],[0,2,0],[0,0,2]], // Q3
-  [[2,0,0],[0,2,0],[0,0,2]], // Q4
+  [[2,0,0],[0,2,0],[0,0,2]], // Q1 — analytic aim
+  [[2,1,0],[0,2,0],[0,0,2]], // Q2 — theme definition
+  [[2,0,0],[0,2,0],[0,0,2]], // Q3 — researcher role
+  [[2,0,0],[0,2,0],[0,0,2]], // Q4 — quality markers
+  [[2,0,0],[0,2,0],[0,0,2]], // Q5 — research context
 ];
+
+// ── RADAR CHART ────────────────────────────────────────────────
+(function drawRadar() {
+  const canvas = document.getElementById('radarCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2 + 10;
+  const R = Math.min(W, H) * 0.36;
+
+  const axes = [
+    'Interpretive\ndepth',
+    'Consistency &\nreliability',
+    'Team\nscalability',
+    'Coding\nflexibility',
+    'Theoretical\nengagement',
+  ];
+  const N = axes.length;
+
+  // Scores per approach (0–1): [interpretive, consistency, team, flexibility, theoretical]
+  const approaches = [
+    { name: 'CR',  color: '#2d4a8a', fill: 'rgba(45,74,138,0.12)',  values: [0.15, 0.95, 0.90, 0.15, 0.20] },
+    { name: 'CF',  color: '#a85d20', fill: 'rgba(168,93,32,0.12)',   values: [0.55, 0.55, 0.75, 0.55, 0.50] },
+    { name: 'RTA', color: '#1a5c3a', fill: 'rgba(26,92,58,0.12)',    values: [0.95, 0.10, 0.20, 0.95, 0.90] },
+  ];
+
+  function pt(i, r) {
+    const angle = (Math.PI * 2 * i / N) - Math.PI / 2;
+    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+  }
+
+  // Grid rings
+  ctx.strokeStyle = '#dde1ec';
+  ctx.lineWidth = 1;
+  [0.25, 0.5, 0.75, 1].forEach(fraction => {
+    ctx.beginPath();
+    for (let i = 0; i < N; i++) {
+      const p = pt(i, R * fraction);
+      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+  });
+
+  // Axis spokes
+  ctx.strokeStyle = '#dde1ec';
+  for (let i = 0; i < N; i++) {
+    const p = pt(i, R);
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(p.x, p.y); ctx.stroke();
+  }
+
+  // Approach polygons
+  approaches.forEach(ap => {
+    ctx.beginPath();
+    for (let i = 0; i < N; i++) {
+      const p = pt(i, R * ap.values[i]);
+      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = ap.fill;
+    ctx.fill();
+    ctx.strokeStyle = ap.color;
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    // Dots
+    for (let i = 0; i < N; i++) {
+      const p = pt(i, R * ap.values[i]);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = ap.color;
+      ctx.fill();
+    }
+  });
+
+  // Axis labels
+  const LBL_PAD = 18;
+  ctx.fillStyle = '#4a5568';
+  ctx.font = '500 11px Inter, Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  for (let i = 0; i < N; i++) {
+    const p = pt(i, R + LBL_PAD);
+    const lines = axes[i].split('\n');
+    const lineH = 14;
+    lines.forEach((line, li) => {
+      const yOff = (li - (lines.length - 1) / 2) * lineH;
+      ctx.fillText(line, p.x, p.y + yOff);
+    });
+  }
+})();
 
 const DATA = {
   CR: {
@@ -630,6 +1039,12 @@ function pick(q, opt) {
   // Update result if all answered
   const allDone = answers.every(a => a !== null);
   if (allDone) renderResult();
+  else {
+    // Reset score bars if user changes an answer after completion
+    document.getElementById('scoreChartWrap').classList.remove('visible');
+    document.getElementById('resultCard').classList.remove('has-result');
+    document.getElementById('resultContent').innerHTML = '';
+  }
 }
 
 function renderResult() {
@@ -639,6 +1054,19 @@ function renderResult() {
     totals.CR  += cr;
     totals.CF  += cf;
     totals.RTA += rta;
+  });
+
+  // Score bars
+  const maxPts = Object.values(totals).reduce((a,b) => a+b, 0);
+  const pct = k => maxPts > 0 ? Math.round(totals[k] / maxPts * 100) : 0;
+  document.getElementById('scoreChartWrap').classList.add('visible');
+  requestAnimationFrame(() => {
+    document.getElementById('barCR').style.width  = pct('CR')  + '%';
+    document.getElementById('barCF').style.width  = pct('CF')  + '%';
+    document.getElementById('barRTA').style.width = pct('RTA') + '%';
+    document.getElementById('pctCR').textContent  = pct('CR')  + '%';
+    document.getElementById('pctCF').textContent  = pct('CF')  + '%';
+    document.getElementById('pctRTA').textContent = pct('RTA') + '%';
   });
 
   const max = Math.max(totals.CR, totals.CF, totals.RTA);
@@ -672,7 +1100,7 @@ function renderResult() {
         <div class="result-cta">
           <p><strong>Download the full decision guide</strong>Includes congruence checks, common mismatches, and a detailed walkthrough of all three approaches.</p>
           <div class="cta-btns">
-            <a href="/thematic-analysis-decision-guide.pdf" class="btn-pdf" download>Download PDF →</a>
+            <a href="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/07/Guide-2026.pdf" class="btn-pdf" download>Download PDF →</a>
             <button class="btn-retake" onclick="retake()">Start again</button>
           </div>
         </div>
@@ -693,7 +1121,7 @@ function renderResult() {
         <div class="result-cta">
           <p><strong>The full guide walks through each question</strong>Includes detailed prompts, congruence checks, and descriptions of all three approaches.</p>
           <div class="cta-btns">
-            <a href="/thematic-analysis-decision-guide.pdf" class="btn-pdf" download>Download PDF →</a>
+            <a href="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/07/Guide-2026.pdf" class="btn-pdf" download>Download PDF →</a>
             <button class="btn-retake" onclick="retake()">Start again</button>
           </div>
         </div>
@@ -713,6 +1141,8 @@ function retake() {
   document.querySelectorAll('.score-pip').forEach(p => p.classList.remove('done'));
   document.getElementById('resultCard').classList.remove('has-result');
   document.getElementById('resultContent').innerHTML = '';
+  document.getElementById('scoreChartWrap').classList.remove('visible');
+  ['barCR','barCF','barRTA'].forEach(id => document.getElementById(id).style.width = '0%');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
