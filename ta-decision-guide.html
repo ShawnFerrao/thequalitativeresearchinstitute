@@ -427,76 +427,60 @@ body {
   flex-shrink: 0;
 }
 
-/* ── RADAR SECTION ── */
-.radar-section {
+/* ── VIZ SECTION ── */
+.viz-section {
   background: var(--warm-white);
   border-top: 1px solid var(--border);
   padding: 4rem 2rem;
 }
-.radar-inner {
+.viz-inner {
   max-width: 1040px;
   margin: 0 auto;
+}
+.viz-eyebrow {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold);
+  display: block; margin-bottom: 0.6rem; font-family: 'Inter', sans-serif;
+}
+.viz-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-weight: 600; color: var(--navy);
+  line-height: 1.3; margin-bottom: 0.5rem; text-wrap: balance;
+}
+.viz-sub {
+  font-family: 'Inter', sans-serif; font-size: 0.85rem;
+  color: var(--muted); line-height: 1.65; margin-bottom: 2rem;
+}
+.viz-charts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
+  gap: 2.5rem;
 }
-.radar-text {}
-.radar-eyebrow {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
-  display: block;
-  margin-bottom: 0.75rem;
-  font-family: 'Inter', sans-serif;
+.viz-chart-box {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  border: 1.5px solid var(--border);
 }
-.radar-title {
-  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-  font-weight: 600;
-  color: var(--navy);
-  line-height: 1.3;
-  margin-bottom: 1rem;
-  text-wrap: balance;
+.viz-chart-label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted);
+  font-family: 'Inter', sans-serif; margin-bottom: 0.35rem;
 }
-.radar-desc {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  color: var(--muted);
-  line-height: 1.75;
-  margin-bottom: 1.5rem;
+.viz-chart-title {
+  font-size: 0.95rem; font-weight: 600; color: var(--navy);
+  margin-bottom: 0.3rem;
 }
-.radar-legend {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+.viz-chart-desc {
+  font-family: 'Inter', sans-serif; font-size: 0.78rem;
+  color: var(--muted); line-height: 1.55; margin-bottom: 1.25rem;
 }
-.radar-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-size: 0.8rem;
-  font-family: 'Inter', sans-serif;
+.viz-placeholder {
+  font-family: 'Inter', sans-serif; font-size: 0.8rem;
+  color: var(--muted); text-align: center; padding: 2rem 0;
+  font-style: italic;
 }
-.radar-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.radar-dot.cr  { background: #2d4a8a; }
-.radar-dot.cf  { background: #a85d20; }
-.radar-dot.rta { background: #1a5c3a; }
-.radar-legend-name { font-weight: 600; color: var(--navy); }
-.radar-legend-tag  { color: var(--muted); font-style: italic; }
-
-.radar-canvas-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#radarCanvas { max-width: 100%; }
+canvas { display: block; width: 100%; }
 
 /* ── CONGRUENCE TABLE ── */
 .congruence-section {
@@ -551,8 +535,7 @@ body {
   .page-body { grid-template-columns: 1fr; }
   .result-panel { position: static; }
   .result-card { margin-top: 0; }
-  .radar-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .radar-canvas-wrap { order: -1; }
+  .viz-charts { grid-template-columns: 1fr; }
 }
 @media (max-width: 540px) {
   .page-intro { padding: 2.5rem 1.25rem 2rem; }
@@ -777,41 +760,32 @@ body {
 
 </div><!-- /page-body -->
 
-<!-- ── RADAR CHART ── -->
-<div class="radar-section">
-  <div class="radar-inner">
-    <div class="radar-text">
-      <span class="radar-eyebrow">Visual comparison</span>
-      <h2 class="radar-title">See where your study sits — live as you answer</h2>
-      <p class="radar-desc">Each of the five axes maps to one of your questions. As you answer, a <strong style="color:#c8a352;">gold dashed line</strong> plots your study's profile against the three approaches. When you finish, the closest match is highlighted. The chart shows five dimensions:</p>
-      <ul style="font-family:'Inter',sans-serif;font-size:0.82rem;color:var(--muted);line-height:1.8;margin-bottom:1.25rem;padding-left:1.1rem;">
-        <li><strong style="color:var(--navy);">Interpretive aim</strong> — are you categorising, mapping, or interpreting?</li>
-        <li><strong style="color:var(--navy);">Reliability focus</strong> — how central is consistency across coders?</li>
-        <li><strong style="color:var(--navy);">Team-based</strong> — does your context require multi-coder accountability?</li>
-        <li><strong style="color:var(--navy);">Coding flexibility</strong> — are codes fixed, evolving, or fully open?</li>
-        <li><strong style="color:var(--navy);">Theoretical depth</strong> — how much does epistemological framing drive your analysis?</li>
-      </ul>
-      <div class="radar-legend">
-        <div class="radar-legend-item">
-          <div class="radar-dot cr"></div>
-          <span><span class="radar-legend-name">Coding Reliability TA</span></span>
-        </div>
-        <div class="radar-legend-item">
-          <div class="radar-dot cf"></div>
-          <span><span class="radar-legend-name">Codebook / Coding Frame TA</span></span>
-        </div>
-        <div class="radar-legend-item">
-          <div class="radar-dot rta"></div>
-          <span><span class="radar-legend-name">Reflexive TA</span></span>
-        </div>
-        <div class="radar-legend-item">
-          <div style="width:10px;height:10px;border-radius:50%;background:#c8a352;flex-shrink:0;"></div>
-          <span><span class="radar-legend-name" style="color:#c8a352;">Your study</span> <span class="radar-legend-tag">— updates as you answer</span></span>
-        </div>
+<!-- ── CHARTS ── -->
+<div class="viz-section">
+  <div class="viz-inner">
+    <span class="viz-eyebrow">Your results, visualised</span>
+    <h2 class="viz-title">Two ways to see where your study fits</h2>
+    <p class="viz-sub">Answer all five questions above to see your results plotted below.</p>
+    <div class="viz-charts">
+
+      <!-- Chart 1: Spectrum position -->
+      <div class="viz-chart-box">
+        <div class="viz-chart-label">Chart 1</div>
+        <div class="viz-chart-title">Where your study sits on the spectrum</div>
+        <div class="viz-chart-desc">The three approaches sit along a spectrum from structured/categorical to interpretive/reflexive. This shows where your answers place your study.</div>
+        <div id="spectrumPlaceholder" class="viz-placeholder">Answer all five questions to see your position</div>
+        <canvas id="spectrumCanvas" height="110" style="display:none;"></canvas>
       </div>
-    </div>
-    <div class="radar-canvas-wrap">
-      <canvas id="radarCanvas" width="420" height="380"></canvas>
+
+      <!-- Chart 2: Match scores -->
+      <div class="viz-chart-box">
+        <div class="viz-chart-label">Chart 2</div>
+        <div class="viz-chart-title">How strongly your answers match each approach</div>
+        <div class="viz-chart-desc">Each bar shows the percentage of your five answers that point toward that approach. The longest bar is your recommended approach.</div>
+        <div id="scorePlaceholder" class="viz-placeholder">Answer all five questions to see your scores</div>
+        <canvas id="scoreCanvas" height="140" style="display:none;"></canvas>
+      </div>
+
     </div>
   </div>
 </div>
@@ -882,163 +856,183 @@ body {
 <script>
 const answers = [null, null, null, null, null];
 
-// Scores: each answer is [CR_pts, CF_pts, RTA_pts]
 const SCORES = [
-  [[2,0,0],[0,2,0],[0,0,2]], // Q1 — analytic aim
-  [[2,1,0],[0,2,0],[0,0,2]], // Q2 — theme definition
-  [[2,0,0],[0,2,0],[0,0,2]], // Q3 — researcher role
-  [[2,0,0],[0,2,0],[0,0,2]], // Q4 — quality markers
-  [[2,0,0],[0,2,0],[0,0,2]], // Q5 — research context
+  [[2,0,0],[0,2,0],[0,0,2]], // Q1
+  [[2,1,0],[0,2,0],[0,0,2]], // Q2
+  [[2,0,0],[0,2,0],[0,0,2]], // Q3
+  [[2,0,0],[0,2,0],[0,0,2]], // Q4
+  [[2,0,0],[0,2,0],[0,0,2]], // Q5
 ];
 
-// ── RADAR CHART ────────────────────────────────────────────────
-// 5 axes map directly to the 5 questions:
-// [0] Interpretive aim     ← Q1: organise→0.1, map→0.5, interpret→0.95
-// [1] Reliability focus    ← Q3: neutral→0.95, shared→0.5, reflexive→0.05
-// [2] Team-based           ← Q5: multi-site→0.95, applied→0.65, solo→0.1
-// [3] Coding flexibility   ← Q2: topic→0.1, patterned→0.5, constructed→0.95
-// [4] Theoretical depth    ← Q4: reliability→0.1, transparency→0.5, reflexivity→0.95
+// ── CHART DRAWING ────────────────────────────────────────────
 
-// Per-answer user profile value for each axis
-const Q_PROFILE = [
-  [0.10, 0.50, 0.95],  // Q1 → axis 0 (interpretive aim)
-  [0.10, 0.50, 0.95],  // Q2 → axis 3 (coding flexibility)
-  [0.95, 0.50, 0.05],  // Q3 → axis 1 (reliability focus)
-  [0.10, 0.50, 0.95],  // Q4 → axis 4 (theoretical depth)
-  [0.95, 0.65, 0.10],  // Q5 → axis 2 (team-based)
-];
-// Which radar axis each question drives
-const Q_AXIS = [0, 3, 1, 4, 2];
-
-const canvas = document.getElementById('radarCanvas');
-const ctx = canvas.getContext('2d');
-const W = canvas.width, H = canvas.height;
-const cx = W / 2, cy = H / 2 + 8;
-const R = Math.min(W, H) * 0.34;
-
-const AXES = [
-  'Interpretive aim',
-  'Reliability focus',
-  'Team-based',
-  'Coding flexibility',
-  'Theoretical depth',
-];
-const N = AXES.length;
-
-// Fixed approach profiles: [interp, reliability, team, flexibility, theoretical]
-const APPROACHES = [
-  { label: 'Coding Reliability', color: '#2d4a8a', fill: 'rgba(45,74,138,0.10)',  v: [0.10, 0.95, 0.90, 0.10, 0.10] },
-  { label: 'Codebook TA',        color: '#a85d20', fill: 'rgba(168,93,32,0.10)',  v: [0.50, 0.55, 0.70, 0.55, 0.50] },
-  { label: 'Reflexive TA',       color: '#1a5c3a', fill: 'rgba(26,92,58,0.10)',   v: [0.95, 0.08, 0.15, 0.95, 0.95] },
-];
-
-// Current animated user profile (starts null per axis)
-let userProfile = [null, null, null, null, null];
-let animFrame = null;
-let animTarget = [0,0,0,0,0];
-let animCurrent = [0,0,0,0,0];
-
-function pt(i, r) {
-  const angle = (Math.PI * 2 * i / N) - Math.PI / 2;
-  return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
-}
-
-function drawRadar(highlightKey) {
+function drawSpectrumChart(totals) {
+  const canvas = document.getElementById('spectrumCanvas');
+  const W = canvas.offsetWidth || 480;
+  canvas.width = W;
+  const H = 110;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, W, H);
 
-  // Grid rings
-  [0.25, 0.5, 0.75, 1].forEach(f => {
-    ctx.beginPath();
-    for (let i = 0; i < N; i++) {
-      const p = pt(i, R * f);
-      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-    }
-    ctx.closePath();
-    ctx.strokeStyle = '#dde1ec'; ctx.lineWidth = 1; ctx.stroke();
-  });
+  const PAD = 28;
+  const trackY = 52;
+  const trackW = W - PAD * 2;
 
-  // Spokes
-  for (let i = 0; i < N; i++) {
-    const p = pt(i, R);
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(p.x, p.y);
-    ctx.strokeStyle = '#dde1ec'; ctx.lineWidth = 1; ctx.stroke();
-  }
+  // Approach fixed positions on spectrum (0=left=CR, 1=right=RTA)
+  const positions = { CR: 0.08, CF: 0.5, RTA: 0.92 };
+  const colors    = { CR: '#2d4a8a', CF: '#a85d20', RTA: '#1a5c3a' };
+  const labels    = { CR: 'Coding Reliability TA', CF: 'Codebook TA', RTA: 'Reflexive TA' };
 
-  // Approach polygons (dim non-winner when result shown)
-  APPROACHES.forEach(ap => {
-    const dimmed = highlightKey && ap.label !== APPROACHES.find(a => a._key === highlightKey)?.label;
-    const alpha = dimmed ? 0.35 : 1;
-    ctx.globalAlpha = alpha;
-    ctx.beginPath();
-    for (let i = 0; i < N; i++) {
-      const p = pt(i, R * ap.v[i]);
-      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-    }
-    ctx.closePath();
-    ctx.fillStyle = ap.fill; ctx.fill();
-    ctx.strokeStyle = ap.color; ctx.lineWidth = 2; ctx.stroke();
-    ctx.globalAlpha = 1;
-  });
+  // Gradient track
+  const grad = ctx.createLinearGradient(PAD, 0, PAD + trackW, 0);
+  grad.addColorStop(0,    '#2d4a8a');
+  grad.addColorStop(0.5,  '#a85d20');
+  grad.addColorStop(1,    '#1a5c3a');
+  ctx.beginPath();
+  ctx.roundRect(PAD, trackY - 3, trackW, 6, 3);
+  ctx.fillStyle = grad;
+  ctx.fill();
 
-  // User profile polygon (gold, animated)
-  const hasAny = animCurrent.some(v => v > 0.01);
-  if (hasAny) {
+  // Approach markers
+  Object.keys(positions).forEach(key => {
+    const x = PAD + positions[key] * trackW;
     ctx.beginPath();
-    for (let i = 0; i < N; i++) {
-      const v = animCurrent[i];
-      const p = pt(i, R * v);
-      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-    }
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(211,181,116,0.18)';
+    ctx.arc(x, trackY, 7, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
     ctx.fill();
-    ctx.strokeStyle = '#c8a352';
+    ctx.strokeStyle = colors[key];
     ctx.lineWidth = 2.5;
-    ctx.setLineDash([5,3]);
     ctx.stroke();
-    ctx.setLineDash([]);
-
-    // Dots on user profile
-    for (let i = 0; i < N; i++) {
-      if (animCurrent[i] > 0.01) {
-        const p = pt(i, R * animCurrent[i]);
-        ctx.beginPath(); ctx.arc(p.x, p.y, 4.5, 0, Math.PI*2);
-        ctx.fillStyle = '#c8a352'; ctx.fill();
-      }
-    }
-  }
+    // Label below
+    ctx.fillStyle = colors[key];
+    ctx.font = '600 9px Inter, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(labels[key], x, trackY + 13);
+  });
 
   // Axis labels
-  for (let i = 0; i < N; i++) {
-    const p = pt(i, R + PAD);
-    ctx.fillText(AXES[i], p.x, p.y);
-  }
+  ctx.fillStyle = '#9ca3af';
+  ctx.font = '500 9px Inter, Arial, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('← Structured / categorical', PAD, trackY - 10);
+  ctx.textAlign = 'right';
+  ctx.fillText('Interpretive / reflexive →', PAD + trackW, trackY - 10);
+
+  // User position: weighted average on spectrum
+  const total = totals.CR + totals.CF + totals.RTA;
+  if (total === 0) return;
+  const userPos = (totals.CR * positions.CR + totals.CF * positions.CF + totals.RTA * positions.RTA) / total;
+  const userX = PAD + userPos * trackW;
+
+  // User marker (gold diamond)
+  ctx.save();
+  ctx.translate(userX, trackY);
+  ctx.rotate(Math.PI / 4);
+  ctx.beginPath();
+  ctx.rect(-6, -6, 12, 12);
+  ctx.fillStyle = '#c8a352';
+  ctx.fill();
+  ctx.restore();
+
+  // "Your study" label above
+  ctx.fillStyle = '#c8a352';
+  ctx.font = '700 9px Inter, Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('Your study', userX, trackY - 14);
 }
 
-// Tag each approach with its key for highlight matching
-APPROACHES[0]._key = 'CR';
-APPROACHES[1]._key = 'CF';
-APPROACHES[2]._key = 'RTA';
+function drawScoreChart(totals, winnerKey) {
+  const canvas = document.getElementById('scoreCanvas');
+  const W = canvas.offsetWidth || 480;
+  canvas.width = W;
+  const H = 140;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, W, H);
 
-// Animate user profile update
-function animateProfile(target) {
-  if (animFrame) cancelAnimationFrame(animFrame);
-  const speed = 0.12;
-  function step() {
-    let done = true;
-    for (let i = 0; i < N; i++) {
-      const diff = target[i] - animCurrent[i];
-      if (Math.abs(diff) > 0.005) { animCurrent[i] += diff * speed; done = false; }
-      else animCurrent[i] = target[i];
+  const rows = [
+    { key: 'CR',  label: 'Coding Reliability TA', color: '#2d4a8a', pts: totals.CR  },
+    { key: 'CF',  label: 'Codebook TA',            color: '#a85d20', pts: totals.CF  },
+    { key: 'RTA', label: 'Reflexive TA',            color: '#1a5c3a', pts: totals.RTA },
+  ];
+
+  const maxPts = Math.max(...rows.map(r => r.pts), 1);
+  const total  = rows.reduce((s, r) => s + r.pts, 0);
+  const LPAD   = 130;
+  const RPAD   = 42;
+  const trackW = W - LPAD - RPAD;
+  const rowH   = 38;
+  const barH   = 16;
+
+  rows.forEach((row, i) => {
+    const y = i * rowH + 10;
+    const barW = (row.pts / maxPts) * trackW;
+    const pct  = total > 0 ? Math.round(row.pts / total * 100) : 0;
+    const isWinner = row.key === winnerKey;
+
+    // Row label
+    ctx.fillStyle = isWinner ? row.color : '#6b7280';
+    ctx.font = (isWinner ? '700' : '500') + ' 10px Inter, Arial, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(row.label, LPAD - 10, y + barH / 2);
+
+    // Track background
+    ctx.beginPath();
+    ctx.roundRect(LPAD, y, trackW, barH, barH / 2);
+    ctx.fillStyle = '#e9ecf5';
+    ctx.fill();
+
+    // Filled bar
+    if (barW > 0) {
+      ctx.beginPath();
+      ctx.roundRect(LPAD, y, barW, barH, barH / 2);
+      ctx.fillStyle = isWinner ? row.color : row.color + '55';
+      ctx.fill();
     }
-    drawRadar(window._highlightKey);
-    if (!done) animFrame = requestAnimationFrame(step);
-  }
-  step();
+
+    // Percentage label
+    ctx.fillStyle = isWinner ? row.color : '#9ca3af';
+    ctx.font = (isWinner ? '700' : '500') + ' 10px Inter, Arial, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(pct + '%', LPAD + trackW + 8, y + barH / 2);
+
+    // Winner tick
+    if (isWinner) {
+      ctx.fillStyle = row.color;
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('✓', LPAD + barW + 6, y + barH / 2 + 1);
+    }
+  });
 }
 
-// Initial static draw
-drawRadar(null);
+function showCharts(totals, winnerKey) {
+  ['spectrumPlaceholder','scorePlaceholder'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+  const sc = document.getElementById('spectrumCanvas');
+  const bc = document.getElementById('scoreCanvas');
+  sc.style.display = 'block';
+  bc.style.display = 'block';
+  // Use rAF so canvas has correct offsetWidth
+  requestAnimationFrame(() => {
+    drawSpectrumChart(totals);
+    drawScoreChart(totals, winnerKey);
+  });
+}
+
+function hideCharts() {
+  document.getElementById('spectrumPlaceholder').style.display = '';
+  document.getElementById('scorePlaceholder').style.display = '';
+  document.getElementById('spectrumCanvas').style.display = 'none';
+  document.getElementById('scoreCanvas').style.display = 'none';
+}
 
 const DATA = {
   CR: {
@@ -1094,23 +1088,18 @@ const DATA = {
 function pick(q, opt) {
   answers[q] = opt;
 
-  // Update button states
   for (let i = 0; i < 3; i++) {
     document.getElementById(`q${q}o${i}`).classList.toggle('selected', i === opt);
   }
   document.getElementById(`qb-${q}`).classList.add('answered');
   document.getElementById(`pip${q}`).classList.add('done');
 
-  // Update radar: map this answer to its axis
-  const axisIdx = Q_AXIS[q];
-  animTarget[axisIdx] = Q_PROFILE[q][opt];
-  animateProfile([...animTarget]);
-
   const allDone = answers.every(a => a !== null);
   if (allDone) {
     renderResult();
   } else {
-    window._highlightKey = null;
+    // User changed an answer mid-way — hide charts and result
+    hideCharts();
     document.getElementById('scoreChartWrap').classList.remove('visible');
     document.getElementById('resultCard').classList.remove('has-result');
     document.getElementById('resultContent').innerHTML = '';
@@ -1142,9 +1131,9 @@ function renderResult() {
   const max = Math.max(totals.CR, totals.CF, totals.RTA);
   const winners = Object.keys(totals).filter(k => totals[k] === max);
 
-  // Highlight winning approach on radar
-  window._highlightKey = winners.length === 1 ? winners[0] : null;
-  drawRadar(window._highlightKey);
+  // Draw charts
+  const winnerKey = winners.length === 1 ? winners[0] : null;
+  showCharts(totals, winnerKey);
 
   const card = document.getElementById('resultCard');
   const content = document.getElementById('resultContent');
@@ -1218,9 +1207,7 @@ function retake() {
   document.getElementById('resultContent').innerHTML = '';
   document.getElementById('scoreChartWrap').classList.remove('visible');
   ['barCR','barCF','barRTA'].forEach(id => document.getElementById(id).style.width = '0%');
-  animTarget = [0,0,0,0,0]; animCurrent = [0,0,0,0,0];
-  window._highlightKey = null;
-  drawRadar(null);
+  hideCharts();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
