@@ -869,145 +869,167 @@ const SCORES = [
 function drawSpectrumChart(totals) {
   const canvas = document.getElementById('spectrumCanvas');
   const W = canvas.offsetWidth || 480;
+  const H = 170;
   canvas.width = W;
-  const H = 110;
   canvas.height = H;
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, W, H);
 
-  const PAD = 28;
-  const trackY = 52;
+  const PAD = 20;
+  const trackY = 96;
   const trackW = W - PAD * 2;
 
-  // Approach fixed positions on spectrum (0=left=CR, 1=right=RTA)
   const positions = { CR: 0.08, CF: 0.5, RTA: 0.92 };
   const colors    = { CR: '#2d4a8a', CF: '#a85d20', RTA: '#1a5c3a' };
-  const labels    = { CR: 'Coding Reliability TA', CF: 'Codebook TA', RTA: 'Reflexive TA' };
+  const labels    = { CR: 'Coding Reliability', CF: 'Codebook TA', RTA: 'Reflexive TA' };
+
+  // Axis captions — top corners, well clear of everything else
+  ctx.fillStyle = '#9ca3af';
+  ctx.font = '500 10px Inter, Arial, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+  ctx.fillText('← Structured / categorical', PAD, 6);
+  ctx.textAlign = 'right';
+  ctx.fillText('Interpretive / reflexive →', PAD + trackW, 6);
 
   // Gradient track
   const grad = ctx.createLinearGradient(PAD, 0, PAD + trackW, 0);
-  grad.addColorStop(0,    '#2d4a8a');
-  grad.addColorStop(0.5,  '#a85d20');
-  grad.addColorStop(1,    '#1a5c3a');
+  grad.addColorStop(0,   '#2d4a8a');
+  grad.addColorStop(0.5, '#a85d20');
+  grad.addColorStop(1,   '#1a5c3a');
   ctx.beginPath();
-  ctx.roundRect(PAD, trackY - 3, trackW, 6, 3);
+  ctx.roundRect(PAD, trackY - 4, trackW, 8, 4);
   ctx.fillStyle = grad;
   ctx.fill();
 
-  // Approach markers
+  // Approach markers + labels below the track
   Object.keys(positions).forEach(key => {
     const x = PAD + positions[key] * trackW;
     ctx.beginPath();
-    ctx.arc(x, trackY, 7, 0, Math.PI * 2);
+    ctx.arc(x, trackY, 8, 0, Math.PI * 2);
     ctx.fillStyle = '#fff';
     ctx.fill();
     ctx.strokeStyle = colors[key];
-    ctx.lineWidth = 2.5;
+    ctx.lineWidth = 3;
     ctx.stroke();
-    // Label below
+
     ctx.fillStyle = colors[key];
-    ctx.font = '600 9px Inter, Arial, sans-serif';
-    ctx.textAlign = 'center';
+    ctx.font = '600 10.5px Inter, Arial, sans-serif';
+    // Anchor edge labels inward so they never clip
+    if (positions[key] < 0.2)      ctx.textAlign = 'left';
+    else if (positions[key] > 0.8) ctx.textAlign = 'right';
+    else                           ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    ctx.fillText(labels[key], x, trackY + 13);
+    const lx = positions[key] < 0.2 ? Math.max(x - 8, PAD)
+             : positions[key] > 0.8 ? Math.min(x + 8, PAD + trackW)
+             : x;
+    ctx.fillText(labels[key], lx, trackY + 16);
   });
 
-  // Axis labels
-  ctx.fillStyle = '#9ca3af';
-  ctx.font = '500 9px Inter, Arial, sans-serif';
-  ctx.textAlign = 'left';
-  ctx.textBaseline = 'bottom';
-  ctx.fillText('← Structured / categorical', PAD, trackY - 10);
-  ctx.textAlign = 'right';
-  ctx.fillText('Interpretive / reflexive →', PAD + trackW, trackY - 10);
-
-  // User position: weighted average on spectrum
+  // User position: weighted average
   const total = totals.CR + totals.CF + totals.RTA;
   if (total === 0) return;
   const userPos = (totals.CR * positions.CR + totals.CF * positions.CF + totals.RTA * positions.RTA) / total;
   const userX = PAD + userPos * trackW;
 
-  // User marker (gold diamond)
+  // Callout bubble above the marker, with a stem down to it
+  const bubbleText = 'Your study';
+  ctx.font = '700 11px Inter, Arial, sans-serif';
+  const tw = ctx.measureText(bubbleText).width;
+  const bw = tw + 22, bh = 24;
+  // Keep bubble inside canvas
+  let bx = userX - bw / 2;
+  bx = Math.max(PAD, Math.min(bx, PAD + trackW - bw));
+  const by = trackY - 62;
+
+  // Stem
+  ctx.beginPath();
+  ctx.moveTo(userX, by + bh);
+  ctx.lineTo(userX, trackY - 12);
+  ctx.strokeStyle = '#c8a352';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([3, 3]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Bubble
+  ctx.beginPath();
+  ctx.roundRect(bx, by, bw, bh, 12);
+  ctx.fillStyle = '#c8a352';
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(bubbleText, bx + bw / 2, by + bh / 2 + 0.5);
+
+  // Gold diamond marker on the track
   ctx.save();
   ctx.translate(userX, trackY);
   ctx.rotate(Math.PI / 4);
   ctx.beginPath();
-  ctx.rect(-6, -6, 12, 12);
+  ctx.rect(-7, -7, 14, 14);
   ctx.fillStyle = '#c8a352';
   ctx.fill();
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 2;
+  ctx.stroke();
   ctx.restore();
-
-  // "Your study" label above
-  ctx.fillStyle = '#c8a352';
-  ctx.font = '700 9px Inter, Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'bottom';
-  ctx.fillText('Your study', userX, trackY - 14);
 }
 
 function drawScoreChart(totals, winnerKey) {
   const canvas = document.getElementById('scoreCanvas');
   const W = canvas.offsetWidth || 480;
+  const H = 170;
   canvas.width = W;
-  const H = 140;
   canvas.height = H;
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, W, H);
 
   const rows = [
-    { key: 'CR',  label: 'Coding Reliability TA', color: '#2d4a8a', pts: totals.CR  },
-    { key: 'CF',  label: 'Codebook TA',            color: '#a85d20', pts: totals.CF  },
-    { key: 'RTA', label: 'Reflexive TA',            color: '#1a5c3a', pts: totals.RTA },
+    { key: 'CR',  label: 'Coding Reliability', color: '#2d4a8a', pts: totals.CR  },
+    { key: 'CF',  label: 'Codebook TA',        color: '#a85d20', pts: totals.CF  },
+    { key: 'RTA', label: 'Reflexive TA',       color: '#1a5c3a', pts: totals.RTA },
   ];
+  // Winner first — natural reading order
+  rows.sort((a, b) => b.pts - a.pts);
 
-  const maxPts = Math.max(...rows.map(r => r.pts), 1);
   const total  = rows.reduce((s, r) => s + r.pts, 0);
-  const LPAD   = 130;
-  const RPAD   = 42;
-  const trackW = W - LPAD - RPAD;
-  const rowH   = 38;
-  const barH   = 16;
+  const PAD    = 20;
+  const trackW = W - PAD * 2;
+  const rowH   = 52;
+  const barH   = 18;
 
   rows.forEach((row, i) => {
-    const y = i * rowH + 10;
-    const barW = (row.pts / maxPts) * trackW;
+    const y = i * rowH + 8;
     const pct  = total > 0 ? Math.round(row.pts / total * 100) : 0;
+    const barW = Math.max((pct / 100) * trackW, pct > 0 ? 24 : 0);
     const isWinner = row.key === winnerKey;
 
-    // Row label
+    // Label line above the bar: name left, % right — no overlap possible
+    ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = isWinner ? row.color : '#6b7280';
-    ctx.font = (isWinner ? '700' : '500') + ' 10px Inter, Arial, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(row.label, LPAD - 10, y + barH / 2);
+    ctx.font = (isWinner ? '700' : '500') + ' 11px Inter, Arial, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(row.label + (isWinner ? '  ·  Best match' : ''), PAD, y + 12);
 
-    // Track background
+    ctx.textAlign = 'right';
+    ctx.font = (isWinner ? '700' : '600') + ' 12px Inter, Arial, sans-serif';
+    ctx.fillStyle = isWinner ? row.color : '#9ca3af';
+    ctx.fillText(pct + '%', PAD + trackW, y + 12);
+
+    // Track
+    const barY = y + 20;
     ctx.beginPath();
-    ctx.roundRect(LPAD, y, trackW, barH, barH / 2);
+    ctx.roundRect(PAD, barY, trackW, barH, barH / 2);
     ctx.fillStyle = '#e9ecf5';
     ctx.fill();
 
-    // Filled bar
+    // Fill
     if (barW > 0) {
       ctx.beginPath();
-      ctx.roundRect(LPAD, y, barW, barH, barH / 2);
+      ctx.roundRect(PAD, barY, barW, barH, barH / 2);
       ctx.fillStyle = isWinner ? row.color : row.color + '55';
       ctx.fill();
-    }
-
-    // Percentage label
-    ctx.fillStyle = isWinner ? row.color : '#9ca3af';
-    ctx.font = (isWinner ? '700' : '500') + ' 10px Inter, Arial, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(pct + '%', LPAD + trackW + 8, y + barH / 2);
-
-    // Winner tick
-    if (isWinner) {
-      ctx.fillStyle = row.color;
-      ctx.font = '12px sans-serif';
-      ctx.textAlign = 'left';
-      ctx.fillText('✓', LPAD + barW + 6, y + barH / 2 + 1);
     }
   });
 }
