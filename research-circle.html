@@ -371,6 +371,13 @@
   }
   .trc-modal .form-submit:hover { background: var(--accent); }
 
+  /* ── INLINE ERROR BANNER ── */
+  .trc-form-error {
+    display: none; background: #fdecec; border: 1px solid #f0b7b7; border-radius: 8px;
+    padding: 0.8rem 1rem; margin-bottom: 1rem; font-size: 0.82rem; color: #8a1f1f; line-height: 1.55;
+  }
+  .trc-form-error.active { display: block; }
+
   /* ── SUCCESS STEP (replaces the form entirely) ── */
   .trc-modal-success {
     display: none; text-align: center; padding: 1rem 0 0.5rem;
@@ -399,6 +406,7 @@
     <div id="trcFormStep">
       <h2>Enquire about The Research Circle</h2>
       <p>Tell us a little about your research and we'll help you find the right membership.</p>
+      <div class="trc-form-error" id="trcFormError"></div>
       <form id="trcModalForm" onsubmit="handleTRCModalSubmit(event)" novalidate>
         <div class="form-group">
           <label for="trcFname">First Name</label>
@@ -452,9 +460,34 @@
       document.getElementById('trcFormStep').style.display = '';
       document.getElementById('trcSuccessStep').classList.remove('active');
       document.getElementById('trcModalForm').reset();
+      clearTRCError();
     }, 300);
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTRCModal(); });
+
+  function showTRCError(message) {
+    const errorBox = document.getElementById('trcFormError');
+    errorBox.textContent = message;
+    errorBox.classList.add('active');
+  }
+  function clearTRCError() {
+    const errorBox = document.getElementById('trcFormError');
+    errorBox.textContent = '';
+    errorBox.classList.remove('active');
+  }
+
+  // Pull the actual error text out of whatever Elementor rendered —
+  // a top-level form message, or per-field validation messages.
+  function readTRCErrorText(widget) {
+    const topLevel = widget.querySelector('.elementor-message-danger, .elementor-form .elementor-message');
+    if (topLevel && topLevel.textContent.trim()) return topLevel.textContent.trim();
+
+    const fieldErrors = widget.querySelectorAll('.elementor-field-group .elementor-message, .elementor-field-group.elementor-error');
+    const texts = Array.from(fieldErrors).map(el => el.textContent.trim()).filter(Boolean);
+    if (texts.length) return texts.join(' ');
+
+    return '';
+  }
 
   function handleTRCModalSubmit(e) {
     e.preventDefault();
@@ -462,14 +495,16 @@
     const formStep = document.getElementById('trcFormStep');
     const successStep = document.getElementById('trcSuccessStep');
     const btn = form.querySelector('.form-submit');
+    clearTRCError();
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
     // Target the hidden Elementor form by its widget ID
-    const ef = document.querySelector('[data-id="9b42f9b"] form');
+    const widget = document.querySelector('[data-id="9b42f9b"]');
+    const ef = widget ? widget.querySelector('form') : null;
     if (!ef) {
       btn.textContent = 'Send enquiry →'; btn.disabled = false;
-      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      showTRCError('We could not find the enquiry form on this page. Please email us directly at hello@thequalitativeresearchinstitute.com and mention "Research Circle enquiry".');
       return;
     }
 
@@ -481,7 +516,6 @@
     ef.querySelector('#form-field-message').value = document.getElementById('trcMessage').value || '';
 
     // Watch the Elementor widget for its success/error message appearing in the DOM
-    const widget = document.querySelector('[data-id="9b42f9b"]');
     const observer = new MutationObserver(function (mutations) {
       for (const mutation of mutations) {
         for (const node of mutation.addedNodes) {
@@ -501,7 +535,12 @@
             observer.disconnect();
             clearTimeout(timer);
             btn.textContent = 'Send enquiry →'; btn.disabled = false;
-            alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+            const detail = readTRCErrorText(widget);
+            showTRCError(
+              detail
+                ? 'We could not send your enquiry: ' + detail
+                : 'Sorry, something went wrong sending your enquiry. Please email us directly at hello@thequalitativeresearchinstitute.com.'
+            );
             return;
           }
         }
@@ -509,11 +548,11 @@
     });
     observer.observe(widget, { childList: true, subtree: true });
 
-    // Timeout fallback (15 s)
+    // Timeout fallback (15 s) — the widget never showed a success or error message
     const timer = setTimeout(function () {
       observer.disconnect();
       btn.textContent = 'Send enquiry →'; btn.disabled = false;
-      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      showTRCError('The form did not respond in time. This usually means a temporary connection issue — please try again, or email us directly at hello@thequalitativeresearchinstitute.com.');
     }, 15000);
 
     // Hand off to Elementor — it handles AJAX, nonce, and email delivery
