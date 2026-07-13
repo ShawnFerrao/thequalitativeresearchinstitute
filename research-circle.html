@@ -327,8 +327,8 @@
      General Enquiry contact form.
 
      Targets the hidden Elementor form widget already on this
-     page (data-id="9b42f9b", fields: name, email, Phone,
-     Company, message).
+     page (data-id="9b42f9b", fields: Fname, LName, email,
+     Phone, Company, message).
 
      SETUP STILL NEEDED IN ELEMENTOR (one-time):
      On that widget (data-id 9b42f9b): Content → Actions After
@@ -436,7 +436,10 @@
       return;
     }
 
-    ef.querySelector('#form-field-name').value    = document.getElementById('trcName').value || '';
+    const nameParts = (document.getElementById('trcName').value || '').trim().split(/\s+/);
+
+    ef.querySelector('#form-field-Fname').value   = nameParts[0] || '';
+    ef.querySelector('#form-field-LName').value   = nameParts.slice(1).join(' ') || '';
     ef.querySelector('#form-field-email').value   = document.getElementById('trcEmail').value || '';
     ef.querySelector('#form-field-Phone').value   = document.getElementById('trcPhone').value || '';
     ef.querySelector('#form-field-Company').value = document.getElementById('trcCompany').value || '';
