@@ -326,16 +326,13 @@
      "TRC Enquiry" in Mailchimp, separate from the site-wide
      General Enquiry contact form.
 
-     SETUP NEEDED IN ELEMENTOR (one-time):
-     1. Create a new Elementor Pro Form widget somewhere on
-        this page (or in a template only this page uses) with
-        fields: Name, Email, Phone, Message.
-     2. Copy that widget's data-id and paste it below in place
-        of "REPLACE_WITH_TRC_FORM_WIDGET_ID".
-     3. In that same widget: Content → Actions After Submit →
-        add Mailchimp action → tag "TRC Enquiry". Also set the
-        success message action text to match below (optional,
-        since this modal shows its own success message already).
+     Targets the hidden Elementor form widget already on this
+     page (data-id="9b42f9b", fields: name, email, Phone,
+     Company, message).
+
+     SETUP STILL NEEDED IN ELEMENTOR (one-time):
+     On that widget (data-id 9b42f9b): Content → Actions After
+     Submit → add Mailchimp action → tag "TRC Enquiry".
 ════════════════════════════════════════════════════════ -->
 <style>
   .trc-modal-overlay {
@@ -398,6 +395,10 @@
         <input type="tel" id="trcPhone" placeholder="+61 400 000 000">
       </div>
       <div class="form-group">
+        <label for="trcCompany">Company / Institution</label>
+        <input type="text" id="trcCompany" placeholder="University of Queensland">
+      </div>
+      <div class="form-group">
         <label for="trcMessage">Message</label>
         <textarea id="trcMessage" placeholder="Tell us a little about your research and which membership you're considering…" required></textarea>
       </div>
@@ -427,37 +428,57 @@
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    const nonce = (window.elementorFrontend &&
-                   window.elementorFrontend.config &&
-                   window.elementorFrontend.config.nonces &&
-                   window.elementorFrontend.config.nonces.atomicFormsSendForm) || '';
+    // Target the hidden Elementor form by its widget ID
+    const ef = document.querySelector('[data-id="9b42f9b"] form');
+    if (!ef) {
+      btn.textContent = 'Send enquiry →'; btn.disabled = false;
+      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      return;
+    }
 
-    const fd = new FormData();
-    fd.append('action',        'elementor_pro_forms_send_form');
-    fd.append('post_id',       '32');
-    fd.append('form_id',       'REPLACE_WITH_TRC_FORM_WIDGET_ID');
-    fd.append('queried_id',    '233');
-    fd.append('referer_title', 'The Research Circle');
-    fd.append('_nonce',        nonce);
-    fd.append('form_fields[name]',    document.getElementById('trcName').value);
-    fd.append('form_fields[email]',   document.getElementById('trcEmail').value);
-    fd.append('form_fields[Phone]',   document.getElementById('trcPhone').value);
-    fd.append('form_fields[message]', document.getElementById('trcMessage').value);
+    ef.querySelector('#form-field-name').value    = document.getElementById('trcName').value || '';
+    ef.querySelector('#form-field-email').value   = document.getElementById('trcEmail').value || '';
+    ef.querySelector('#form-field-Phone').value   = document.getElementById('trcPhone').value || '';
+    ef.querySelector('#form-field-Company').value = document.getElementById('trcCompany').value || '';
+    ef.querySelector('#form-field-message').value = document.getElementById('trcMessage').value || '';
 
-    fetch('/wp-admin/admin-ajax.php', { method: 'POST', body: fd })
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (data.success === false) throw new Error('server error');
-        form.reset();
-        success.style.display = 'block';
-      })
-      .catch(function() {
-        alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-      })
-      .finally(function() {
-        btn.textContent = 'Send enquiry →';
-        btn.disabled = false;
-      });
+    // Watch the Elementor widget for its success/error message appearing in the DOM
+    const widget = document.querySelector('[data-id="9b42f9b"]');
+    const observer = new MutationObserver(function (mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!node.classList) continue;
+          if (node.classList.contains('elementor-message-success') ||
+              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
+            observer.disconnect();
+            clearTimeout(timer);
+            form.reset();
+            success.style.display = 'block';
+            btn.textContent = 'Send enquiry →'; btn.disabled = false;
+            return;
+          }
+          if (node.classList.contains('elementor-message-danger') ||
+              node.classList.contains('elementor-error')) {
+            observer.disconnect();
+            clearTimeout(timer);
+            btn.textContent = 'Send enquiry →'; btn.disabled = false;
+            alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(widget, { childList: true, subtree: true });
+
+    // Timeout fallback (15 s)
+    const timer = setTimeout(function () {
+      observer.disconnect();
+      btn.textContent = 'Send enquiry →'; btn.disabled = false;
+      alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+    }, 15000);
+
+    // Hand off to Elementor — it handles AJAX, nonce, and email delivery
+    jQuery(ef).trigger('submit');
   }
 </script>
 
