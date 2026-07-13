@@ -476,17 +476,14 @@
     errorBox.classList.remove('active');
   }
 
-  // Pull the actual error text out of whatever Elementor rendered —
-  // a top-level form message, or per-field validation messages.
+  // Translate whatever Elementor rendered into a plain-English message —
+  // never show the visitor raw technical text or field IDs.
   function readTRCErrorText(widget) {
-    const topLevel = widget.querySelector('.elementor-message-danger, .elementor-form .elementor-message');
-    if (topLevel && topLevel.textContent.trim()) return topLevel.textContent.trim();
-
     const fieldErrors = widget.querySelectorAll('.elementor-field-group .elementor-message, .elementor-field-group.elementor-error');
-    const texts = Array.from(fieldErrors).map(el => el.textContent.trim()).filter(Boolean);
-    if (texts.length) return texts.join(' ');
-
-    return '';
+    if (fieldErrors.length) {
+      return "Please double-check the highlighted details below and try again — it looks like something wasn't filled in correctly.";
+    }
+    return "Something went wrong on our end while sending your message.";
   }
 
   function handleTRCModalSubmit(e) {
@@ -504,7 +501,7 @@
     const ef = widget ? widget.querySelector('form') : null;
     if (!ef) {
       btn.textContent = 'Send enquiry →'; btn.disabled = false;
-      showTRCError('We could not find the enquiry form on this page. Please email us directly at hello@thequalitativeresearchinstitute.com and mention "Research Circle enquiry".');
+      showTRCError('Sorry, we couldn\'t open the enquiry form just now. Please email us directly at hello@thequalitativeresearchinstitute.com and mention you\'re interested in The Research Circle.');
       return;
     }
 
@@ -535,11 +532,9 @@
             observer.disconnect();
             clearTimeout(timer);
             btn.textContent = 'Send enquiry →'; btn.disabled = false;
-            const detail = readTRCErrorText(widget);
             showTRCError(
-              detail
-                ? 'We could not send your enquiry: ' + detail
-                : 'Sorry, something went wrong sending your enquiry. Please email us directly at hello@thequalitativeresearchinstitute.com.'
+              readTRCErrorText(widget) +
+              ' If this keeps happening, just email us directly at hello@thequalitativeresearchinstitute.com and we\'ll take it from there.'
             );
             return;
           }
@@ -552,7 +547,7 @@
     const timer = setTimeout(function () {
       observer.disconnect();
       btn.textContent = 'Send enquiry →'; btn.disabled = false;
-      showTRCError('The form did not respond in time. This usually means a temporary connection issue — please try again, or email us directly at hello@thequalitativeresearchinstitute.com.');
+      showTRCError('This is taking longer than expected. Please check your internet connection and try again, or email us directly at hello@thequalitativeresearchinstitute.com.');
     }, 15000);
 
     // Hand off to Elementor — it handles AJAX, nonce, and email delivery
