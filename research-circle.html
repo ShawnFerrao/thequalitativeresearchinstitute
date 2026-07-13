@@ -401,8 +401,12 @@
       <p>Tell us a little about your research and we'll help you find the right membership.</p>
       <form id="trcModalForm" onsubmit="handleTRCModalSubmit(event)" novalidate>
         <div class="form-group">
-          <label for="trcName">Name</label>
-          <input type="text" id="trcName" placeholder="Jane Smith" required>
+          <label for="trcFname">First Name</label>
+          <input type="text" id="trcFname" placeholder="Jane" required>
+        </div>
+        <div class="form-group">
+          <label for="trcLname">Last Name</label>
+          <input type="text" id="trcLname" placeholder="Smith">
         </div>
         <div class="form-group">
           <label for="trcEmail">Email</label>
@@ -469,10 +473,8 @@
       return;
     }
 
-    const nameParts = (document.getElementById('trcName').value || '').trim().split(/\s+/);
-
-    ef.querySelector('#form-field-Fname').value   = nameParts[0] || '';
-    ef.querySelector('#form-field-LName').value   = nameParts.slice(1).join(' ') || '';
+    ef.querySelector('#form-field-Fname').value   = document.getElementById('trcFname').value || '';
+    ef.querySelector('#form-field-LName').value   = document.getElementById('trcLname').value || '';
     ef.querySelector('#form-field-email').value   = document.getElementById('trcEmail').value || '';
     ef.querySelector('#form-field-Phone').value   = document.getElementById('trcPhone').value || '';
     ef.querySelector('#form-field-Company').value = document.getElementById('trcCompany').value || '';
