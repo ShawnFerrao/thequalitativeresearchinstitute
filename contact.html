@@ -124,13 +124,34 @@
   .form-submit:hover { background: var(--accent) !important; }
   .form-submit:disabled { opacity: 0.7; cursor: default; }
 
-  /* Success message */
-  .form-success {
-    display: none; background: #e8f4ea;
-    border: 1px solid #a8d5b0; border-radius: 8px;
-    padding: 1.25rem 1.5rem; margin-top: 1rem;
+  /* Error message */
+  .form-error {
+    display: none; background: #fdecec;
+    border: 1px solid #f0b7b7; border-radius: 8px;
+    padding: 1rem 1.25rem; margin-bottom: 1rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem; color: #1e5a2e; line-height: 1.6;
+    font-size: 0.85rem; color: #8a1f1f; line-height: 1.6;
+  }
+  .form-error.active { display: block; }
+
+  /* Success step (replaces the form entirely) */
+  .contact-success-step {
+    display: none; text-align: center; padding: 1.5rem 0;
+  }
+  .contact-success-step.active { display: block; }
+  .contact-success-icon {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #e8f4ea; color: #1e5a2e;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem; margin: 0 auto 1.25rem;
+  }
+  .contact-success-step h3 {
+    font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 600;
+    color: var(--navy); margin-bottom: 0.6rem;
+  }
+  .contact-success-step p {
+    font-family: 'Inter', sans-serif; font-size: 0.92rem; color: var(--muted);
+    line-height: 1.7; margin-bottom: 1.5rem;
   }
 
   /* ── SIDEBAR / CONTACT INFO ── */
@@ -271,9 +292,11 @@
 
       <!-- FORM -->
       <div class="contact-form-wrap">
+      <div id="contactFormStep">
         <span class="section-label">Send a message</span>
         <h2>How can we help you?</h2>
         <p>Fill in the form below and our team will be in touch within 1–2 business days. Prefer to talk? Use the scheduling link on the right.</p>
+        <div class="form-error" id="contactPageFormError"></div>
         <form id="contactForm" onsubmit="handleSubmit(event)" novalidate>
           <!-- Elementor routing — directs submission to the correct form handler -->
           <input type="hidden" name="post_id" value="32">
@@ -302,7 +325,7 @@
           </div>
           <div class="form-group">
             <label for="enquiry">What are you enquiring about?</label>
-            <select id="enquiry" name="form_fields[field_4d54f99]" required>
+            <select id="enquiry" name="form_fields[Enquiry]" required>
               <option value="" disabled selected>Select an option…</option>
               <option>Training programs — general enquiry</option>
               <option>Essentials of Qualitative Research</option>
@@ -320,10 +343,14 @@
             <textarea id="message" name="form_fields[message]" placeholder="Tell us a little about where you are in your research journey and what you're hoping to get support with…" required></textarea>
           </div>
           <button type="submit" class="form-submit">Send message →</button>
-          <div class="form-success" id="formSuccess">
-            ✓ &nbsp;Thank you — your message has been sent. Our team will be in touch within 1–2 business days.
-          </div>
         </form>
+      </div>
+
+      <div class="contact-success-step" id="contactSuccessStep">
+        <div class="contact-success-icon">✓</div>
+        <h3>Message sent</h3>
+        <p>Thank you — your message has been sent. Our team will be in touch within 1–2 business days.</p>
+      </div>
       </div>
 
       <!-- SIDEBAR -->
@@ -406,17 +433,36 @@
 
 <script>
 
+  function showContactPageError(message) {
+    const errorBox = document.getElementById('contactPageFormError');
+    errorBox.textContent = message;
+    errorBox.classList.add('active');
+    errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function clearContactPageError() {
+    const errorBox = document.getElementById('contactPageFormError');
+    errorBox.textContent = '';
+    errorBox.classList.remove('active');
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     const form = document.getElementById('contactForm');
-    const success = document.getElementById('formSuccess');
+    const formStep = document.getElementById('contactFormStep');
+    const successStep = document.getElementById('contactSuccessStep');
     const submitBtn = form.querySelector('.form-submit');
 
+    clearContactPageError();
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
 
+    const nonce = (window.elementorFrontend &&
+                   window.elementorFrontend.config &&
+                   window.elementorFrontend.config.nonces &&
+                   window.elementorFrontend.config.nonces.atomicFormsSendForm) || '';
+
     const formData = new FormData(form);
-    formData.append('_nonce', window.elementorFrontend?.config?.nonce || '');
+    formData.append('_nonce', nonce);
 
     fetch('/wp-admin/admin-ajax.php', {
       method: 'POST',
@@ -426,11 +472,12 @@
       .then(data => {
         if (data.success === false) throw new Error('Form error');
         form.reset();
-        success.style.display = 'block';
-        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        formStep.style.display = 'none';
+        successStep.classList.add('active');
+        successStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       })
       .catch(() => {
-        alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+        showContactPageError('Sorry, something went wrong sending your message on our end. Please double-check your details and try again, or email us directly at hello@thequalitativeresearchinstitute.com.');
       })
       .finally(() => {
         submitBtn.textContent = 'Send message →';

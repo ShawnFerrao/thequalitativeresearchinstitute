@@ -102,10 +102,33 @@
     font-weight: 500; cursor: pointer; transition: background 0.2s;
   }
   .contact-modal .form-submit:hover { background: var(--accent); }
-  .contact-modal .form-success {
-    display: none; background: #e8f4ea; border: 1px solid #a8d5b0; border-radius: 8px;
-    padding: 1rem 1.25rem; margin-top: 1rem; font-size: 0.85rem; color: #1e5a2e; line-height: 1.6;
+
+  /* ── INLINE ERROR BANNER ── */
+  .contact-modal .form-error {
+    display: none; background: #fdecec; border: 1px solid #f0b7b7; border-radius: 8px;
+    padding: 0.8rem 1rem; margin-bottom: 1rem; font-size: 0.82rem; color: #8a1f1f; line-height: 1.55;
   }
+  .contact-modal .form-error.active { display: block; }
+
+  /* ── SUCCESS STEP (replaces the form entirely) ── */
+  .contact-modal-success {
+    display: none; text-align: center; padding: 1rem 0 0.5rem;
+  }
+  .contact-modal-success.active { display: block; }
+  .contact-modal-success-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #e8f4ea; color: #1e5a2e;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin: 0 auto 1.25rem;
+  }
+  .contact-modal-success h3 {
+    font-size: 1.2rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem;
+  }
+  .contact-modal-success p {
+    font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--muted);
+    line-height: 1.7; margin-bottom: 1.75rem;
+  }
+  .contact-modal-success .form-submit { width: 100%; }
 
   @media (max-width: 900px) {
     .footer-inner { grid-template-columns: 1fr 1fr; }
@@ -158,47 +181,58 @@
 <div class="contact-modal-overlay" id="contactModalOverlay" onclick="if(event.target===this) closeContactModal()">
   <div class="contact-modal">
     <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
-    <h2>Get in touch</h2>
-    <p>Send us a quick message and our team will get back to you within 1–2 business days.</p>
-    <form id="contactModalForm" onsubmit="handleContactModalSubmit(event)" novalidate>
-      <div class="form-group">
-        <label for="modalName">Name</label>
-        <input type="text" id="modalName" placeholder="Jane Smith" required>
-      </div>
-      <div class="form-group">
-        <label for="modalEmail">Email</label>
-        <input type="email" id="modalEmail" placeholder="jane@university.edu.au" required>
-      </div>
-      <div class="form-group">
-        <label for="modalPhone">Phone</label>
-        <input type="tel" id="modalPhone" placeholder="+61 400 000 000">
-      </div>
-      <div class="form-group">
-        <label for="modalEnquiry">Enquiry</label>
-        <select id="modalEnquiry" required>
-          <option value="" disabled selected>Select an option…</option>
-          <option>Training programs — general enquiry</option>
-          <option>Essentials of Qualitative Research</option>
-          <option>Research Design Masterclass</option>
-          <option>Thematic Analysis Masterclass</option>
-          <option>AI Tools for Qualitative Research</option>
-          <option>The Research Circle membership</option>
-          <option>Individual Support (Research Health Check / Deep Dive)</option>
-          <option>Group or institutional training</option>
-          <option>Something else</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="modalCompany">Company / Institution</label>
-        <input type="text" id="modalCompany" placeholder="University of Queensland">
-      </div>
-      <div class="form-group">
-        <label for="modalMessage">Message</label>
-        <textarea id="modalMessage" placeholder="Tell us a little about what you're looking for…" required></textarea>
-      </div>
-      <button type="submit" class="form-submit">Send message →</button>
-      <div class="form-success" id="modalFormSuccess">✓ &nbsp;Thank you — your message has been sent. We'll be in touch within 1–2 business days.</div>
-    </form>
+
+    <div id="contactFormStep">
+      <h2>Get in touch</h2>
+      <p>Send us a quick message and our team will get back to you within 1–2 business days.</p>
+      <div class="form-error" id="contactFormError"></div>
+      <form id="contactModalForm" onsubmit="handleContactModalSubmit(event)" novalidate>
+        <div class="form-group">
+          <label for="modalName">Name</label>
+          <input type="text" id="modalName" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="modalEmail">Email</label>
+          <input type="email" id="modalEmail" placeholder="jane@university.edu.au" required>
+        </div>
+        <div class="form-group">
+          <label for="modalPhone">Phone</label>
+          <input type="tel" id="modalPhone" placeholder="+61 400 000 000">
+        </div>
+        <div class="form-group">
+          <label for="modalEnquiry">Enquiry</label>
+          <select id="modalEnquiry" required>
+            <option value="" disabled selected>Select an option…</option>
+            <option>Training programs — general enquiry</option>
+            <option>Essentials of Qualitative Research</option>
+            <option>Research Design Masterclass</option>
+            <option>Thematic Analysis Masterclass</option>
+            <option>AI Tools for Qualitative Research</option>
+            <option>The Research Circle membership</option>
+            <option>Individual Support (Research Health Check / Deep Dive)</option>
+            <option>Group or institutional training</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="modalCompany">Company / Institution</label>
+          <input type="text" id="modalCompany" placeholder="University of Queensland">
+        </div>
+        <div class="form-group">
+          <label for="modalMessage">Message</label>
+          <textarea id="modalMessage" placeholder="Tell us a little about what you're looking for…" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message →</button>
+      </form>
+    </div>
+
+    <div class="contact-modal-success" id="contactSuccessStep">
+      <div class="contact-modal-success-icon">✓</div>
+      <h3>Message sent</h3>
+      <p>Thank you — your message has been sent. We'll be in touch within 1–2 business days.</p>
+      <button type="button" class="form-submit" onclick="closeContactModal()">Close</button>
+    </div>
+
   </div>
 </div>
 
@@ -218,48 +252,103 @@
   function closeContactModal() {
     document.getElementById('contactModalOverlay').classList.remove('active');
     document.body.style.overflow = '';
+    // Reset back to the form step after the close animation clears
+    setTimeout(function () {
+      document.getElementById('contactFormStep').style.display = '';
+      document.getElementById('contactSuccessStep').classList.remove('active');
+      document.getElementById('contactModalForm').reset();
+      clearContactError();
+    }, 300);
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContactModal(); });
+
+  function showContactError(message) {
+    const errorBox = document.getElementById('contactFormError');
+    errorBox.textContent = message;
+    errorBox.classList.add('active');
+  }
+  function clearContactError() {
+    const errorBox = document.getElementById('contactFormError');
+    errorBox.textContent = '';
+    errorBox.classList.remove('active');
+  }
+  function readContactErrorText(widget) {
+    const fieldErrors = widget.querySelectorAll('.elementor-field-group .elementor-message, .elementor-field-group.elementor-error');
+    if (fieldErrors.length) {
+      return "Please double-check the highlighted details below and try again — it looks like something wasn't filled in correctly.";
+    }
+    return "Something went wrong on our end while sending your message.";
+  }
+
   function handleContactModalSubmit(e) {
     e.preventDefault();
     const form = e.target;
-    const success = document.getElementById('modalFormSuccess');
+    const formStep = document.getElementById('contactFormStep');
+    const successStep = document.getElementById('contactSuccessStep');
     const btn = form.querySelector('.form-submit');
+    clearContactError();
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    const nonce = (window.elementorFrontend &&
-                   window.elementorFrontend.config &&
-                   window.elementorFrontend.config.nonces &&
-                   window.elementorFrontend.config.nonces.atomicFormsSendForm) || '';
+    // Split full name into first / last for Elementor
+    const nameParts = (document.getElementById('modalName').value || '').trim().split(/\s+/);
 
-    const fd = new FormData();
-    fd.append('action',        'elementor_pro_forms_send_form');
-    fd.append('post_id',       '32');
-    fd.append('form_id',       '5de85a7');
-    fd.append('queried_id',    '233');
-    fd.append('referer_title', 'Contact Us');
-    fd.append('_nonce',        nonce);
-    fd.append('form_fields[name]',           document.getElementById('modalName').value);
-    fd.append('form_fields[email]',          document.getElementById('modalEmail').value);
-    fd.append('form_fields[Phone]',          document.getElementById('modalPhone').value);
-    fd.append('form_fields[field_4d54f99]',  document.getElementById('modalEnquiry').value);
-    fd.append('form_fields[Company]',        document.getElementById('modalCompany').value);
-    fd.append('form_fields[message]',        document.getElementById('modalMessage').value);
+    // Target the hidden Elementor form by its widget ID
+    const widget = document.querySelector('[data-id="5de85a7"]');
+    const ef = widget ? widget.querySelector('form') : null;
+    if (!ef) {
+      btn.textContent = 'Send message →'; btn.disabled = false;
+      showContactError('Sorry, we couldn\'t open the contact form just now. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      return;
+    }
 
-    fetch('/wp-admin/admin-ajax.php', { method: 'POST', body: fd })
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (data.success === false) throw new Error('server error');
-        form.reset();
-        success.style.display = 'block';
-      })
-      .catch(function() {
-        alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
-      })
-      .finally(function() {
-        btn.textContent = 'Send message →';
-        btn.disabled = false;
-      });
+    ef.querySelector('#form-field-Fname').value    = nameParts[0] || '';
+    ef.querySelector('#form-field-Lname').value    = nameParts.slice(1).join(' ') || '';
+    ef.querySelector('#form-field-email').value    = document.getElementById('modalEmail').value || '';
+    ef.querySelector('#form-field-Phone').value    = document.getElementById('modalPhone').value || '';
+    ef.querySelector('#form-field-Enquiry').value  = document.getElementById('modalEnquiry').value || 'Training programs — general enquiry';
+    ef.querySelector('#form-field-Company').value  = document.getElementById('modalCompany').value || '';
+    ef.querySelector('#form-field-message').value  = document.getElementById('modalMessage').value || '';
+
+    // Watch the Elementor widget for its success/error message appearing in the DOM
+    const observer = new MutationObserver(function (mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!node.classList) continue;
+          if (node.classList.contains('elementor-message-success') ||
+              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
+            observer.disconnect();
+            clearTimeout(timer);
+            form.reset();
+            formStep.style.display = 'none';
+            successStep.classList.add('active');
+            btn.textContent = 'Send message →'; btn.disabled = false;
+            return;
+          }
+          if (node.classList.contains('elementor-message-danger') ||
+              node.classList.contains('elementor-error')) {
+            observer.disconnect();
+            clearTimeout(timer);
+            btn.textContent = 'Send message →'; btn.disabled = false;
+            showContactError(
+              readContactErrorText(widget) +
+              ' If this keeps happening, just email us directly at hello@thequalitativeresearchinstitute.com and we\'ll take it from there.'
+            );
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(widget, { childList: true, subtree: true });
+
+    // Timeout fallback (15 s) — the widget never showed a success or error message
+    const timer = setTimeout(function () {
+      observer.disconnect();
+      btn.textContent = 'Send message →'; btn.disabled = false;
+      showContactError('This is taking longer than expected. Please check your internet connection and try again, or email us directly at hello@thequalitativeresearchinstitute.com.');
+    }, 15000);
+
+    // Hand off to Elementor — it handles AJAX, nonce, and email delivery
+    jQuery(ef).trigger('submit');
   }
 </script>
