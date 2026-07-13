@@ -299,13 +299,13 @@
         <h3>6-Month Membership</h3>
         <div class="price">Get in touch for pricing</div>
         <p>A focused half-year of training, support, and community — ideal for a defined project phase.</p>
-        <a href="#" class="btn-outline-white" onclick="openContactModal(event)">Enquire now</a>
+        <a href="#" class="btn-outline-white" onclick="openTRCModal(event)">Enquire now</a>
       </div>
       <div class="rc-plan">
         <h3>12-Month Membership</h3>
         <div class="price">Get in touch for pricing</div>
         <p>A full year of ongoing support and momentum — best value for sustained research projects.</p>
-        <a href="#" class="btn-outline-white" onclick="openContactModal(event)">Enquire now</a>
+        <a href="#" class="btn-outline-white" onclick="openTRCModal(event)">Enquire now</a>
       </div>
     </div>
   </div>
@@ -316,10 +316,150 @@
   <h2>Ready to join The Research Circle?</h2>
   <p>Get in touch and Claire will help you find the right membership for your research journey.</p>
   <div class="cta-btns">
-    <a href="#" class="btn-primary" onclick="openContactModal(event)">Get in touch</a>
+    <a href="#" class="btn-primary" onclick="openTRCModal(event)">Get in touch</a>
     <a href="/training" class="btn-secondary">Explore individual training</a>
   </div>
 </section>
+
+<!-- ════════════════════════════════════════════════════════
+     TRC ENQUIRY MODAL — dedicated form so it can be tagged
+     "TRC Enquiry" in Mailchimp, separate from the site-wide
+     General Enquiry contact form.
+
+     SETUP NEEDED IN ELEMENTOR (one-time):
+     1. Create a new Elementor Pro Form widget somewhere on
+        this page (or in a template only this page uses) with
+        fields: Name, Email, Phone, Message.
+     2. Copy that widget's data-id and paste it below in place
+        of "REPLACE_WITH_TRC_FORM_WIDGET_ID".
+     3. In that same widget: Content → Actions After Submit →
+        add Mailchimp action → tag "TRC Enquiry". Also set the
+        success message action text to match below (optional,
+        since this modal shows its own success message already).
+════════════════════════════════════════════════════════ -->
+<style>
+  .trc-modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(26,39,68,0.6);
+    z-index: 2000; align-items: center; justify-content: center; padding: 1rem;
+  }
+  .trc-modal-overlay.active { display: flex; }
+  .trc-modal {
+    background: var(--warm-white); border-radius: 10px; padding: 2.5rem;
+    max-width: 440px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto;
+    font-family: 'Poppins', sans-serif;
+  }
+  .trc-modal-close {
+    position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+    font-size: 1.5rem; line-height: 1; cursor: pointer; color: var(--muted);
+  }
+  .trc-modal h2 { font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+  .trc-modal > p { font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
+  .trc-modal .form-group { margin-bottom: 1.1rem; }
+  .trc-modal .form-group label {
+    display: block; font-size: 0.78rem; font-weight: 500; color: var(--navy); margin-bottom: 0.4rem;
+  }
+  .trc-modal .form-group input,
+  .trc-modal .form-group textarea {
+    width: 100%; background: var(--warm-white); border: 1px solid var(--border); border-radius: 6px;
+    padding: 0.7rem 1rem; font-family: 'Poppins', sans-serif; font-size: 0.875rem;
+    font-weight: 300; color: var(--text); -webkit-appearance: none; appearance: none;
+  }
+  .trc-modal .form-group input:focus,
+  .trc-modal .form-group textarea:focus { outline: none; border-color: var(--mid-blue); }
+  .trc-modal .form-group textarea { resize: vertical; min-height: 100px; }
+  .trc-modal .form-submit {
+    width: 100%; background: #0D297B; color: #fff; border: none; padding: 0.85rem 2rem;
+    border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+    font-weight: 500; cursor: pointer; transition: background 0.2s;
+  }
+  .trc-modal .form-submit:hover { background: var(--accent); }
+  .trc-modal .form-success {
+    display: none; background: #e8f4ea; border: 1px solid #a8d5b0; border-radius: 8px;
+    padding: 1rem 1.25rem; margin-top: 1rem; font-size: 0.85rem; color: #1e5a2e; line-height: 1.6;
+  }
+</style>
+
+<div class="trc-modal-overlay" id="trcModalOverlay" onclick="if(event.target===this) closeTRCModal()">
+  <div class="trc-modal">
+    <button class="trc-modal-close" onclick="closeTRCModal()" aria-label="Close">&times;</button>
+    <h2>Enquire about The Research Circle</h2>
+    <p>Tell us a little about your research and we'll help you find the right membership.</p>
+    <form id="trcModalForm" onsubmit="handleTRCModalSubmit(event)" novalidate>
+      <div class="form-group">
+        <label for="trcName">Name</label>
+        <input type="text" id="trcName" placeholder="Jane Smith" required>
+      </div>
+      <div class="form-group">
+        <label for="trcEmail">Email</label>
+        <input type="email" id="trcEmail" placeholder="jane@university.edu.au" required>
+      </div>
+      <div class="form-group">
+        <label for="trcPhone">Phone</label>
+        <input type="tel" id="trcPhone" placeholder="+61 400 000 000">
+      </div>
+      <div class="form-group">
+        <label for="trcMessage">Message</label>
+        <textarea id="trcMessage" placeholder="Tell us a little about your research and which membership you're considering…" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send enquiry →</button>
+      <div class="form-success" id="trcFormSuccess">✓ &nbsp;Thanks for reaching out. We've received your message and will be in touch within 1–2 business days.</div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openTRCModal(e) {
+    if (e) e.preventDefault();
+    document.getElementById('trcModalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeTRCModal() {
+    document.getElementById('trcModalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTRCModal(); });
+
+  function handleTRCModalSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const success = document.getElementById('trcFormSuccess');
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const nonce = (window.elementorFrontend &&
+                   window.elementorFrontend.config &&
+                   window.elementorFrontend.config.nonces &&
+                   window.elementorFrontend.config.nonces.atomicFormsSendForm) || '';
+
+    const fd = new FormData();
+    fd.append('action',        'elementor_pro_forms_send_form');
+    fd.append('post_id',       '32');
+    fd.append('form_id',       'REPLACE_WITH_TRC_FORM_WIDGET_ID');
+    fd.append('queried_id',    '233');
+    fd.append('referer_title', 'The Research Circle');
+    fd.append('_nonce',        nonce);
+    fd.append('form_fields[name]',    document.getElementById('trcName').value);
+    fd.append('form_fields[email]',   document.getElementById('trcEmail').value);
+    fd.append('form_fields[Phone]',   document.getElementById('trcPhone').value);
+    fd.append('form_fields[message]', document.getElementById('trcMessage').value);
+
+    fetch('/wp-admin/admin-ajax.php', { method: 'POST', body: fd })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.success === false) throw new Error('server error');
+        form.reset();
+        success.style.display = 'block';
+      })
+      .catch(function() {
+        alert('Sorry, something went wrong. Please email us directly at hello@thequalitativeresearchinstitute.com.');
+      })
+      .finally(function() {
+        btn.textContent = 'Send enquiry →';
+        btn.disabled = false;
+      });
+  }
+</script>
 
 </body>
 </html>
