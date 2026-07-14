@@ -301,7 +301,8 @@
     // Target the hidden Elementor form by its widget ID
     const widget = document.querySelector('[data-id="5de85a7"]');
     const ef = widget ? widget.querySelector('form') : null;
-    if (!ef || typeof jQuery === 'undefined') {
+    const efSubmitBtn = ef ? ef.querySelector('button[type="submit"], .elementor-button[type="submit"]') : null;
+    if (!ef || !efSubmitBtn) {
       btn.textContent = 'Send message →'; btn.disabled = false;
       showContactError('Sorry, we couldn\'t open the contact form just now. Please email us directly at hello@thequalitativeresearchinstitute.com.');
       return;
@@ -360,7 +361,8 @@
       showContactError('This is taking longer than expected. Please check your internet connection and try again, or email us directly at hello@thequalitativeresearchinstitute.com.');
     }, 15000);
 
-    // Hand off to Elementor — it handles AJAX, nonce, and email delivery
-    jQuery(ef).trigger('submit');
+    // Hand off to Elementor — click its real submit button so whatever handler
+    // it's bound with (jQuery or native) fires exactly as it would for a user click.
+    efSubmitBtn.click();
   }
 </script>
