@@ -289,20 +289,13 @@
     const successStep = document.getElementById('contactSuccessStep');
     const btn = form.querySelector('.form-submit');
     clearContactError();
-
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
     // Target the hidden Elementor form by its widget ID
     const widget = document.querySelector('[data-id="5de85a7"]');
     const ef = widget ? widget.querySelector('form') : null;
-    const efSubmitBtn = ef ? ef.querySelector('button[type="submit"], .elementor-button[type="submit"]') : null;
-    if (!ef || !efSubmitBtn) {
+    if (!ef) {
       btn.textContent = 'Send message →'; btn.disabled = false;
       showContactError('Sorry, we couldn\'t open the contact form just now. Please email us directly at hello@thequalitativeresearchinstitute.com.');
       return;
@@ -315,44 +308,36 @@
     ef.querySelector('#form-field-Enquiry').value  = document.getElementById('modalEnquiry').value || 'Training programs — general enquiry';
     ef.querySelector('#form-field-message').value  = document.getElementById('modalMessage').value || '';
 
-    // Watch the Elementor widget for its success/error message — Elementor either
-    // inserts a new message node OR toggles a class on an existing (hidden) one,
-    // so we watch both added nodes and class changes, and re-scan the whole widget
-    // on every mutation rather than only inspecting the changed node.
-    function checkWidgetState() {
-      if (widget.querySelector('.elementor-message-danger, .elementor-error')) {
-        return 'error';
-      }
-      if (widget.querySelector('.elementor-message-success') ||
-          widget.querySelector('.elementor-message:not(.elementor-message-danger)')) {
-        return 'success';
-      }
-      return null;
-    }
-
-    const observer = new MutationObserver(function () {
-      const state = checkWidgetState();
-      if (state === 'success') {
-        observer.disconnect();
-        clearTimeout(timer);
-        form.reset();
-        formStep.style.display = 'none';
-        successStep.classList.add('active');
-        btn.textContent = 'Send message →'; btn.disabled = false;
-      } else if (state === 'error') {
-        observer.disconnect();
-        clearTimeout(timer);
-        btn.textContent = 'Send message →'; btn.disabled = false;
-        showContactError(
-          readContactErrorText(widget) +
-          ' If this keeps happening, just email us directly at hello@thequalitativeresearchinstitute.com and we\'ll take it from there.'
-        );
+    // Watch the Elementor widget for its success/error message appearing in the DOM
+    const observer = new MutationObserver(function (mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!node.classList) continue;
+          if (node.classList.contains('elementor-message-success') ||
+              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
+            observer.disconnect();
+            clearTimeout(timer);
+            form.reset();
+            formStep.style.display = 'none';
+            successStep.classList.add('active');
+            btn.textContent = 'Send message →'; btn.disabled = false;
+            return;
+          }
+          if (node.classList.contains('elementor-message-danger') ||
+              node.classList.contains('elementor-error')) {
+            observer.disconnect();
+            clearTimeout(timer);
+            btn.textContent = 'Send message →'; btn.disabled = false;
+            showContactError(
+              readContactErrorText(widget) +
+              ' If this keeps happening, just email us directly at hello@thequalitativeresearchinstitute.com and we\'ll take it from there.'
+            );
+            return;
+          }
+        }
       }
     });
-    observer.observe(widget, {
-      childList: true, subtree: true,
-      attributes: true, attributeFilter: ['class', 'style']
-    });
+    observer.observe(widget, { childList: true, subtree: true });
 
     // Timeout fallback (15 s) — the widget never showed a success or error message
     const timer = setTimeout(function () {
@@ -361,8 +346,7 @@
       showContactError('This is taking longer than expected. Please check your internet connection and try again, or email us directly at hello@thequalitativeresearchinstitute.com.');
     }, 15000);
 
-    // Hand off to Elementor — click its real submit button so whatever handler
-    // it's bound with (jQuery or native) fires exactly as it would for a user click.
-    efSubmitBtn.click();
+    // Hand off to Elementor — it handles AJAX, nonce, and email delivery
+    jQuery(ef).trigger('submit');
   }
 </script>
