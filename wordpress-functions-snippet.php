@@ -19,8 +19,8 @@ add_action( 'rest_api_init', function () {
 } );
 
 function tqri_submit_blog( WP_REST_Request $request ) {
-	$token = $request->get_param( 'token' );
-	if ( $token !== TQRI_SECRET_TOKEN ) {
+	$token = (string) $request->get_param( 'token' );
+	if ( ! hash_equals( TQRI_SECRET_TOKEN, $token ) ) {
 		return new WP_Error( 'forbidden', 'Invalid token', array( 'status' => 403 ) );
 	}
 
@@ -154,8 +154,8 @@ add_action( 'rest_api_init', function () {
 } );
 
 function tqri_upload_image( WP_REST_Request $request ) {
-	$token = $request->get_param( 'token' );
-	if ( $token !== TQRI_SECRET_TOKEN ) {
+	$token = (string) $request->get_param( 'token' );
+	if ( ! hash_equals( TQRI_SECRET_TOKEN, $token ) ) {
 		return new WP_Error( 'forbidden', 'Invalid token', array( 'status' => 403 ) );
 	}
 
@@ -164,7 +164,31 @@ function tqri_upload_image( WP_REST_Request $request ) {
 	$mime_type = $body['mime_type'] ?? 'image/jpeg';
 	$data      = $body['data'] ?? '';
 
-	$upload = wp_upload_bits( $filename, null, base64_decode( $data ) );
+	$allowed_mimes = array(
+		'image/jpeg' => 'jpg',
+		'image/png'  => 'png',
+		'image/gif'  => 'gif',
+		'image/webp' => 'webp',
+	);
+	if ( ! isset( $allowed_mimes[ $mime_type ] ) ) {
+		return new WP_Error( 'invalid_type', 'Only JPEG, PNG, GIF, or WebP images are allowed', array( 'status' => 400 ) );
+	}
+	// Force the extension to match the declared mime type, ignoring whatever
+	// extension the caller sent, so a .php filename can't ride along as an "image".
+	$filename = preg_replace( '/\.[^.]+$/', '', $filename ) . '.' . $allowed_mimes[ $mime_type ];
+
+	$decoded = base64_decode( $data, true );
+	if ( false === $decoded ) {
+		return new WP_Error( 'invalid_data', 'Image data is not valid base64', array( 'status' => 400 ) );
+	}
+
+	$finfo       = new finfo( FILEINFO_MIME_TYPE );
+	$actual_mime = $finfo->buffer( $decoded );
+	if ( $actual_mime !== $mime_type ) {
+		return new WP_Error( 'mime_mismatch', 'File content does not match the declared image type', array( 'status' => 400 ) );
+	}
+
+	$upload = wp_upload_bits( $filename, null, $decoded );
 
 	if ( $upload['error'] ) {
 		return new WP_Error( 'upload_failed', $upload['error'], array( 'status' => 500 ) );
@@ -197,6 +221,11 @@ add_action( 'rest_api_init', function () {
 } );
 
 function tqri_submit_contact_form( WP_REST_Request $request ) {
+	$token = (string) $request->get_param( 'token' );
+	if ( ! hash_equals( TQRI_SECRET_TOKEN, $token ) ) {
+		return new WP_Error( 'forbidden', 'Invalid token', array( 'status' => 403 ) );
+	}
+
 	$body    = $request->get_json_params();
 	$name    = sanitize_text_field( $body['name'] ?? '' );
 	$phone   = sanitize_text_field( $body['phone'] ?? '' );
@@ -226,12 +255,13 @@ function tqri_submit_contact_form( WP_REST_Request $request ) {
 }
 
 // ── CORS for blog/testimonials builder pages ──────────────────────────────────
-add_action( 'rest_api_init', function () {
-	remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
-	add_filter( 'rest_pre_serve_request', function ( $value ) {
+// Scoped to tqri/v1 routes only — must not touch Elementor's own REST calls,
+// which rely on the default cookie/nonce-based CORS handling to work at all.
+add_filter( 'rest_pre_serve_request', function ( $value, $result, $request ) {
+	if ( 0 === strpos( $request->get_route(), '/tqri/v1/' ) ) {
 		header( 'Access-Control-Allow-Origin: *' );
 		header( 'Access-Control-Allow-Methods: POST, GET, OPTIONS' );
 		header( 'Access-Control-Allow-Headers: Content-Type' );
-		return $value;
-	} );
-}, 15 );
+	}
+	return $value;
+}, 15, 3 );
