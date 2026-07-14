@@ -319,36 +319,44 @@
     ef.querySelector('#form-field-Company').value  = document.getElementById('modalCompany').value || '';
     ef.querySelector('#form-field-message').value  = document.getElementById('modalMessage').value || '';
 
-    // Watch the Elementor widget for its success/error message appearing in the DOM
-    const observer = new MutationObserver(function (mutations) {
-      for (const mutation of mutations) {
-        for (const node of mutation.addedNodes) {
-          if (!node.classList) continue;
-          if (node.classList.contains('elementor-message-success') ||
-              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
-            observer.disconnect();
-            clearTimeout(timer);
-            form.reset();
-            formStep.style.display = 'none';
-            successStep.classList.add('active');
-            btn.textContent = 'Send message →'; btn.disabled = false;
-            return;
-          }
-          if (node.classList.contains('elementor-message-danger') ||
-              node.classList.contains('elementor-error')) {
-            observer.disconnect();
-            clearTimeout(timer);
-            btn.textContent = 'Send message →'; btn.disabled = false;
-            showContactError(
-              readContactErrorText(widget) +
-              ' If this keeps happening, just email us directly at hello@thequalitativeresearchinstitute.com and we\'ll take it from there.'
-            );
-            return;
-          }
-        }
+    // Watch the Elementor widget for its success/error message — Elementor either
+    // inserts a new message node OR toggles a class on an existing (hidden) one,
+    // so we watch both added nodes and class changes, and re-scan the whole widget
+    // on every mutation rather than only inspecting the changed node.
+    function checkWidgetState() {
+      if (widget.querySelector('.elementor-message-danger, .elementor-error')) {
+        return 'error';
+      }
+      if (widget.querySelector('.elementor-message-success') ||
+          widget.querySelector('.elementor-message:not(.elementor-message-danger)')) {
+        return 'success';
+      }
+      return null;
+    }
+
+    const observer = new MutationObserver(function () {
+      const state = checkWidgetState();
+      if (state === 'success') {
+        observer.disconnect();
+        clearTimeout(timer);
+        form.reset();
+        formStep.style.display = 'none';
+        successStep.classList.add('active');
+        btn.textContent = 'Send message →'; btn.disabled = false;
+      } else if (state === 'error') {
+        observer.disconnect();
+        clearTimeout(timer);
+        btn.textContent = 'Send message →'; btn.disabled = false;
+        showContactError(
+          readContactErrorText(widget) +
+          ' If this keeps happening, just email us directly at hello@thequalitativeresearchinstitute.com and we\'ll take it from there.'
+        );
       }
     });
-    observer.observe(widget, { childList: true, subtree: true });
+    observer.observe(widget, {
+      childList: true, subtree: true,
+      attributes: true, attributeFilter: ['class', 'style']
+    });
 
     // Timeout fallback (15 s) — the widget never showed a success or error message
     const timer = setTimeout(function () {
