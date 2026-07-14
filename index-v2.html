@@ -823,13 +823,13 @@
     jQuery(ef).trigger('submit');
   }
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLm(); });
-  // Auto-show after 3 s, once per session
+  // Auto-show after 8 s, once per session
   window.addEventListener('load', function() {
     if (!sessionStorage.getItem('lm_dismissed')) {
       setTimeout(function() {
         document.getElementById('lmOverlay').classList.add('active');
         document.body.style.overflow = 'hidden';
-      }, 3000);
+      }, 8000);
     }
   });
 </script>
