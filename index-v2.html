@@ -378,7 +378,7 @@
     font-family: 'Inter', sans-serif; font-size: 0.9rem;
     color: rgba(255,255,255,0.7); line-height: 1.6;
   }
-  .newsletter-form-wrap { flex: 1; min-width: 300px; max-width: 480px; }
+  .newsletter-form-wrap { flex: 1; min-width: 300px; max-width: 620px; }
   .newsletter-error {
     display: none; background: #fdecec; border: 1px solid #f0b7b7; border-radius: 8px;
     padding: 0.7rem 0.9rem; margin-bottom: 0.75rem; font-size: 0.78rem;
@@ -735,7 +735,8 @@
     <div class="newsletter-form-wrap">
       <div class="newsletter-error" id="newsletterStripError"></div>
       <form id="newsletterStripForm" class="newsletter-form" onsubmit="handleNewsletterStripSubmit(event)" novalidate>
-        <input type="text" id="nlStripName" class="newsletter-input" placeholder="First name (optional)">
+        <input type="text" id="nlStripFirstName" class="newsletter-input" placeholder="First name" required>
+        <input type="text" id="nlStripLastName" class="newsletter-input" placeholder="Last name" required>
         <input type="email" id="nlStripEmail" class="newsletter-input" placeholder="you@university.edu.au" required>
         <button type="submit" class="newsletter-submit" id="nlStripSubmitBtn">Subscribe →</button>
       </form>
@@ -767,8 +768,12 @@
       <p>Enter your details below and we'll send it straight to your inbox.</p>
       <form id="lmForm" onsubmit="handleLmSubmit(event)" novalidate>
         <div class="lm-form-group">
-          <label for="lmName">First name</label>
-          <input type="text" id="lmName" name="form_fields[name]" placeholder="Jane" required>
+          <label for="lmFirstName">First name</label>
+          <input type="text" id="lmFirstName" name="form_fields[Fname]" placeholder="Jane" required>
+        </div>
+        <div class="lm-form-group">
+          <label for="lmLastName">Last name</label>
+          <input type="text" id="lmLastName" name="form_fields[Lname]" placeholder="Smith" required>
         </div>
         <div class="lm-form-group">
           <label for="lmEmail">Email address</label>
@@ -858,9 +863,11 @@
     }
 
     // Populate the Elementor form fields (query within the specific form to avoid duplicate ID collisions)
-    const nameEl  = ef.querySelector('#form-field-name');
+    const fnameEl = ef.querySelector('#form-field-Fname');
+    const lnameEl = ef.querySelector('#form-field-Lname');
     const emailEl = ef.querySelector('#form-field-email');
-    if (nameEl)  nameEl.value  = document.getElementById('lmName').value;
+    if (fnameEl) fnameEl.value = document.getElementById('lmFirstName').value;
+    if (lnameEl) lnameEl.value = document.getElementById('lmLastName').value;
     if (emailEl) emailEl.value = document.getElementById('lmEmail').value;
 
     // Watch for Elementor's success/error response
@@ -965,9 +972,11 @@
       return;
     }
 
-    const nameEl = ef.querySelector('#form-field-name');
+    const fnameEl = ef.querySelector('#form-field-Fname');
+    const lnameEl = ef.querySelector('#form-field-Lname');
     const emailEl = ef.querySelector('#form-field-email');
-    if (nameEl) nameEl.value = document.getElementById('nlStripName').value || '';
+    if (fnameEl) fnameEl.value = document.getElementById('nlStripFirstName').value || '';
+    if (lnameEl) lnameEl.value = document.getElementById('nlStripLastName').value || '';
     if (emailEl) emailEl.value = document.getElementById('nlStripEmail').value || '';
 
     const widget = ef.closest('[data-id]') || ef.parentElement;
