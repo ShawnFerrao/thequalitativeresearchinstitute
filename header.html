@@ -301,15 +301,6 @@
       return;
     }
 
-    // This widget is hidden on every breakpoint (display:none), so it never
-    // intersects the viewport and Elementor's lazy handler init — which is what
-    // normally binds the Forms AJAX submit handler — never runs on it. Force
-    // that initialization now, before we try to submit it.
-    if (window.elementorFrontend && elementorFrontend.elementsHandler &&
-        typeof elementorFrontend.elementsHandler.runReadyTrigger === 'function') {
-      elementorFrontend.elementsHandler.runReadyTrigger(jQuery(widget));
-    }
-
     ef.querySelector('#form-field-Fname').value    = document.getElementById('modalFirstName').value || '';
     ef.querySelector('#form-field-Lname').value    = document.getElementById('modalLastName').value || '';
     ef.querySelector('#form-field-email').value    = document.getElementById('modalEmail').value || '';
