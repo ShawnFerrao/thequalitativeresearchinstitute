@@ -362,6 +362,58 @@
   .cta-strip p { font-family: 'Inter', sans-serif; color: var(--muted); font-size: 1rem; margin-bottom: 2rem; }
   .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
+  /* ── NEWSLETTER STRIP ── */
+  .newsletter-strip { background: var(--navy); padding: 3.5rem 2rem; }
+  .newsletter-strip-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 2.5rem; flex-wrap: wrap;
+  }
+  .newsletter-copy { max-width: 460px; }
+  .newsletter-copy .section-label { color: var(--gold); }
+  .newsletter-copy h2 {
+    font-size: clamp(1.3rem, 2.5vw, 1.6rem); font-weight: 600;
+    color: #fff; line-height: 1.3; margin-bottom: 0.5rem;
+  }
+  .newsletter-copy p {
+    font-family: 'Inter', sans-serif; font-size: 0.9rem;
+    color: rgba(255,255,255,0.7); line-height: 1.6;
+  }
+  .newsletter-form-wrap { flex: 1; min-width: 300px; max-width: 480px; }
+  .newsletter-error {
+    display: none; background: #fdecec; border: 1px solid #f0b7b7; border-radius: 8px;
+    padding: 0.7rem 0.9rem; margin-bottom: 0.75rem; font-size: 0.78rem;
+    color: #8a1f1f; line-height: 1.5; font-family: 'Inter', sans-serif;
+  }
+  .newsletter-error.active { display: block; }
+  .newsletter-form { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .newsletter-input {
+    flex: 1; min-width: 140px; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 6px;
+    padding: 0.75rem 1rem; font-family: 'Poppins', sans-serif; font-size: 0.875rem;
+    font-weight: 300; color: #fff; -webkit-appearance: none; appearance: none;
+  }
+  .newsletter-input::placeholder { color: rgba(255,255,255,0.5); }
+  .newsletter-input:focus { outline: none; border-color: var(--gold); }
+  .newsletter-submit {
+    background: var(--gold); color: var(--navy); border: none;
+    padding: 0.75rem 1.5rem; border-radius: 6px; font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .newsletter-submit:hover { opacity: 0.88; }
+  .newsletter-submit:disabled { opacity: 0.6; cursor: default; }
+  .newsletter-success {
+    display: none; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+    color: #fff; padding: 0.75rem 0;
+  }
+  .newsletter-success.active { display: block; }
+  @media (max-width: 700px) {
+    .newsletter-strip-inner { flex-direction: column; align-items: flex-start; }
+    .newsletter-form-wrap { max-width: 100%; width: 100%; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-submit { width: 100%; }
+  }
+
   /* ── LEAD MAGNET POPUP ── */
   .lm-overlay {
     display: none; position: fixed; inset: 0;
@@ -669,6 +721,29 @@
   </div>
 </section>
 
+<!-- NEWSLETTER STRIP
+     Targets the hidden Elementor form widget with HTML ID "Newsletter"
+     (same widget the lead magnet popup above uses), fields: name, email.
+-->
+<section class="newsletter-strip">
+  <div class="container newsletter-strip-inner">
+    <div class="newsletter-copy">
+      <span class="section-label">Stay in the loop</span>
+      <h2>Research tips &amp; training updates, straight to your inbox</h2>
+      <p>Occasional emails from Claire — new courses, free resources, and practical qualitative research tips. No spam, unsubscribe anytime.</p>
+    </div>
+    <div class="newsletter-form-wrap">
+      <div class="newsletter-error" id="newsletterStripError"></div>
+      <form id="newsletterStripForm" class="newsletter-form" onsubmit="handleNewsletterStripSubmit(event)" novalidate>
+        <input type="text" id="nlStripName" class="newsletter-input" placeholder="First name (optional)">
+        <input type="email" id="nlStripEmail" class="newsletter-input" placeholder="you@university.edu.au" required>
+        <button type="submit" class="newsletter-submit" id="nlStripSubmitBtn">Subscribe →</button>
+      </form>
+      <div class="newsletter-success" id="newsletterStripSuccess">✓ &nbsp;You're subscribed — thanks for joining!</div>
+    </div>
+  </div>
+</section>
+
 <!-- LEAD MAGNET POPUP -->
 <div class="lm-overlay" id="lmOverlay" onclick="if(event.target===this)closeLm()">
   <div class="lm-modal">
@@ -823,15 +898,113 @@
     jQuery(ef).trigger('submit');
   }
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLm(); });
-  // Auto-show after 3 s, once per session
+
+  // Show once the visitor has been idle for a while — not on a flat timer,
+  // so it doesn't interrupt someone actively reading, scrolling, or clicking.
   window.addEventListener('load', function() {
-    if (!sessionStorage.getItem('lm_dismissed')) {
-      setTimeout(function() {
-        document.getElementById('lmOverlay').classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }, 3000);
+    if (sessionStorage.getItem('lm_dismissed')) return;
+
+    const IDLE_MS = 8000;
+    const activityEvents = ['mousemove', 'scroll', 'keydown', 'click', 'touchstart'];
+    let idleTimer;
+
+    function stopWatching() {
+      clearTimeout(idleTimer);
+      activityEvents.forEach(evt => document.removeEventListener(evt, resetIdleTimer));
     }
+    function showLm() {
+      stopWatching();
+      document.getElementById('lmOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function resetIdleTimer() {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(showLm, IDLE_MS);
+    }
+
+    activityEvents.forEach(evt => document.addEventListener(evt, resetIdleTimer, { passive: true }));
+    resetIdleTimer();
   });
+</script>
+
+<script>
+  // Footer newsletter strip — bridges to the same hidden Elementor
+  // "Newsletter" form widget as the lead magnet popup (fields: name, email).
+  function showNewsletterStripError(message) {
+    const errorBox = document.getElementById('newsletterStripError');
+    errorBox.textContent = message;
+    errorBox.classList.add('active');
+  }
+  function clearNewsletterStripError() {
+    const errorBox = document.getElementById('newsletterStripError');
+    errorBox.textContent = '';
+    errorBox.classList.remove('active');
+  }
+  function readNewsletterStripErrorText(widget) {
+    const fieldErrors = widget.querySelectorAll('.elementor-field-group .elementor-message, .elementor-field-group.elementor-error');
+    if (fieldErrors.length) {
+      return "Please double-check your email address and try again.";
+    }
+    return "Something went wrong on our end while subscribing you.";
+  }
+
+  function handleNewsletterStripSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('newsletterStripForm');
+    const btn = document.getElementById('nlStripSubmitBtn');
+    const success = document.getElementById('newsletterStripSuccess');
+    clearNewsletterStripError();
+    btn.textContent = 'Subscribing…';
+    btn.disabled = true;
+
+    // Find the Elementor newsletter form by its HTML id attribute (set via Form ID in Elementor)
+    const ef = document.getElementById('Newsletter');
+    if (!ef) {
+      btn.textContent = 'Subscribe →'; btn.disabled = false;
+      showNewsletterStripError('Sorry, we couldn\'t open the subscribe form just now. Please email us directly at hello@thequalitativeresearchinstitute.com to be added to the list.');
+      return;
+    }
+
+    const nameEl = ef.querySelector('#form-field-name');
+    const emailEl = ef.querySelector('#form-field-email');
+    if (nameEl) nameEl.value = document.getElementById('nlStripName').value || '';
+    if (emailEl) emailEl.value = document.getElementById('nlStripEmail').value || '';
+
+    const widget = ef.closest('[data-id]') || ef.parentElement;
+    const observer = new MutationObserver(function (mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!node.classList) continue;
+          if (node.classList.contains('elementor-message-success') ||
+              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
+            observer.disconnect(); clearTimeout(timer);
+            form.reset();
+            form.style.display = 'none';
+            success.classList.add('active');
+            return;
+          }
+          if (node.classList.contains('elementor-message-danger') || node.classList.contains('elementor-error')) {
+            observer.disconnect(); clearTimeout(timer);
+            btn.textContent = 'Subscribe →'; btn.disabled = false;
+            showNewsletterStripError(
+              readNewsletterStripErrorText(widget) +
+              ' If this keeps happening, email us at hello@thequalitativeresearchinstitute.com and we\'ll add you directly.'
+            );
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(widget, { childList: true, subtree: true });
+
+    const timer = setTimeout(function () {
+      observer.disconnect();
+      btn.textContent = 'Subscribe →'; btn.disabled = false;
+      showNewsletterStripError('This is taking longer than expected. Please check your connection and try again, or email us at hello@thequalitativeresearchinstitute.com.');
+    }, 15000);
+
+    jQuery(ef).trigger('submit');
+  }
 </script>
 </body>
 </html>
