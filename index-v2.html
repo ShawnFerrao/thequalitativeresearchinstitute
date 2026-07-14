@@ -365,10 +365,10 @@
   .nl-banner { background: var(--navy); padding: 3.5rem 2rem; }
   .nl-banner-inner {
     max-width: 1080px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 2.5rem; flex-wrap: wrap;
+    display: flex; align-items: center;
+    gap: 3rem;
   }
-  .nl-banner-copy { max-width: 480px; }
+  .nl-banner-copy { flex: 1 1 50%; }
   .nl-eyebrow {
     display: block; text-transform: uppercase; letter-spacing: 0.14em;
     font-size: 0.72rem; font-weight: 500; color: var(--gold); margin-bottom: 0.75rem;
@@ -382,26 +382,31 @@
     font-family: 'Inter', sans-serif; font-size: 0.9rem;
     color: rgba(255,255,255,0.68); line-height: 1.65; margin: 0;
   }
-  .nl-form {
-    display: flex; align-items: flex-start; gap: 0.75rem; flex-wrap: wrap;
-  }
+  .nl-form-col { flex: 1 1 50%; }
+  .nl-form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .nl-form-row { display: flex; gap: 0.75rem; }
+  .nl-form-row .nl-half { flex: 1 1 50%; min-width: 0; }
+  .nl-email-row { display: flex; gap: 0.75rem; }
+  .nl-email-row input { flex: 1 1 auto; min-width: 0; }
   .nl-form input {
+    width: 100%; box-sizing: border-box;
     background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18);
     border-radius: 6px; padding: 0.75rem 1rem; font-family: 'Poppins', sans-serif;
-    font-size: 0.875rem; font-weight: 300; color: #fff; min-width: 150px;
+    font-size: 0.875rem; font-weight: 300; color: #fff;
   }
   .nl-form input::placeholder { color: rgba(255,255,255,0.45); }
   .nl-form input:focus { outline: none; border-color: var(--gold); }
   .nl-submit {
+    flex: 0 0 auto;
     background: var(--gold); color: var(--navy); border: none; padding: 0.75rem 1.5rem;
     border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 0.875rem;
     font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s;
   }
   .nl-submit:hover { background: #e8cc8f; }
   .nl-form-error {
-    display: none; width: 100%; background: rgba(220,53,69,0.15);
+    display: none; background: rgba(220,53,69,0.15);
     border: 1px solid rgba(220,53,69,0.4); border-radius: 6px; padding: 0.6rem 0.9rem;
-    font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #ffb4bd; margin-top: 0.5rem;
+    font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #ffb4bd;
   }
   .nl-form-error.active { display: block; }
   .nl-success {
@@ -411,8 +416,8 @@
   .nl-success.active { display: block; }
   @media (max-width: 700px) {
     .nl-banner-inner { flex-direction: column; align-items: stretch; }
-    .nl-form { flex-direction: column; align-items: stretch; }
-    .nl-form input, .nl-submit { width: 100%; }
+    .nl-form-row, .nl-email-row { flex-direction: column; }
+    .nl-submit { width: 100%; }
   }
   .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
@@ -731,12 +736,16 @@
       <h2>Research tips &amp; training updates, straight to your inbox</h2>
       <p>Occasional emails from Claire — new courses, free resources, and practical qualitative research tips. No spam, unsubscribe anytime.</p>
     </div>
-    <div>
+    <div class="nl-form-col">
       <form class="nl-form" id="nlForm" onsubmit="handleNlSubmit(event)" novalidate>
-        <input type="text" id="nlFirstName" placeholder="First name" required>
-        <input type="text" id="nlLastName" placeholder="Last name">
-        <input type="email" id="nlEmail" placeholder="you@university.edu.au" required>
-        <button type="submit" class="nl-submit" id="nlSubmitBtn">Subscribe →</button>
+        <div class="nl-form-row">
+          <input class="nl-half" type="text" id="nlFirstName" placeholder="First name" required>
+          <input class="nl-half" type="text" id="nlLastName" placeholder="Last name">
+        </div>
+        <div class="nl-email-row">
+          <input type="email" id="nlEmail" placeholder="you@university.edu.au" required>
+          <button type="submit" class="nl-submit" id="nlSubmitBtn">Subscribe →</button>
+        </div>
         <div class="nl-form-error" id="nlFormError"></div>
       </form>
       <div class="nl-success" id="nlSuccess">✓ &nbsp;Thanks — you're on the list!</div>
