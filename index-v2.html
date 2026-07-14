@@ -773,8 +773,8 @@
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    // Find the Elementor newsletter form by its HTML id attribute (set via Form ID in Elementor)
-    const ef = document.getElementById('Newsletter');
+    // Find the Elementor Lead Magnet form by its HTML id attribute (set via Form ID in Elementor)
+    const ef = document.getElementById('LeadMagnet');
 
     if (!ef) {
       btn.textContent = 'Download the Free Decision Guide →'; btn.disabled = false;
@@ -783,7 +783,7 @@
     }
 
     // Populate the Elementor form fields (query within the specific form to avoid duplicate ID collisions)
-    const nameEl  = ef.querySelector('#form-field-name');
+    const nameEl  = ef.querySelector('#form-field-Fname');
     const emailEl = ef.querySelector('#form-field-email');
     if (nameEl)  nameEl.value  = document.getElementById('lmName').value;
     if (emailEl) emailEl.value = document.getElementById('lmEmail').value;
