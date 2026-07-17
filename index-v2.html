@@ -821,7 +821,11 @@
       <form id="lmForm" onsubmit="handleLmSubmit(event)" novalidate>
         <div class="lm-form-group">
           <label for="lmName">First name</label>
-          <input type="text" id="lmName" name="form_fields[name]" placeholder="Jane" required>
+          <input type="text" id="lmName" name="form_fields[Fname]" placeholder="Jane" required>
+        </div>
+        <div class="lm-form-group">
+          <label for="lmLastName">Last name</label>
+          <input type="text" id="lmLastName" name="form_fields[Lname]" placeholder="Smith">
         </div>
         <div class="lm-form-group">
           <label for="lmEmail">Email address</label>
@@ -911,9 +915,11 @@
     }
 
     // Populate the Elementor form fields (query within the specific form to avoid duplicate ID collisions)
-    const nameEl  = ef.querySelector('#form-field-Fname');
+    const fnameEl = ef.querySelector('#form-field-Fname');
+    const lnameEl = ef.querySelector('#form-field-Lname');
     const emailEl = ef.querySelector('#form-field-email');
-    if (nameEl)  nameEl.value  = document.getElementById('lmName').value;
+    if (fnameEl) fnameEl.value = document.getElementById('lmName').value;
+    if (lnameEl) lnameEl.value = document.getElementById('lmLastName').value;
     if (emailEl) emailEl.value = document.getElementById('lmEmail').value;
 
     // Watch for Elementor's success/error response
