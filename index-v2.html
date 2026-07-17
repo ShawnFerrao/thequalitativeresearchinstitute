@@ -414,8 +414,10 @@
     color: #fff; font-weight: 500;
   }
   .nl-success.active { display: block; }
-  @media (max-width: 700px) {
+  @media (max-width: 1024px) {
     .nl-banner-inner { flex-direction: column; align-items: stretch; }
+  }
+  @media (max-width: 767px) {
     .nl-form-row, .nl-email-row { flex-direction: column; }
     .nl-submit { width: 100%; }
   }
@@ -510,23 +512,42 @@
     font-family: 'Inter', sans-serif; font-size: 0.85rem;
     color: #1e5a2e; line-height: 1.6;
   }
-  @media (max-width: 640px) {
+  @media (max-width: 767px) {
     .lm-modal { grid-template-columns: 1fr; }
     .lm-left { padding: 2rem 1.5rem; }
     .lm-right { padding: 2rem 1.5rem; }
     .lm-close { color: var(--muted); }
   }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
+  /* ── RESPONSIVE ──
+     Four tiers, matching Elementor's own device breakpoints:
+     Phone (≤767), Tablet (768–1024), Desktop (default, no query),
+     Widescreen (≥2400).
+  */
+
+  /* Tablet */
+  @media (max-width: 1024px) {
     .vp-grid { grid-template-columns: 1fr 1fr; }
-    .training-grid { grid-template-columns: 1fr; }
     .home-testi-grid { grid-template-columns: 1fr 1fr; }
+    .hero { min-height: 70vh; }
   }
-  @media (max-width: 600px) {
+
+  /* Phone */
+  @media (max-width: 767px) {
     .vp-grid { grid-template-columns: 1fr; }
+    .training-grid { grid-template-columns: 1fr; }
     .home-testi-grid { grid-template-columns: 1fr; }
     .home-testi-header { flex-direction: column; align-items: flex-start; }
+    .hero { min-height: 60vh; }
+    .rc-perks { justify-content: flex-start; }
+    .trusted-bar h2 { font-size: 0.9rem; }
+  }
+
+  /* Widescreen */
+  @media (min-width: 2400px) {
+    .container, .nl-banner-inner { max-width: 1320px; }
+    .hero-inner { max-width: 880px; }
+    .trusted-bar p { max-width: 1040px; }
   }
 </style>
 </head>
