@@ -421,10 +421,11 @@ body {
 .score-bar-fill.cf  { background: #a85d20; }
 .score-bar-fill.rta { background: #1a5c3a; }
 .score-bar-pct {
-  width: 28px;
+  width: 108px;
   text-align: right;
   color: var(--muted);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* ── VIZ SECTION ── */
@@ -543,6 +544,9 @@ canvas { display: block; width: 100%; }
   .page-body { padding: 2rem 1rem 3rem; gap: 1.5rem; }
   .cong-table { font-size: 0.75rem; }
   .cong-table th, .cong-table td { padding: 0.6rem 0.65rem; }
+  .score-bar-row { flex-wrap: wrap; }
+  .score-bar-label { width: 100%; }
+  .score-bar-pct { width: 100%; text-align: left; }
 }
 </style>
 </head>
@@ -552,7 +556,7 @@ canvas { display: block; width: 100%; }
 <div class="page-intro">
   <span class="eyebrow">Free decision guide</span>
   <h1>Which type of thematic analysis is right for your study?</h1>
-  <p class="lead">Answer five questions about how your study actually works — and get a clear recommendation with the reasoning behind it.</p>
+  <p class="lead">Answer five questions about your study and get a clear recommendation with the reasoning behind it.</p>
 </div>
 
 <!-- BODY -->
@@ -564,8 +568,8 @@ canvas { display: block; width: 100%; }
     <!-- Q1 -->
     <div class="q-block" id="qb-0">
       <div class="q-number">Question 1</div>
-      <div class="q-text">What are you fundamentally trying to do with your data?</div>
-      <div class="q-hint">Start here — your analytic aim is the most important factor in choosing an approach.</div>
+      <div class="q-text">What is your study aiming to achieve?</div>
+      <div class="q-hint">Start here — your study's analytic aim is one of the most important factors in choosing an approach.</div>
       <div class="options">
         <button class="opt" onclick="pick(0,0)" id="q0o0" type="button">
           <div class="opt-radio"><div class="opt-dot"></div></div>
@@ -685,7 +689,7 @@ canvas { display: block; width: 100%; }
     <div class="q-block" id="qb-4">
       <div class="q-number">Question 5</div>
       <div class="q-text">What does your research context look like?</div>
-      <div class="q-hint">The team structure and purpose of your research often determine which approach is practical and credible to your audience.</div>
+      <div class="q-hint">Your research context helps shape which approach is the best fit for your study.</div>
       <div class="options">
         <button class="opt" onclick="pick(4,0)" id="q4o0" type="button">
           <div class="opt-radio"><div class="opt-dot"></div></div>
@@ -749,7 +753,7 @@ canvas { display: block; width: 100%; }
       <!-- Pending state -->
       <div class="result-pending">
         <div class="result-pending-icon">→</div>
-        <p>Answer the four questions and your recommended approach will appear here — with a full explanation of why it fits your study.</p>
+        <p>Answer the five questions and your recommended approach will appear here — with a full explanation of why it fits your study.</p>
       </div>
 
       <!-- Result content (hidden until all answered) -->
@@ -795,58 +799,51 @@ canvas { display: block; width: 100%; }
   <div class="congruence-inner">
     <span class="congruence-eyebrow">Congruence check</span>
     <h2 class="congruence-title">Does your approach match your design choices?</h2>
-    <p class="congruence-sub">Methodological congruence means that your research question, analytic approach, quality criteria, and write-up language all point in the same direction. Use this table to check for mismatches before you submit.</p>
     <table class="cong-table">
       <thead>
         <tr>
-          <th></th>
+          <th>Feature</th>
           <th class="th-cr">Coding Reliability TA</th>
-          <th class="th-cf">Codebook TA</th>
+          <th class="th-cf">Codebook / Coding Frame TA</th>
           <th class="th-rta">Reflexive TA</th>
         </tr>
       </thead>
       <tbody>
         <tr>
+          <td>Primary analytic aim</td>
+          <td>To identify themes</td>
+          <td>To create themes</td>
+          <td>To actively generate themes</td>
+        </tr>
+        <tr>
           <td>Inter-rater reliability</td>
-          <td><span class="tick">✓ Required</span></td>
-          <td><span class="partial">○ Not standard</span></td>
-          <td><span class="cross">✗ Inappropriate</span></td>
+          <td>Required</td>
+          <td>Not standard</td>
+          <td>Inappropriate</td>
         </tr>
         <tr>
           <td>Fixed codebook</td>
-          <td><span class="tick">✓ Yes</span></td>
-          <td><span class="partial">○ Evolving</span></td>
-          <td><span class="cross">✗ No</span></td>
+          <td>Required</td>
+          <td>Evolving</td>
+          <td>Inappropriate</td>
         </tr>
         <tr>
           <td>Multiple coders</td>
-          <td><span class="tick">✓ Required</span></td>
-          <td><span class="partial">○ Often yes</span></td>
-          <td><span class="cross">✗ Typically solo</span></td>
+          <td>Usually</td>
+          <td>Often</td>
+          <td>Inappropriate</td>
         </tr>
         <tr>
           <td>Reflexivity statements</td>
-          <td><span class="cross">✗ Not central</span></td>
-          <td><span class="partial">○ Encouraged</span></td>
-          <td><span class="tick">✓ Essential</span></td>
+          <td>Not central</td>
+          <td>Encouraged</td>
+          <td>Essential</td>
         </tr>
         <tr>
-          <td>Member checking</td>
-          <td><span class="partial">○ Optional</span></td>
-          <td><span class="tick">✓ Common</span></td>
-          <td><span class="partial">○ Context-dependent</span></td>
-        </tr>
-        <tr>
-          <td>Themes described as…</td>
-          <td>Topic categories</td>
+          <td>Themes described as</td>
+          <td>Topic summaries</td>
           <td>Patterned responses</td>
           <td>Constructed meanings</td>
-        </tr>
-        <tr>
-          <td>Cite Braun &amp; Clarke (2006)?</td>
-          <td><span class="partial">○ With caution</span></td>
-          <td><span class="partial">○ With caution</span></td>
-          <td><span class="tick">✓ Primary source</span></td>
         </tr>
       </tbody>
     </table>
@@ -1140,14 +1137,15 @@ function renderResult() {
   // Score bars
   const maxPts = Object.values(totals).reduce((a,b) => a+b, 0);
   const pct = k => maxPts > 0 ? Math.round(totals[k] / maxPts * 100) : 0;
+  const alignmentLabel = p => p >= 60 ? 'Strong alignment' : p >= 30 ? 'Moderate alignment' : 'Limited alignment';
   document.getElementById('scoreChartWrap').classList.add('visible');
   requestAnimationFrame(() => {
     document.getElementById('barCR').style.width  = pct('CR')  + '%';
     document.getElementById('barCF').style.width  = pct('CF')  + '%';
     document.getElementById('barRTA').style.width = pct('RTA') + '%';
-    document.getElementById('pctCR').textContent  = pct('CR')  + '%';
-    document.getElementById('pctCF').textContent  = pct('CF')  + '%';
-    document.getElementById('pctRTA').textContent = pct('RTA') + '%';
+    document.getElementById('pctCR').textContent  = alignmentLabel(pct('CR'));
+    document.getElementById('pctCF').textContent  = alignmentLabel(pct('CF'));
+    document.getElementById('pctRTA').textContent = alignmentLabel(pct('RTA'));
   });
 
   const max = Math.max(totals.CR, totals.CF, totals.RTA);
@@ -1193,8 +1191,6 @@ function renderResult() {
       </div>`;
   } else {
     // Mixed result
-    const names = { CR: 'Coding Reliability TA', CF: 'Codebook TA', RTA: 'Reflexive TA' };
-    const list = winners.map(k => `<strong>${names[k]}</strong>`).join(' and ');
     content.innerHTML = `
       <div class="result-header">
         <div class="result-type-badge mixed">Further reflection needed</div>
@@ -1202,7 +1198,7 @@ function renderResult() {
         <div class="result-assoc">This is useful to know — not a sign something is wrong</div>
       </div>
       <div class="result-body">
-        <div class="mixed-note">Your responses are evenly split between ${list}. This usually means your analytic logic needs to be made more explicit — not that your study is flawed.</div>
+        <div class="mixed-note">This means your analytic logic needs to be clarified before proceeding.</div>
         <p class="result-desc">Work through these questions in writing: <em>Am I summarising, mapping, or interpreting? What is my researcher role? What are my codes doing? What do I mean by a theme? What quality criteria fit my approach?</em> Clarity here often resolves the uncertainty.</p>
         <div class="result-cta">
           <p><strong>The full guide walks through each question</strong>Includes detailed prompts, congruence checks, and descriptions of all three approaches.</p>
