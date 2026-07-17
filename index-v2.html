@@ -4,10 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Claire Moran | Mastering Qualitative Research</title>
+<meta name="description" content="Expert qualitative research training with Claire Moran — masterclasses, self-paced courses, and 1:1 support to build your confidence and capability at every stage of your research journey.">
+<link rel="canonical" href="https://thequalitativeresearchinstitute.com/">
+<meta property="og:title" content="Claire Moran | Mastering Qualitative Research">
+<meta property="og:description" content="Expert qualitative research training with Claire Moran — masterclasses, self-paced courses, and 1:1 support to build your confidence and capability at every stage of your research journey.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thequalitativeresearchinstitute.com/">
+<meta property="og:image" content="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4739-1024x684.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Claire Moran | Mastering Qualitative Research">
+<meta name="twitter:description" content="Expert qualitative research training with Claire Moran — masterclasses, self-paced courses, and 1:1 support to build your confidence and capability at every stage of your research journey.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
 
   :root {
     --navy: #1a2744;
@@ -555,7 +574,8 @@
 
 <!-- HERO -->
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline>
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="metadata"
+    poster="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4739-1024x684.jpg">
     <source src="https://clairemoran.com/wp-content/uploads/2024/09/Header-Video-HD-1080p-2.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
@@ -569,6 +589,13 @@
     </div>
   </div>
 </section>
+<script>
+  // Respect prefers-reduced-motion: stop the autoplaying hero video and fall back to its poster frame.
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const heroVideo = document.getElementById('heroVideo');
+    if (heroVideo) { heroVideo.pause(); heroVideo.removeAttribute('autoplay'); }
+  }
+</script>
 
 <!-- TRUSTED BAR -->
 <div class="trusted-bar">
@@ -612,7 +639,7 @@
 
       <div class="training-card">
         <div class="training-card-image">
-          <img src="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4739-1024x684.jpg" alt="Free Webinar Series">
+          <img src="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4739-1024x684.jpg" alt="Free Webinar Series" width="1024" height="684" loading="lazy">
         </div>
         <div class="training-card-body">
           <span class="training-badge">Free · Online · Webinar</span>
@@ -624,7 +651,7 @@
 
       <div class="training-card">
         <div class="training-card-image">
-          <img src="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4569-1024x684.jpg" alt="Essentials of Qualitative Research">
+          <img src="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4569-1024x684.jpg" alt="Essentials of Qualitative Research" width="1024" height="684" loading="lazy">
         </div>
         <div class="training-card-body">
           <span class="training-badge">Self-paced · Online · 6 hours</span>
@@ -636,7 +663,7 @@
 
       <div class="training-card">
         <div class="training-card-image">
-          <img src="https://clairemoran.com/wp-content/uploads/2024/11/CLAIRE_Workshop-4581-1024x683.jpg" alt="Research Design Masterclass">
+          <img src="https://clairemoran.com/wp-content/uploads/2024/11/CLAIRE_Workshop-4581-1024x683.jpg" alt="Research Design Masterclass" width="1024" height="683" loading="lazy">
         </div>
         <div class="training-card-body">
           <span class="training-badge">2-Day Workshop</span>
@@ -648,7 +675,7 @@
 
       <div class="training-card">
         <div class="training-card-image">
-          <img src="https://clairemoran.com/wp-content/uploads/2024/11/CLAIRE_Workshop-4970-1-1024x684.jpg" alt="Thematic Analysis Masterclass">
+          <img src="https://clairemoran.com/wp-content/uploads/2024/11/CLAIRE_Workshop-4970-1-1024x684.jpg" alt="Thematic Analysis Masterclass" width="1024" height="684" loading="lazy">
         </div>
         <div class="training-card-body">
           <span class="training-badge">2-Day Workshop</span>
@@ -660,7 +687,7 @@
 
       <div class="training-card">
         <div class="training-card-image">
-          <img src="https://clairemoran.com/wp-content/uploads/2024/11/CLAIRE_Workshop-4509-1024x684.jpg" alt="AI Tools for Qualitative Research">
+          <img src="https://clairemoran.com/wp-content/uploads/2024/11/CLAIRE_Workshop-4509-1024x684.jpg" alt="AI Tools for Qualitative Research" width="1024" height="684" loading="lazy">
         </div>
         <div class="training-card-body">
           <span class="training-badge">2-Day Workshop · Online</span>
@@ -672,13 +699,13 @@
 
       <div class="training-card">
         <div class="training-card-image">
-          <img src="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4739-1024x684.jpg" alt="Individual Support">
+          <img src="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4739-1024x684.jpg" alt="Individual Support" width="1024" height="684" loading="lazy">
         </div>
         <div class="training-card-body">
           <span class="training-badge">45 &amp; 90 min · 1:1 Sessions</span>
           <h3>Individual Support</h3>
           <p>Focused one-on-one sessions tailored to your specific research challenges — from a structured diagnostic to a deep-dive into your project.</p>
-          <a href="#" class="learn-more" onclick="openContactModal(event)">Learn More →</a>
+          <a href="#" class="learn-more" onclick="if (typeof openContactModal === 'function') { openContactModal(event); } else { event.preventDefault(); window.location.href = '/contact-us'; }">Learn More →</a>
         </div>
       </div>
 
@@ -744,7 +771,7 @@
     <p>Explore individual training programs and masterclasses, or get focused one-on-one support for your specific research challenges. Not sure where to start? Get in touch and Claire will help you find the right fit.</p>
     <div class="cta-btns">
       <a href="https://thequalitativeresearchinstitute.com/training/" class="btn-primary">Explore Training</a>
-      <a href="#" class="btn-secondary" onclick="openContactModal(event)">Explore Support Options</a>
+      <a href="#" class="btn-secondary" onclick="if (typeof openContactModal === 'function') { openContactModal(event); } else { event.preventDefault(); window.location.href = '/contact-us'; }">Explore Support Options</a>
     </div>
   </div>
 </section>
@@ -760,16 +787,19 @@
     <div class="nl-form-col">
       <form class="nl-form" id="nlForm" onsubmit="handleNlSubmit(event)" novalidate>
         <div class="nl-form-row">
+          <label for="nlFirstName" class="sr-only">First name</label>
           <input class="nl-half" type="text" id="nlFirstName" placeholder="First name" required>
+          <label for="nlLastName" class="sr-only">Last name</label>
           <input class="nl-half" type="text" id="nlLastName" placeholder="Last name">
         </div>
         <div class="nl-email-row">
+          <label for="nlEmail" class="sr-only">Email address</label>
           <input type="email" id="nlEmail" placeholder="you@university.edu.au" required>
           <button type="submit" class="nl-submit" id="nlSubmitBtn">Subscribe →</button>
         </div>
-        <div class="nl-form-error" id="nlFormError"></div>
+        <div class="nl-form-error" id="nlFormError" role="alert" aria-live="polite"></div>
       </form>
-      <div class="nl-success" id="nlSuccess">✓ &nbsp;Thanks — you're on the list!</div>
+      <div class="nl-success" id="nlSuccess" role="status" aria-live="polite">✓ &nbsp;Thanks — you're on the list!</div>
     </div>
   </div>
 </section>
@@ -806,7 +836,7 @@
         </div>
         <button type="submit" class="lm-submit" id="lmSubmitBtn">Download the Free Decision Guide →</button>
         <button type="button" class="lm-skip" onclick="closeLm()">No thanks, I'll figure it out on my own</button>
-        <div class="lm-success" id="lmSuccess">✓ &nbsp;Check your inbox — your decision guide is on its way!</div>
+        <div class="lm-success" id="lmSuccess" role="status" aria-live="polite">✓ &nbsp;Check your inbox — your decision guide is on its way!</div>
       </form>
     </div>
   </div>
