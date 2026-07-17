@@ -115,6 +115,12 @@
   .contact-modal .form-group textarea:focus {
     outline: none; border-color: var(--mid-blue);
   }
+  .contact-modal .form-group input:invalid:not(:placeholder-shown),
+  .contact-modal .form-group input:user-invalid,
+  .contact-modal .form-group select:invalid:not(:focus),
+  .contact-modal .form-group textarea:invalid:not(:placeholder-shown) {
+    border-color: #d33;
+  }
   .contact-modal .form-group textarea { resize: vertical; min-height: 100px; }
   .contact-modal .form-submit {
     width: 100%; background: #0D297B; color: #fff; border: none; padding: 0.85rem 2rem;
@@ -125,8 +131,9 @@
 
   /* ── INLINE ERROR BANNER ── */
   .contact-modal .form-error {
-    display: none; background: #fdecec; border: 1px solid #f0b7b7; border-radius: 8px;
-    padding: 0.8rem 1rem; margin-bottom: 1rem; font-size: 0.82rem; color: #8a1f1f; line-height: 1.55;
+    display: none; background: var(--cream); border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0; padding: 0.75rem 1rem; margin-bottom: 1.25rem;
+    font-family: 'Inter', sans-serif; font-size: 0.82rem; color: var(--navy); line-height: 1.6;
   }
   .contact-modal .form-error.active { display: block; }
 
@@ -290,6 +297,12 @@
     const successStep = document.getElementById('contactSuccessStep');
     const btn = form.querySelector('.form-submit');
     clearContactError();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
