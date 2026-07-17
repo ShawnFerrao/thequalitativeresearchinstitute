@@ -908,8 +908,8 @@
   }
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLm(); });
 
-  // Newsletter banner (above the footer) — targets the footer's own hidden
-  // Elementor "Newsletter" form widget (HTML id="Newsletter", Fname/Lname/email fields).
+  // Newsletter banner (above the footer) — targets the dedicated hidden
+  // Elementor "OptIn" form widget (HTML id="OptIn", Fname/Lname/email fields).
   function handleNlSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('nlSubmitBtn');
@@ -921,7 +921,7 @@
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    const ef = document.getElementById('Newsletter');
+    const ef = document.getElementById('OptIn');
     if (!ef) {
       btn.textContent = 'Subscribe →'; btn.disabled = false;
       errorBox.textContent = 'Sorry, something went wrong. Please try again shortly.';
