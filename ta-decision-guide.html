@@ -854,6 +854,7 @@ canvas { display: block; width: 100%; }
 
 <script>
 const answers = [null, null, null, null, null];
+const alignmentLabel = p => p >= 60 ? 'Strong alignment' : p >= 30 ? 'Moderate alignment' : 'Limited alignment';
 
 const SCORES = [
   [[2,0,0],[0,2,0],[0,0,2]], // Q1
@@ -1012,9 +1013,9 @@ function drawScoreChart(totals, winnerKey) {
     ctx.fillText(row.label + (isWinner ? '  ·  Best match' : ''), PAD, y + 12);
 
     ctx.textAlign = 'right';
-    ctx.font = (isWinner ? '700' : '600') + ' 12px Inter, Arial, sans-serif';
+    ctx.font = (isWinner ? '700' : '600') + ' 11px Inter, Arial, sans-serif';
     ctx.fillStyle = isWinner ? row.color : '#9ca3af';
-    ctx.fillText(pct + '%', PAD + trackW, y + 12);
+    ctx.fillText(alignmentLabel(pct), PAD + trackW, y + 12);
 
     // Track
     const barY = y + 20;
@@ -1139,7 +1140,6 @@ function renderResult() {
   // Score bars
   const maxPts = Object.values(totals).reduce((a,b) => a+b, 0);
   const pct = k => maxPts > 0 ? Math.round(totals[k] / maxPts * 100) : 0;
-  const alignmentLabel = p => p >= 60 ? 'Strong alignment' : p >= 30 ? 'Moderate alignment' : 'Limited alignment';
   document.getElementById('scoreChartWrap').classList.add('visible');
   requestAnimationFrame(() => {
     document.getElementById('barCR').style.width  = pct('CR')  + '%';
