@@ -589,13 +589,6 @@
     </div>
   </div>
 </section>
-<script>
-  // Respect prefers-reduced-motion: stop the autoplaying hero video and fall back to its poster frame.
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const heroVideo = document.getElementById('heroVideo');
-    if (heroVideo) { heroVideo.pause(); heroVideo.removeAttribute('autoplay'); }
-  }
-</script>
 
 <!-- TRUSTED BAR -->
 <div class="trusted-bar">
