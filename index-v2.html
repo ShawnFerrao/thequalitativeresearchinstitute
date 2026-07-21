@@ -415,6 +415,8 @@
   }
   .nl-form input::placeholder { color: rgba(255,255,255,0.45); }
   .nl-form input:focus { outline: none; border-color: var(--gold); }
+  .nl-form input:invalid:not(:placeholder-shown),
+  .nl-form input:user-invalid { border-color: #ff8b8b; }
   .nl-submit {
     flex: 0 0 auto;
     background: var(--gold) !important; color: var(--navy) !important; border: none; padding: 0.75rem 1.5rem;
@@ -543,6 +545,8 @@
     background: var(--warm-white); -webkit-appearance: none; appearance: none;
   }
   .lm-form-group input:focus { outline: none; border-color: var(--mid-blue); }
+  .lm-form-group input:invalid:not(:placeholder-shown),
+  .lm-form-group input:user-invalid { border-color: #d33; }
   .lm-submit {
     width: 100%; background: #0D297B !important; color: #fff !important; border: none;
     padding: 0.85rem 2rem; border-radius: 6px;
@@ -950,6 +954,12 @@
     const form = document.getElementById('lmForm');
     const btn  = document.getElementById('lmSubmitBtn');
     const success = document.getElementById('lmSuccess');
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
@@ -1019,6 +1029,12 @@
     const form = document.getElementById('nlForm');
     errorBox.textContent = '';
     errorBox.classList.remove('active');
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
