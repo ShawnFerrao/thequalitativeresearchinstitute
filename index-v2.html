@@ -428,17 +428,51 @@
     font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #ffb4bd;
   }
   .nl-form-error.active { display: block; }
-  .nl-success {
-    display: none; font-family: 'Inter', sans-serif; font-size: 0.9rem;
-    color: #fff; font-weight: 500;
-  }
-  .nl-success.active { display: block; }
   @media (max-width: 767px) {
     .nl-banner-inner { flex-direction: column; align-items: stretch; }
     .nl-form-row, .nl-email-row { flex-direction: column; }
     .nl-submit { width: 100%; }
   }
   .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ── NEWSLETTER THANKS POPUP ── */
+  .nl-thanks-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(26,39,68,0.65); z-index: 3100;
+    align-items: center; justify-content: center; padding: 1rem;
+  }
+  .nl-thanks-overlay.active { display: flex; }
+  .nl-thanks-card {
+    background: var(--warm-white); border-radius: 12px;
+    max-width: 420px; width: 100%; padding: 2.5rem 2rem;
+    text-align: center; position: relative;
+    box-shadow: 0 24px 60px rgba(26,39,68,0.25);
+  }
+  .nl-thanks-close {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    background: none; border: none; font-size: 1.4rem; line-height: 1;
+    cursor: pointer; color: var(--muted);
+  }
+  .nl-thanks-icon {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #e8f4ea; color: #1e5a2e;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin: 0 auto 1.25rem;
+  }
+  .nl-thanks-card h3 {
+    font-size: 1.15rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem;
+    font-family: 'Poppins', sans-serif;
+  }
+  .nl-thanks-card p {
+    font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--muted);
+    line-height: 1.65; margin-bottom: 1.5rem;
+  }
+  .nl-thanks-ok {
+    background: var(--navy) !important; color: #fff !important; border: none;
+    padding: 0.7rem 1.75rem; border-radius: 6px; font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s;
+  }
+  .nl-thanks-ok:hover { background: var(--blue) !important; }
 
   /* ── LEAD MAGNET POPUP ── */
   .lm-overlay {
@@ -790,10 +824,20 @@
         </div>
         <div class="nl-form-error" id="nlFormError" role="alert" aria-live="polite"></div>
       </form>
-      <div class="nl-success" id="nlSuccess" role="status" aria-live="polite">✓ &nbsp;Thanks — you're on the list!</div>
     </div>
   </div>
 </section>
+
+<!-- NEWSLETTER THANKS POPUP -->
+<div class="nl-thanks-overlay" id="nlThanksOverlay" onclick="if(event.target===this)closeNlThanks()">
+  <div class="nl-thanks-card">
+    <button class="nl-thanks-close" onclick="closeNlThanks()" aria-label="Close">&times;</button>
+    <div class="nl-thanks-icon">✓</div>
+    <h3>You're on the list</h3>
+    <p>Thanks, you're on the list. Keep an eye on your inbox for a welcome email from us.</p>
+    <button type="button" class="nl-thanks-ok" onclick="closeNlThanks()">Got it</button>
+  </div>
+</div>
 
 <!-- LEAD MAGNET POPUP -->
 <div class="lm-overlay" id="lmOverlay" onclick="if(event.target===this)closeLm()">
@@ -889,6 +933,12 @@
 </script>
 
 <script>
+  // Newsletter "thanks" popup
+  function closeNlThanks() {
+    document.getElementById('nlThanksOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
   // Lead magnet popup
   function closeLm() {
     document.getElementById('lmOverlay').classList.remove('active');
@@ -954,7 +1004,11 @@
 
     jQuery(ef).trigger('submit');
   }
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLm(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape') return;
+    closeLm();
+    closeNlThanks();
+  });
 
   // Newsletter banner (above the footer) — targets the dedicated hidden
   // Elementor "OptIn" form widget (HTML id="OptIn", Fname/Lname/email fields).
@@ -962,7 +1016,6 @@
     e.preventDefault();
     const btn = document.getElementById('nlSubmitBtn');
     const errorBox = document.getElementById('nlFormError');
-    const success = document.getElementById('nlSuccess');
     const form = document.getElementById('nlForm');
     errorBox.textContent = '';
     errorBox.classList.remove('active');
@@ -993,8 +1046,9 @@
               (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
             observer.disconnect(); clearTimeout(timer);
             form.reset();
-            form.style.display = 'none';
-            success.classList.add('active');
+            btn.textContent = 'Subscribe →'; btn.disabled = false;
+            document.getElementById('nlThanksOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
             return;
           }
           if (node.classList.contains('elementor-message-danger') || node.classList.contains('elementor-error')) {
