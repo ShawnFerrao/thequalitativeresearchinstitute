@@ -93,8 +93,16 @@
   .nav-links-cta { display: none; }
 
   @media (max-width: 768px) {
-    .top-bar { flex-direction: column; gap: 0.3rem; text-align: center; padding: 0.5rem 1rem; }
-    .top-bar-contact { flex-direction: column; gap: 0.15rem; align-items: center; }
+    .top-bar {
+      flex-direction: column; gap: 0.2rem; text-align: center;
+      padding: 0.3rem 1rem; font-size: 0.68rem;
+    }
+    .top-bar-contact {
+      flex-direction: row; flex-wrap: wrap; justify-content: center;
+      align-items: center; gap: 0.35rem 0.6rem;
+    }
+    .top-bar-social { margin-top: 0.05rem; }
+    .top-bar-social a { padding: 0.05rem 0.4rem; font-size: 0.7rem; }
     nav { height: auto; padding: 0.6rem 1rem; position: relative; }
     .nav-logo { font-size: 0.85rem; white-space: normal; line-height: 1.25; flex: 1; }
     .nav-toggle { display: flex; }
