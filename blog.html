@@ -8,6 +8,7 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+  html, body { max-width: 100%; overflow-x: hidden; }
 
   :root {
     --navy: #1a2744;
@@ -66,7 +67,7 @@
     border-radius: 6px; overflow: hidden;
   }
   .search-wrap input {
-    flex: 1; background: transparent; border: none;
+    flex: 1; min-width: 0; background: transparent; border: none;
     padding: 0.65rem 1rem; color: #fff;
     font-family: 'Poppins', sans-serif; font-size: 0.875rem; font-weight: 300;
   }
@@ -99,15 +100,16 @@
     display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem;
   }
   .filter-btn {
-    background: var(--cream); border: 1px solid var(--border);
-    color: var(--muted); border-radius: 100px;
+    background: var(--cream) !important; border: 1px solid var(--border) !important;
+    color: var(--muted) !important; border-radius: 100px;
     padding: 0.38rem 1rem; font-size: 0.8rem; font-weight: 400;
     cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif;
     -webkit-appearance: none; appearance: none;
+    white-space: normal !important;
   }
-  .filter-btn:hover { background: var(--light-blue); border-color: var(--mid-blue); color: var(--navy); }
-  .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; font-weight: 500; }
-  .filter-btn.active:hover { background: var(--navy); }
+  .filter-btn:hover { background: var(--light-blue) !important; border-color: var(--mid-blue) !important; color: var(--navy) !important; }
+  .filter-btn.active { background: var(--navy) !important; border-color: var(--navy) !important; color: #fff !important; font-weight: 500; }
+  .filter-btn.active:hover { background: var(--navy) !important; }
 
   /* ── POST LIST ── */
   .post-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -226,12 +228,14 @@
   .sub-input::placeholder { color: rgba(255,255,255,0.45); }
   .sub-input:focus { outline: none; border-color: var(--gold); }
   .sub-btn {
-    width: 100%; background: var(--gold); color: var(--navy);
-    border: none; padding: 0.65rem 1rem; border-radius: 6px;
+    width: 100%; background: var(--gold) !important; color: var(--navy) !important;
+    border: none !important; padding: 0.65rem 1rem; border-radius: 6px;
     font-family: 'Poppins', sans-serif; font-size: 0.85rem;
     font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+    display: block; text-align: center; text-decoration: none !important;
+    box-sizing: border-box;
   }
-  .sub-btn:hover { background: #b5762e; }
+  .sub-btn:hover { background: #b5762e !important; }
   .sub-note { font-size: 0.68rem; color: rgba(255,255,255,0.45); margin-top: 0.5rem; text-align: center; }
 
   /* Recent posts widget */
@@ -273,7 +277,7 @@
   }
   .btn-gold:hover { opacity: 0.88; }
   .btn-outline-white {
-    border: 1.5px solid rgba(255,255,255,0.6); color: #fff !important; padding: 0.75rem 2rem; border-radius: 4px;
+    border: 1.5px solid rgba(255,255,255,0.6) !important; color: #fff !important; padding: 0.75rem 2rem; border-radius: 4px;
     text-decoration: none; font-weight: 500; font-size: 0.9rem;
     display: inline-block; transition: all 0.2s; font-family: 'Poppins', sans-serif;
   }
@@ -323,12 +327,11 @@
     <!-- RIGHT: sidebar -->
     <aside class="sidebar">
 
-      <!-- Subscribe -->
+      <!-- Lead Magnet -->
       <div class="sidebar-widget">
-        <h3>Free Research Guide</h3>
-        <p class="subscribe-desc">Subscribe and receive <em>Research Design Simplified: A Practical Guide to Ontology, Epistemology, and Methodology</em> as a free gift.</p>
-        <input class="sub-input" type="email" placeholder="Your email address">
-        <button class="sub-btn">Subscribe →</button>
+        <h3>Free Decision Guide</h3>
+        <p class="subscribe-desc">Not sure which type of <em>thematic analysis</em> is right for your study? Get the free Decision Guide — Coding Reliability, Codebook, or Reflexive TA explained.</p>
+        <a class="sub-btn" href="/thematic-analysis-decision-guide">Get the Free Guide →</a>
         <p class="sub-note">No spam. Unsubscribe anytime.</p>
       </div>
 
