@@ -101,6 +101,7 @@
 
   .faq-hero-search input {
     flex: 1;
+    min-width: 0;
     background: none;
     border: none;
     outline: none;
@@ -445,6 +446,16 @@
   }
 
   @media (max-width: 480px) {
+    .faq-hero-search input {
+      padding: 0.75rem 0.9rem;
+      font-size: 0.85rem;
+    }
+
+    .faq-hero-search button {
+      padding: 0 1rem;
+      font-size: 0.8rem;
+    }
+
     .faq-accordion-trigger {
       padding: 1rem 1.1rem;
     }
