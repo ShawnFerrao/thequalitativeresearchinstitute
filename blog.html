@@ -227,6 +227,8 @@
   }
   .sub-input::placeholder { color: rgba(255,255,255,0.45); }
   .sub-input:focus { outline: none; border-color: var(--gold); }
+  .sub-input:invalid:not(:placeholder-shown),
+  .sub-input:user-invalid { border-color: #ff8b8b; }
   .sub-btn {
     width: 100%; background: var(--gold) !important; color: var(--navy) !important;
     border: none !important; padding: 0.65rem 1rem; border-radius: 6px;
@@ -236,7 +238,13 @@
     box-sizing: border-box;
   }
   .sub-btn:hover { background: #b5762e !important; }
+  .sub-btn:disabled { opacity: 0.7; cursor: default; }
   .sub-note { font-size: 0.68rem; color: rgba(255,255,255,0.45); margin-top: 0.5rem; text-align: center; }
+  .sub-success {
+    display: none; font-size: 0.8rem; color: var(--gold); font-weight: 500;
+    text-align: center; line-height: 1.5; margin-top: 0.5rem;
+  }
+  .sub-success.active { display: block; }
 
   /* Recent posts widget */
   .recent-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
@@ -330,8 +338,14 @@
       <!-- Lead Magnet -->
       <div class="sidebar-widget">
         <h3>Free Decision Guide</h3>
-        <p class="subscribe-desc">Not sure which type of <em>thematic analysis</em> is right for your study? Get the free Decision Guide — Coding Reliability, Codebook, or Reflexive TA explained.</p>
-        <a class="sub-btn" href="/thematic-analysis-decision-guide">Get the Free Guide →</a>
+        <p class="subscribe-desc">Not sure which type of <em>thematic analysis</em> is right for your study? Get the free Decision Guide sent straight to your inbox.</p>
+        <form id="blogLmForm" onsubmit="handleBlogLmSubmit(event)" novalidate>
+          <input class="sub-input" type="text" id="blogLmFname" placeholder="First name" required>
+          <input class="sub-input" type="text" id="blogLmLname" placeholder="Last name">
+          <input class="sub-input" type="email" id="blogLmEmail" placeholder="Your email address" required>
+          <button type="submit" class="sub-btn" id="blogLmSubmitBtn">Get the Free Guide →</button>
+          <div class="sub-success" id="blogLmSuccess" role="status" aria-live="polite">✓ &nbsp;Check your inbox — your guide is on its way!</div>
+        </form>
         <p class="sub-note">No spam. Unsubscribe anytime.</p>
       </div>
 
@@ -371,6 +385,73 @@
 
 
 <script>
+  // Blog sidebar lead magnet — targets the same hidden Elementor "LeadMagnet"
+  // form widget (HTML id="LeadMagnet", Fname/Lname/email fields) used on the
+  // homepage popup. Add a hidden Elementor Form widget with Form ID
+  // "LeadMagnet" to this page for it to submit.
+  function handleBlogLmSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('blogLmForm');
+    const btn = document.getElementById('blogLmSubmitBtn');
+    const success = document.getElementById('blogLmSuccess');
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const originalLabel = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const ef = document.getElementById('LeadMagnet');
+
+    if (!ef) {
+      btn.textContent = originalLabel; btn.disabled = false;
+      alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
+      return;
+    }
+
+    const fnameEl = ef.querySelector('#form-field-Fname');
+    const lnameEl = ef.querySelector('#form-field-Lname');
+    const emailEl = ef.querySelector('#form-field-email');
+    if (fnameEl) fnameEl.value = document.getElementById('blogLmFname').value;
+    if (lnameEl) lnameEl.value = document.getElementById('blogLmLname').value;
+    if (emailEl) emailEl.value = document.getElementById('blogLmEmail').value;
+
+    const widget = ef.closest('[data-id]') || ef.parentElement;
+    const observer = new MutationObserver(function (mutations) {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (!node.classList) continue;
+          if (node.classList.contains('elementor-message-success') ||
+              (node.classList.contains('elementor-message') && !node.classList.contains('elementor-message-danger'))) {
+            observer.disconnect(); clearTimeout(timer);
+            form.reset();
+            success.classList.add('active');
+            btn.style.display = 'none';
+            return;
+          }
+          if (node.classList.contains('elementor-message-danger') || node.classList.contains('elementor-error')) {
+            observer.disconnect(); clearTimeout(timer);
+            btn.textContent = originalLabel; btn.disabled = false;
+            alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(widget, { childList: true, subtree: true });
+
+    const timer = setTimeout(function () {
+      observer.disconnect();
+      btn.textContent = originalLabel; btn.disabled = false;
+      alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
+    }, 15000);
+
+    jQuery(ef).trigger('submit');
+  }
+
   const WP_BASE = 'https://thequalitativeresearchinstitute.com/wp-json/wp/v2';
 
   let allPosts = [];
