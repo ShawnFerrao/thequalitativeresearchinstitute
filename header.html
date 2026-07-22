@@ -31,11 +31,13 @@
   .top-bar a:hover { color: #fff; }
   .top-bar-contact { display: flex; gap: 1.5rem; }
   .top-bar-social a {
+    display: inline-flex; align-items: center;
     color: rgba(255,255,255,0.7); font-size: 0.8rem;
     border: 1px solid rgba(255,255,255,0.3);
     padding: 0.15rem 0.5rem; border-radius: 3px; transition: all 0.2s;
   }
   .top-bar-social a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .top-bar-social .social-icon { display: none; }
 
   /* ── NAV ── */
   nav {
@@ -94,15 +96,20 @@
 
   @media (max-width: 768px) {
     .top-bar {
-      flex-direction: column; gap: 0.2rem; text-align: center;
-      padding: 0.3rem 1rem; font-size: 0.68rem;
+      flex-direction: row; justify-content: space-between; align-items: center;
+      padding: 0.35rem 1rem; font-size: 0.68rem;
     }
     .top-bar-contact {
-      flex-direction: row; flex-wrap: wrap; justify-content: center;
-      align-items: center; gap: 0.35rem 0.6rem;
+      flex-direction: row; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.6rem;
+      min-width: 0;
     }
-    .top-bar-social { margin-top: 0.05rem; }
-    .top-bar-social a { padding: 0.05rem 0.4rem; font-size: 0.7rem; }
+    .top-bar-contact a { white-space: nowrap; }
+    .top-bar-location { display: none; }
+    .top-bar-social a {
+      padding: 0.3rem; border-radius: 50%; border-color: rgba(255,255,255,0.35);
+    }
+    .top-bar-social .social-text { display: none; }
+    .top-bar-social .social-icon { display: block; }
     nav { height: auto; padding: 0.6rem 1rem; position: relative; }
     .nav-logo { font-size: 0.85rem; white-space: normal; line-height: 1.25; flex: 1; }
     .nav-toggle { display: flex; }
@@ -232,10 +239,15 @@
   <div class="top-bar-contact">
     <a href="mailto:hello@thequalitativeresearchinstitute.com">hello@thequalitativeresearchinstitute.com</a>
     <a href="tel:+61400065945">+61 (0)400 065 945</a>
-    <span>Mount Gravatt, Brisbane</span>
+    <span class="top-bar-location">Mount Gravatt, Brisbane</span>
   </div>
   <div class="top-bar-social">
-    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/claire-moran-phd-60216451" target="_blank" aria-label="LinkedIn">
+      <span class="social-text">LinkedIn</span>
+      <svg class="social-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+        <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/>
+      </svg>
+    </a>
   </div>
 </div>
 
