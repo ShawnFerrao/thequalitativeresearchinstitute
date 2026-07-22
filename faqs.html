@@ -219,6 +219,7 @@
     cursor: pointer;
     text-align: left;
     transition: all 0.2s;
+    white-space: normal !important;
   }
 
   .faq-accordion-trigger:hover {
@@ -247,6 +248,10 @@
     color: var(--navy);
     line-height: 1.5;
     transition: color 0.2s;
+    white-space: normal !important;
+    flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
   }
 
   .faq-accordion.open .faq-accordion-question {
