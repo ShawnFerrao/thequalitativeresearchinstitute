@@ -255,7 +255,17 @@
   }
   .btn-outline-white:hover { background: rgba(255,255,255,0.1) !important; border-color: #fff; }
 
-
+  /* ── SHOW MORE ── */
+  .show-more-wrap { grid-column: 1 / -1; text-align: center; margin-top: 0.5rem; display: none; }
+  .show-more-wrap.active { display: block; }
+  .show-more-btn {
+    background: var(--warm-white) !important; color: var(--navy) !important;
+    border: 1.5px solid var(--navy) !important; border-radius: 100px;
+    padding: 0.7rem 2rem; font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+    white-space: normal !important;
+  }
+  .show-more-btn:hover { background: var(--navy) !important; color: #fff !important; }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
@@ -264,6 +274,16 @@
   }
   @media (max-width: 600px) {
     .testi-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 767px) {
+    .page-hero { padding: 2.75rem 1.25rem; }
+    .page-hero p { margin-bottom: 2rem; }
+    .stats-row { gap: 1.25rem; }
+    .stat-number { font-size: 1.6rem; }
+    .video-section { padding: 2.5rem 1.25rem; }
+    .filter-section { padding: 2.5rem 1.25rem 0; }
+    .testi-section { padding: 0 1.25rem 3.5rem; }
+    .filter-tabs { margin-bottom: 1.75rem; }
   }
 
 </style>
@@ -326,6 +346,9 @@
 
       <div class="no-results" id="noResults" style="display:none;">No testimonials match this filter.</div>
     </div>
+    <div class="show-more-wrap" id="showMoreWrap">
+      <button type="button" class="show-more-btn" id="showMoreBtn" onclick="showMoreTestimonials()">Show more testimonials</button>
+    </div>
   </div>
 </section>
 
@@ -373,6 +396,8 @@
   let allTestimonials = [];
   let subCats = [];
   let activeFilter = 'all';
+  const PAGE_SIZE = 6;
+  let visibleCount = PAGE_SIZE;
 
   function stripHTML(html) {
     const d = document.createElement('div'); d.innerHTML = html;
@@ -440,6 +465,7 @@
   function renderTestimonials() {
     const grid = document.getElementById('testiGrid');
     const noResults = document.getElementById('noResults');
+    const showMoreWrap = document.getElementById('showMoreWrap');
 
     let filtered = allTestimonials;
     if (activeFilter !== 'all') {
@@ -452,10 +478,20 @@
 
     if (!filtered.length) {
       noResults.style.display = 'block';
+      showMoreWrap.classList.remove('active');
       return;
     }
     noResults.style.display = 'none';
-    noResults.insertAdjacentHTML('beforebegin', filtered.map(testiCard).join(''));
+
+    const toShow = filtered.slice(0, visibleCount);
+    noResults.insertAdjacentHTML('beforebegin', toShow.map(testiCard).join(''));
+
+    showMoreWrap.classList.toggle('active', visibleCount < filtered.length);
+  }
+
+  function showMoreTestimonials() {
+    visibleCount += PAGE_SIZE;
+    renderTestimonials();
   }
 
   function buildFilters() {
@@ -469,6 +505,7 @@
         document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
         b.classList.add('active');
         activeFilter = String(c.id);
+        visibleCount = PAGE_SIZE;
         renderTestimonials();
       });
       tabs.appendChild(b);
@@ -478,6 +515,7 @@
       document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
       this.classList.add('active');
       activeFilter = 'all';
+      visibleCount = PAGE_SIZE;
       renderTestimonials();
     });
   }
