@@ -8,6 +8,7 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+  html, body { max-width: 100%; overflow-x: hidden; }
 
   :root {
     --navy: #1a2744;
@@ -85,7 +86,7 @@
   }
   .btn-primary:hover { background: var(--accent) !important; }
   .btn-secondary {
-    border: 1.5px solid var(--navy); color: var(--navy) !important;
+    border: 1.5px solid var(--navy) !important; color: var(--navy) !important;
     padding: 0.7rem 1.75rem; border-radius: 4px;
     text-decoration: none; font-weight: 500; font-size: 0.875rem;
     display: inline-block; transition: all 0.2s;
@@ -93,7 +94,7 @@
   }
   .btn-secondary:hover { background: var(--navy) !important; color: #fff !important; }
   .btn-outline-white {
-    border: 1.5px solid rgba(255,255,255,0.6); color: #fff !important;
+    border: 1.5px solid rgba(255,255,255,0.6) !important; color: #fff !important;
     padding: 0.75rem 2rem; border-radius: 4px;
     text-decoration: none; font-weight: 500; font-size: 0.9rem;
     display: inline-block; transition: all 0.2s;
@@ -182,13 +183,8 @@
   }
   .rc-plan:hover { border-color: rgba(255,255,255,0.3) !important; transform: translateY(-2px); }
   .rc-plan h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .rc-plan .price {
-    display: inline-block;
-    font-size: 0.78rem; font-weight: 500; color: var(--gold);
-    text-transform: uppercase; letter-spacing: 0.06em;
-    margin-bottom: 1rem;
-  }
-  .rc-plan p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.75); margin-bottom: 1.25rem; }
+  .rc-plan p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.75); margin-bottom: 0; }
+  .rc-plans-cta { margin-top: 2rem; }
 
   /* ── CTA ── */
   .cta-section {
@@ -201,7 +197,11 @@
     color: var(--muted); font-size: 1rem;
     margin-bottom: 1.75rem; max-width: 520px; margin-left: auto; margin-right: auto;
   }
-  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .cta-btns { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  .cta-alt-text {
+    font-family: 'Inter', sans-serif; color: var(--muted);
+    font-size: 0.9rem; margin: 0.25rem 0 0;
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 1024px) {
@@ -215,8 +215,6 @@
     .rc-intro, .rc-includes, .rc-plans, .cta-section { padding: 3.5rem 1.25rem; }
     .rc-grid { grid-template-columns: 1fr; }
     .rc-perks { gap: 0.4rem; }
-    .cta-btns { flex-direction: column; align-items: stretch; }
-    .cta-btns a { text-align: center; }
   }
 </style>
 </head>
@@ -292,21 +290,19 @@
     <div class="rc-plans-header">
       <span class="section-label" style="color: var(--gold);">Membership options</span>
       <h2 class="section-title">Choose the term that suits you</h2>
-      <p>Both options include full access to all training and ongoing support — the only difference is how long you're with us.</p>
     </div>
     <div class="rc-plan-grid">
       <div class="rc-plan">
         <h3>6-Month Membership</h3>
-        <div class="price">Get in touch for pricing</div>
-        <p>A focused half-year of training, support, and community — ideal for a defined project phase.</p>
-        <a href="#" class="btn-outline-white" onclick="openTRCModal(event)">Enquire now</a>
+        <p>Ideal for a defined research project.</p>
       </div>
       <div class="rc-plan">
         <h3>12-Month Membership</h3>
-        <div class="price">Get in touch for pricing</div>
-        <p>A full year of ongoing support and momentum — best value for sustained research projects.</p>
-        <a href="#" class="btn-outline-white" onclick="openTRCModal(event)">Enquire now</a>
+        <p>Best value for ongoing research support.</p>
       </div>
+    </div>
+    <div class="rc-plans-cta">
+      <a href="#" class="btn-outline-white" onclick="openTRCModal(event)">Enquire now</a>
     </div>
   </div>
 </section>
@@ -317,6 +313,7 @@
   <p>Get in touch and Claire will help you find the right membership for your research journey.</p>
   <div class="cta-btns">
     <a href="#" class="btn-primary" onclick="openTRCModal(event)">Get in touch</a>
+    <p class="cta-alt-text">Prefer to start with a single course?</p>
     <a href="/training" class="btn-secondary">Explore individual training</a>
   </div>
 </section>
@@ -346,8 +343,8 @@
     font-family: 'Poppins', sans-serif;
   }
   .trc-modal-close {
-    position: absolute; top: 1rem; right: 1rem; background: none; border: none;
-    font-size: 1.5rem; line-height: 1; cursor: pointer; color: var(--muted);
+    position: absolute; top: 1rem; right: 1rem; background: none !important; border: none !important;
+    font-size: 1.5rem; line-height: 1; cursor: pointer; color: var(--muted) !important;
   }
   .trc-modal h2 { font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
   .trc-modal > p { font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
@@ -365,11 +362,11 @@
   .trc-modal .form-group textarea:focus { outline: none; border-color: var(--mid-blue); }
   .trc-modal .form-group textarea { resize: vertical; min-height: 100px; }
   .trc-modal .form-submit {
-    width: 100%; background: #0D297B; color: #fff; border: none; padding: 0.85rem 2rem;
+    width: 100%; background: #0D297B !important; color: #fff !important; border: none !important; padding: 0.85rem 2rem;
     border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 0.9rem;
     font-weight: 500; cursor: pointer; transition: background 0.2s;
   }
-  .trc-modal .form-submit:hover { background: var(--accent); }
+  .trc-modal .form-submit:hover { background: var(--accent) !important; }
 
   /* ── INLINE ERROR BANNER ── */
   .trc-form-error {
