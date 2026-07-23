@@ -183,8 +183,16 @@
   }
   .rc-plan:hover { border-color: rgba(255,255,255,0.3) !important; transform: translateY(-2px); }
   .rc-plan h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .rc-plan .price {
+    font-size: 1.3rem; font-weight: 600; color: var(--gold); margin-bottom: 0.6rem;
+  }
+  .rc-plan .price span { font-size: 0.75rem; font-weight: 300; color: rgba(255,255,255,0.55); }
   .rc-plan p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.75); margin-bottom: 0; }
   .rc-plans-cta { margin-top: 2rem; }
+  .rc-plans-note {
+    font-family: 'Inter', sans-serif; font-size: 0.85rem;
+    color: rgba(255,255,255,0.55); margin-top: 0.85rem;
+  }
 
   /* ── CTA ── */
   .cta-section {
@@ -294,15 +302,18 @@
     <div class="rc-plan-grid">
       <div class="rc-plan">
         <h3>6-Month Membership</h3>
+        <div class="price">$1,997 AUD <span>+GST</span></div>
         <p>Ideal for a defined research project.</p>
       </div>
       <div class="rc-plan">
         <h3>12-Month Membership</h3>
+        <div class="price">$2,997 AUD <span>+GST</span></div>
         <p>Best value for ongoing research support.</p>
       </div>
     </div>
     <div class="rc-plans-cta">
       <a href="#" class="btn-outline-white" onclick="openTRCModal(event)">Enquire now</a>
+      <p class="rc-plans-note">Returning members save $150.</p>
     </div>
   </div>
 </section>
