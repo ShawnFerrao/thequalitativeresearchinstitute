@@ -393,8 +393,8 @@
     <div class="author-card" id="authorCard" style="display:none;">
       <div class="author-avatar" id="authorAvatar">CM</div>
       <div class="author-info">
-        <h4 id="authorName">Dr. Claire Moran</h4>
-        <p>Qualitative research trainer, consultant, and author. Founder of The Qualitative Research Institute. PhD in Education, specialising in qualitative methodology.</p>
+        <h4 id="authorName">Dr Claire Moran</h4>
+        <p>Qualitative researcher, educator, trainer, and founder of The Qualitative Research Institute. Claire specialises in making qualitative research practical, accessible, and rigorous.</p>
       </div>
     </div>
   </article>
@@ -535,16 +535,10 @@ async function loadPost() {
       document.getElementById('postTags').style.display = 'block';
     }
 
-    // Author card
-    const author = post._embedded?.author?.[0];
-    if (author) {
-      document.getElementById('authorName').textContent = author.name;
-      const initials = author.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-      document.getElementById('authorAvatar').textContent = initials;
-      document.getElementById('authorCard').style.display = 'flex';
-    } else {
-      document.getElementById('authorCard').style.display = 'flex';
-    }
+    // Author card — name, avatar, and bio are static (single-author site), so the
+    // WordPress author display name is deliberately not used here. It would
+    // otherwise overwrite "Dr Claire Moran" with whatever the WP profile is set to.
+    document.getElementById('authorCard').style.display = 'flex';
 
     // Related posts (same category)
     if (primaryCat) {
