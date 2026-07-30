@@ -138,9 +138,9 @@
   }
   .bio-image {
     border-radius: 10px; overflow: hidden;
-    aspect-ratio: 4/3; position: relative;
+    aspect-ratio: 3/4; max-width: 420px; margin: 0 auto; position: relative;
   }
-  .bio-image img { width: 100%; height: 100%; object-fit: cover; }
+  .bio-image img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
   .bio-image-caption {
     position: absolute; bottom: 0; left: 0; right: 0;
     background: linear-gradient(to top, rgba(26,39,68,0.75) 0%, transparent 100%);
@@ -308,8 +308,9 @@
     .bio-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     /* Must stay relative: it's the containing block for the absolutely
        positioned .bio-image-caption, which escapes and overlaps the bio
-       text if this is set to static. */
-    .bio-image { aspect-ratio: 16/9; position: relative; }
+       text if this is set to static. Aspect ratio stays 3/4 (portrait
+       headshot) rather than switching to a landscape ratio on mobile. */
+    .bio-image { max-width: 320px; position: relative; }
     .pillars-grid { grid-template-columns: 1fr 1fr; }
     .meet-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     .meet-image { aspect-ratio: 16/9; position: static; }
@@ -359,7 +360,7 @@
         </ul>
       </div>
       <div class="bio-image">
-        <img src="https://clairemoran.com/wp-content/uploads/2024/10/CLAIRE_Workshop-4739-1024x684.jpg" alt="Claire Moran presenting a workshop">
+        <img src="https://thequalitativeresearchinstitute.com/wp-content/uploads/2026/07/claire-headshot.jpg" alt="Dr Claire Moran">
         <div class="bio-image-caption">Claire Moran — Qualitative Research Trainer &amp; Educator</div>
       </div>
     </div>
