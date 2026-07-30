@@ -99,6 +99,9 @@
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 5rem; align-items: center;
   }
+  /* Grid items default to min-width:auto, which stops them shrinking below their
+     content width and pushes the layout wider than the viewport. */
+  .bio-inner > *, .pillars-grid > *, .meet-inner > *, .testi-grid > * { min-width: 0; }
   .bio-text .years-badge {
     display: inline-flex; align-items: center; gap: 0.75rem;
     background: var(--cream); border: 1px solid var(--border);
@@ -303,7 +306,10 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .bio-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    .bio-image { aspect-ratio: 16/9; position: static; }
+    /* Must stay relative: it's the containing block for the absolutely
+       positioned .bio-image-caption, which escapes and overlaps the bio
+       text if this is set to static. */
+    .bio-image { aspect-ratio: 16/9; position: relative; }
     .pillars-grid { grid-template-columns: 1fr 1fr; }
     .meet-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     .meet-image { aspect-ratio: 16/9; position: static; }
@@ -343,12 +349,13 @@
       <div class="bio-text">
         <div class="years-badge"><span>20+</span> years supporting researchers</div>
         <h2>Translating complexity into clarity</h2>
-        <p>Dr. Claire Moran is an expert in translating complex theories and methodologies into the plain-English roadmap you need to deliver top-class qualitative research. An enthusiastic educator and Visiting Research Fellow at Queensland University of Technology, she has supported more than a thousand of her peers throughout Australia and across the globe to develop and deliver robust projects.</p>
-        <p>With a passion for demystifying theory and creating hands-on opportunities to learn, Claire is renowned for her:</p>
+        <p>Dr Claire Moran is a qualitative researcher, educator, trainer, and founder of The Qualitative Research Institute. She has trained thousands of researchers from universities, government agencies, and health organisations worldwide. Claire has published widely across education, social science, and biomedical journals, and specialises in making qualitative research practical, accessible, and rigorous.</p>
+        <p>Claire translates complex theories and methodologies into practical, plain-English guidance that researchers can confidently apply in their own work. Through engaging, hands-on training, she helps researchers build the skills and confidence to design, conduct, and publish high-quality qualitative research.</p>
+        <p>Passionate about demystifying qualitative research and creating engaging, hands-on learning experiences, Claire's training is characterised by:</p>
         <ul class="bio-highlights">
-          <li>Engaging teaching methods</li>
-          <li>Straightforward, plain-English explanations</li>
-          <li>Fun, practical applications</li>
+          <li>Engaging, interactive learning experiences</li>
+          <li>Plain-English explanations of complex concepts</li>
+          <li>Practical knowledge and strategies you can apply immediately</li>
         </ul>
       </div>
       <div class="bio-image">
