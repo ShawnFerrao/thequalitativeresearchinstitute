@@ -509,7 +509,9 @@
   /* Build a single post card (horizontal) */
   function postCard(post) {
     const terms = getTerms(post);
-    const cats  = terms.filter(t => t.taxonomy === 'category');
+    // "Blog" is the parent category every post gets filed under for backend
+    // routing — it's not a meaningful tag, so it never renders as a pill here.
+    const cats  = terms.filter(t => t.taxonomy === 'category' && t.slug !== 'blog');
     const tags  = terms.filter(t => t.taxonomy === 'post_tag');
     const title   = stripHTML(post.title?.rendered || '');
     const excerpt = stripHTML(post.excerpt?.rendered || '').replace(/\[…\]|\[\.\.\.\]/g, '').trim();
