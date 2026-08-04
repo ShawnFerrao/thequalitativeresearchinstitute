@@ -451,6 +451,19 @@
 <script>
 const BASE = 'https://thequalitativeresearchinstitute.com/wp-json/wp/v2';
 
+// The only categories that should ever appear on blog posts — the "Blog" parent
+// category itself is intentionally excluded (posts flow into it for backend
+// routing, but it's not a meaningful tag), and Testimonials' sub-categories
+// must never show up here.
+const BLOG_CATEGORY_SLUGS = [
+  'ai-in-qualitative-research',
+  'qualitative-practice',
+  'research',
+  'research-design',
+  'thematic-analysis',
+  'writing-publishing',
+];
+
 function stripHTML(html) {
   const d = document.createElement('div');
   d.innerHTML = html;
@@ -492,7 +505,8 @@ async function loadPost() {
 
     // Category from embed
     const cats = post._embedded?.['wp:term']?.[0] || [];
-    const primaryCat = cats.find(c => c.taxonomy === 'category' && c.slug !== 'uncategorized') || cats[0];
+    const primaryCat = cats.find(c => c.taxonomy === 'category' && c.slug !== 'uncategorized' && c.slug !== 'blog')
+      || cats.find(c => c.taxonomy === 'category' && c.slug !== 'uncategorized');
     const heroCategory = document.getElementById('heroCategory');
     if (primaryCat) {
       heroCategory.textContent = primaryCat.name;
@@ -560,7 +574,8 @@ async function loadRelated(currentId, catId) {
     grid.innerHTML = posts.map(p => {
       const img = p._embedded?.['wp:featuredmedia']?.[0]?.source_url;
       const cats = p._embedded?.['wp:term']?.[0] || [];
-      const cat = cats.find(c => c.taxonomy === 'category' && c.slug !== 'uncategorized');
+      const cat = cats.find(c => c.taxonomy === 'category' && c.slug !== 'uncategorized' && c.slug !== 'blog')
+        || cats.find(c => c.taxonomy === 'category' && c.slug !== 'uncategorized');
       return `
         <a class="related-card" href="${p.link}">
           ${img
@@ -605,9 +620,9 @@ async function loadSidebar() {
 
   // Categories
   try {
-    const res = await fetch(`${BASE}/categories?per_page=20&hide_empty=true`);
+    const res = await fetch(`${BASE}/categories?per_page=20`);
     const cats = await res.json();
-    const filtered = cats.filter(c => c.slug !== 'uncategorized');
+    const filtered = cats.filter(c => BLOG_CATEGORY_SLUGS.includes(c.slug));
     const container = document.getElementById('sidebarCategories');
     container.innerHTML = filtered.map(c => `
       <a class="sidebar-cat" href="/blog?category=${c.slug}">
