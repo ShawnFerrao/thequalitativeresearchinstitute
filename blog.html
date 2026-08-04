@@ -151,9 +151,12 @@
     padding: 0.18rem 0.6rem; border-radius: 100px;
   }
   .tag-pill.cat-thematic { color: #5a3b82; background: #ead8fa; }
-  .tag-pill.cat-codebook { color: #1e5a3b; background: #d4f0e0; }
+  .tag-pill.cat-practice { color: #1e5a3b; background: #d4f0e0; }
   .tag-pill.cat-ai { color: #1e3b7a; background: #dde4f8; }
-  .tag-pill.cat-webinar { color: #7a3b1e; background: #fde8d0; }
+  .tag-pill.cat-ai-test { color: #1e5a6b; background: #d6f0f4; }
+  .tag-pill.cat-research { color: #7a3b1e; background: #fde8d0; }
+  .tag-pill.cat-research-design { color: #7a1e3b; background: #fadce6; }
+  .tag-pill.cat-writing { color: #7a5a1e; background: #f5e9cc; }
   .tag-pill.blog-tag { color: var(--muted); background: var(--cream); border: 1px solid var(--border); }
 
   .post-card h3 {
@@ -454,6 +457,19 @@
 
   const WP_BASE = 'https://thequalitativeresearchinstitute.com/wp-json/wp/v2';
 
+  // The only categories that should ever appear on the blog page — the "Blog" parent
+  // category itself is intentionally excluded (posts flow into it, but it's not a
+  // useful filter), and Testimonials' sub-categories must never show up here.
+  const BLOG_CATEGORY_SLUGS = [
+    'ai-and-test',
+    'ai-in-qualitative-research',
+    'qualitative-practice',
+    'research',
+    'research-design',
+    'thematic-analysis',
+    'writing-publishing',
+  ];
+
   let allPosts = [];
   let activeFilter = 'all';
 
@@ -461,14 +477,15 @@
   const scrollBtn = document.getElementById('scrollTopBtn');
   window.addEventListener('scroll', () => scrollBtn.classList.toggle('visible', window.scrollY > 400));
 
-  /* Colour map for tag pills */
+  /* Colour map for tag pills — keyed by the exact Blog sub-category names in WordPress */
   const catColours = {
-    'thematic analysis': 'cat-thematic',
-    'codebook': 'cat-codebook',
-    'ai in research': 'cat-ai',
+    'ai and test': 'cat-ai-test',
     'ai in qualitative research': 'cat-ai',
-    'webinars': 'cat-webinar',
-    'webinar': 'cat-webinar',
+    'qualitative practice': 'cat-practice',
+    'research': 'cat-research',
+    'research design': 'cat-research-design',
+    'thematic analysis': 'cat-thematic',
+    'writing & publishing': 'cat-writing',
   };
   function tagClass(name) { return catColours[name.toLowerCase()] || ''; }
 
@@ -628,26 +645,24 @@
     try {
       const [postsRes, catsRes, tagsRes] = await Promise.all([
         fetch(`${WP_BASE}/posts?per_page=20&_embed=1`),
-        fetch(`${WP_BASE}/categories?per_page=50&hide_empty=true`),
+        fetch(`${WP_BASE}/categories?per_page=50`),
         fetch(`${WP_BASE}/tags?per_page=50&hide_empty=true`)
       ]);
 
       if (!postsRes.ok) throw new Error('Posts unavailable');
 
       allPosts = await postsRes.json();
-      let cats = catsRes.ok ? (await catsRes.json()).filter(
-        c => c.name.toLowerCase() !== 'uncategorised' && c.name.toLowerCase() !== 'uncategorized'
-      ) : [];
+      let cats = catsRes.ok ? await catsRes.json() : [];
 
-      // Only show posts categorized under the "Blog" parent category
-      const blogCat = cats.find(c => c.slug === 'blog' || c.name.toLowerCase() === 'blog');
-      if (blogCat) {
-        const blogCatIds = new Set([blogCat.id, ...cats.filter(c => c.parent === blogCat.id).map(c => c.id)]);
-        allPosts = allPosts.filter(post =>
-          getTerms(post).some(t => t.taxonomy === 'category' && blogCatIds.has(t.id))
-        );
-        cats = cats.filter(c => blogCatIds.has(c.id) && c.id !== blogCat.id);
-      }
+      // Only these specific Blog sub-categories should ever appear on this page —
+      // explicitly allow-listed by slug so Testimonials' categories (or the "Blog"
+      // parent itself) never leak into the filter tabs or sidebar, regardless of
+      // how WordPress's category tree is structured.
+      cats = cats.filter(c => BLOG_CATEGORY_SLUGS.includes(c.slug));
+      const blogCatIds = new Set(cats.map(c => c.id));
+      allPosts = allPosts.filter(post =>
+        getTerms(post).some(t => t.taxonomy === 'category' && blogCatIds.has(t.id))
+      );
 
       const tags = tagsRes.ok ? await tagsRes.json() : [];
 
