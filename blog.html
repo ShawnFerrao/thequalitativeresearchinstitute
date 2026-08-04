@@ -153,7 +153,6 @@
   .tag-pill.cat-thematic { color: #5a3b82; background: #ead8fa; }
   .tag-pill.cat-practice { color: #1e5a3b; background: #d4f0e0; }
   .tag-pill.cat-ai { color: #1e3b7a; background: #dde4f8; }
-  .tag-pill.cat-ai-test { color: #1e5a6b; background: #d6f0f4; }
   .tag-pill.cat-research { color: #7a3b1e; background: #fde8d0; }
   .tag-pill.cat-research-design { color: #7a1e3b; background: #fadce6; }
   .tag-pill.cat-writing { color: #7a5a1e; background: #f5e9cc; }
@@ -461,7 +460,6 @@
   // category itself is intentionally excluded (posts flow into it, but it's not a
   // useful filter), and Testimonials' sub-categories must never show up here.
   const BLOG_CATEGORY_SLUGS = [
-    'ai-and-test',
     'ai-in-qualitative-research',
     'qualitative-practice',
     'research',
@@ -479,7 +477,6 @@
 
   /* Colour map for tag pills — keyed by the exact Blog sub-category names in WordPress */
   const catColours = {
-    'ai and test': 'cat-ai-test',
     'ai in qualitative research': 'cat-ai',
     'qualitative practice': 'cat-practice',
     'research': 'cat-research',
