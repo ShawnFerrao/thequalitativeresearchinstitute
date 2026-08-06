@@ -227,12 +227,32 @@
   }
   .btn-linkedin:hover { background: #005f8f !important; }
   .btn-linkedin svg { width: 16px; height: 16px; fill: #fff; }
+  .meet-media {
+    position: sticky; top: 5rem;
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
   .meet-image {
     border-radius: 10px; overflow: hidden;
     aspect-ratio: 4/3;
-    position: sticky; top: 5rem;
   }
   .meet-image img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .meet-quote {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 1.5rem 1.75rem;
+  }
+  .meet-quote p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem; font-style: italic;
+    color: var(--navy); line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+  .meet-quote cite {
+    display: block; font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem; font-style: normal; font-weight: 500;
+    color: var(--muted);
+  }
 
   /* ── TESTIMONIALS ── */
   .testimonials {
@@ -313,7 +333,8 @@
     .bio-image { max-width: 320px; position: relative; }
     .pillars-grid { grid-template-columns: 1fr 1fr; }
     .meet-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    .meet-image { aspect-ratio: 16/9; position: static; }
+    .meet-media { position: static; }
+    .meet-image { aspect-ratio: 16/9; }
     .testi-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
@@ -418,8 +439,14 @@
           Connect on LinkedIn
         </a>
       </div>
-      <div class="meet-image">
-        <img src="https://thequalitativeresearchinstitute.com/wp-content/uploads/2026/08/Dr-Claire-With-Students.jpg" alt="Dr Claire Moran with students">
+      <div class="meet-media">
+        <div class="meet-image">
+          <img src="https://thequalitativeresearchinstitute.com/wp-content/uploads/2026/08/Dr-Claire-With-Students.jpg" alt="Dr Claire Moran with students">
+        </div>
+        <div class="meet-quote">
+          <p>"I want researchers to feel confident, not overwhelmed — qualitative research doesn't have to be a mystery."</p>
+          <cite>— Dr Claire Moran</cite>
+        </div>
       </div>
     </div>
   </div>
