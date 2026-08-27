@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Using AI with Confidence in Qualitative Research | The Qualitative Research Institute</title>
+<meta name="description" content="A practical, evidence-informed 3-hour workshop to help you decide when, where and how to use AI in your qualitative research.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+
+  :root {
+    --navy: #1a2744;
+    --blue: #2d4a8a;
+    --mid-blue: #4a6fa5;
+    --light-blue: #d6e4f7;
+    --cream: #f8f5f0;
+    --warm-white: #fdfcfa;
+    --text: #2a2a2a;
+    --muted: #6b7280;
+    --accent: #DDA15E;
+    --eyebrow: #DDA15E;
+    --gold: #D3B574;
+    --border: #e2e8f0;
+  }
+
+  button { -webkit-appearance: none; appearance: none; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+  button:focus { outline: none; }
+  a { -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--warm-white);
+    line-height: 1.7;
+  }
+  p { font-family: 'Inter', sans-serif; }
+
+  .container { max-width: 1080px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  .page-hero {
+    background: var(--navy); color: #fff;
+    padding: 4rem 2rem 3.5rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 60% 50%, rgba(45,74,138,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-inner { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+  .page-hero-badge {
+    display: inline-block;
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.1em; font-weight: 500;
+    color: var(--eyebrow); border: 1px solid rgba(221,161,94,0.4);
+    padding: 0.3rem 0.9rem; border-radius: 100px;
+    margin-bottom: 1.25rem;
+  }
+  .page-hero h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 600; line-height: 1.2; margin-bottom: 1.25rem;
+  }
+  .page-hero p {
+    font-size: 1rem; color: rgba(255,255,255,0.8);
+    max-width: 560px; margin: 0 auto 2rem; font-weight: 300;
+  }
+  .btn-primary {
+    background: #0D297B !important; color: #fff !important;
+    padding: 0.85rem 2rem; border-radius: 4px;
+    text-decoration: none !important; font-weight: 500; font-size: 0.9rem;
+    display: inline-block; transition: background 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-primary:hover { background: var(--accent) !important; }
+
+  /* ── SHARED ── */
+  .section-label {
+    display: block; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 0.7rem; font-weight: 500; color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600; color: var(--navy); line-height: 1.3; margin-bottom: 1.25rem;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .workshop-section { padding: 4.5rem 2rem; }
+  .workshop-section:nth-child(odd) { background: var(--warm-white); }
+  .workshop-section:nth-child(even) { background: var(--cream); }
+  .workshop-inner { max-width: 760px; margin: 0 auto; }
+
+  .prog-suited {
+    background: var(--light-blue);
+    border-radius: 6px; padding: 1.1rem 1.4rem;
+    margin-bottom: 0;
+  }
+  .prog-suited strong {
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--mid-blue); font-weight: 600;
+    display: block; margin-bottom: 0.4rem;
+  }
+  .prog-suited p { font-size: 0.9rem; color: var(--navy); line-height: 1.65; }
+
+  .prog-list {
+    list-style: none; display: flex; flex-direction: column; gap: 0.7rem;
+  }
+  .prog-list li {
+    font-size: 0.95rem; color: var(--text);
+    display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.6;
+  }
+  .prog-list li::before {
+    content: '→'; color: var(--mid-blue);
+    flex-shrink: 0; font-weight: 500; margin-top: 0.1rem;
+  }
+
+  .explore-questions {
+    list-style: none; display: flex; flex-direction: column; gap: 0.6rem;
+    margin: 1.5rem 0;
+  }
+  .explore-questions li {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem; color: var(--navy); font-style: italic;
+    background: var(--warm-white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.85rem 1.1rem; line-height: 1.5;
+  }
+  .workshop-inner > p { color: var(--muted); margin-bottom: 1rem; line-height: 1.85; }
+
+  .prog-includes {
+    list-style: none; display: flex; flex-direction: column; gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+  .prog-includes li {
+    font-size: 0.95rem; color: var(--text);
+    display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.6;
+  }
+  .prog-includes li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+  .prog-price-row {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    padding-top: 1.75rem; margin-top: 0.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .prog-price { font-size: 1.3rem; font-weight: 600; color: var(--navy); }
+  .prog-price span { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
+
+  /* ── FAQ ── */
+  .faq-accordion { margin-bottom: 0.75rem; }
+  .faq-accordion-trigger,
+  .faq-accordion-trigger:focus,
+  .faq-accordion-trigger:focus-visible,
+  .faq-accordion-trigger:active {
+    width: 100%;
+    background: #fff !important;
+    color: inherit;
+    border: 1.5px solid var(--border) !important;
+    border-radius: 12px;
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    white-space: normal !important;
+  }
+  .faq-accordion-trigger:hover {
+    border-color: var(--mid-blue) !important;
+    background: var(--warm-white) !important;
+    box-shadow: 0 4px 14px rgba(26,39,68,0.06);
+  }
+  .faq-accordion.open .faq-accordion-trigger {
+    border-color: var(--navy) !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background: var(--navy) !important;
+  }
+  .faq-accordion-question {
+    font-size: 0.95rem; font-weight: 500; color: var(--navy);
+    line-height: 1.5; transition: color 0.2s;
+    flex: 1; min-width: 0;
+  }
+  .faq-accordion.open .faq-accordion-question { color: #fff !important; }
+  .faq-accordion-icon {
+    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s; background: var(--cream);
+  }
+  .faq-accordion.open .faq-accordion-icon {
+    background: var(--mid-blue) !important; border-color: var(--mid-blue) !important;
+    transform: rotate(45deg);
+  }
+  .faq-accordion-icon svg { width: 10px; height: 10px; stroke: var(--muted); stroke-width: 2.5; fill: none; transition: stroke 0.2s; }
+  .faq-accordion.open .faq-accordion-icon svg { stroke: #fff !important; }
+  .faq-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+  .faq-accordion.open .faq-accordion-body { max-height: 500px; }
+  .faq-accordion-content {
+    background: #fff; border: 1.5px solid var(--navy); border-top: none;
+    border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+    padding: 1.1rem 1.5rem 1.3rem;
+  }
+  .faq-accordion-content p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin: 0; }
+
+  /* ── EXCLUSIVE DELIVERY ── */
+  .exclusive-strip {
+    background: var(--navy); color: #fff; text-align: center;
+    padding: 3rem 2rem;
+  }
+  .exclusive-strip h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.6rem; }
+  .exclusive-strip p { color: rgba(255,255,255,0.72); max-width: 560px; margin: 0 auto; font-size: 0.95rem; }
+  .exclusive-strip a { color: var(--gold); font-weight: 500; text-decoration: none; }
+  .exclusive-strip a:hover { text-decoration: underline; }
+
+  /* ── FINAL CTA ── */
+  .cta-strip { background: var(--cream); text-align: center; padding: 4.5rem 2rem; }
+  .cta-strip h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; color: var(--navy);
+    line-height: 1.3; margin-bottom: 0.75rem; max-width: 620px; margin-left: auto; margin-right: auto;
+  }
+  .cta-strip p { color: var(--muted); font-size: 1rem; margin-bottom: 1rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+  .cta-meta { font-size: 0.85rem; color: var(--mid-blue); font-weight: 500; margin-bottom: 1.75rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .page-hero { padding: 3rem 1.25rem 2.75rem; }
+    .workshop-section, .exclusive-strip, .cta-strip { padding: 3rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-hero-badge">3-Hour Workshop · Online</span>
+    <h1>Using AI with confidence in qualitative research</h1>
+    <p>A practical, evidence-informed workshop to help you decide when, where and how to use AI in your research.</p>
+    <a href="#" class="btn-primary" onclick="if (typeof openContactModal === 'function') { openContactModal(event); } else { event.preventDefault(); window.location.href = '/contact-us'; }">View dates and book →</a>
+  </div>
+</section>
+
+<!-- BEST SUITED FOR -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <div class="prog-suited">
+      <strong>Best suited for</strong>
+      <p>Qualitative researchers who are using or considering using AI and want practical guidance for making decisions about its role in their research.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL GAIN -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Outcomes</span>
+    <h2 class="section-title">What you'll gain</h2>
+    <ul class="prog-list">
+      <li>A practical framework for deciding whether and how to use AI for different research tasks</li>
+      <li>Greater clarity about where AI can appropriately support your work — and where you may want to retain researcher judgement</li>
+      <li>A way to evaluate AI use in relation to your methodology and research approach</li>
+      <li>Practical experience working through realistic AI decisions</li>
+      <li>Opportunities to apply the process to questions arising in your own research</li>
+      <li>A process for checking, explaining and documenting the AI decisions you make</li>
+    </ul>
+  </div>
+</section>
+
+<!-- WHAT WE'LL EXPLORE -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Content</span>
+    <h2 class="section-title">What we'll explore</h2>
+    <p>We'll work with practical questions such as:</p>
+    <ul class="explore-questions">
+      <li>Can I use AI to support coding or analysis?</li>
+      <li>What about summarising transcripts or research material?</li>
+      <li>Can AI support literature work, writing or editing?</li>
+      <li>When is AI assisting my work — and when is it beginning to shape the research?</li>
+      <li>How does my methodology affect what is appropriate?</li>
+      <li>If I decide to use AI, how do I work with it deliberately and critically?</li>
+      <li>What should I check rather than simply accept from AI?</li>
+      <li>What do I need to document or disclose?</li>
+    </ul>
+    <p>Using realistic qualitative research scenarios, we'll explore these questions through the AI Defensibility Framework and then apply the process to AI uses and decisions arising in your own research.</p>
+    <p style="margin-bottom: 0;">The workshop draws on published research, current guidance and methodological scholarship, while remaining firmly focused on the practical decisions researchers are facing now.</p>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED + PRICE -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Details</span>
+    <h2 class="section-title">What's included</h2>
+    <ul class="prog-includes">
+      <li>3 hours of live, interactive online training</li>
+      <li>AI Defensibility Framework</li>
+      <li>Practical exercises and realistic research scenarios</li>
+      <li>Application to your own research</li>
+      <li>Participant resources for use after the workshop</li>
+      <li>Certificate of completion</li>
+    </ul>
+    <div class="prog-price-row">
+      <div class="prog-price">$149 AUD <span>inc GST · per person</span></div>
+      <a href="#" class="btn-primary" onclick="if (typeof openContactModal === 'function') { openContactModal(event); } else { event.preventDefault(); window.location.href = '/contact-us'; }">View dates and book →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">FAQs</span>
+    <h2 class="section-title">Frequently asked questions</h2>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="wsToggleAccordion(this)">
+        <span class="faq-accordion-question">Is this a workshop about whether AI is "good" or "bad" for qualitative research?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>No. There isn't one answer that applies across all qualitative research. We'll focus on how you can make informed decisions about particular AI uses in the context of your research approach, the task you're undertaking and the role AI is being given.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="wsToggleAccordion(this)">
+        <span class="faq-accordion-question">Will we actually use AI during the workshop?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>The workshop is practically focused, with exercises, realistic research scenarios and opportunities to apply the framework to your own research. Where appropriate, we'll also consider how to work with AI more deliberately once you've decided that a particular use is appropriate.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="wsToggleAccordion(this)">
+        <span class="faq-accordion-question">Will we look at practical uses such as coding, analysis and writing?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes. We'll use concrete examples of the kinds of AI decisions qualitative researchers are encountering, including uses associated with analysis, research materials and writing. The focus is on developing a process you can apply across different tasks rather than prescribing a single approach.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="wsToggleAccordion(this)">
+        <span class="faq-accordion-question">Do I need to be using AI already?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>No. You may already be using AI, be considering using it, or be trying to decide where you don't want to use it. All of those positions are appropriate for the workshop.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="wsToggleAccordion(this)">
+        <span class="faq-accordion-question">Do I need advanced technical knowledge of AI?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>No. This isn't technical AI training. The focus is on using your expertise as a researcher to make better decisions about AI in your research.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="wsToggleAccordion(this)">
+        <span class="faq-accordion-question">Is this relevant to my particular qualitative methodology?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>The workshop is designed to work across qualitative approaches. Importantly, it doesn't assume that the same AI use will be appropriate across all methodologies. We'll explicitly consider how methodological and epistemological commitments affect the decisions you make.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="wsToggleAccordion(this)">
+        <span class="faq-accordion-question">Is this based on current research and guidance?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes. The workshop is evidence-informed and draws on published research, current publisher and journal guidance, and methodological scholarship. The framework helps you bring that information together with the particular context of your own research.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="wsToggleAccordion(this)">
+        <span class="faq-accordion-question">What will I leave with?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>You'll leave with the AI Defensibility Framework, practical resources and experience applying a structured decision-making process that you can return to as new AI questions arise in your research.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="wsToggleAccordion(this)">
+        <span class="faq-accordion-question">Will I receive a certificate?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes. Participants who complete the live workshop receive a certificate of completion.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXCLUSIVE DELIVERY -->
+<section class="exclusive-strip">
+  <h3>Exclusive delivery</h3>
+  <p>This workshop is also available for exclusive delivery to schools, faculties, research groups and organisations, online or face-to-face. For dedicated delivery to your group, contact <a href="mailto:claire@thequalitativeresearchinstitute.com">claire@thequalitativeresearchinstitute.com</a>.</p>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-strip">
+  <div class="container">
+    <h2>Ready to make more informed decisions about AI in your research?</h2>
+    <p>Develop a practical process for deciding when, where and how AI fits within your qualitative research — and how to use it deliberately when it does.</p>
+    <div class="cta-meta">3 hours · live online · $149 AUD inc GST</div>
+    <a href="#" class="btn-primary" onclick="if (typeof openContactModal === 'function') { openContactModal(event); } else { event.preventDefault(); window.location.href = '/contact-us'; }">View dates and book →</a>
+  </div>
+</section>
+
+<script>
+  function wsToggleAccordion(trigger) {
+    const accordion = trigger.closest('.faq-accordion');
+    const isOpen = accordion.classList.contains('open');
+    document.querySelectorAll('.faq-accordion.open').forEach(function(a) {
+      a.classList.remove('open');
+    });
+    if (!isOpen) {
+      accordion.classList.add('open');
+    }
+  }
+</script>
+
+</body>
+</html>
