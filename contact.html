@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact | The Qualitative Research Institute</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://www.google.com/recaptcha/api.js?render=6LcCoc4tAAAAALB5bcLFd2Rl3xUZwgFVW6Bkrjtb"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -450,6 +451,8 @@
     errorBox.classList.remove('active');
   }
 
+  const RECAPTCHA_SITE_KEY = '6LcCoc4tAAAAALB5bcLFd2Rl3xUZwgFVW6Bkrjtb';
+
   function handleSubmit(e) {
     e.preventDefault();
     const form = document.getElementById('contactForm');
@@ -466,28 +469,43 @@
                    window.elementorFrontend.config.nonces &&
                    window.elementorFrontend.config.nonces.atomicFormsSendForm) || '';
 
-    const formData = new FormData(form);
-    formData.append('_nonce', nonce);
+    function submitWithToken(token) {
+      const formData = new FormData(form);
+      formData.append('_nonce', nonce);
+      if (token) formData.append('g-recaptcha-response', token);
 
-    fetch('/wp-admin/admin-ajax.php', {
-      method: 'POST',
-      body: formData,
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success === false) throw new Error('Form error');
-        form.reset();
-        formStep.style.display = 'none';
-        successStep.classList.add('active');
-        successStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      fetch('/wp-admin/admin-ajax.php', {
+        method: 'POST',
+        body: formData,
       })
-      .catch(() => {
-        showContactPageError('Sorry, something went wrong sending your message on our end. Please double-check your details and try again, or email us directly at hello@thequalitativeresearchinstitute.com.');
-      })
-      .finally(() => {
-        submitBtn.textContent = 'Send message →';
-        submitBtn.disabled = false;
+        .then(res => res.json())
+        .then(data => {
+          if (data.success === false) throw new Error('Form error');
+          form.reset();
+          formStep.style.display = 'none';
+          successStep.classList.add('active');
+          successStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        })
+        .catch(() => {
+          showContactPageError('Sorry, something went wrong sending your message on our end. Please double-check your details and try again, or email us directly at hello@thequalitativeresearchinstitute.com.');
+        })
+        .finally(() => {
+          submitBtn.textContent = 'Send message →';
+          submitBtn.disabled = false;
+        });
+    }
+
+    if (window.grecaptcha && typeof grecaptcha.ready === 'function') {
+      grecaptcha.ready(function () {
+        grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact_form' })
+          .then(submitWithToken)
+          .catch(function () {
+            submitWithToken(null);
+          });
       });
+    } else {
+      submitWithToken(null);
+    }
   }
 </script>
 </body>
