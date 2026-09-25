@@ -4,6 +4,7 @@
      The CSS below only needs to be added once (e.g. in the
      header template, or in your theme's Custom CSS).
 ════════════════════════════════════════════════════════ -->
+<script src="https://www.google.com/recaptcha/api.js?render=6LcCoc4tAAAAALB5bcLFd2Rl3xUZwgFVW6Bkrjtb"></script>
 <style>
   html, body { max-width: 100%; overflow-x: hidden; }
   :root {
@@ -341,6 +342,34 @@
 </div>
 
 <script>
+  // reCAPTCHA v3 — generates a token for the given action, injects it into the
+  // Elementor form as a hidden field, then submits. Falls back to submitting
+  // without a token if reCAPTCHA fails to load (e.g. blocked by an ad-blocker),
+  // rather than breaking the form outright.
+  const TQRI_RECAPTCHA_SITE_KEY = '6LcCoc4tAAAAALB5bcLFd2Rl3xUZwgFVW6Bkrjtb';
+  function tqriSubmitWithRecaptcha(form, action) {
+    function doSubmit(token) {
+      let input = form.querySelector('input[name="g-recaptcha-response"]');
+      if (!input) {
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'g-recaptcha-response';
+        form.appendChild(input);
+      }
+      input.value = token || '';
+      jQuery(form).trigger('submit');
+    }
+    if (window.grecaptcha && typeof grecaptcha.ready === 'function') {
+      grecaptcha.ready(function () {
+        grecaptcha.execute(TQRI_RECAPTCHA_SITE_KEY, { action: action })
+          .then(doSubmit)
+          .catch(function () { doSubmit(null); });
+      });
+    } else {
+      doSubmit(null);
+    }
+  }
+
   // Mobile nav
   function toggleMobileNav(forceClose) {
     const toggle = document.getElementById('navToggle');
@@ -468,6 +497,6 @@
     }, 15000);
 
     // Hand off to Elementor — it handles AJAX, nonce, and email delivery
-    jQuery(ef).trigger('submit');
+    tqriSubmitWithRecaptcha(ef, 'contact_form');
   }
 </script>

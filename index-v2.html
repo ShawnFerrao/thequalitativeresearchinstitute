@@ -17,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://www.google.com/recaptcha/api.js?render=6LcCoc4tAAAAALB5bcLFd2Rl3xUZwgFVW6Bkrjtb"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -954,6 +955,34 @@
 </script>
 
 <script>
+  // reCAPTCHA v3 — generates a token for the given action, injects it into the
+  // Elementor form as a hidden field, then submits. Falls back to submitting
+  // without a token if reCAPTCHA fails to load (e.g. blocked by an ad-blocker),
+  // rather than breaking the form outright.
+  const TQRI_RECAPTCHA_SITE_KEY = '6LcCoc4tAAAAALB5bcLFd2Rl3xUZwgFVW6Bkrjtb';
+  function tqriSubmitWithRecaptcha(form, action) {
+    function doSubmit(token) {
+      let input = form.querySelector('input[name="g-recaptcha-response"]');
+      if (!input) {
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'g-recaptcha-response';
+        form.appendChild(input);
+      }
+      input.value = token || '';
+      jQuery(form).trigger('submit');
+    }
+    if (window.grecaptcha && typeof grecaptcha.ready === 'function') {
+      grecaptcha.ready(function () {
+        grecaptcha.execute(TQRI_RECAPTCHA_SITE_KEY, { action: action })
+          .then(doSubmit)
+          .catch(function () { doSubmit(null); });
+      });
+    } else {
+      doSubmit(null);
+    }
+  }
+
   // Newsletter "thanks" popup
   function closeNlThanks() {
     document.getElementById('nlThanksOverlay').classList.remove('active');
@@ -1029,7 +1058,7 @@
       alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
     }, 15000);
 
-    jQuery(ef).trigger('submit');
+    tqriSubmitWithRecaptcha(ef, 'lead_magnet');
   }
   document.addEventListener('keydown', function(e) {
     if (e.key !== 'Escape') return;
@@ -1103,7 +1132,7 @@
       errorBox.classList.add('active');
     }, 15000);
 
-    jQuery(ef).trigger('submit');
+    tqriSubmitWithRecaptcha(ef, 'newsletter');
   }
   // Auto-show after 20s of user inactivity (no mouse/scroll/keyboard/touch), once per session
   window.addEventListener('load', function() {
