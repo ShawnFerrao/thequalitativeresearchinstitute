@@ -346,7 +346,7 @@
   // Elementor form as a hidden field, then submits. Falls back to submitting
   // without a token if reCAPTCHA fails to load (e.g. blocked by an ad-blocker),
   // rather than breaking the form outright.
-  const TQRI_RECAPTCHA_SITE_KEY = '6LcCoc4tAAAAALB5bcLFd2Rl3xUZwgFVW6Bkrjtb';
+  var TQRI_RECAPTCHA_SITE_KEY = '6LcCoc4tAAAAALB5bcLFd2Rl3xUZwgFVW6Bkrjtb';
   function tqriSubmitWithRecaptcha(form, action) {
     function doSubmit(token) {
       let input = form.querySelector('input[name="g-recaptcha-response"]');
