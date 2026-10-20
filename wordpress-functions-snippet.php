@@ -55,6 +55,88 @@ function tqri_log_mail_failure( $wp_error ) {
 	error_log( 'wp_mail failed: ' . $wp_error->get_error_message() );
 }
 
+// ── reCAPTCHA Enterprise verification (server-side) ─────────────────────────
+// Hooks into Elementor Pro's own form validation pipeline — runs on EVERY
+// Elementor Pro form submission on the site, before "Actions After Submit"
+// (email, etc.) fire, and can reject the submission outright.
+//
+// This is in addition to, not instead of, the secret-key check already
+// configured in Elementor's own Settings > Integrations > reCAPTCHA v3 — that
+// one only confirms a token exists; this one actually checks Google's risk
+// score and blocks low-score (likely bot) submissions before they're
+// processed at all.
+//
+// Requires one constant in wp-config.php (a Google Cloud API key, NOT the
+// reCAPTCHA secret key — different credential, created under APIs & Services
+// > Credentials, restricted to the reCAPTCHA Enterprise API):
+//
+//   define( 'TQRI_RECAPTCHA_API_KEY', 'your-google-cloud-api-key' );
+//
+// Optional, defaults to 0.5 (Google's own recommended default threshold):
+//
+//   define( 'TQRI_RECAPTCHA_MIN_SCORE', 0.5 );
+//
+// If TQRI_RECAPTCHA_API_KEY isn't defined, this does nothing — safe to deploy
+// before wp-config.php is updated. If Google's API itself is unreachable
+// (network issue, outage), this fails OPEN (lets the submission through)
+// rather than blocking real users over an infrastructure problem on Google's
+// end — only a definite low score or an explicitly invalid token blocks
+// the submission.
+add_action( 'elementor_pro/forms/validation', 'tqri_verify_recaptcha_enterprise', 10, 2 );
+function tqri_verify_recaptcha_enterprise( $record, $ajax_handler ) {
+	if ( ! defined( 'TQRI_RECAPTCHA_API_KEY' ) || ! TQRI_RECAPTCHA_API_KEY ) {
+		return;
+	}
+
+	$token = isset( $_POST['g-recaptcha-response'] ) ? sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ) : '';
+
+	if ( empty( $token ) ) {
+		$ajax_handler->add_error_message( 'Sorry, we couldn\'t verify your submission. Please refresh the page and try again.' );
+		return;
+	}
+
+	$site_key   = '6LcCoc4tAAAAALB5bcLFd2Rl3xUZwgFVW6Bkrjtb';
+	$project_id = 'thequalitativere-1790343593923';
+	$min_score  = defined( 'TQRI_RECAPTCHA_MIN_SCORE' ) ? (float) TQRI_RECAPTCHA_MIN_SCORE : 0.5;
+
+	$response = wp_remote_post(
+		"https://recaptchaenterprise.googleapis.com/v1/projects/{$project_id}/assessments?key=" . TQRI_RECAPTCHA_API_KEY,
+		array(
+			'timeout' => 10,
+			'headers' => array( 'Content-Type' => 'application/json' ),
+			'body'    => wp_json_encode(
+				array(
+					'event' => array(
+						'token'   => $token,
+						'siteKey' => $site_key,
+					),
+				)
+			),
+		)
+	);
+
+	if ( is_wp_error( $response ) ) {
+		error_log( 'reCAPTCHA Enterprise request failed, allowing submission through: ' . $response->get_error_message() );
+		return;
+	}
+
+	$body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+	$token_valid = ! empty( $body['tokenProperties']['valid'] );
+	if ( ! $token_valid ) {
+		$reason = isset( $body['tokenProperties']['invalidReason'] ) ? $body['tokenProperties']['invalidReason'] : 'unknown';
+		error_log( 'reCAPTCHA Enterprise: invalid token (' . $reason . ')' );
+		$ajax_handler->add_error_message( 'Sorry, we couldn\'t verify your submission. Please refresh the page and try again.' );
+		return;
+	}
+
+	$score = isset( $body['riskAnalysis']['score'] ) ? (float) $body['riskAnalysis']['score'] : null;
+	if ( null !== $score && $score < $min_score ) {
+		error_log( "reCAPTCHA Enterprise: blocked a form submission with score {$score} (minimum {$min_score})" );
+		$ajax_handler->add_error_message( 'Sorry, something went wrong submitting the form. Please try again or email us directly at hello@thequalitativeresearchinstitute.com.' );
+	}
+}
+
 // ── Submit Blog Post ──────────────────────────────────────────────────────────
 add_action( 'rest_api_init', function () {
 	register_rest_route( 'tqri/v1', '/submit-blog', array(
