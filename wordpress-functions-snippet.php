@@ -9,6 +9,52 @@
 
 define( 'TQRI_SECRET_TOKEN', 'tqri-blog-2026-secret' );
 
+// ── SMTP (no plugin) ────────────────────────────────────────────────────────
+// Routes all WordPress email (wp_mail — Elementor form notifications, password
+// resets, everything) through a real authenticated SMTP account instead of the
+// server's default mail() function, which most hosts block, throttle, or which
+// gets silently dropped/spam-filtered by providers like Gmail for lacking
+// SPF/DKIM authentication.
+//
+// Credentials are read from wp-config.php, NOT hardcoded here — this file is
+// version-controlled, wp-config.php is not. Add these lines to wp-config.php,
+// above the "/* That's all, stop editing! */" comment:
+//
+//   define( 'TQRI_SMTP_HOST', 'smtp.gmail.com' );
+//   define( 'TQRI_SMTP_PORT', 587 );
+//   define( 'TQRI_SMTP_ENCRYPTION', 'tls' );
+//   define( 'TQRI_SMTP_USERNAME', 'claire@thequalitativeresearchinstitute.com' );
+//   define( 'TQRI_SMTP_PASSWORD', 'xxxx xxxx xxxx xxxx' ); // Google App Password, not your login password
+//   define( 'TQRI_SMTP_FROM', 'claire@thequalitativeresearchinstitute.com' );
+//   define( 'TQRI_SMTP_FROM_NAME', 'The Qualitative Research Institute' );
+//
+// If TQRI_SMTP_HOST isn't defined, this does nothing and WordPress falls back
+// to its normal default mail() behaviour — safe to deploy before wp-config.php
+// is updated.
+add_action( 'phpmailer_init', 'tqri_configure_smtp' );
+function tqri_configure_smtp( $phpmailer ) {
+	if ( ! defined( 'TQRI_SMTP_HOST' ) || ! defined( 'TQRI_SMTP_USERNAME' ) || ! defined( 'TQRI_SMTP_PASSWORD' ) ) {
+		return;
+	}
+	$phpmailer->isSMTP();
+	$phpmailer->Host       = TQRI_SMTP_HOST;
+	$phpmailer->Port       = defined( 'TQRI_SMTP_PORT' ) ? TQRI_SMTP_PORT : 587;
+	$phpmailer->SMTPAuth   = true;
+	$phpmailer->Username   = TQRI_SMTP_USERNAME;
+	$phpmailer->Password   = TQRI_SMTP_PASSWORD;
+	$phpmailer->SMTPSecure = defined( 'TQRI_SMTP_ENCRYPTION' ) ? TQRI_SMTP_ENCRYPTION : 'tls';
+	$phpmailer->From       = defined( 'TQRI_SMTP_FROM' ) ? TQRI_SMTP_FROM : TQRI_SMTP_USERNAME;
+	$phpmailer->FromName   = defined( 'TQRI_SMTP_FROM_NAME' ) ? TQRI_SMTP_FROM_NAME : get_bloginfo( 'name' );
+}
+
+// Surface SMTP failures in the PHP error log instead of failing silently —
+// this is exactly the kind of failure that was likely swallowing the contact
+// form's notification email before.
+add_action( 'wp_mail_failed', 'tqri_log_mail_failure' );
+function tqri_log_mail_failure( $wp_error ) {
+	error_log( 'wp_mail failed: ' . $wp_error->get_error_message() );
+}
+
 // ── Submit Blog Post ──────────────────────────────────────────────────────────
 add_action( 'rest_api_init', function () {
 	register_rest_route( 'tqri/v1', '/submit-blog', array(
