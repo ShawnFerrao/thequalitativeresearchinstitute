@@ -1059,7 +1059,7 @@
       alert('Sorry, something went wrong. Please email us at hello@thequalitativeresearchinstitute.com.');
     }, 15000);
 
-    tqriSubmitWithRecaptcha(ef, 'submit');
+    tqriSubmitWithRecaptcha(ef, 'Form');
   }
   document.addEventListener('keydown', function(e) {
     if (e.key !== 'Escape') return;
@@ -1133,7 +1133,7 @@
       errorBox.classList.add('active');
     }, 15000);
 
-    tqriSubmitWithRecaptcha(ef, 'submit');
+    tqriSubmitWithRecaptcha(ef, 'Form');
   }
   // Auto-show after 20s of user inactivity (no mouse/scroll/keyboard/touch), once per session
   window.addEventListener('load', function() {
