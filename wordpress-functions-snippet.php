@@ -76,7 +76,7 @@ function tqri_log_mail_failure( $wp_error ) {
 // the line below untouched — the guard below only sets it if nothing else
 // already has.
 if ( ! defined( 'TQRI_RECAPTCHA_API_KEY' ) ) {
-	define( 'TQRI_RECAPTCHA_API_KEY', '' ); // <-- paste your Google Cloud API key between the quotes
+	define( 'TQRI_RECAPTCHA_API_KEY', 'AIzaSyC-5dVPyznhyamVM_0GfDJEr48WtTpfY4g' );
 }
 // Optional, defaults to 0.5 (Google's own recommended default threshold).
 // if ( ! defined( 'TQRI_RECAPTCHA_MIN_SCORE' ) ) { define( 'TQRI_RECAPTCHA_MIN_SCORE', 0.5 ); }
