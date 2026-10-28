@@ -55,6 +55,46 @@ function tqri_log_mail_failure( $wp_error ) {
 	error_log( 'wp_mail failed: ' . $wp_error->get_error_message() );
 }
 
+// ── TEMPORARY: reCAPTCHA connectivity diagnostic ────────────────────────────
+// Visit https://thequalitativeresearchinstitute.com/wp-json/tqri/v1/recaptcha-diagnostic
+// in your browser to test whether this server can reach Google's reCAPTCHA
+// verification endpoint at all. Delete this whole block once the forms are
+// confirmed working again -- it's not meant to stay in the site long-term.
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'tqri/v1', '/recaptcha-diagnostic', array(
+		'methods'             => 'GET',
+		'callback'            => 'tqri_recaptcha_diagnostic',
+		'permission_callback' => '__return_true',
+	) );
+} );
+function tqri_recaptcha_diagnostic() {
+	$secret = '6LcCoc4tAAAAACZIul76L-EEzkRtzdOoWJ7YBBjP';
+
+	$response = wp_remote_post(
+		'https://www.google.com/recaptcha/api/siteverify',
+		array(
+			'timeout' => 15,
+			'body'    => array(
+				'secret'   => $secret,
+				'response' => 'dummy-token-for-connectivity-test',
+			),
+		)
+	);
+
+	if ( is_wp_error( $response ) ) {
+		return array(
+			'reached_google' => false,
+			'wp_error'       => $response->get_error_message(),
+		);
+	}
+
+	return array(
+		'reached_google' => true,
+		'http_status'    => wp_remote_retrieve_response_code( $response ),
+		'body'           => json_decode( wp_remote_retrieve_body( $response ), true ),
+	);
+}
+
 // ── Submit Blog Post ──────────────────────────────────────────────────────────
 add_action( 'rest_api_init', function () {
 	register_rest_route( 'tqri/v1', '/submit-blog', array(
