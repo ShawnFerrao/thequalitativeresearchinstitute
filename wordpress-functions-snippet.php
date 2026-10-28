@@ -123,6 +123,17 @@ function tqri_verify_recaptcha_enterprise( $record, $ajax_handler ) {
 		return;
 	}
 
+	$status_code = wp_remote_retrieve_response_code( $response );
+	if ( 200 !== $status_code ) {
+		// An HTTP error (403, 400, 500, etc.) is NOT the same as "this token is
+		// invalid" — it means something's wrong with the API call itself (wrong
+		// API restriction on the key, billing/API not enabled, quota, etc.).
+		// Fail OPEN here too, otherwise a misconfiguration on Google's/our end
+		// silently blocks every single form submission on the site.
+		error_log( "reCAPTCHA Enterprise returned HTTP {$status_code}, allowing submission through: " . wp_remote_retrieve_body( $response ) );
+		return;
+	}
+
 	$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
 	$token_valid = ! empty( $body['tokenProperties']['valid'] );
