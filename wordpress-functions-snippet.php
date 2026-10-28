@@ -67,8 +67,10 @@ add_action( 'rest_api_init', function () {
 		'permission_callback' => '__return_true',
 	) );
 } );
-function tqri_recaptcha_diagnostic() {
+function tqri_recaptcha_diagnostic( WP_REST_Request $request ) {
 	$secret = '6LcCoc4tAAAAACZIul76L-EEzkRtzdOoWJ7YBBjP';
+	$token  = $request->get_param( 'token' );
+	$response_value = $token ? sanitize_text_field( $token ) : 'dummy-token-for-connectivity-test';
 
 	$response = wp_remote_post(
 		'https://www.google.com/recaptcha/api/siteverify',
@@ -76,7 +78,7 @@ function tqri_recaptcha_diagnostic() {
 			'timeout' => 15,
 			'body'    => array(
 				'secret'   => $secret,
-				'response' => 'dummy-token-for-connectivity-test',
+				'response' => $response_value,
 			),
 		)
 	);
