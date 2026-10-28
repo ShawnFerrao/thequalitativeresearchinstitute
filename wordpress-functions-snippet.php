@@ -66,22 +66,25 @@ function tqri_log_mail_failure( $wp_error ) {
 // score and blocks low-score (likely bot) submissions before they're
 // processed at all.
 //
-// Requires one constant in wp-config.php (a Google Cloud API key, NOT the
-// reCAPTCHA secret key — different credential, created under APIs & Services
-// > Credentials, restricted to the reCAPTCHA Enterprise API):
+// Paste your Google Cloud API key below (created under APIs & Services >
+// Credentials, restricted to the reCAPTCHA Enterprise API — NOT the
+// reCAPTCHA site key or secret key, a different credential). Leave it as
+// '' to leave this check disabled (it does nothing until a key is set).
 //
-//   define( 'TQRI_RECAPTCHA_API_KEY', 'your-google-cloud-api-key' );
+// If you'd rather keep the key out of this file (e.g. it's version-controlled),
+// you can instead define TQRI_RECAPTCHA_API_KEY in wp-config.php and leave
+// the line below untouched — the guard below only sets it if nothing else
+// already has.
+if ( ! defined( 'TQRI_RECAPTCHA_API_KEY' ) ) {
+	define( 'TQRI_RECAPTCHA_API_KEY', '' ); // <-- paste your Google Cloud API key between the quotes
+}
+// Optional, defaults to 0.5 (Google's own recommended default threshold).
+// if ( ! defined( 'TQRI_RECAPTCHA_MIN_SCORE' ) ) { define( 'TQRI_RECAPTCHA_MIN_SCORE', 0.5 ); }
 //
-// Optional, defaults to 0.5 (Google's own recommended default threshold):
-//
-//   define( 'TQRI_RECAPTCHA_MIN_SCORE', 0.5 );
-//
-// If TQRI_RECAPTCHA_API_KEY isn't defined, this does nothing — safe to deploy
-// before wp-config.php is updated. If Google's API itself is unreachable
-// (network issue, outage), this fails OPEN (lets the submission through)
-// rather than blocking real users over an infrastructure problem on Google's
-// end — only a definite low score or an explicitly invalid token blocks
-// the submission.
+// If Google's API itself is unreachable (network issue, outage), this fails
+// OPEN (lets the submission through) rather than blocking real users over an
+// infrastructure problem on Google's end — only a definite low score or an
+// explicitly invalid token blocks the submission.
 add_action( 'elementor_pro/forms/validation', 'tqri_verify_recaptcha_enterprise', 10, 2 );
 function tqri_verify_recaptcha_enterprise( $record, $ajax_handler ) {
 	if ( ! defined( 'TQRI_RECAPTCHA_API_KEY' ) || ! TQRI_RECAPTCHA_API_KEY ) {
