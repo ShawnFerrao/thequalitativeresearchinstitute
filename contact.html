@@ -497,7 +497,7 @@
 
     if (window.grecaptcha && typeof grecaptcha.ready === 'function') {
       grecaptcha.ready(function () {
-        grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact_form' })
+        grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' })
           .then(submitWithToken)
           .catch(function () {
             submitWithToken(null);
