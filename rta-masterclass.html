@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflexive Thematic Analysis Masterclass | The Qualitative Research Institute</title>
+<meta name="description" content="A two-day, live online masterclass with Dr Claire Moran covering the theoretical foundations and practical application of Reflexive Thematic Analysis.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+
+  :root {
+    --navy: #1a2744;
+    --blue: #2d4a8a;
+    --mid-blue: #4a6fa5;
+    --light-blue: #d6e4f7;
+    --cream: #f8f5f0;
+    --warm-white: #fdfcfa;
+    --text: #2a2a2a;
+    --muted: #6b7280;
+    --accent: #DDA15E;
+    --eyebrow: #DDA15E;
+    --gold: #D3B574;
+    --border: #e2e8f0;
+  }
+
+  button { -webkit-appearance: none; appearance: none; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+  button:focus { outline: none; }
+  a { -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--warm-white);
+    line-height: 1.7;
+  }
+  p { font-family: 'Inter', sans-serif; }
+
+  .container { max-width: 1080px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  .page-hero {
+    background: var(--navy); color: #fff;
+    padding: 4rem 2rem 3.5rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 60% 50%, rgba(45,74,138,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-inner { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+  .page-hero-badge {
+    display: inline-block;
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.1em; font-weight: 500;
+    color: var(--eyebrow); border: 1px solid rgba(221,161,94,0.4);
+    padding: 0.3rem 0.9rem; border-radius: 100px;
+    margin-bottom: 1.25rem;
+  }
+  .page-hero h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 600; line-height: 1.2; margin-bottom: 1.25rem;
+  }
+  .page-hero p {
+    font-size: 1rem; color: rgba(255,255,255,0.8);
+    max-width: 560px; margin: 0 auto 1.25rem; font-weight: 300;
+  }
+  .page-hero-meta {
+    font-size: 0.9rem; color: rgba(255,255,255,0.65);
+    margin-bottom: 2rem;
+  }
+  .btn-primary {
+    background: #0D297B !important; color: #fff !important;
+    padding: 0.85rem 2rem; border-radius: 4px;
+    text-decoration: none !important; font-weight: 500; font-size: 0.9rem;
+    display: inline-block; transition: background 0.2s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .btn-primary:hover { background: var(--accent) !important; }
+
+  /* ── SHARED ── */
+  .section-label {
+    display: block; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 0.7rem; font-weight: 500; color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600; color: var(--navy); line-height: 1.3; margin-bottom: 1.25rem;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .workshop-section { padding: 4.5rem 2rem; }
+  .workshop-section:nth-child(odd) { background: var(--warm-white); }
+  .workshop-section:nth-child(even) { background: var(--cream); }
+  .workshop-inner { max-width: 760px; margin: 0 auto; }
+  .workshop-inner h3 { font-size: 1.1rem; font-weight: 600; color: var(--navy); margin: 1.75rem 0 0.75rem; }
+  .workshop-inner h3:first-child { margin-top: 0; }
+  .workshop-inner > p { color: var(--muted); margin-bottom: 1rem; line-height: 1.85; }
+
+  .prog-suited {
+    background: var(--light-blue);
+    border-radius: 6px; padding: 1.1rem 1.4rem;
+    margin-bottom: 0;
+  }
+  .prog-suited strong {
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--mid-blue); font-weight: 600;
+    display: block; margin-bottom: 0.4rem;
+  }
+  .prog-suited p { font-size: 0.9rem; color: var(--navy); line-height: 1.65; margin: 0; }
+
+  .prog-list {
+    list-style: none; display: flex; flex-direction: column; gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .prog-list li {
+    font-size: 0.95rem; color: var(--text);
+    display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.6;
+  }
+  .prog-list li::before {
+    content: '→'; color: var(--mid-blue);
+    flex-shrink: 0; font-weight: 500; margin-top: 0.1rem;
+  }
+
+  .prog-includes {
+    list-style: none; display: flex; flex-direction: column; gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+  .prog-includes li {
+    font-size: 0.95rem; color: var(--text);
+    display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.6;
+  }
+  .prog-includes li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+  .prog-price-row {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    padding-top: 1.75rem; margin-top: 0.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .prog-price { font-size: 1.3rem; font-weight: 600; color: var(--navy); }
+  .prog-price span { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
+
+  .callout {
+    background: var(--light-blue); border-radius: 6px;
+    padding: 1.1rem 1.4rem; margin: 1.5rem 0;
+    font-size: 0.9rem; color: var(--navy); line-height: 1.65;
+  }
+  .callout a { color: var(--blue); font-weight: 500; }
+
+  /* ── GALLERY ── */
+  .rta-gallery {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.6rem;
+  }
+  .rta-gallery img {
+    width: 100%; height: 160px; object-fit: cover;
+    border-radius: 6px; display: block;
+  }
+  @media (max-width: 700px) {
+    .rta-gallery { grid-template-columns: repeat(2, 1fr); }
+    .rta-gallery img { height: 130px; }
+  }
+
+  /* ── VIDEO ── */
+  .rta-video-wrap {
+    max-width: 640px; margin: 1.75rem auto 0;
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 12px 40px rgba(26,39,68,0.15);
+    aspect-ratio: 16 / 9;
+    background: #000;
+    position: relative;
+  }
+  .rta-video-wrap video { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .rta-video-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(26,39,68,0.2) 0%, rgba(26,39,68,0.5) 100%);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: opacity 0.3s;
+  }
+  .rta-video-overlay.hidden { opacity: 0; pointer-events: none; }
+  .rta-video-play-btn {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .rta-video-play-btn:hover { transform: scale(1.08); background: #fff; }
+  .rta-video-play-btn svg { margin-left: 4px; }
+
+  .testi-quote {
+    font-family: 'Inter', sans-serif; font-style: italic;
+    font-size: 1.05rem; color: var(--navy); line-height: 1.7;
+    margin: 2rem 0 1rem;
+  }
+  .testi-author strong { display: block; font-size: 0.9rem; color: var(--navy); font-weight: 600; }
+  .testi-author span { font-size: 0.82rem; color: var(--muted); }
+
+  /* ── FACILITATOR ── */
+  .facilitator-name { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; }
+  .facilitator-title { font-size: 0.85rem; color: var(--mid-blue); margin-bottom: 1rem; }
+
+  /* ── FAQ ── */
+  .faq-accordion { margin-bottom: 0.75rem; }
+  .faq-accordion-trigger,
+  .faq-accordion-trigger:focus,
+  .faq-accordion-trigger:focus-visible,
+  .faq-accordion-trigger:active {
+    width: 100%;
+    background: #fff !important;
+    color: inherit;
+    border: 1.5px solid var(--border) !important;
+    border-radius: 12px;
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    white-space: normal !important;
+  }
+  .faq-accordion-trigger:hover {
+    border-color: var(--mid-blue) !important;
+    background: var(--warm-white) !important;
+    box-shadow: 0 4px 14px rgba(26,39,68,0.06);
+  }
+  .faq-accordion.open .faq-accordion-trigger {
+    border-color: var(--navy) !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background: var(--navy) !important;
+  }
+  .faq-accordion-question {
+    font-size: 0.95rem; font-weight: 500; color: var(--navy);
+    line-height: 1.5; transition: color 0.2s;
+    flex: 1; min-width: 0;
+  }
+  .faq-accordion.open .faq-accordion-question { color: #fff !important; }
+  .faq-accordion-icon {
+    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s; background: var(--cream);
+  }
+  .faq-accordion.open .faq-accordion-icon {
+    background: var(--mid-blue) !important; border-color: var(--mid-blue) !important;
+    transform: rotate(45deg);
+  }
+  .faq-accordion-icon svg { width: 10px; height: 10px; stroke: var(--muted); stroke-width: 2.5; fill: none; transition: stroke 0.2s; }
+  .faq-accordion.open .faq-accordion-icon svg { stroke: #fff !important; }
+  .faq-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+  .faq-accordion.open .faq-accordion-body { max-height: 500px; }
+  .faq-accordion-content {
+    background: #fff; border: 1.5px solid var(--navy); border-top: none;
+    border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+    padding: 1.1rem 1.5rem 1.3rem;
+  }
+  .faq-accordion-content p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin: 0; }
+
+  /* ── FINAL CTA ── */
+  .cta-strip { background: var(--navy); color: #fff; text-align: center; padding: 4.5rem 2rem; }
+  .cta-strip h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; color: #fff;
+    line-height: 1.3; margin-bottom: 0.75rem; max-width: 620px; margin-left: auto; margin-right: auto;
+  }
+  .cta-strip p { color: rgba(255,255,255,0.75); font-size: 1rem; margin-bottom: 1rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+  .cta-meta { font-size: 0.85rem; color: var(--gold); font-weight: 500; margin-bottom: 1.75rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .page-hero { padding: 3rem 1.25rem 2.75rem; }
+    .workshop-section, .cta-strip { padding: 3rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-hero-badge">Two Days · Live Online</span>
+    <h1>Reflexive Thematic Analysis Masterclass</h1>
+    <p>Develop the knowledge, skills and confidence to undertake Reflexive Thematic Analysis — from understanding its theoretical foundations to putting the analytical process into practice.</p>
+    <p class="page-hero-meta">Two days | Live online | 12 hours of interactive training<br>$595 AUD inc. GST · per person</p>
+    <a href="https://www.eventbrite.com/cc/qualitative-thematic-analysis-masterclass-4018523" target="_blank" class="btn-primary">View upcoming dates and book your place →</a>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <div class="rta-gallery">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Gemini-2.png" alt="Reflexive Thematic Analysis Masterclass">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Action-Shot-3-scaled.jpg" alt="Masterclass training in action">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Action-Shot-7-scaled.jpg" alt="Masterclass training in action">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/G-F2F-7.png" alt="Face-to-face masterclass training">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/G-Online-2.jpg" alt="Online masterclass training">
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Overview</span>
+    <h2 class="section-title">Move beyond understanding thematic analysis to confidently putting it into practice</h2>
+    <p>Reflexive Thematic Analysis (RTA) is a flexible and widely used approach to analysing qualitative data. However, understanding its theoretical foundations and knowing how to apply them in practice can be challenging.</p>
+    <p>In this comprehensive two-day masterclass, Dr Claire Moran guides you through the principles and processes of Reflexive Thematic Analysis, combining theoretical understanding with practical, hands-on learning.</p>
+    <p style="margin-bottom:0;">Through guided activities, interactive discussions and real examples from Claire's own research, you'll explore how to engage meaningfully with qualitative data, develop analytical interpretations and construct themes. You'll also strengthen your understanding of the methodological decisions that underpin rigorous, reflexive qualitative analysis.</p>
+  </div>
+</section>
+
+<!-- WHO IS THIS FOR -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Who it's for</span>
+    <h2 class="section-title">Who is this masterclass for?</h2>
+    <p>This masterclass is particularly suited to researchers who are preparing to analyse, or are currently analysing, qualitative data. It is designed for:</p>
+    <ul class="prog-list">
+      <li>PhD and postgraduate researchers undertaking qualitative research.</li>
+      <li>Academic researchers seeking to strengthen their knowledge and practical application of Reflexive Thematic Analysis.</li>
+      <li>Experienced qualitative researchers looking to deepen their theoretical understanding or refine their analytical practice.</li>
+      <li>Research professionals with some qualitative research experience who want to develop their analytical capabilities.</li>
+    </ul>
+    <p style="margin-bottom:0;">Some previous experience with qualitative research is recommended, but you do not need to have previously undertaken Reflexive Thematic Analysis.</p>
+    <div class="callout">
+      <strong style="display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--mid-blue);font-weight:600;margin-bottom:0.4rem;">New to qualitative research?</strong>
+      If you're new to qualitative research or would like to strengthen your understanding of its core concepts, we recommend starting with our <a href="https://www.eventbrite.com.au/e/1991325605491" target="_blank">Essentials of Qualitative Research</a> course. This six-hour, self-paced online programme provides a foundation in qualitative research before progressing to more advanced training.
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL LEARN -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Outcomes</span>
+    <h2 class="section-title">What will you learn?</h2>
+    <p>By the end of the masterclass, you'll have developed a stronger understanding of:</p>
+    <ul class="prog-list">
+      <li>The foundations of qualitative research, including meaning-making, interpretation and different theoretical perspectives.</li>
+      <li>The principles and processes of Reflexive Thematic Analysis, and how to apply them through guided analytical activities.</li>
+      <li>Coding and theme development, including how to move beyond descriptive summaries towards meaningful analytical interpretations.</li>
+      <li>Researcher subjectivity and reflexivity, and their central role in generating qualitative knowledge.</li>
+      <li>Different approaches to thematic analysis, including how Reflexive Thematic Analysis differs from codebook and coding reliability approaches.</li>
+      <li>The broader methodological landscape, including the relationship between thematic analysis and other qualitative approaches, and its application to different forms of qualitative data.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- WHAT DOES IT COVER -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Content</span>
+    <h2 class="section-title">What does the masterclass cover?</h2>
+
+    <h3>Day 1: Understanding and practising Reflexive Thematic Analysis</h3>
+    <p>The first day introduces the foundations of qualitative research before moving into an extended, practical exploration of Reflexive Thematic Analysis.</p>
+
+    <h3 style="margin-top:1.25rem;">Understanding qualitative research and meaning-making</h3>
+    <p>We'll begin by exploring the core principles of qualitative research, with particular attention to meaning, interpretation and the different layers of meaning that researchers can explore within their data.</p>
+
+    <h3 style="margin-top:1.25rem;">Introducing Reflexive Thematic Analysis</h3>
+    <p>You'll be introduced to the key concepts underpinning Reflexive Thematic Analysis, including the active role of the researcher in developing interpretations and constructing themes.</p>
+
+    <h3 style="margin-top:1.25rem;">Working through the analytical process</h3>
+    <p>The main focus of Day 1 is a step-by-step exploration of the analytical process, combining expert demonstrations with practical activities using a sample dataset. You'll work through:</p>
+    <ul class="prog-list">
+      <li>Familiarising yourself with the data.</li>
+      <li>Generating initial codes.</li>
+      <li>Constructing candidate themes.</li>
+      <li>Reviewing and refining themes.</li>
+      <li>Developing and naming themes.</li>
+      <li>Moving towards an analytical account of the data.</li>
+    </ul>
+    <p>Throughout the day, Claire will demonstrate the analytical process using examples from her own research, showing how interpretations and themes develop through sustained engagement with data.</p>
+    <p style="margin-bottom:0;">You'll then have opportunities to apply what you've learned through guided activities, discussion and reflection.</p>
+
+    <h3>Day 2: Deepening your theoretical and analytical understanding</h3>
+    <p>Day 2 builds on the practical work undertaken on Day 1, exploring the theoretical foundations and methodological considerations that inform qualitative analysis.</p>
+
+    <h3 style="margin-top:1.25rem;">Theoretical perspectives and knowledge generation</h3>
+    <p>Explore the relationship between ontology, epistemology and qualitative research practice, including essentialist, contextualist and constructionist perspectives. You'll consider how different theoretical assumptions influence the questions researchers ask, how they engage with data and the interpretations they develop.</p>
+
+    <h3 style="margin-top:1.25rem;">Understanding the thematic analysis family</h3>
+    <p>Not all approaches to thematic analysis are the same. We'll examine the distinctions between Reflexive Thematic Analysis, codebook thematic analysis and coding reliability approaches, including their different assumptions about coding, themes and the researcher's role.</p>
+
+    <h3 style="margin-top:1.25rem;">Researcher subjectivity and reflexivity</h3>
+    <p>Explore why researcher subjectivity is understood as a resource within Reflexive Thematic Analysis, rather than simply a source of bias. We'll consider the role of reflexivity throughout the research process and how researchers can engage critically with their own assumptions, perspectives and analytical decisions.</p>
+
+    <h3 style="margin-top:1.25rem;">Thematic analysis and other qualitative approaches</h3>
+    <p>We'll examine how thematic analysis relates to other qualitative approaches, including discourse analysis, grounded theory and Interpretative Phenomenological Analysis (IPA).</p>
+
+    <h3 style="margin-top:1.25rem;">Working with different forms of qualitative data</h3>
+    <p style="margin-bottom:0;">Finally, we'll explore how thematic analysis can be applied beyond traditional interview and focus group transcripts, including visual and multimodal data such as images and webpages.</p>
+  </div>
+</section>
+
+<!-- HOW YOU'LL LEARN -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Approach</span>
+    <h2 class="section-title">How will you learn?</h2>
+    <p>This masterclass is designed to help you understand not only what Reflexive Thematic Analysis involves, but also how to undertake it.</p>
+    <p>Rather than relying solely on presentations, Claire combines theoretical explanations with worked examples, practical exercises and interactive discussions.</p>
+    <p>A distinctive feature of the training is the use of real examples from Claire's own research. You'll see how she approached the analytical process, developed interpretations and made methodological decisions, rather than simply being shown the finished themes.</p>
+    <p style="margin-bottom:0;">The training builds progressively across the two days, allowing you to connect theoretical concepts with practical application, ask questions and learn alongside researchers from different disciplines and backgrounds.</p>
+  </div>
+</section>
+
+<!-- PAST PARTICIPANTS + VIDEO -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Testimonials</span>
+    <h2 class="section-title">Hear from past participants</h2>
+    <p style="margin-bottom:0;">Discover what researchers have to say about their experience of the Reflexive Thematic Analysis Masterclass.</p>
+
+    <div class="rta-video-wrap" id="rtaVideoWrap">
+      <video id="rtaTestiVideo" preload="none">
+        <source src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Final-RECUT-Thematic-Analysis-Video.mp4" type="video/mp4">
+      </video>
+      <div class="rta-video-overlay" id="rtaVideoOverlay" onclick="playRtaVideo()">
+        <div class="rta-video-play-btn">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M8 5.14v14l11-7-11-7z" fill="#1a2744"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <p class="testi-quote">"What sets this masterclass apart is Claire's ability to balance theory with practical application — unlike other training that can leave you more confused."</p>
+    <div class="testi-author">
+      <strong>Wendy Godfrey</strong>
+      <span>PhD Candidate, University of the Sunshine Coast</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED + PRICE -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Details</span>
+    <h2 class="section-title">What's included?</h2>
+    <ul class="prog-includes">
+      <li>12 hours of expertly facilitated training across two days.</li>
+      <li>Preparatory readings to support your learning.</li>
+      <li>Training slides and practical activity handouts to support your learning during the masterclass.</li>
+      <li>Certificate of Completion.</li>
+      <li>Option to arrange additional one-on-one research support.</li>
+      <li>$595 credit towards <a href="https://thequalitativeresearchinstitute.com/research-circle/#join" target="_blank" style="color:var(--blue);">Research Circle membership</a> if you join within two weeks of attending the masterclass.</li>
+    </ul>
+    <div class="prog-price-row">
+      <div class="prog-price">$595 AUD <span>inc GST · per person</span></div>
+      <a href="https://www.eventbrite.com/cc/qualitative-thematic-analysis-masterclass-4018523" target="_blank" class="btn-primary">View upcoming masterclass dates and book your place →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITATOR -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">Your facilitator</span>
+    <h2 class="section-title">Meet your facilitator</h2>
+    <div class="facilitator-name">Dr Claire Moran, PhD</div>
+    <p>Dr Claire Moran is a qualitative researcher and educator with extensive experience delivering engaging workshops and masterclasses for universities and researchers across Australia and internationally.</p>
+    <p>Claire holds a PhD in Health Psychology from the University of Queensland, where she received the Dean's Award for Outstanding Research Higher Degree Theses.</p>
+    <p>Her teaching brings together methodological knowledge, practical research experience and an accessible approach to explaining complex concepts.</p>
+    <p style="margin-bottom:0;">Drawing on examples from her own research, Claire helps researchers connect theoretical understanding with the practical realities of undertaking rigorous qualitative analysis.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="workshop-section">
+  <div class="workshop-inner">
+    <span class="section-label">FAQs</span>
+    <h2 class="section-title">Frequently asked questions</h2>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">Do I need previous experience with qualitative research?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Some previous experience with qualitative research is recommended, although you do not need prior experience with Reflexive Thematic Analysis. If you're completely new to qualitative research, our <a href="https://www.eventbrite.com.au/e/1991325605491" target="_blank">Essentials of Qualitative Research</a> course is a good starting point. This self-paced programme introduces the fundamental concepts of qualitative research before you progress to the masterclass.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">What if I'm still designing my research project?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>If you're in the early stages of planning or designing a qualitative or mixed methods project, our <a href="https://www.eventbrite.com/cc/qualitative-research-design-masterclass-4018553" target="_blank">Research Design Masterclass</a> may be a better starting point. This two-day masterclass guides you through the research design process, from developing your research questions to making informed methodological decisions, including your approach to data analysis.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">Do I need to be at the data analysis stage of my research?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Not necessarily. The masterclass is particularly valuable if you're preparing to analyse or are currently analysing qualitative data. However, it can also help researchers who are planning their studies to better understand the methodological considerations associated with Reflexive Thematic Analysis.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">Do I need to bring my own research data?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>No. A sample dataset is provided for the practical activities, allowing everyone to work through the analytical process together. You can then consider how the concepts and approaches explored during the masterclass relate to your own research project.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">Does the masterclass follow Braun and Clarke's approach to Reflexive Thematic Analysis?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes. The masterclass focuses on Reflexive Thematic Analysis as developed by Virginia Braun and Victoria Clarke, including its theoretical foundations, analytical processes and emphasis on researcher subjectivity and reflexivity. You'll also learn how this approach differs from other forms of thematic analysis, helping you understand why these distinctions matter for methodological coherence.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">Will we explore different approaches to thematic analysis?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes. The masterclass introduces the distinctions between Reflexive Thematic Analysis, codebook thematic analysis and coding reliability approaches. While these approaches are discussed and compared, the practical activities focus specifically on Reflexive Thematic Analysis rather than teaching the full analytical procedures of each approach.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">Will we cover the use of AI in qualitative data analysis?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>This masterclass focuses on developing your understanding and practical application of Reflexive Thematic Analysis rather than the use of AI tools. If you're interested in exploring how AI can support qualitative research, we also offer a dedicated <a href="https://www.eventbrite.com/cc/using-ai-in-qualitative-research-4018393" target="_blank">Using AI in Qualitative Research Masterclass</a>. This two-day masterclass explores the practical and ethical use of AI across the research process, including AI-assisted coding and analysis, research planning, literature reviews and academic writing.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">What if I can't attend the live masterclass?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>If you can't attend the live sessions, you can still access the training through our on-demand Reflexive Thematic Analysis Masterclass. The on-demand option allows you to work through the training at your own pace, at a time that suits you. Explore the <a href="https://www.eventbrite.com.au/e/1989722720218" target="_blank">on-demand masterclass</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">Can I access additional support after the masterclass?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes. If you'd like personalised guidance with your own research project, you can arrange additional one-on-one consultations with Claire. Alternatively, you can join the <a href="https://thequalitativeresearchinstitute.com/research-circle/#join" target="_blank">Research Circle</a> for ongoing research support, access to all individual training programmes, monthly Q&A and momentum sessions, and a supportive community of researchers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rtaToggleAccordion(this)">
+        <span class="faq-accordion-question">Can the cost of this masterclass be credited towards the Research Circle?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes. If you join the <a href="https://thequalitativeresearchinstitute.com/research-circle/#join" target="_blank">Research Circle</a> within two weeks of attending this masterclass, the full cost of your masterclass ($595 AUD) will be credited towards your membership fee. The Research Circle is a 6- or 12-month membership that includes access to all our individual training programmes, personalised support from Claire, monthly Q&A and momentum sessions, and a community of like-minded researchers. It's an opportunity to build on what you've learned in the masterclass while accessing ongoing guidance, training and support as your research progresses.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-strip">
+  <div class="container">
+    <h2>Ready to strengthen your qualitative analysis skills?</h2>
+    <p>Join Dr Claire Moran for two days of interactive, practical and theoretically informed learning. Develop a deeper understanding of Reflexive Thematic Analysis, strengthen your analytical skills and gain greater confidence in applying the approach to your own research.</p>
+    <div class="cta-meta">Two days · Live online · 12 hours · $595 AUD inc GST</div>
+    <a href="https://www.eventbrite.com/cc/qualitative-thematic-analysis-masterclass-4018523" target="_blank" class="btn-primary">View upcoming dates and book your place →</a>
+  </div>
+</section>
+
+<script>
+  function rtaToggleAccordion(trigger) {
+    const accordion = trigger.closest('.faq-accordion');
+    const isOpen = accordion.classList.contains('open');
+    document.querySelectorAll('.faq-accordion.open').forEach(function(a) {
+      a.classList.remove('open');
+    });
+    if (!isOpen) {
+      accordion.classList.add('open');
+    }
+  }
+
+  function playRtaVideo() {
+    const video = document.getElementById('rtaTestiVideo');
+    const overlay = document.getElementById('rtaVideoOverlay');
+    video.controls = true;
+    overlay.classList.add('hidden');
+    video.play();
+  }
+</script>
+
+</body>
+</html>
