@@ -97,7 +97,7 @@
   .workshop-section { padding: 4.5rem 2rem; }
   .workshop-section:nth-child(odd) { background: var(--warm-white); }
   .workshop-section:nth-child(even) { background: var(--cream); }
-  .workshop-inner { max-width: 760px; margin: 0 auto; }
+  .workshop-inner { max-width: 900px; margin: 0 auto; }
   .workshop-inner h3 { font-size: 1.1rem; font-weight: 600; color: var(--navy); margin: 1.75rem 0 0.75rem; }
   .workshop-inner h3:first-child { margin-top: 0; }
   .workshop-inner > p { color: var(--muted); margin-bottom: 1rem; line-height: 1.85; }
@@ -155,7 +155,7 @@
 
   /* ── SPLIT (text + image) SECTIONS ── */
   .split-wrap {
-    max-width: 1040px; margin: 0 auto;
+    max-width: 900px; margin: 0 auto;
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 3rem; align-items: stretch;
   }
@@ -168,7 +168,7 @@
     box-shadow: 0 12px 40px rgba(26,39,68,0.12);
   }
   .split-content { max-width: 100%; display: flex; flex-direction: column; justify-content: center; }
-  .split-heading { max-width: 1040px; margin: 0 auto 2rem; }
+  .split-heading { max-width: 900px; margin: 0 auto 2rem; }
 
   /* ── DAY 1 / DAY 2 TABS ── */
   .cover-tabs {
@@ -190,6 +190,13 @@
   .cover-tab-btn.active { color: var(--navy) !important; border-bottom-color: var(--navy) !important; }
   .cover-tab-panel { display: none; }
   .cover-tab-panel.active { display: block; }
+
+  .included-banner-img { margin-bottom: 1.75rem; }
+  .included-banner-img img {
+    width: 100%; max-height: 360px; object-fit: cover;
+    border-radius: 10px; display: block;
+    box-shadow: 0 12px 40px rgba(26,39,68,0.12);
+  }
   @media (max-width: 800px) {
     .split-wrap { grid-template-columns: 1fr; gap: 1.75rem; }
     .split-wrap .split-img { order: 1 !important; }
@@ -495,24 +502,22 @@
 
 <!-- WHAT'S INCLUDED + PRICE -->
 <section class="workshop-section">
-  <div class="split-wrap">
-    <div class="split-img">
+  <div class="workshop-inner">
+    <div class="included-banner-img">
       <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/G-Online-2.jpg" alt="Online masterclass training">
     </div>
-    <div class="split-content">
-      <span class="section-label">Details</span>
-      <h2 class="section-title">What's included?</h2>
-      <ul class="prog-includes">
-        <li>12 hours of expertly facilitated training across two days.</li>
-        <li>Preparatory readings to support your learning.</li>
-        <li>Training slides and practical activity handouts to support your learning during the masterclass.</li>
-        <li>Certificate of Completion.</li>
-        <li>Option to arrange additional one-on-one research support.</li>
-        <li>$595 credit towards <a href="https://thequalitativeresearchinstitute.com/research-circle/#join" target="_blank" style="color:var(--blue);">Research Circle membership</a> if you join within two weeks of attending the masterclass.</li>
-      </ul>
-      <div class="prog-price-row">
-        <div class="prog-price">$595 AUD <span>inc GST · per person</span></div>
-      </div>
+    <span class="section-label">Details</span>
+    <h2 class="section-title">What's included?</h2>
+    <ul class="prog-includes">
+      <li>12 hours of expertly facilitated training across two days.</li>
+      <li>Preparatory readings to support your learning.</li>
+      <li>Training slides and practical activity handouts to support your learning during the masterclass.</li>
+      <li>Certificate of Completion.</li>
+      <li>Option to arrange additional one-on-one research support.</li>
+      <li>$595 credit towards <a href="https://thequalitativeresearchinstitute.com/research-circle/#join" target="_blank" style="color:var(--blue);">Research Circle membership</a> if you join within two weeks of attending the masterclass.</li>
+    </ul>
+    <div class="prog-price-row">
+      <div class="prog-price">$595 AUD <span>inc GST · per person</span></div>
     </div>
   </div>
   <div class="container" style="text-align:center; margin-top:2rem;">
