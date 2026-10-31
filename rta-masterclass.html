@@ -153,17 +153,25 @@
   }
   .callout a { color: var(--blue); font-weight: 500; }
 
-  /* ── GALLERY ── */
-  .rta-gallery {
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.6rem;
+  /* ── SPLIT (text + image) SECTIONS ── */
+  .split-wrap {
+    max-width: 1040px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: center;
   }
-  .rta-gallery img {
-    width: 100%; height: 160px; object-fit: cover;
-    border-radius: 6px; display: block;
+  .split-wrap.reverse .split-img { order: 2; }
+  .split-wrap.reverse .split-content { order: 1; }
+  .split-img img {
+    width: 100%; height: 320px; object-fit: cover;
+    border-radius: 10px; display: block;
+    box-shadow: 0 12px 40px rgba(26,39,68,0.12);
   }
-  @media (max-width: 700px) {
-    .rta-gallery { grid-template-columns: repeat(2, 1fr); }
-    .rta-gallery img { height: 130px; }
+  .split-content { max-width: 100%; }
+  @media (max-width: 800px) {
+    .split-wrap { grid-template-columns: 1fr; gap: 1.75rem; }
+    .split-wrap .split-img { order: 1 !important; }
+    .split-wrap .split-content { order: 2 !important; }
+    .split-img img { height: 220px; }
   }
 
   /* ── VIDEO ── */
@@ -293,64 +301,66 @@
   </div>
 </section>
 
-<!-- GALLERY -->
-<section class="workshop-section">
-  <div class="workshop-inner">
-    <div class="rta-gallery">
-      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Gemini-2.png" alt="Reflexive Thematic Analysis Masterclass">
-      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Action-Shot-3-scaled.jpg" alt="Masterclass training in action">
-      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Action-Shot-7-scaled.jpg" alt="Masterclass training in action">
-      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/G-F2F-7.png" alt="Face-to-face masterclass training">
-      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/G-Online-2.jpg" alt="Online masterclass training">
-    </div>
-  </div>
-</section>
-
 <!-- INTRO -->
 <section class="workshop-section">
-  <div class="workshop-inner">
-    <span class="section-label">Overview</span>
-    <h2 class="section-title">Move beyond understanding thematic analysis to confidently putting it into practice</h2>
-    <p>Reflexive Thematic Analysis (RTA) is a flexible and widely used approach to analysing qualitative data. However, understanding its theoretical foundations and knowing how to apply them in practice can be challenging.</p>
-    <p>In this comprehensive two-day masterclass, Dr Claire Moran guides you through the principles and processes of Reflexive Thematic Analysis, combining theoretical understanding with practical, hands-on learning.</p>
-    <p style="margin-bottom:0;">Through guided activities, interactive discussions and real examples from Claire's own research, you'll explore how to engage meaningfully with qualitative data, develop analytical interpretations and construct themes. You'll also strengthen your understanding of the methodological decisions that underpin rigorous, reflexive qualitative analysis.</p>
+  <div class="split-wrap">
+    <div class="split-img">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Gemini-2.png" alt="Reflexive Thematic Analysis Masterclass">
+    </div>
+    <div class="split-content">
+      <span class="section-label">Overview</span>
+      <h2 class="section-title">Move beyond understanding thematic analysis to confidently putting it into practice</h2>
+      <p>Reflexive Thematic Analysis (RTA) is a flexible and widely used approach to analysing qualitative data. However, understanding its theoretical foundations and knowing how to apply them in practice can be challenging.</p>
+      <p>In this comprehensive two-day masterclass, Dr Claire Moran guides you through the principles and processes of Reflexive Thematic Analysis, combining theoretical understanding with practical, hands-on learning.</p>
+      <p style="margin-bottom:0;">Through guided activities, interactive discussions and real examples from Claire's own research, you'll explore how to engage meaningfully with qualitative data, develop analytical interpretations and construct themes. You'll also strengthen your understanding of the methodological decisions that underpin rigorous, reflexive qualitative analysis.</p>
+    </div>
   </div>
 </section>
 
 <!-- WHO IS THIS FOR -->
 <section class="workshop-section">
-  <div class="workshop-inner">
-    <span class="section-label">Who it's for</span>
-    <h2 class="section-title">Who is this masterclass for?</h2>
-    <p>This masterclass is particularly suited to researchers who are preparing to analyse, or are currently analysing, qualitative data. It is designed for:</p>
-    <ul class="prog-list">
-      <li>PhD and postgraduate researchers undertaking qualitative research.</li>
-      <li>Academic researchers seeking to strengthen their knowledge and practical application of Reflexive Thematic Analysis.</li>
-      <li>Experienced qualitative researchers looking to deepen their theoretical understanding or refine their analytical practice.</li>
-      <li>Research professionals with some qualitative research experience who want to develop their analytical capabilities.</li>
-    </ul>
-    <p style="margin-bottom:0;">Some previous experience with qualitative research is recommended, but you do not need to have previously undertaken Reflexive Thematic Analysis.</p>
-    <div class="callout">
-      <strong style="display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--mid-blue);font-weight:600;margin-bottom:0.4rem;">New to qualitative research?</strong>
-      If you're new to qualitative research or would like to strengthen your understanding of its core concepts, we recommend starting with our <a href="https://www.eventbrite.com.au/e/1991325605491" target="_blank">Essentials of Qualitative Research</a> course. This six-hour, self-paced online programme provides a foundation in qualitative research before progressing to more advanced training.
+  <div class="split-wrap reverse">
+    <div class="split-img">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Action-Shot-3-scaled.jpg" alt="Masterclass training in action">
+    </div>
+    <div class="split-content">
+      <span class="section-label">Who it's for</span>
+      <h2 class="section-title">Who is this masterclass for?</h2>
+      <p>This masterclass is particularly suited to researchers who are preparing to analyse, or are currently analysing, qualitative data. It is designed for:</p>
+      <ul class="prog-list">
+        <li>PhD and postgraduate researchers undertaking qualitative research.</li>
+        <li>Academic researchers seeking to strengthen their knowledge and practical application of Reflexive Thematic Analysis.</li>
+        <li>Experienced qualitative researchers looking to deepen their theoretical understanding or refine their analytical practice.</li>
+        <li>Research professionals with some qualitative research experience who want to develop their analytical capabilities.</li>
+      </ul>
+      <p style="margin-bottom:0;">Some previous experience with qualitative research is recommended, but you do not need to have previously undertaken Reflexive Thematic Analysis.</p>
+      <div class="callout">
+        <strong style="display:block;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--mid-blue);font-weight:600;margin-bottom:0.4rem;">New to qualitative research?</strong>
+        If you're new to qualitative research or would like to strengthen your understanding of its core concepts, we recommend starting with our <a href="https://www.eventbrite.com.au/e/1991325605491" target="_blank">Essentials of Qualitative Research</a> course. This six-hour, self-paced online programme provides a foundation in qualitative research before progressing to more advanced training.
+      </div>
     </div>
   </div>
 </section>
 
 <!-- WHAT YOU'LL LEARN -->
 <section class="workshop-section">
-  <div class="workshop-inner">
-    <span class="section-label">Outcomes</span>
-    <h2 class="section-title">What will you learn?</h2>
-    <p>By the end of the masterclass, you'll have developed a stronger understanding of:</p>
-    <ul class="prog-list">
-      <li>The foundations of qualitative research, including meaning-making, interpretation and different theoretical perspectives.</li>
-      <li>The principles and processes of Reflexive Thematic Analysis, and how to apply them through guided analytical activities.</li>
-      <li>Coding and theme development, including how to move beyond descriptive summaries towards meaningful analytical interpretations.</li>
-      <li>Researcher subjectivity and reflexivity, and their central role in generating qualitative knowledge.</li>
-      <li>Different approaches to thematic analysis, including how Reflexive Thematic Analysis differs from codebook and coding reliability approaches.</li>
-      <li>The broader methodological landscape, including the relationship between thematic analysis and other qualitative approaches, and its application to different forms of qualitative data.</li>
-    </ul>
+  <div class="split-wrap">
+    <div class="split-img">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Action-Shot-7-scaled.jpg" alt="Masterclass training in action">
+    </div>
+    <div class="split-content">
+      <span class="section-label">Outcomes</span>
+      <h2 class="section-title">What will you learn?</h2>
+      <p>By the end of the masterclass, you'll have developed a stronger understanding of:</p>
+      <ul class="prog-list">
+        <li>The foundations of qualitative research, including meaning-making, interpretation and different theoretical perspectives.</li>
+        <li>The principles and processes of Reflexive Thematic Analysis, and how to apply them through guided analytical activities.</li>
+        <li>Coding and theme development, including how to move beyond descriptive summaries towards meaningful analytical interpretations.</li>
+        <li>Researcher subjectivity and reflexivity, and their central role in generating qualitative knowledge.</li>
+        <li>Different approaches to thematic analysis, including how Reflexive Thematic Analysis differs from codebook and coding reliability approaches.</li>
+        <li>The broader methodological landscape, including the relationship between thematic analysis and other qualitative approaches, and its application to different forms of qualitative data.</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -404,13 +414,18 @@
 
 <!-- HOW YOU'LL LEARN -->
 <section class="workshop-section">
-  <div class="workshop-inner">
-    <span class="section-label">Approach</span>
-    <h2 class="section-title">How will you learn?</h2>
-    <p>This masterclass is designed to help you understand not only what Reflexive Thematic Analysis involves, but also how to undertake it.</p>
-    <p>Rather than relying solely on presentations, Claire combines theoretical explanations with worked examples, practical exercises and interactive discussions.</p>
-    <p>A distinctive feature of the training is the use of real examples from Claire's own research. You'll see how she approached the analytical process, developed interpretations and made methodological decisions, rather than simply being shown the finished themes.</p>
-    <p style="margin-bottom:0;">The training builds progressively across the two days, allowing you to connect theoretical concepts with practical application, ask questions and learn alongside researchers from different disciplines and backgrounds.</p>
+  <div class="split-wrap reverse">
+    <div class="split-img">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/G-F2F-7.png" alt="Face-to-face masterclass training">
+    </div>
+    <div class="split-content">
+      <span class="section-label">Approach</span>
+      <h2 class="section-title">How will you learn?</h2>
+      <p>This masterclass is designed to help you understand not only what Reflexive Thematic Analysis involves, but also how to undertake it.</p>
+      <p>Rather than relying solely on presentations, Claire combines theoretical explanations with worked examples, practical exercises and interactive discussions.</p>
+      <p>A distinctive feature of the training is the use of real examples from Claire's own research. You'll see how she approached the analytical process, developed interpretations and made methodological decisions, rather than simply being shown the finished themes.</p>
+      <p style="margin-bottom:0;">The training builds progressively across the two days, allowing you to connect theoretical concepts with practical application, ask questions and learn alongside researchers from different disciplines and backgrounds.</p>
+    </div>
   </div>
 </section>
 
@@ -444,21 +459,28 @@
 
 <!-- WHAT'S INCLUDED + PRICE -->
 <section class="workshop-section">
-  <div class="workshop-inner">
-    <span class="section-label">Details</span>
-    <h2 class="section-title">What's included?</h2>
-    <ul class="prog-includes">
-      <li>12 hours of expertly facilitated training across two days.</li>
-      <li>Preparatory readings to support your learning.</li>
-      <li>Training slides and practical activity handouts to support your learning during the masterclass.</li>
-      <li>Certificate of Completion.</li>
-      <li>Option to arrange additional one-on-one research support.</li>
-      <li>$595 credit towards <a href="https://thequalitativeresearchinstitute.com/research-circle/#join" target="_blank" style="color:var(--blue);">Research Circle membership</a> if you join within two weeks of attending the masterclass.</li>
-    </ul>
-    <div class="prog-price-row">
-      <div class="prog-price">$595 AUD <span>inc GST · per person</span></div>
-      <a href="https://www.eventbrite.com/cc/qualitative-thematic-analysis-masterclass-4018523" target="_blank" class="btn-primary">View upcoming masterclass dates and book your place →</a>
+  <div class="split-wrap">
+    <div class="split-img">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/G-Online-2.jpg" alt="Online masterclass training">
     </div>
+    <div class="split-content">
+      <span class="section-label">Details</span>
+      <h2 class="section-title">What's included?</h2>
+      <ul class="prog-includes">
+        <li>12 hours of expertly facilitated training across two days.</li>
+        <li>Preparatory readings to support your learning.</li>
+        <li>Training slides and practical activity handouts to support your learning during the masterclass.</li>
+        <li>Certificate of Completion.</li>
+        <li>Option to arrange additional one-on-one research support.</li>
+        <li>$595 credit towards <a href="https://thequalitativeresearchinstitute.com/research-circle/#join" target="_blank" style="color:var(--blue);">Research Circle membership</a> if you join within two weeks of attending the masterclass.</li>
+      </ul>
+      <div class="prog-price-row">
+        <div class="prog-price">$595 AUD <span>inc GST · per person</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="text-align:center; margin-top:2rem;">
+    <a href="https://www.eventbrite.com/cc/qualitative-thematic-analysis-masterclass-4018523" target="_blank" class="btn-primary">View upcoming masterclass dates and book your place →</a>
   </div>
 </section>
 
