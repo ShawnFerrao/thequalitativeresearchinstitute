@@ -310,8 +310,8 @@
 <section class="video-section">
   <div class="container">
     <div class="video-wrap" id="videoWrap">
-      <video id="testiVideo" preload="metadata">
-        <source src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/V3-Final-Generic-Recut-Video.mp4#t=8" type="video/mp4">
+      <video id="testiVideo" preload="auto">
+        <source src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/V3-Final-Generic-Recut-Video.mp4" type="video/mp4">
       </video>
       <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
         <div class="video-overlay-content">
@@ -368,6 +368,14 @@
 
 
 <script>
+  (function() {
+    const video = document.getElementById('testiVideo');
+    let coverSet = false;
+    video.addEventListener('loadeddata', function() {
+      if (!coverSet) { coverSet = true; video.currentTime = 8; }
+    });
+  })();
+
   function playVideo() {
     const video = document.getElementById('testiVideo');
     const overlay = document.getElementById('videoOverlay');

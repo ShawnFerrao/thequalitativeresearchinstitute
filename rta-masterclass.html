@@ -495,8 +495,8 @@
     <p style="margin-bottom:0;">Discover what researchers have to say about their experience of the Reflexive Thematic Analysis Masterclass.</p>
 
     <div class="rta-video-wrap" id="rtaVideoWrap">
-      <video id="rtaTestiVideo" preload="metadata">
-        <source src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Final-RECUT-Thematic-Analysis-Video.mp4#t=8" type="video/mp4">
+      <video id="rtaTestiVideo" preload="auto">
+        <source src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/10/Final-RECUT-Thematic-Analysis-Video.mp4" type="video/mp4">
       </video>
       <div class="rta-video-overlay" id="rtaVideoOverlay" onclick="playRtaVideo()">
         <div class="rta-video-play-btn">
@@ -709,6 +709,14 @@
     document.getElementById('coverTab' + day).classList.add('active');
     btn.classList.add('active');
   }
+
+  (function() {
+    const video = document.getElementById('rtaTestiVideo');
+    let coverSet = false;
+    video.addEventListener('loadeddata', function() {
+      if (!coverSet) { coverSet = true; video.currentTime = 8; }
+    });
+  })();
 
   function playRtaVideo() {
     const video = document.getElementById('rtaTestiVideo');
