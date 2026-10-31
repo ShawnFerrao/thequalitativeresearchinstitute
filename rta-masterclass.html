@@ -169,6 +169,27 @@
   }
   .split-content { max-width: 100%; display: flex; flex-direction: column; justify-content: center; }
   .split-heading { max-width: 1040px; margin: 0 auto 2rem; }
+
+  /* ── DAY 1 / DAY 2 TABS ── */
+  .cover-tabs {
+    display: flex; gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .cover-tab-btn,
+  .cover-tab-btn:focus,
+  .cover-tab-btn:active {
+    background: none !important; border: none !important;
+    padding: 0.9rem 0.25rem; margin-right: 1.75rem; margin-bottom: -1px;
+    font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 500;
+    color: var(--muted); cursor: pointer;
+    border-bottom: 2px solid transparent !important;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .cover-tab-btn:hover { color: var(--navy) !important; }
+  .cover-tab-btn.active { color: var(--navy) !important; border-bottom-color: var(--navy) !important; }
+  .cover-tab-panel { display: none; }
+  .cover-tab-panel.active { display: block; }
   @media (max-width: 800px) {
     .split-wrap { grid-template-columns: 1fr; gap: 1.75rem; }
     .split-wrap .split-img { order: 1 !important; }
@@ -374,45 +395,54 @@
     <span class="section-label">Content</span>
     <h2 class="section-title">What does the masterclass cover?</h2>
 
-    <h3>Day 1: Understanding and practising Reflexive Thematic Analysis</h3>
-    <p>The first day introduces the foundations of qualitative research before moving into an extended, practical exploration of Reflexive Thematic Analysis.</p>
+    <div class="cover-tabs">
+      <button type="button" class="cover-tab-btn active" id="coverTabBtnDay1" onclick="rtaShowDayTab('Day1', this)">Day 1</button>
+      <button type="button" class="cover-tab-btn" id="coverTabBtnDay2" onclick="rtaShowDayTab('Day2', this)">Day 2</button>
+    </div>
 
-    <h3 style="margin-top:1.25rem;">Understanding qualitative research and meaning-making</h3>
-    <p>We'll begin by exploring the core principles of qualitative research, with particular attention to meaning, interpretation and the different layers of meaning that researchers can explore within their data.</p>
+    <div class="cover-tab-panel active" id="coverTabDay1">
+      <h3>Understanding and practising Reflexive Thematic Analysis</h3>
+      <p>The first day introduces the foundations of qualitative research before moving into an extended, practical exploration of Reflexive Thematic Analysis.</p>
 
-    <h3 style="margin-top:1.25rem;">Introducing Reflexive Thematic Analysis</h3>
-    <p>You'll be introduced to the key concepts underpinning Reflexive Thematic Analysis, including the active role of the researcher in developing interpretations and constructing themes.</p>
+      <h3 style="margin-top:1.25rem;">Understanding qualitative research and meaning-making</h3>
+      <p>We'll begin by exploring the core principles of qualitative research, with particular attention to meaning, interpretation and the different layers of meaning that researchers can explore within their data.</p>
 
-    <h3 style="margin-top:1.25rem;">Working through the analytical process</h3>
-    <p>The main focus of Day 1 is a step-by-step exploration of the analytical process, combining expert demonstrations with practical activities using a sample dataset. You'll work through:</p>
-    <ul class="prog-list">
-      <li>Familiarising yourself with the data.</li>
-      <li>Generating initial codes.</li>
-      <li>Constructing candidate themes.</li>
-      <li>Reviewing and refining themes.</li>
-      <li>Developing and naming themes.</li>
-      <li>Moving towards an analytical account of the data.</li>
-    </ul>
-    <p>Throughout the day, Claire will demonstrate the analytical process using examples from her own research, showing how interpretations and themes develop through sustained engagement with data.</p>
-    <p style="margin-bottom:0;">You'll then have opportunities to apply what you've learned through guided activities, discussion and reflection.</p>
+      <h3 style="margin-top:1.25rem;">Introducing Reflexive Thematic Analysis</h3>
+      <p>You'll be introduced to the key concepts underpinning Reflexive Thematic Analysis, including the active role of the researcher in developing interpretations and constructing themes.</p>
 
-    <h3>Day 2: Deepening your theoretical and analytical understanding</h3>
-    <p>Day 2 builds on the practical work undertaken on Day 1, exploring the theoretical foundations and methodological considerations that inform qualitative analysis.</p>
+      <h3 style="margin-top:1.25rem;">Working through the analytical process</h3>
+      <p>The main focus of Day 1 is a step-by-step exploration of the analytical process, combining expert demonstrations with practical activities using a sample dataset. You'll work through:</p>
+      <ul class="prog-list">
+        <li>Familiarising yourself with the data.</li>
+        <li>Generating initial codes.</li>
+        <li>Constructing candidate themes.</li>
+        <li>Reviewing and refining themes.</li>
+        <li>Developing and naming themes.</li>
+        <li>Moving towards an analytical account of the data.</li>
+      </ul>
+      <p>Throughout the day, Claire will demonstrate the analytical process using examples from her own research, showing how interpretations and themes develop through sustained engagement with data.</p>
+      <p style="margin-bottom:0;">You'll then have opportunities to apply what you've learned through guided activities, discussion and reflection.</p>
+    </div>
 
-    <h3 style="margin-top:1.25rem;">Theoretical perspectives and knowledge generation</h3>
-    <p>Explore the relationship between ontology, epistemology and qualitative research practice, including essentialist, contextualist and constructionist perspectives. You'll consider how different theoretical assumptions influence the questions researchers ask, how they engage with data and the interpretations they develop.</p>
+    <div class="cover-tab-panel" id="coverTabDay2">
+      <h3>Deepening your theoretical and analytical understanding</h3>
+      <p>Day 2 builds on the practical work undertaken on Day 1, exploring the theoretical foundations and methodological considerations that inform qualitative analysis.</p>
 
-    <h3 style="margin-top:1.25rem;">Understanding the thematic analysis family</h3>
-    <p>Not all approaches to thematic analysis are the same. We'll examine the distinctions between Reflexive Thematic Analysis, codebook thematic analysis and coding reliability approaches, including their different assumptions about coding, themes and the researcher's role.</p>
+      <h3 style="margin-top:1.25rem;">Theoretical perspectives and knowledge generation</h3>
+      <p>Explore the relationship between ontology, epistemology and qualitative research practice, including essentialist, contextualist and constructionist perspectives. You'll consider how different theoretical assumptions influence the questions researchers ask, how they engage with data and the interpretations they develop.</p>
 
-    <h3 style="margin-top:1.25rem;">Researcher subjectivity and reflexivity</h3>
-    <p>Explore why researcher subjectivity is understood as a resource within Reflexive Thematic Analysis, rather than simply a source of bias. We'll consider the role of reflexivity throughout the research process and how researchers can engage critically with their own assumptions, perspectives and analytical decisions.</p>
+      <h3 style="margin-top:1.25rem;">Understanding the thematic analysis family</h3>
+      <p>Not all approaches to thematic analysis are the same. We'll examine the distinctions between Reflexive Thematic Analysis, codebook thematic analysis and coding reliability approaches, including their different assumptions about coding, themes and the researcher's role.</p>
 
-    <h3 style="margin-top:1.25rem;">Thematic analysis and other qualitative approaches</h3>
-    <p>We'll examine how thematic analysis relates to other qualitative approaches, including discourse analysis, grounded theory and Interpretative Phenomenological Analysis (IPA).</p>
+      <h3 style="margin-top:1.25rem;">Researcher subjectivity and reflexivity</h3>
+      <p>Explore why researcher subjectivity is understood as a resource within Reflexive Thematic Analysis, rather than simply a source of bias. We'll consider the role of reflexivity throughout the research process and how researchers can engage critically with their own assumptions, perspectives and analytical decisions.</p>
 
-    <h3 style="margin-top:1.25rem;">Working with different forms of qualitative data</h3>
-    <p style="margin-bottom:0;">Finally, we'll explore how thematic analysis can be applied beyond traditional interview and focus group transcripts, including visual and multimodal data such as images and webpages.</p>
+      <h3 style="margin-top:1.25rem;">Thematic analysis and other qualitative approaches</h3>
+      <p>We'll examine how thematic analysis relates to other qualitative approaches, including discourse analysis, grounded theory and Interpretative Phenomenological Analysis (IPA).</p>
+
+      <h3 style="margin-top:1.25rem;">Working with different forms of qualitative data</h3>
+      <p style="margin-bottom:0;">Finally, we'll explore how thematic analysis can be applied beyond traditional interview and focus group transcripts, including visual and multimodal data such as images and webpages.</p>
+    </div>
   </div>
 </section>
 
@@ -651,6 +681,13 @@
     if (!isOpen) {
       accordion.classList.add('open');
     }
+  }
+
+  function rtaShowDayTab(day, btn) {
+    document.querySelectorAll('.cover-tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.cover-tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById('coverTab' + day).classList.add('active');
+    btn.classList.add('active');
   }
 
   function playRtaVideo() {
