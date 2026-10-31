@@ -212,6 +212,69 @@
     font-size: 0.9rem; margin: 0.25rem 0 0;
   }
 
+  /* ── FAQ ── */
+  .rc-faq { background: var(--warm-white); padding: 5rem 2rem; }
+  .rc-faq-inner { max-width: 760px; margin: 0 auto; }
+  .faq-accordion { margin-bottom: 0.75rem; }
+  .faq-accordion-trigger,
+  .faq-accordion-trigger:focus,
+  .faq-accordion-trigger:focus-visible,
+  .faq-accordion-trigger:active {
+    width: 100%;
+    background: #fff !important;
+    color: inherit;
+    border: 1.5px solid var(--border) !important;
+    border-radius: 12px;
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    white-space: normal !important;
+  }
+  .faq-accordion-trigger:hover {
+    border-color: var(--mid-blue, #4a6fa5) !important;
+    background: var(--warm-white) !important;
+    box-shadow: 0 4px 14px rgba(26,39,68,0.06);
+  }
+  .faq-accordion.open .faq-accordion-trigger {
+    border-color: var(--navy) !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background: var(--navy) !important;
+  }
+  .faq-accordion-question {
+    font-size: 0.95rem; font-weight: 500; color: var(--navy);
+    line-height: 1.5; transition: color 0.2s;
+    flex: 1; min-width: 0;
+  }
+  .faq-accordion.open .faq-accordion-question { color: #fff !important; }
+  .faq-accordion-icon {
+    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s; background: var(--cream);
+  }
+  .faq-accordion.open .faq-accordion-icon {
+    background: var(--mid-blue, #4a6fa5) !important; border-color: var(--mid-blue, #4a6fa5) !important;
+    transform: rotate(45deg);
+  }
+  .faq-accordion-icon svg { width: 10px; height: 10px; stroke: var(--muted); stroke-width: 2.5; fill: none; transition: stroke 0.2s; }
+  .faq-accordion.open .faq-accordion-icon svg { stroke: #fff !important; }
+  .faq-accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+  .faq-accordion.open .faq-accordion-body { max-height: 500px; }
+  .faq-accordion-content {
+    background: #fff; border: 1.5px solid var(--navy); border-top: none;
+    border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+    padding: 1.1rem 1.5rem 1.3rem;
+  }
+  .faq-accordion-content p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin: 0 0 0.6rem; }
+  .faq-accordion-content p:last-child { margin-bottom: 0; }
+  .faq-accordion-content a { color: var(--navy); font-weight: 500; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 1024px) {
     .rc-grid { grid-template-columns: 1fr 1fr; }
@@ -221,7 +284,7 @@
   }
   @media (max-width: 700px) {
     .page-hero { padding: 3.5rem 1.25rem; }
-    .rc-intro, .rc-includes, .rc-plans, .cta-section { padding: 3.5rem 1.25rem; }
+    .rc-intro, .rc-includes, .rc-plans, .cta-section, .rc-faq { padding: 3.5rem 1.25rem; }
     .rc-grid { grid-template-columns: 1fr; }
     .rc-perks { gap: 0.4rem; }
   }
@@ -315,6 +378,130 @@
     <div class="rc-plans-cta">
       <a href="#" class="btn-outline-white" onclick="openTRCModal(event)">Enquire now</a>
       <p class="rc-plans-note">Returning members save $150.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="rc-faq">
+  <div class="rc-faq-inner">
+    <span class="section-label">FAQs</span>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rcToggleAccordion(this)">
+        <span class="faq-accordion-question">How is The Research Circle different from attending a masterclass?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>A masterclass provides focused training in a particular area of qualitative research. The Research Circle combines access to all individual training with ongoing opportunities to apply that learning to your own research.</p>
+          <p>Through individual coaching, monthly sessions and peer connection, you can revisit questions, work through new challenges and receive support as your project develops.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rcToggleAccordion(this)">
+        <span class="faq-accordion-question">Do I need to be at a particular stage of my research?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>No. Members may be developing a research proposal, collecting data, undertaking analysis or writing up their findings.</p>
+          <p>The support you access can be tailored to the questions and challenges relevant to your stage of research.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rcToggleAccordion(this)">
+        <span class="faq-accordion-question">Is The Research Circle suitable for experienced researchers?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Absolutely. Many Research Circle members are experienced academics and researchers who bring substantial expertise to their work.</p>
+          <p>The Research Circle provides a valuable space to critically explore complex methodological and analytical decisions, develop expertise in new approaches and gain fresh perspectives from fellow researchers. Even experienced researchers benefit from having a trusted space to test ideas, navigate challenges and strengthen the quality of their work.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rcToggleAccordion(this)">
+        <span class="faq-accordion-question">What training is included?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Your membership includes access to all individual Qualitative Research Institute training programs, including Essentials of Qualitative Research and our masterclasses in Research Design, Reflexive Thematic Analysis and Using AI in Qualitative Research.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rcToggleAccordion(this)">
+        <span class="faq-accordion-question">Do I need to attend every live session?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>No. Participation is flexible, and live group sessions are recorded.</p>
+          <p>You can engage with the sessions and resources that are most relevant to your research and commitments.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rcToggleAccordion(this)">
+        <span class="faq-accordion-question">How does individual coaching work?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Members receive quarterly individual research coaching sessions with Claire.</p>
+          <p>You can share questions or materials in advance so the session focuses on your particular research needs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rcToggleAccordion(this)">
+        <span class="faq-accordion-question">Can I join if I live outside Australia?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Absolutely. The Research Circle welcomes researchers from around the world.</p>
+          <p>Monthly group sessions are scheduled in Australian Eastern Standard Time, with recordings available for members in other time zones. Individual 1:1 coaching sessions can be arranged flexibly to accommodate different time zones.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rcToggleAccordion(this)">
+        <span class="faq-accordion-question">Can I credit a course fee towards membership?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Yes. If you join The Research Circle within two weeks of attending one of our masterclasses, your masterclass fee will be credited towards your membership.</p>
+          <p>For Essentials of Qualitative Research, the same offer applies within two weeks of completing the course.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-accordion">
+      <button type="button" class="faq-accordion-trigger" onclick="rcToggleAccordion(this)">
+        <span class="faq-accordion-question">What if I'm unsure whether The Research Circle is right for me?</span>
+        <span class="faq-accordion-icon"><svg viewBox="0 0 12 12"><line x1="6" y1="1" x2="6" y2="11"></line><line x1="1" y1="6" x2="11" y2="6"></line></svg></span>
+      </button>
+      <div class="faq-accordion-body">
+        <div class="faq-accordion-content">
+          <p>Book a short, no-obligation conversation with Claire to discuss your research needs, ask questions and explore whether The Research Circle is the right fit for you.</p>
+          <p><a href="#" onclick="openTRCModal(event)">Book a conversation with Claire</a></p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -456,6 +643,17 @@
 </div>
 
 <script>
+  function rcToggleAccordion(trigger) {
+    const accordion = trigger.closest('.faq-accordion');
+    const isOpen = accordion.classList.contains('open');
+    document.querySelectorAll('.faq-accordion.open').forEach(function(a) {
+      a.classList.remove('open');
+    });
+    if (!isOpen) {
+      accordion.classList.add('open');
+    }
+  }
+
   // reCAPTCHA v3 — generates a token for the given action, injects it into the
   // Elementor form's reCAPTCHA field as a hidden input, then submits. Triggering
   // Elementor's own submit handler directly does not reliably wait for its
