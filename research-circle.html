@@ -212,6 +212,91 @@
     font-size: 0.9rem; margin: 0.25rem 0 0;
   }
 
+  /* ── SPLIT (text + image) SECTIONS ── */
+  .rc-split-section { padding: 5rem 2rem; }
+  .rc-split-section:nth-of-type(odd) { background: var(--warm-white); }
+  .rc-split-section:nth-of-type(even) { background: var(--cream); }
+  .split-wrap {
+    max-width: 1040px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: start;
+  }
+  .split-wrap.reverse .split-img { order: 2; }
+  .split-wrap.reverse .split-content { order: 1; }
+  .split-img img {
+    width: 100%; height: auto; aspect-ratio: 4 / 3;
+    object-fit: cover; object-position: center 30%;
+    border-radius: 10px; display: block;
+    box-shadow: 0 12px 40px rgba(26,39,68,0.12);
+  }
+  .split-content { max-width: 100%; text-align: left; }
+  .split-content .section-label, .split-content .section-title { text-align: left; }
+  .split-heading { max-width: 1040px; margin: 0 auto 2rem; text-align: left; }
+  @media (max-width: 800px) {
+    .split-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+    .split-wrap .split-img { order: 1 !important; }
+    .split-wrap .split-content { order: 2 !important; }
+  }
+
+  .rc-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1rem; }
+  .rc-list li {
+    font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--text);
+    display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.6;
+  }
+  .rc-list li::before { content: '→'; color: var(--mid-blue); flex-shrink: 0; font-weight: 500; margin-top: 0.1rem; }
+  .rc-split-section p { font-family: 'Inter', sans-serif; color: var(--muted); margin-bottom: 1rem; line-height: 1.85; }
+
+  .rc-gain-grid, .rc-included-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+    text-align: left;
+  }
+  .rc-gain-card, .rc-included-card {
+    background: var(--warm-white); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.75rem;
+  }
+  .rc-split-section:nth-of-type(even) .rc-gain-card,
+  .rc-split-section:nth-of-type(even) .rc-included-card { background: #fff; }
+  .rc-gain-card h3, .rc-included-card h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+  .rc-gain-card p, .rc-included-card p { font-size: 0.92rem; margin-bottom: 0.75rem; }
+  .rc-included-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+  .rc-included-card ul li {
+    font-family: 'Inter', sans-serif; font-size: 0.88rem; color: var(--text);
+    display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.55;
+  }
+  .rc-included-card ul li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+  @media (max-width: 700px) {
+    .rc-gain-grid, .rc-included-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── FACILITATOR ── */
+  .rc-facilitator-name { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; }
+
+  /* ── TESTIMONIALS ── */
+  .rc-testi-section { background: var(--navy); color: #fff; padding: 5rem 2rem; }
+  .rc-testi-header { max-width: 680px; margin: 0 auto 3rem; text-align: center; }
+  .rc-testi-header .section-title { color: #fff; }
+  .rc-testi-header p { font-family: 'Inter', sans-serif; color: rgba(255,255,255,0.7); }
+  .rc-testi-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem;
+    max-width: 1080px; margin: 0 auto;
+  }
+  .rc-testi-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px; padding: 1.75rem;
+  }
+  .rc-testi-card p {
+    font-family: 'Inter', sans-serif; font-style: italic; font-size: 0.9rem;
+    color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 1.1rem;
+  }
+  .rc-testi-card strong { display: block; font-size: 0.85rem; color: #fff; font-weight: 600; }
+  .rc-testi-card span { font-size: 0.78rem; color: rgba(255,255,255,0.55); }
+  .rc-testi-more { text-align: center; margin-top: 2.5rem; }
+  .rc-testi-more a { color: var(--gold); font-weight: 500; text-decoration: none; }
+  .rc-testi-more a:hover { text-decoration: underline; }
+  @media (max-width: 700px) {
+    .rc-testi-grid { grid-template-columns: 1fr; }
+  }
+
   /* ── FAQ ── */
   .rc-faq { background: var(--warm-white); padding: 5rem 2rem; }
   .rc-faq-inner { max-width: 760px; margin: 0 auto; }
@@ -297,62 +382,197 @@
   <div class="page-hero-inner">
     <span class="page-hero-eyebrow">Year-round membership</span>
     <h1>The <em>Research Circle</em></h1>
-    <p>Your ongoing research home — expert support, sustained momentum, and a genuine sense of community, all year round.</p>
+    <p>Your ongoing research home — expert guidance, sustained momentum and a genuine sense of community.</p>
+    <p style="margin-top:1rem;">A 6- or 12-month membership for researchers who want more than a single course. Access all Qualitative Research Institute training, personalised research support and a community of fellow researchers as you navigate the challenges of qualitative research.</p>
+    <a href="#join" class="btn-primary" style="margin-top:1.75rem; padding: 0.8rem 2rem; font-size: 0.9rem;">View membership options →</a>
   </div>
 </section>
 
-<!-- INTRO -->
-<section class="rc-intro">
-  <div class="container">
-    <div class="rc-centered">
-      <span class="rc-label">What it is</span>
-      <h2>A community built around your research</h2>
-      <p class="subtitle">For researchers who want more than a single course</p>
-      <p>A 6- or 12-month membership for researchers who want expert support, sustained momentum, and a genuine sense of community — beyond what any single course can offer. All individual training programs are included, alongside ongoing guidance as your project evolves.</p>
-      <div class="rc-perks">
-        <span class="rc-perk">All training included</span>
-        <span class="rc-perk">1:1 &amp; expert support</span>
-        <span class="rc-perk">Monthly Q&amp;A + momentum sessions</span>
-        <span class="rc-perk">Community &amp; connection</span>
+<!-- WHO IS THIS FOR -->
+<section class="rc-split-section">
+  <div class="split-heading">
+    <span class="section-label">Who it's for</span>
+    <h2 class="section-title">Who is The Research Circle for?</h2>
+  </div>
+  <div class="split-wrap">
+    <div class="split-img">
+      <img src="https://drive.google.com/uc?export=view&id=1TqVZkFL0VPiyalo86VdIwhDT6rNJp7Pt" alt="The Research Circle membership">
+    </div>
+    <div class="split-content">
+      <p>The Research Circle is designed for researchers who want to strengthen their skills, make confident methodological decisions and maintain momentum throughout their research.</p>
+      <p>It may be particularly valuable if you:</p>
+      <ul class="rc-list">
+        <li>Are undertaking a PhD or other higher degree by research.</li>
+        <li>Are an early career researcher developing your qualitative research expertise.</li>
+        <li>Are an experienced academic or researcher looking to deepen your methodological expertise, explore new approaches or benefit from specialist qualitative research support.</li>
+        <li>Are working independently or without access to specialist qualitative research support.</li>
+        <li>Find yourself second-guessing methodological or analytical decisions.</li>
+        <li>Want opportunities to discuss your research challenges with an experienced qualitative researcher.</li>
+        <li>Are looking for structure, accountability and connection as your research progresses.</li>
+      </ul>
+      <p style="margin-bottom:0;">Whether you're developing your research design, collecting data, working through analysis or writing up your findings, The Research Circle provides support relevant to your stage of research.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL GAIN -->
+<section class="rc-split-section">
+  <div class="split-heading">
+    <span class="section-label">Outcomes</span>
+    <h2 class="section-title">What will you gain?</h2>
+  </div>
+  <div class="split-wrap reverse">
+    <div class="split-img">
+      <img src="https://drive.google.com/uc?export=view&id=11_-qsa9S3kTESVzlj4bnSNRhnb7_sxcM" alt="The Research Circle group training session">
+    </div>
+    <div class="split-content">
+      <div class="rc-gain-grid">
+        <div class="rc-gain-card">
+          <h3>Greater clarity in your research decisions</h3>
+          <p>Work through methodological and analytical questions with expert guidance, helping you make decisions that are appropriate for your research questions, theoretical positioning and methodological approach.</p>
+        </div>
+        <div class="rc-gain-card">
+          <h3>Confidence in the quality of your work</h3>
+          <p>Develop your ability to critically evaluate your research decisions, identify potential gaps and articulate the rationale underpinning your approach.</p>
+        </div>
+        <div class="rc-gain-card">
+          <h3>Sustained research momentum</h3>
+          <p>Build realistic goals, navigate roadblocks and maintain progress through regular opportunities for reflection, planning and accountability.</p>
+        </div>
+        <div class="rc-gain-card">
+          <h3>Support when you need it</h3>
+          <p>Rather than waiting until a problem becomes a major obstacle, bring your questions and challenges to a supportive space where you can explore possible ways forward.</p>
+        </div>
+        <div class="rc-gain-card">
+          <h3>Connection with other researchers</h3>
+          <p style="margin-bottom:0;">Share experiences, exchange ideas and learn alongside researchers who understand the complexities and uncertainties of qualitative research.</p>
+        </div>
       </div>
-      <a href="#join" class="btn-primary" style="padding: 0.8rem 2rem; font-size: 0.9rem;">View membership options →</a>
     </div>
   </div>
 </section>
 
 <!-- WHAT'S INCLUDED -->
-<section class="rc-includes">
-  <div class="container">
-    <div class="rc-includes-header">
-      <span class="section-label">What's included</span>
-      <h2 class="section-title">Everything you need to keep moving forward</h2>
+<section class="rc-split-section">
+  <div class="split-heading">
+    <span class="section-label">What's included</span>
+    <h2 class="section-title">What's included in your membership?</h2>
+  </div>
+  <div class="split-wrap">
+    <div class="split-img">
+      <img src="https://drive.google.com/uc?export=view&id=10XN0zhSNXmLBTHpExFe2PnVYSVlHXvC-" alt="Online Research Circle session">
     </div>
-    <div class="rc-grid">
-      <div class="rc-card">
-        <h3>All individual training</h3>
-        <p>Full access to every training program — webinars, essentials, research design, thematic analysis, AI tools, and more.</p>
-      </div>
-      <div class="rc-card">
-        <h3>1:1 expert support</h3>
-        <p>Personalised guidance from Claire whenever you hit a roadblock or need a second opinion on your approach.</p>
-      </div>
-      <div class="rc-card">
-        <h3>Monthly Q&amp;A sessions</h3>
-        <p>Live momentum sessions to ask questions, troubleshoot, and stay accountable to your research goals.</p>
-      </div>
-      <div class="rc-card">
-        <h3>Community &amp; connection</h3>
-        <p>Join a community of like-minded researchers for peer support, discussion, and shared learning.</p>
-      </div>
-      <div class="rc-card">
-        <h3>Ongoing momentum</h3>
-        <p>Stay on track over the long haul with structure, check-ins, and a community that keeps you accountable.</p>
-      </div>
-      <div class="rc-card">
-        <h3>Flexible commitment</h3>
-        <p>Choose a 6- or 12-month membership to suit the stage and pace of your research project.</p>
+    <div class="split-content">
+      <div class="rc-included-grid">
+        <div class="rc-included-card">
+          <h3>All Qualitative Research Institute training</h3>
+          <p>Access our complete range of individual training programs throughout your membership, including:</p>
+          <ul>
+            <li>Essentials of Qualitative Research — build a strong foundation in qualitative research principles and practices.</li>
+            <li>Qualitative Research Design Masterclass — strengthen the methodological coherence of your research.</li>
+            <li>Reflexive Thematic Analysis Masterclass — develop your skills in Braun and Clarke's approach to thematic analysis.</li>
+            <li>Using AI in Qualitative Research Masterclass — explore the critical, ethical and methodologically defensible use of AI in qualitative research.</li>
+          </ul>
+          <p style="margin-top:0.75rem;margin-bottom:0;">Participate in live training where available or access training resources on demand, revisiting relevant material as your research progresses.</p>
+        </div>
+        <div class="rc-included-card">
+          <h3>Individual research coaching</h3>
+          <p>Receive personalised 1:1 guidance from Dr Claire Moran through quarterly research coaching sessions.</p>
+          <p style="margin-bottom:0;">These sessions focus on your own project, whether you need to work through a methodological decision, explore an analytical challenge or plan your next steps.</p>
+        </div>
+        <div class="rc-included-card">
+          <h3>Monthly research Q&amp;A</h3>
+          <p>Bring your questions to a live monthly session dedicated to the methodological and practical challenges researchers encounter.</p>
+          <p style="margin-bottom:0;">Submit questions in advance or raise them during the session, and benefit from discussions about challenges encountered across different research projects.</p>
+        </div>
+        <div class="rc-included-card">
+          <h3>Mindset &amp; Momentum Mapping</h3>
+          <p>Join a monthly session focused on the practical, psychological and strategic dimensions of research.</p>
+          <p style="margin-bottom:0;">Explore strategies for navigating uncertainty, maintaining focus and building confidence, while reflecting on your progress, identifying priorities and planning your next steps.</p>
+        </div>
+        <div class="rc-included-card">
+          <h3>Research resources and support</h3>
+          <p style="margin-bottom:0;">Access a dedicated members' hub containing training materials, curated resources, practical tools and examples to support your research.</p>
+        </div>
+        <div class="rc-included-card">
+          <h3>Research community and connection</h3>
+          <p style="margin-bottom:0;">Connect with fellow members through a dedicated community space, with opportunities to exchange ideas, share experiences and support one another.</p>
+        </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="rc-split-section">
+  <div class="split-wrap reverse">
+    <div class="split-img">
+      <img src="https://drive.google.com/uc?export=view&id=1YsALWrZBVrav2gGIGZeGX4FBzMtr6HTs" alt="Research Circle training in action">
+    </div>
+    <div class="split-content">
+      <span class="section-label">How it works</span>
+      <h2 class="section-title">How does The Research Circle work?</h2>
+      <p>The Research Circle combines structured opportunities for learning and reflection with flexible support that fits around your research commitments.</p>
+      <p>Each month, you'll have access to a live research Q&amp;A and a Mindset &amp; Momentum Mapping session. Individual research coaching provides dedicated time to focus on your own project, while the members' hub and community offer ongoing access to resources and peer connection.</p>
+      <p>Live group sessions are recorded, so you can catch up when you cannot attend.</p>
+      <p style="margin-bottom:0;">Your membership runs for either six or twelve months, giving you the flexibility to choose the level of ongoing support that suits your research.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITATOR -->
+<section class="rc-split-section">
+  <div class="split-wrap">
+    <div class="split-img">
+      <img src="https://drive.google.com/uc?export=view&id=141_BHQQnP3SHD46Wz6IVEkwghIj44uCg" alt="Dr Claire Moran facilitating training">
+    </div>
+    <div class="split-content">
+      <span class="section-label">Your facilitator</span>
+      <h2 class="section-title">Meet your facilitator</h2>
+      <div class="rc-facilitator-name">Dr Claire Moran</div>
+      <p>Dr Claire Moran is the founder of The Qualitative Research Institute, an experienced qualitative researcher and educator who specialises in making complex methodological concepts accessible, practical and applicable to real research projects.</p>
+      <p>She holds a PhD in Health Psychology from the University of Queensland, where she received the Dean's Award for Outstanding Research Higher Degree Theses.</p>
+      <p style="margin-bottom:0;">Having experienced firsthand the uncertainties and challenges of undertaking research, Claire is passionate about helping researchers develop the skills, confidence and support networks they need to produce high-quality work without navigating every challenge alone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="rc-testi-section">
+  <div class="rc-testi-header">
+    <span class="section-label">Testimonials</span>
+    <h2 class="section-title">Hear from our members</h2>
+    <p>Discover what researchers have to say about their experience of The Research Circle</p>
+  </div>
+  <div class="rc-testi-grid">
+    <div class="rc-testi-card">
+      <p>"I am really loving it so far and am definitely glad I signed up. I am enjoying access to all the training webinars—I joined the live AI session, but I also find the recordings incredibly beneficial because I can pause, reflect, make notes and continue at my own pace. Everything is clear and easy to navigate. I was recently successful in securing a temporary research position leading a qualitative research project, and I definitely think the Research Circle helped me in the interview and will help me undertake the role."</p>
+      <strong>Margie Conley</strong>
+      <span>Senior Renal Dietitian, Princess Alexandra Hospital</span>
+    </div>
+    <div class="rc-testi-card">
+      <p>"The Research Circle has been a real momentum builder for my research. Claire creates a space for thoughtful problem-solving, which has helped me stay focused and avoid going down too many rabbit holes. It's shifted how I work. I now take time to think things through with others, rather than trying to solve everything in isolation."</p>
+      <strong>Dr Robert Urquhart</strong>
+      <span>Head of Knowledge, Outcomes &amp; Research, Barnardos</span>
+    </div>
+    <div class="rc-testi-card">
+      <p>"The Research Circle has given me the one thing we all want more of—time. A fortnightly check-in to maintain momentum, a reminder to align the things I work on with the things I value, and permission to let go of projects that are no longer priorities has helped me reframe my commitments and reconsider where I direct my effort. I feel more focused on the things that matter."</p>
+      <strong>Danielle Arlanda Harris</strong>
+      <span>ARC Future Fellow &amp; Associate Professor, Griffith University</span>
+    </div>
+    <div class="rc-testi-card">
+      <p>"Working with Claire over time has been incredibly valuable—she understands my research context and can see how my thinking is developing. The 1:1 sessions have been invaluable for working through the analysis process and finding clarity in what often feels like the messiest part of research. Being part of the Research Circle has also made a huge difference—you realise you're not the only one navigating these challenges, and that changes how you approach your work."</p>
+      <strong>Bev Babbage</strong>
+      <span>PhD Candidate, Charles Darwin University</span>
+    </div>
+    <div class="rc-testi-card">
+      <p>"The Research Circle has helped me focus on what matters most in my PhD and reduce procrastination and feeling overwhelmed. The combination of group sessions and 1:1 support has been particularly valuable, both for developing practical strategies and gaining an external perspective beyond my advisory group."</p>
+      <strong>Halijah Brewster</strong>
+      <span>PhD Candidate, The University of Queensland</span>
+    </div>
+  </div>
+  <div class="rc-testi-more">
+    <a href="https://thequalitativeresearchinstitute.com/testimonials/" target="_blank">Read more participant testimonials →</a>
   </div>
 </section>
 
@@ -362,22 +582,23 @@
     <div class="rc-plans-header">
       <span class="section-label" style="color: var(--gold);">Membership options</span>
       <h2 class="section-title">Choose the term that suits you</h2>
+      <p>Choose the membership term that best suits your research commitments and the level of ongoing support you're looking for.</p>
     </div>
     <div class="rc-plan-grid">
       <div class="rc-plan">
         <h3>6-Month Membership</h3>
         <div class="price">$1,997 AUD <span>+GST</span></div>
-        <p>Ideal for a defined research project.</p>
+        <p>A focused period of training, guidance and support to help you make meaningful progress in your research.</p>
       </div>
       <div class="rc-plan">
         <h3>12-Month Membership</h3>
         <div class="price">$2,997 AUD <span>+GST</span></div>
-        <p>Best value for ongoing research support.</p>
+        <p>Our best-value option for researchers seeking sustained guidance, professional development and connection throughout the year.</p>
       </div>
     </div>
     <div class="rc-plans-cta">
-      <a href="#" class="btn-outline-white" onclick="openTRCModal(event)">Enquire now</a>
-      <p class="rc-plans-note">Returning members save $150.</p>
+      <a href="#" class="btn-outline-white" onclick="openTRCModal(event)">Enquire about membership</a>
+      <p class="rc-plans-note">Returning members receive a $150 discount.</p>
     </div>
   </div>
 </section>
@@ -499,7 +720,7 @@
       <div class="faq-accordion-body">
         <div class="faq-accordion-content">
           <p>Book a short, no-obligation conversation with Claire to discuss your research needs, ask questions and explore whether The Research Circle is the right fit for you.</p>
-          <p><a href="#" onclick="openTRCModal(event)">Book a conversation with Claire</a></p>
+          <p><a href="https://calendly.com/claire-clairemoran/researchcheckin" target="_blank">Book a conversation with Claire</a></p>
         </div>
       </div>
     </div>
@@ -508,11 +729,11 @@
 
 <!-- CTA -->
 <section class="cta-section">
-  <h2>Ready to join The Research Circle?</h2>
-  <p>Get in touch and Claire will help you find the right membership for your research journey.</p>
+  <h2>Ready to move forward with greater clarity and confidence?</h2>
+  <p>Research can be complex, but you don't have to navigate every decision or challenge on your own. Join The Research Circle for the expert guidance, ongoing learning and supportive community to help you make progress and produce research you're proud of.</p>
   <div class="cta-btns">
     <a href="#" class="btn-primary" onclick="openTRCModal(event)">Get in touch</a>
-    <p class="cta-alt-text">Prefer to start with a single course?</p>
+    <p class="cta-alt-text">Prefer to begin with a single course?</p>
     <a href="/training" class="btn-secondary">Explore individual training</a>
   </div>
 </section>
