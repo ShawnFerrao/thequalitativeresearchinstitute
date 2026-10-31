@@ -715,6 +715,7 @@
     const overlay = document.getElementById('rtaVideoOverlay');
     video.controls = true;
     overlay.classList.add('hidden');
+    video.currentTime = 0;
     video.play();
   }
 </script>
