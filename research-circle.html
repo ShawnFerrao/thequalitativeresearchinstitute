@@ -250,6 +250,22 @@
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
     text-align: left;
   }
+  .rc-included-grid { grid-template-columns: repeat(3, 1fr); }
+  .rc-full-wrap { max-width: 1040px; margin: 0 auto; }
+  .rc-banner-img { margin-top: 2.5rem; }
+  .rc-banner-img img {
+    width: 100%; height: auto; aspect-ratio: 21 / 9;
+    object-fit: cover; object-position: center center;
+    border-radius: 10px; display: block;
+    box-shadow: 0 12px 40px rgba(26,39,68,0.12);
+  }
+  @media (max-width: 900px) {
+    .rc-included-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .rc-included-grid { grid-template-columns: 1fr; }
+    .rc-banner-img img { aspect-ratio: 4 / 3; }
+  }
   .rc-gain-card, .rc-included-card {
     background: var(--warm-white); border: 1px solid var(--border);
     border-radius: 8px; padding: 1.75rem;
@@ -458,47 +474,45 @@
     <span class="section-label">What's included</span>
     <h2 class="section-title">What's included in your membership?</h2>
   </div>
-  <div class="split-wrap">
-    <div class="split-img">
-      <img src="https://drive.google.com/uc?export=view&id=10XN0zhSNXmLBTHpExFe2PnVYSVlHXvC-" alt="Online Research Circle session">
-    </div>
-    <div class="split-content">
-      <div class="rc-included-grid">
-        <div class="rc-included-card">
-          <h3>All Qualitative Research Institute training</h3>
-          <p>Access our complete range of individual training programs throughout your membership, including:</p>
-          <ul>
-            <li>Essentials of Qualitative Research — build a strong foundation in qualitative research principles and practices.</li>
-            <li>Qualitative Research Design Masterclass — strengthen the methodological coherence of your research.</li>
-            <li>Reflexive Thematic Analysis Masterclass — develop your skills in Braun and Clarke's approach to thematic analysis.</li>
-            <li>Using AI in Qualitative Research Masterclass — explore the critical, ethical and methodologically defensible use of AI in qualitative research.</li>
-          </ul>
-          <p style="margin-top:0.75rem;margin-bottom:0;">Participate in live training where available or access training resources on demand, revisiting relevant material as your research progresses.</p>
-        </div>
-        <div class="rc-included-card">
-          <h3>Individual research coaching</h3>
-          <p>Receive personalised 1:1 guidance from Dr Claire Moran through quarterly research coaching sessions.</p>
-          <p style="margin-bottom:0;">These sessions focus on your own project, whether you need to work through a methodological decision, explore an analytical challenge or plan your next steps.</p>
-        </div>
-        <div class="rc-included-card">
-          <h3>Monthly research Q&amp;A</h3>
-          <p>Bring your questions to a live monthly session dedicated to the methodological and practical challenges researchers encounter.</p>
-          <p style="margin-bottom:0;">Submit questions in advance or raise them during the session, and benefit from discussions about challenges encountered across different research projects.</p>
-        </div>
-        <div class="rc-included-card">
-          <h3>Mindset &amp; Momentum Mapping</h3>
-          <p>Join a monthly session focused on the practical, psychological and strategic dimensions of research.</p>
-          <p style="margin-bottom:0;">Explore strategies for navigating uncertainty, maintaining focus and building confidence, while reflecting on your progress, identifying priorities and planning your next steps.</p>
-        </div>
-        <div class="rc-included-card">
-          <h3>Research resources and support</h3>
-          <p style="margin-bottom:0;">Access a dedicated members' hub containing training materials, curated resources, practical tools and examples to support your research.</p>
-        </div>
-        <div class="rc-included-card">
-          <h3>Research community and connection</h3>
-          <p style="margin-bottom:0;">Connect with fellow members through a dedicated community space, with opportunities to exchange ideas, share experiences and support one another.</p>
-        </div>
+  <div class="rc-full-wrap">
+    <div class="rc-included-grid">
+      <div class="rc-included-card">
+        <h3>All Qualitative Research Institute training</h3>
+        <p>Access our complete range of individual training programs throughout your membership, including:</p>
+        <ul>
+          <li>Essentials of Qualitative Research — build a strong foundation in qualitative research principles and practices.</li>
+          <li>Qualitative Research Design Masterclass — strengthen the methodological coherence of your research.</li>
+          <li>Reflexive Thematic Analysis Masterclass — develop your skills in Braun and Clarke's approach to thematic analysis.</li>
+          <li>Using AI in Qualitative Research Masterclass — explore the critical, ethical and methodologically defensible use of AI in qualitative research.</li>
+        </ul>
+        <p style="margin-top:0.75rem;margin-bottom:0;">Participate in live training where available or access training resources on demand, revisiting relevant material as your research progresses.</p>
       </div>
+      <div class="rc-included-card">
+        <h3>Individual research coaching</h3>
+        <p>Receive personalised 1:1 guidance from Dr Claire Moran through quarterly research coaching sessions.</p>
+        <p style="margin-bottom:0;">These sessions focus on your own project, whether you need to work through a methodological decision, explore an analytical challenge or plan your next steps.</p>
+      </div>
+      <div class="rc-included-card">
+        <h3>Monthly research Q&amp;A</h3>
+        <p>Bring your questions to a live monthly session dedicated to the methodological and practical challenges researchers encounter.</p>
+        <p style="margin-bottom:0;">Submit questions in advance or raise them during the session, and benefit from discussions about challenges encountered across different research projects.</p>
+      </div>
+      <div class="rc-included-card">
+        <h3>Mindset &amp; Momentum Mapping</h3>
+        <p>Join a monthly session focused on the practical, psychological and strategic dimensions of research.</p>
+        <p style="margin-bottom:0;">Explore strategies for navigating uncertainty, maintaining focus and building confidence, while reflecting on your progress, identifying priorities and planning your next steps.</p>
+      </div>
+      <div class="rc-included-card">
+        <h3>Research resources and support</h3>
+        <p style="margin-bottom:0;">Access a dedicated members' hub containing training materials, curated resources, practical tools and examples to support your research.</p>
+      </div>
+      <div class="rc-included-card">
+        <h3>Research community and connection</h3>
+        <p style="margin-bottom:0;">Connect with fellow members through a dedicated community space, with opportunities to exchange ideas, share experiences and support one another.</p>
+      </div>
+    </div>
+    <div class="rc-banner-img">
+      <img src="https://drive.google.com/uc?export=view&id=10XN0zhSNXmLBTHpExFe2PnVYSVlHXvC-" alt="Online Research Circle session">
     </div>
   </div>
 </section>
