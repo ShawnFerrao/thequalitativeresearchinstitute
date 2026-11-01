@@ -251,6 +251,8 @@
     text-align: left;
   }
   .rc-included-grid { grid-template-columns: repeat(3, 1fr); }
+  .rc-gain-grid-top { grid-template-columns: repeat(2, 1fr); }
+  .rc-gain-grid-bottom { grid-template-columns: repeat(3, 1fr); margin-top: 1.5rem; }
   .rc-full-wrap { max-width: 1040px; margin: 0 auto; }
   .rc-banner-img { margin-top: 2.5rem; }
   .rc-banner-img img {
@@ -281,7 +283,7 @@
   }
   .rc-included-card ul li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
   @media (max-width: 700px) {
-    .rc-gain-grid, .rc-included-grid { grid-template-columns: 1fr; }
+    .rc-gain-grid, .rc-included-grid, .rc-gain-grid-top, .rc-gain-grid-bottom { grid-template-columns: 1fr; }
   }
 
   /* ── FACILITATOR ── */
@@ -442,27 +444,31 @@
       <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/11/G-F2F-5.jpg" alt="The Research Circle group training session">
     </div>
     <div class="split-content">
-      <div class="rc-gain-grid">
+      <div class="rc-gain-grid rc-gain-grid-top">
         <div class="rc-gain-card">
           <h3>Greater clarity in your research decisions</h3>
-          <p>Work through methodological and analytical questions with expert guidance, helping you make decisions that are appropriate for your research questions, theoretical positioning and methodological approach.</p>
+          <p style="margin-bottom:0;">Work through methodological and analytical questions with expert guidance, helping you make decisions that are appropriate for your research questions, theoretical positioning and methodological approach.</p>
         </div>
         <div class="rc-gain-card">
           <h3>Confidence in the quality of your work</h3>
-          <p>Develop your ability to critically evaluate your research decisions, identify potential gaps and articulate the rationale underpinning your approach.</p>
+          <p style="margin-bottom:0;">Develop your ability to critically evaluate your research decisions, identify potential gaps and articulate the rationale underpinning your approach.</p>
         </div>
-        <div class="rc-gain-card">
-          <h3>Sustained research momentum</h3>
-          <p>Build realistic goals, navigate roadblocks and maintain progress through regular opportunities for reflection, planning and accountability.</p>
-        </div>
-        <div class="rc-gain-card">
-          <h3>Support when you need it</h3>
-          <p>Rather than waiting until a problem becomes a major obstacle, bring your questions and challenges to a supportive space where you can explore possible ways forward.</p>
-        </div>
-        <div class="rc-gain-card">
-          <h3>Connection with other researchers</h3>
-          <p style="margin-bottom:0;">Share experiences, exchange ideas and learn alongside researchers who understand the complexities and uncertainties of qualitative research.</p>
-        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rc-full-wrap">
+    <div class="rc-gain-grid rc-gain-grid-bottom">
+      <div class="rc-gain-card">
+        <h3>Sustained research momentum</h3>
+        <p style="margin-bottom:0;">Build realistic goals, navigate roadblocks and maintain progress through regular opportunities for reflection, planning and accountability.</p>
+      </div>
+      <div class="rc-gain-card">
+        <h3>Support when you need it</h3>
+        <p style="margin-bottom:0;">Rather than waiting until a problem becomes a major obstacle, bring your questions and challenges to a supportive space where you can explore possible ways forward.</p>
+      </div>
+      <div class="rc-gain-card">
+        <h3>Connection with other researchers</h3>
+        <p style="margin-bottom:0;">Share experiences, exchange ideas and learn alongside researchers who understand the complexities and uncertainties of qualitative research.</p>
       </div>
     </div>
   </div>
