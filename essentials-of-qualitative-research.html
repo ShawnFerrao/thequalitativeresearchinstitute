@@ -165,6 +165,28 @@
   /* ── FACILITATOR ── */
   .facilitator-name { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin-bottom: 0.25rem; }
 
+  /* ── SPLIT (text + image) SECTIONS ── */
+  .split-wrap {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: start;
+  }
+  .split-wrap.reverse .split-img { order: 2; }
+  .split-wrap.reverse .split-content { order: 1; }
+  .split-img img {
+    width: 100%; height: auto; aspect-ratio: 4 / 3;
+    object-fit: cover; object-position: center 30%;
+    border-radius: 10px; display: block;
+    box-shadow: 0 12px 40px rgba(26,39,68,0.12);
+  }
+  .split-content { max-width: 100%; }
+  .split-heading { max-width: 900px; margin: 0 auto 2rem; }
+  @media (max-width: 800px) {
+    .split-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+    .split-wrap .split-img { order: 1 !important; }
+    .split-wrap .split-content { order: 2 !important; }
+  }
+
   /* ── FAQ ── */
   .faq-accordion { margin-bottom: 0.75rem; }
   .faq-accordion-trigger,
@@ -259,31 +281,45 @@
 
 <!-- INTRO -->
 <section class="workshop-section">
-  <div class="workshop-inner">
+  <div class="split-heading">
     <span class="section-label">Overview</span>
     <h2 class="section-title">Build the knowledge and confidence to navigate qualitative research</h2>
-    <p>Qualitative research offers powerful ways to explore people's experiences, perspectives and the meanings they make of the world. But if you're new to qualitative research, the concepts, terminology and methodological choices can feel overwhelming.</p>
-    <p>Where do you begin? How does qualitative research differ from quantitative research? What counts as qualitative data? And how do you move from collecting data to developing meaningful interpretations?</p>
-    <p>In this comprehensive, self-paced course, Dr Claire Moran guides you through the essential foundations of qualitative research, combining clear explanations with practical examples and guided learning activities.</p>
-    <p>You'll explore the principles that underpin qualitative research, learn about different approaches to generating and analysing data, and develop an understanding of how research questions, theoretical perspectives and methodological decisions fit together.</p>
-    <p style="margin-bottom:0;">Designed to be accessible, engaging and practical, this course will help you build the knowledge and confidence to take your next steps in qualitative research.</p>
+  </div>
+  <div class="split-wrap">
+    <div class="split-img">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/11/Action-Shot-4-scaled.jpg" alt="Essentials of Qualitative Research course">
+    </div>
+    <div class="split-content">
+      <p>Qualitative research offers powerful ways to explore people's experiences, perspectives and the meanings they make of the world. But if you're new to qualitative research, the concepts, terminology and methodological choices can feel overwhelming.</p>
+      <p>Where do you begin? How does qualitative research differ from quantitative research? What counts as qualitative data? And how do you move from collecting data to developing meaningful interpretations?</p>
+      <p>In this comprehensive, self-paced course, Dr Claire Moran guides you through the essential foundations of qualitative research, combining clear explanations with practical examples and guided learning activities.</p>
+      <p>You'll explore the principles that underpin qualitative research, learn about different approaches to generating and analysing data, and develop an understanding of how research questions, theoretical perspectives and methodological decisions fit together.</p>
+      <p style="margin-bottom:0;">Designed to be accessible, engaging and practical, this course will help you build the knowledge and confidence to take your next steps in qualitative research.</p>
+    </div>
   </div>
 </section>
 
 <!-- WHO IS THIS FOR -->
 <section class="workshop-section">
-  <div class="workshop-inner">
+  <div class="split-heading">
     <span class="section-label">Who it's for</span>
     <h2 class="section-title">Who is this course for?</h2>
-    <p>Essentials of Qualitative Research is designed for anyone seeking a clear, accessible introduction to qualitative research. It is particularly suited to:</p>
-    <ul class="prog-list">
-      <li>PhD and postgraduate researchers beginning their qualitative research journey.</li>
-      <li>Undergraduate and honours students studying qualitative research for the first time.</li>
-      <li>Academic researchers transitioning from quantitative to qualitative research.</li>
-      <li>Research professionals and practitioners who want to develop foundational qualitative research skills.</li>
-      <li>Anyone seeking to refresh or strengthen their understanding of the principles of qualitative research.</li>
-    </ul>
-    <p style="margin-bottom:0;">No previous experience with qualitative research is required.</p>
+  </div>
+  <div class="split-wrap reverse">
+    <div class="split-img">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/11/Action-Shot-7-1-scaled.jpg" alt="Essentials of Qualitative Research training in action">
+    </div>
+    <div class="split-content">
+      <p>Essentials of Qualitative Research is designed for anyone seeking a clear, accessible introduction to qualitative research. It is particularly suited to:</p>
+      <ul class="prog-list">
+        <li>PhD and postgraduate researchers beginning their qualitative research journey.</li>
+        <li>Undergraduate and honours students studying qualitative research for the first time.</li>
+        <li>Academic researchers transitioning from quantitative to qualitative research.</li>
+        <li>Research professionals and practitioners who want to develop foundational qualitative research skills.</li>
+        <li>Anyone seeking to refresh or strengthen their understanding of the principles of qualitative research.</li>
+      </ul>
+      <p style="margin-bottom:0;">No previous experience with qualitative research is required.</p>
+    </div>
   </div>
 </section>
 
@@ -421,14 +457,19 @@
 
 <!-- FACILITATOR -->
 <section class="workshop-section">
-  <div class="workshop-inner">
-    <span class="section-label">Your facilitator</span>
-    <h2 class="section-title">Meet your facilitator</h2>
-    <div class="facilitator-name">Dr Claire Moran</div>
-    <p>Dr Claire Moran is a qualitative researcher and educator with extensive experience delivering engaging workshops and masterclasses for universities and researchers across Australia and internationally.</p>
-    <p>Claire holds a PhD in Health Psychology from the University of Queensland, where she received the Dean's Award for Outstanding Research Higher Degree Theses.</p>
-    <p>Her teaching brings together methodological knowledge, practical research experience and an engaging, accessible approach to explaining complex concepts.</p>
-    <p style="margin-bottom:0;">Having transitioned from quantitative research into qualitative research during her own academic journey, Claire understands the challenges of learning unfamiliar research approaches and is passionate about making qualitative research accessible to researchers at every stage.</p>
+  <div class="split-wrap">
+    <div class="split-img">
+      <img src="http://thequalitativeresearchinstitute.com/wp-content/uploads/2026/11/Headshot-5-scaled.jpg" alt="Dr Claire Moran">
+    </div>
+    <div class="split-content">
+      <span class="section-label">Your facilitator</span>
+      <h2 class="section-title">Meet your facilitator</h2>
+      <div class="facilitator-name">Dr Claire Moran</div>
+      <p>Dr Claire Moran is a qualitative researcher and educator with extensive experience delivering engaging workshops and masterclasses for universities and researchers across Australia and internationally.</p>
+      <p>Claire holds a PhD in Health Psychology from the University of Queensland, where she received the Dean's Award for Outstanding Research Higher Degree Theses.</p>
+      <p>Her teaching brings together methodological knowledge, practical research experience and an engaging, accessible approach to explaining complex concepts.</p>
+      <p style="margin-bottom:0;">Having transitioned from quantitative research into qualitative research during her own academic journey, Claire understands the challenges of learning unfamiliar research approaches and is passionate about making qualitative research accessible to researchers at every stage.</p>
+    </div>
   </div>
 </section>
 
