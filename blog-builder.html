@@ -689,10 +689,10 @@
     return '<div class="field"><label>' + label + '</label>' + content + '</div>';
   }
   function input(secId, key, val, ph) {
-    return '<input type="text" data-sec="' + secId + '" data-key="' + key + '" value="' + escAttr(val||'') + '" placeholder="' + escAttr(ph) + '" onchange="updateField(this)">';
+    return '<input type="text" draggable="false" data-sec="' + secId + '" data-key="' + key + '" value="' + escAttr(val||'') + '" placeholder="' + escAttr(ph) + '" onchange="updateField(this)">';
   }
   function textarea(secId, key, val, ph, rows) {
-    return '<textarea data-sec="' + secId + '" data-key="' + key + '" rows="' + rows + '" placeholder="' + escAttr(ph) + '" onchange="updateField(this)">' + escHtml(val||'') + '</textarea>';
+    return '<textarea draggable="false" data-sec="' + secId + '" data-key="' + key + '" rows="' + rows + '" placeholder="' + escAttr(ph) + '" onchange="updateField(this)">' + escHtml(val||'') + '</textarea>';
   }
 
   /* ── Rich text editor (text section body) ── */
@@ -740,7 +740,7 @@
       + '<button type="button" class="rte-btn" title="Undo" onmousedown="event.preventDefault()" onclick="rteExec(this,\'undo\')">↶</button>'
       + '<button type="button" class="rte-btn" title="Redo" onmousedown="event.preventDefault()" onclick="rteExec(this,\'redo\')">↷</button>'
       + '</div>'
-      + '<div class="rte-body" id="rte-' + uid + '" contenteditable="true" data-sec="' + secId + '" data-key="' + key + '" data-placeholder="' + escAttr(ph) + '" oninput="rteUpdate(this)">' + (val || '') + '</div>'
+      + '<div class="rte-body" id="rte-' + uid + '" contenteditable="true" draggable="false" data-sec="' + secId + '" data-key="' + key + '" data-placeholder="' + escAttr(ph) + '" oninput="rteUpdate(this)">' + (val || '') + '</div>'
       + '<input type="file" id="rte-file-' + secId + '" accept="*/*" style="display:none" onchange="rteHandleAttachment(this,\'' + secId + '\')">';
   }
 
