@@ -914,6 +914,14 @@
 
   /* ── Drag & Drop ── */
   document.getElementById('sectionList').addEventListener('dragstart', function(e) {
+    // Don't start a card drag when the user is selecting text inside an
+    // editable field (input, textarea, select, or the rich text body) --
+    // otherwise the whole card hijacks the drag instead of letting the
+    // browser select text normally.
+    if (e.target.closest('input, textarea, select, [contenteditable="true"]')) {
+      e.preventDefault();
+      return;
+    }
     var card = e.target.closest('.section-card');
     if (!card) return;
     dragSrc = card.id;
