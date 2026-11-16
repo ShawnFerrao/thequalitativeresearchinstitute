@@ -547,9 +547,9 @@
     const excerpt = stripHTML(post.excerpt?.rendered || '').replace(/\[…\]|\[\.\.\.\]/g, '').trim();
 
     const catPills = cats.map(c =>
-      `<span class="tag-pill ${tagClass(c.name)}">${c.name}</span>`).join('');
+      `<span class="tag-pill ${tagClass(c.name)}">${stripHTML(c.name)}</span>`).join('');
     const tagPills = tags.map(t =>
-      `<span class="tag-pill blog-tag">${t.name}</span>`).join('');
+      `<span class="tag-pill blog-tag">${stripHTML(t.name)}</span>`).join('');
 
     return `
       <a class="post-card" href="${post.link}" target="_blank" rel="noopener">
@@ -614,7 +614,7 @@
       });
       tabs.appendChild(b);
     };
-    cats.forEach(c => addBtn(c.name, `cat:${c.id}`));
+    cats.forEach(c => addBtn(stripHTML(c.name), `cat:${c.id}`));
 
     const allBtn = tabs.querySelector('.filter-btn[data-filter="all"]');
     allBtn.addEventListener('click', () => {
@@ -655,8 +655,8 @@
   function renderCats(cats) {
     const ul = document.getElementById('catList');
     ul.innerHTML = cats.map(c => `
-      <li onclick="filterByCat('${c.id}','${c.name}')">
-        ${c.name} <span>${c.count}</span>
+      <li onclick="filterByCat('${c.id}','${stripHTML(c.name).replace(/'/g, "\\'")}')">
+        ${stripHTML(c.name)} <span>${c.count}</span>
       </li>`).join('');
   }
 
