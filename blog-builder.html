@@ -96,6 +96,38 @@
   .btn-danger { background: transparent; color: var(--red); border: 1.5px solid var(--red); }
   .btn-danger:hover { background: var(--red); color: #fff; }
   .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.72rem; }
+
+  /* ── Rich text toolbar (text section) ── */
+  .rte-toolbar {
+    display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center;
+    background: var(--cream); border: 1px solid var(--border);
+    border-bottom: none; border-radius: 4px 4px 0 0;
+    padding: 0.4rem; margin-top: 0.3rem;
+  }
+  .rte-toolbar select {
+    width: auto; font-size: 0.72rem; padding: 0.3rem 0.4rem;
+  }
+  .rte-btn {
+    background: #fff; border: 1px solid var(--border); border-radius: 3px;
+    padding: 0.3rem 0.5rem; font-size: 0.78rem; line-height: 1; cursor: pointer;
+    color: var(--text); font-family: 'Poppins', sans-serif;
+  }
+  .rte-btn:hover { background: var(--light-blue); border-color: var(--mid-blue); }
+  .rte-btn.active { background: var(--mid-blue); border-color: var(--mid-blue); color: #fff; }
+  .rte-color {
+    width: 28px; height: 28px; padding: 0; border: 1px solid var(--border);
+    border-radius: 3px; cursor: pointer; background: #fff;
+  }
+  .rte-sep { width: 1px; align-self: stretch; background: var(--border); margin: 0 0.15rem; }
+  .rte-body {
+    min-height: 140px; border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 4px 4px; padding: 0.65rem 0.75rem;
+    font-family: 'Poppins', sans-serif; font-size: 0.8rem; font-weight: 300;
+    color: var(--text); background: #fff; line-height: 1.7; outline: none;
+  }
+  .rte-body:empty::before { content: attr(data-placeholder); color: #9ca3af; }
+  .rte-body a { color: var(--mid-blue); }
+  .rte-body ul, .rte-body ol { padding-left: 1.4rem; }
   .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   /* ── LAYOUT ── */
@@ -638,7 +670,7 @@
         return field('Intro paragraph', textarea(sec.id, 'text', sec.text, 'Opening paragraph for your post…', 4));
       case 'text':
         return field('Heading (optional)', input(sec.id, 'heading', sec.heading, 'Section heading'))
-             + field('Body text *', textarea(sec.id, 'body', sec.body, 'Write your content here…', 6));
+             + field('Body text *', richTextEditor(sec.id, 'body', sec.body, 'Write your content here…'));
       case 'subheading':
         return field('Subheading text', input(sec.id, 'text', sec.text, 'e.g. Key Considerations'));
       case 'pullquote':
@@ -662,6 +694,124 @@
   function textarea(secId, key, val, ph, rows) {
     return '<textarea data-sec="' + secId + '" data-key="' + key + '" rows="' + rows + '" placeholder="' + escAttr(ph) + '" onchange="updateField(this)">' + escHtml(val||'') + '</textarea>';
   }
+
+  /* ── Rich text editor (text section body) ── */
+  function richTextEditor(secId, key, val, ph) {
+    var uid = secId + '-' + key;
+    return '<div class="rte-toolbar" data-target="rte-' + uid + '">'
+      + '<select class="rte-btn" title="Font" onmousedown="event.preventDefault()" onchange="rteExec(this,\'fontName\',this.value)">'
+        + '<option value="">Font…</option>'
+        + '<option value="Poppins">Poppins</option>'
+        + '<option value="Inter">Inter</option>'
+        + '<option value="Georgia">Georgia</option>'
+        + '<option value="Arial">Arial</option>'
+        + '<option value="\'Courier New\'">Courier New</option>'
+      + '</select>'
+      + '<select class="rte-btn" title="Size" onmousedown="event.preventDefault()" onchange="rteExec(this,\'fontSize\',this.value)">'
+        + '<option value="">Size…</option>'
+        + '<option value="2">Small</option>'
+        + '<option value="3">Normal</option>'
+        + '<option value="4">Medium</option>'
+        + '<option value="5">Large</option>'
+        + '<option value="6">X-Large</option>'
+      + '</select>'
+      + '<input type="color" class="rte-color" title="Text color" onmousedown="event.preventDefault()" onchange="rteExec(this,\'foreColor\',this.value)">'
+      + '<span class="rte-sep"></span>'
+      + '<button type="button" class="rte-btn" title="Bold" onmousedown="event.preventDefault()" onclick="rteExec(this,\'bold\')"><b>B</b></button>'
+      + '<button type="button" class="rte-btn" title="Italic" onmousedown="event.preventDefault()" onclick="rteExec(this,\'italic\')"><i>I</i></button>'
+      + '<button type="button" class="rte-btn" title="Underline" onmousedown="event.preventDefault()" onclick="rteExec(this,\'underline\')"><u>U</u></button>'
+      + '<button type="button" class="rte-btn" title="Strikethrough" onmousedown="event.preventDefault()" onclick="rteExec(this,\'strikeThrough\')"><s>S</s></button>'
+      + '<span class="rte-sep"></span>'
+      + '<button type="button" class="rte-btn" title="Align left" onmousedown="event.preventDefault()" onclick="rteExec(this,\'justifyLeft\')">⟸</button>'
+      + '<button type="button" class="rte-btn" title="Align center" onmousedown="event.preventDefault()" onclick="rteExec(this,\'justifyCenter\')">⟺</button>'
+      + '<button type="button" class="rte-btn" title="Align right" onmousedown="event.preventDefault()" onclick="rteExec(this,\'justifyRight\')">⟹</button>'
+      + '<button type="button" class="rte-btn" title="Justify" onmousedown="event.preventDefault()" onclick="rteExec(this,\'justifyFull\')">☰</button>'
+      + '<span class="rte-sep"></span>'
+      + '<button type="button" class="rte-btn" title="Bulleted list" onmousedown="event.preventDefault()" onclick="rteExec(this,\'insertUnorderedList\')">• ⁝</button>'
+      + '<button type="button" class="rte-btn" title="Numbered list" onmousedown="event.preventDefault()" onclick="rteExec(this,\'insertOrderedList\')">1. ⁝</button>'
+      + '<span class="rte-sep"></span>'
+      + '<button type="button" class="rte-btn" title="Insert link" onmousedown="event.preventDefault()" onclick="rteInsertLink(this)">🔗</button>'
+      + '<button type="button" class="rte-btn" title="Remove link" onmousedown="event.preventDefault()" onclick="rteExec(this,\'unlink\')">🔗⃠</button>'
+      + '<button type="button" class="rte-btn" title="Insert attachment" onmousedown="event.preventDefault()" onclick="rteTriggerAttachment(this,\'' + secId + '\')">📎</button>'
+      + '<span class="rte-sep"></span>'
+      + '<button type="button" class="rte-btn" title="Cut" onmousedown="event.preventDefault()" onclick="rteExec(this,\'cut\')">✂</button>'
+      + '<button type="button" class="rte-btn" title="Copy" onmousedown="event.preventDefault()" onclick="rteExec(this,\'copy\')">⧉</button>'
+      + '<button type="button" class="rte-btn" title="Paste" onmousedown="event.preventDefault()" onclick="rtePaste(this)">📋</button>'
+      + '<button type="button" class="rte-btn" title="Undo" onmousedown="event.preventDefault()" onclick="rteExec(this,\'undo\')">↶</button>'
+      + '<button type="button" class="rte-btn" title="Redo" onmousedown="event.preventDefault()" onclick="rteExec(this,\'redo\')">↷</button>'
+      + '</div>'
+      + '<div class="rte-body" id="rte-' + uid + '" contenteditable="true" data-sec="' + secId + '" data-key="' + key + '" data-placeholder="' + escAttr(ph) + '" oninput="rteUpdate(this)">' + (val || '') + '</div>'
+      + '<input type="file" id="rte-file-' + secId + '" accept="*/*" style="display:none" onchange="rteHandleAttachment(this,\'' + secId + '\')">';
+  }
+
+  function rteTargetFromToolbarBtn(btn) {
+    var toolbar = btn.closest('.rte-toolbar');
+    return document.getElementById(toolbar.dataset.target);
+  }
+  window.rteExec = function(btn, cmd, value) {
+    var target = rteTargetFromToolbarBtn(btn);
+    target.focus();
+    try { document.execCommand(cmd, false, value); }
+    catch (e) { console.warn('rte command failed:', cmd, e); }
+    rteUpdate(target);
+  };
+  window.rtePaste = function(btn) {
+    var target = rteTargetFromToolbarBtn(btn);
+    target.focus();
+    try { document.execCommand('paste'); rteUpdate(target); }
+    catch (e) {
+      alert('Your browser blocked programmatic paste. Use Ctrl/Cmd+V to paste directly into the text box instead.');
+    }
+  };
+  window.rteInsertLink = function(btn) {
+    var target = rteTargetFromToolbarBtn(btn);
+    var url = prompt('Enter the link URL:', 'https://');
+    if (!url) return;
+    target.focus();
+    document.execCommand('createLink', false, url);
+    rteUpdate(target);
+  };
+  window.rteTriggerAttachment = function(btn, secId) {
+    rteAttachTarget = rteTargetFromToolbarBtn(btn);
+    document.getElementById('rte-file-' + secId).click();
+  };
+  var rteAttachTarget = null;
+  window.rteHandleAttachment = function(fileInput, secId) {
+    var file = fileInput.files[0];
+    if (!file) return;
+    var target = rteAttachTarget;
+    var reader = new FileReader();
+    reader.onload = function() {
+      var base64 = reader.result.split(',')[1];
+      fetch(API + '/tqri/v1/upload-image?token=' + TOKEN, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: file.name, mime_type: file.type || 'application/octet-stream', data: base64 })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (!data || !data.url) { alert('Attachment upload failed.'); return; }
+        target.focus();
+        document.execCommand('insertHTML', false, '<a href="' + data.url + '" target="_blank">' + escHtml(file.name) + '</a>&nbsp;');
+        rteUpdate(target);
+      })
+      .catch(function(){ alert('Attachment upload failed.'); });
+    };
+    reader.readAsDataURL(file);
+    fileInput.value = '';
+  };
+  window.rteUpdate = function(el) {
+    var secId = el.dataset.sec;
+    var key   = el.dataset.key;
+    var sec   = sections.find(function(s){ return s.id === secId; });
+    if (!sec) return;
+    sec[key] = el.innerHTML;
+    var card = document.getElementById(secId);
+    if (card) {
+      var sumEl = card.querySelector('.section-summary');
+      if (sumEl) sumEl.textContent = getSummary(sec);
+    }
+  };
   function imageUploadField(secId, key, val, required) {
     var hasImg = val && val.length > 0;
     var previewHtml = hasImg ? '<img src="' + escAttr(val) + '" style="max-width:100%;max-height:120px;border-radius:4px;margin-top:0.5rem;" alt="">' : '';

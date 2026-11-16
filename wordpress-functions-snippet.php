@@ -190,7 +190,10 @@ function tqri_build_blog_html( $sections ) {
 				if ( ! empty( $s['heading'] ) ) {
 					$html .= '<h2>' . esc_html( $s['heading'] ) . '</h2>';
 				}
-				$html .= '<p>' . wp_kses_post( $s['body'] ?? '' ) . '</p>';
+				// $s['body'] is already block-level rich-text HTML from the
+				// editor's toolbar (paragraphs, lists, links, etc.) -- wrapping
+				// it in a <p> here would produce invalid nested block markup.
+				$html .= wp_kses_post( $s['body'] ?? '' );
 				break;
 			case 'image':
 				$img_url = esc_url( $s['image'] ?? '' );
