@@ -509,7 +509,7 @@ async function loadPost() {
       || cats.find(c => c.taxonomy === 'category' && c.slug !== 'uncategorized');
     const heroCategory = document.getElementById('heroCategory');
     if (primaryCat) {
-      heroCategory.textContent = primaryCat.name;
+      heroCategory.textContent = stripHTML(primaryCat.name);
       heroCategory.className = 'post-hero-cat';
       heroCategory.removeAttribute('style');
     } else {
@@ -583,7 +583,7 @@ async function loadRelated(currentId, catId) {
             : `<div class="related-card-thumb-placeholder">✍</div>`
           }
           <div class="related-card-body">
-            ${cat ? `<span class="related-card-cat">${cat.name}</span>` : ''}
+            ${cat ? `<span class="related-card-cat">${stripHTML(cat.name)}</span>` : ''}
             <h3 class="related-card-title">${stripHTML(p.title.rendered)}</h3>
             <span class="related-card-date">${fmtDate(p.date)}</span>
           </div>
