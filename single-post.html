@@ -516,15 +516,6 @@ async function loadPost() {
       heroCategory.remove();
     }
 
-    // Featured image in hero
-    const featImg = post._embedded?.['wp:featuredmedia']?.[0];
-    if (featImg?.source_url) {
-      const heroImg = document.createElement('div');
-      heroImg.className = 'post-hero-featured';
-      heroImg.innerHTML = `<img src="${featImg.source_url}" alt="${stripHTML(post.title.rendered)}" loading="eager">`;
-      document.querySelector('.post-hero-inner').appendChild(heroImg);
-    }
-
     // Excerpt
     const heroExcerpt = document.getElementById('heroExcerpt');
     if (post.excerpt?.rendered) {
