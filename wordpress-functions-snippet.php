@@ -171,6 +171,21 @@ function tqri_submit_blog( WP_REST_Request $request ) {
 		}
 	}
 
+	// Auto-populate Yoast SEO's Social (Facebook/Open Graph + Twitter) title
+	// and description, so the blog builder's "Social Title" / "Social
+	// Description" fields show up correctly under the post's Yoast SEO tab
+	// without needing to be re-entered manually in wp-admin.
+	$social_title = sanitize_text_field( $body['social_title'] ?? '' );
+	$social_desc  = sanitize_textarea_field( $body['social_description'] ?? '' );
+	if ( $social_title ) {
+		update_post_meta( $post_id, '_yoast_wpseo_opengraph-title', $social_title );
+		update_post_meta( $post_id, '_yoast_wpseo_twitter-title', $social_title );
+	}
+	if ( $social_desc ) {
+		update_post_meta( $post_id, '_yoast_wpseo_opengraph-description', $social_desc );
+		update_post_meta( $post_id, '_yoast_wpseo_twitter-description', $social_desc );
+	}
+
 	return array(
 		'success'  => true,
 		'post_id'  => $post_id,

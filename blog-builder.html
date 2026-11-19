@@ -453,6 +453,21 @@
       <input type="hidden" id="featImgUrl">
     </div>
 
+    <!-- SEO & Social (Yoast) -->
+    <div class="bb-panel-section">
+      <div class="bb-panel-section-title">SEO &amp; Social (Yoast)</div>
+      <div class="field">
+        <label>Social Title <span style="font-weight:300;color:var(--muted)">(optional — falls back to post title)</span></label>
+        <input type="text" id="postSocialTitle" placeholder="Title shown when shared on Facebook/LinkedIn/Twitter" maxlength="95" oninput="updateCharCount('postSocialTitle','socialTitleCount',60)">
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;" id="socialTitleCount">0 / 60 characters (recommended)</div>
+      </div>
+      <div class="field">
+        <label>Social Description <span style="font-weight:300;color:var(--muted)">(optional — falls back to excerpt)</span></label>
+        <textarea id="postSocialDesc" rows="3" maxlength="300" placeholder="Description shown when shared on Facebook/LinkedIn/Twitter" oninput="updateCharCount('postSocialDesc','socialDescCount',155)"></textarea>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;" id="socialDescCount">0 / 155 characters (recommended)</div>
+      </div>
+    </div>
+
     <!-- Add Section Palette -->
     <div class="bb-panel-section">
       <div class="bb-panel-section-title">Add Section</div>
@@ -1100,6 +1115,8 @@
       category_id:        catId ? parseInt(catId) : null,
       tags:               tags,
       featured_image_url: document.getElementById('featImgUrl').value,
+      social_title:       document.getElementById('postSocialTitle').value.trim(),
+      social_description: document.getElementById('postSocialDesc').value.trim(),
       sections:           sections
     };
 
@@ -1145,6 +1162,11 @@
     };
     reader.readAsDataURL(file);
   }
+
+  window.updateCharCount = function(fieldId, counterId, recommended) {
+    var len = document.getElementById(fieldId).value.length;
+    document.getElementById(counterId).textContent = len + ' / ' + recommended + ' characters (recommended)';
+  };
 
   function slugify(str) {
     return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
