@@ -358,13 +358,9 @@
     display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
     align-items: center; margin: 1rem 0;
   }
-  .preview-image-text.reverse .preview-image-text-img { order: 2; }
-  .preview-image-text.reverse .preview-image-text-content { order: 1; }
   .preview-image-text-img img { width: 100%; height: auto; border-radius: 4px; display: block; }
   @media (max-width: 600px) {
     .preview-image-text { grid-template-columns: 1fr; }
-    .preview-image-text.reverse .preview-image-text-img,
-    .preview-image-text.reverse .preview-image-text-content { order: initial; }
   }
 
   /* image upload progress */
@@ -1070,14 +1066,15 @@
           }
           break;
         case 'image-text':
-          var reverse = sec.imagePos === 'right';
-          html += '<div class="preview-section"><div class="preview-image-text' + (reverse ? ' reverse' : '') + '">';
-          html += '<div class="preview-image-text-img">' + (sec.image ? '<img src="' + escAttr(sec.image) + '" alt="">' : '') + '</div>';
-          html += '<div class="preview-image-text-content">'
+          var itReverse = sec.imagePos === 'right';
+          var itImgCol = '<div class="preview-image-text-img">' + (sec.image ? '<img src="' + escAttr(sec.image) + '" alt="">' : '') + '</div>';
+          var itTextCol = '<div class="preview-image-text-content">'
             + (sec.heading ? '<h2>' + escHtml(sec.heading) + '</h2>' : '')
             + (sec.body || '')
             + '</div>';
-          html += '</div></div>';
+          html += '<div class="preview-section"><div class="preview-image-text">'
+            + (itReverse ? itTextCol + itImgCol : itImgCol + itTextCol)
+            + '</div></div>';
           break;
       }
     });

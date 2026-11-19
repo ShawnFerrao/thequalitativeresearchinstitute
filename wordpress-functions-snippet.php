@@ -192,16 +192,20 @@ function tqri_build_blog_html( $sections ) {
 				break;
 			case 'image-text':
 				$img_url = esc_url( $s['image'] ?? '' );
-				$reverse = ( ( $s['imagePos'] ?? 'left' ) === 'right' );
-				$img_col  = '<div style="' . ( $reverse ? 'order:2;' : 'order:1;' ) . '">'
+				// Reverse is implemented by swapping which <div> is output first,
+				// not via CSS order -- order can silently lose to other
+				// page/theme CSS (e.g. legacy float rules on img), while source
+				// order always renders correctly.
+				$reverse  = ( ( $s['imagePos'] ?? 'left' ) === 'right' );
+				$img_col  = '<div>'
 					. ( $img_url ? '<img src="' . $img_url . '" alt="" style="width:100%;height:auto;border-radius:4px;display:block;">' : '' )
 					. '</div>';
-				$text_col = '<div style="' . ( $reverse ? 'order:1;' : 'order:2;' ) . '">'
+				$text_col = '<div>'
 					. ( ! empty( $s['heading'] ) ? '<h2>' . esc_html( $s['heading'] ) . '</h2>' : '' )
 					. wp_kses_post( $s['body'] ?? '' )
 					. '</div>';
 				$html .= '<div class="tqri-image-text" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:center;margin:2rem 0;">'
-					. $img_col . $text_col . '</div>';
+					. ( $reverse ? $text_col . $img_col : $img_col . $text_col ) . '</div>';
 				break;
 		}
 	}
