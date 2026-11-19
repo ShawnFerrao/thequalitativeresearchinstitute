@@ -354,6 +354,18 @@
     margin: 1rem 0;
   }
   .preview-photo-grid-2 img { width: 100%; height: 220px; object-fit: cover; border-radius: 4px; }
+  .preview-image-text {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    align-items: center; margin: 1rem 0;
+  }
+  .preview-image-text.reverse .preview-image-text-img { order: 2; }
+  .preview-image-text.reverse .preview-image-text-content { order: 1; }
+  .preview-image-text-img img { width: 100%; height: auto; border-radius: 4px; display: block; }
+  @media (max-width: 600px) {
+    .preview-image-text { grid-template-columns: 1fr; }
+    .preview-image-text.reverse .preview-image-text-img,
+    .preview-image-text.reverse .preview-image-text-content { order: initial; }
+  }
 
   /* image upload progress */
   .upload-progress {
@@ -462,6 +474,9 @@
         </button>
         <button class="palette-btn" onclick="addSection('photo-grid-2')">
           <span class="palette-btn-icon">⊞</span>2-Photo Grid
+        </button>
+        <button class="palette-btn" onclick="addSection('image-text')">
+          <span class="palette-btn-icon">⬓</span>Image + Text
         </button>
       </div>
     </div>
@@ -599,6 +614,7 @@
       case 'pullquote':   sec.text = ''; break;
       case 'image':       sec.image = ''; sec.caption = ''; break;
       case 'photo-grid-2': sec.images = ['', '']; break;
+      case 'image-text':   sec.image = ''; sec.imagePos = 'left'; sec.heading = ''; sec.body = ''; break;
     }
     sections.push(sec);
     renderSections();
@@ -660,6 +676,8 @@
       case 'photo-grid-2':
         var n = (sec.images || []).filter(Boolean).length;
         return n + ' / 2 images';
+      case 'image-text':
+        return sec.heading || sec.body || (sec.image ? 'Image set' : '(empty)');
     }
     return '';
   }
@@ -681,6 +699,11 @@
       case 'photo-grid-2':
         return field('Left image', imageUploadField(sec.id, 'img0', sec.images[0], false))
              + field('Right image', imageUploadField(sec.id, 'img1', sec.images[1], false));
+      case 'image-text':
+        return field('Layout', imagePosToggle(sec.id, sec.imagePos))
+             + field('Image', imageUploadField(sec.id, 'image', sec.image, false))
+             + field('Heading (optional)', input(sec.id, 'heading', sec.heading, 'Section heading'))
+             + field('Text *', richTextEditor(sec.id, 'body', sec.body, 'Write your content here…'));
     }
     return '';
   }
@@ -811,6 +834,22 @@
       var sumEl = card.querySelector('.section-summary');
       if (sumEl) sumEl.textContent = getSummary(sec);
     }
+  };
+  function imagePosToggle(secId, val) {
+    val = val || 'left';
+    var left  = val === 'left';
+    return '<div style="display:flex;gap:0.5rem;">'
+      + '<button type="button" class="btn btn-sm ' + (left ? 'btn-primary' : 'btn-ghost') + '" onclick="setImagePos(\'' + secId + '\',\'left\',this)">🖼 Left · Text Right</button>'
+      + '<button type="button" class="btn btn-sm ' + (!left ? 'btn-primary' : 'btn-ghost') + '" onclick="setImagePos(\'' + secId + '\',\'right\',this)">Text Left · 🖼 Right</button>'
+      + '</div>';
+  }
+  window.setImagePos = function(secId, pos, btn) {
+    var sec = sections.find(function(s){ return s.id === secId; });
+    if (!sec) return;
+    sec.imagePos = pos;
+    var row = btn.parentElement;
+    row.children[0].className = 'btn btn-sm ' + (pos === 'left' ? 'btn-primary' : 'btn-ghost');
+    row.children[1].className = 'btn btn-sm ' + (pos === 'right' ? 'btn-primary' : 'btn-ghost');
   };
   function imageUploadField(secId, key, val, required) {
     var hasImg = val && val.length > 0;
@@ -990,7 +1029,7 @@
         case 'text':
           html += '<div class="preview-section">';
           if (sec.heading) html += '<h2>' + escHtml(sec.heading) + '</h2>';
-          if (sec.body) html += '<p>' + escHtml(sec.body).replace(/\n/g, '<br>') + '</p>';
+          if (sec.body) html += sec.body;
           html += '</div>';
           break;
         case 'subheading':
@@ -1014,6 +1053,16 @@
             imgs.forEach(function(u){ html += '<img src="' + escAttr(u) + '" alt="">'; });
             html += '</div></div>';
           }
+          break;
+        case 'image-text':
+          var reverse = sec.imagePos === 'right';
+          html += '<div class="preview-section"><div class="preview-image-text' + (reverse ? ' reverse' : '') + '">';
+          html += '<div class="preview-image-text-img">' + (sec.image ? '<img src="' + escAttr(sec.image) + '" alt="">' : '') + '</div>';
+          html += '<div class="preview-image-text-content">'
+            + (sec.heading ? '<h2>' + escHtml(sec.heading) + '</h2>' : '')
+            + (sec.body || '')
+            + '</div>';
+          html += '</div></div>';
           break;
       }
     });
