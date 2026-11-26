@@ -738,7 +738,7 @@
   function richTextEditor(secId, key, val, ph) {
     var uid = secId + '-' + key;
     return '<div class="rte-toolbar" data-target="rte-' + uid + '">'
-      + '<select class="rte-btn" title="Font" onmousedown="event.preventDefault()" onchange="rteExec(this,\'fontName\',this.value)">'
+      + '<select class="rte-btn" title="Font" onchange="rteExec(this,\'fontName\',this.value)">'
         + '<option value="">Font…</option>'
         + '<option value="Poppins">Poppins</option>'
         + '<option value="Inter">Inter</option>'
@@ -746,7 +746,7 @@
         + '<option value="Arial">Arial</option>'
         + '<option value="\'Courier New\'">Courier New</option>'
       + '</select>'
-      + '<select class="rte-btn" title="Size" onmousedown="event.preventDefault()" onchange="rteExec(this,\'fontSize\',this.value)">'
+      + '<select class="rte-btn" title="Size" onchange="rteExec(this,\'fontSize\',this.value)">'
         + '<option value="">Size…</option>'
         + '<option value="2">Small</option>'
         + '<option value="3">Normal</option>'
