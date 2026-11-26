@@ -779,7 +779,7 @@
       + '<button type="button" class="rte-btn" title="Undo" onmousedown="event.preventDefault()" onclick="rteExec(this,\'undo\')">↶</button>'
       + '<button type="button" class="rte-btn" title="Redo" onmousedown="event.preventDefault()" onclick="rteExec(this,\'redo\')">↷</button>'
       + '</div>'
-      + '<div class="rte-body" id="rte-' + uid + '" contenteditable="true" draggable="false" data-sec="' + secId + '" data-key="' + key + '" data-placeholder="' + escAttr(ph) + '" oninput="rteUpdate(this)">' + (val || '') + '</div>'
+      + '<div class="rte-body" id="rte-' + uid + '" contenteditable="true" draggable="false" data-sec="' + secId + '" data-key="' + key + '" data-placeholder="' + escAttr(ph) + '" oninput="rteUpdate(this)" onpaste="rtePasteAsPlainText(event, this)">' + (val || '') + '</div>'
       + '<input type="file" id="rte-file-' + secId + '" accept="*/*" style="display:none" onchange="rteHandleAttachment(this,\'' + secId + '\')">';
   }
 
@@ -839,6 +839,21 @@
     reader.readAsDataURL(file);
     fileInput.value = '';
   };
+  // Forces "paste as plain text" so pasted content (especially from Google
+  // Docs or Word) never carries over its own internal HTML formatting --
+  // font-family, docs-internal-guid wrapper spans, white-space:pre-wrap, etc.
+  // Line breaks are preserved as paragraph breaks.
+  window.rtePasteAsPlainText = function(e, el) {
+    e.preventDefault();
+    var text = (e.clipboardData || window.clipboardData).getData('text/plain');
+    var html = text
+      .split(/\r\n|\r|\n/)
+      .map(function(line){ return '<p>' + escHtml(line) + '</p>'; })
+      .join('');
+    document.execCommand('insertHTML', false, html);
+    rteUpdate(el);
+  };
+
   window.rteUpdate = function(el) {
     var secId = el.dataset.sec;
     var key   = el.dataset.key;
