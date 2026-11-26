@@ -102,6 +102,10 @@
     margin: 1.5rem 0 0.5rem;
   }
   .post-body p { margin-bottom: 1.25rem; }
+  /* Something in the theme/Elementor global styles was forcing bold text
+     back down to font-weight:400 (confirmed via DevTools Computed panel),
+     so this overrides it explicitly for post content specifically. */
+  .post-body strong, .post-body b { font-weight: 700 !important; }
   .post-body ul, .post-body ol {
     margin: 0 0 1.25rem 1.5rem;
   }
