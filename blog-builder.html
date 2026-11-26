@@ -650,7 +650,12 @@
       var card = document.createElement('div');
       card.className = 'section-card';
       card.id = sec.id;
-      card.draggable = true;
+      // Only draggable while the drag handle is actually being pressed (armed
+      // in the sectionList 'mousedown' listener below) -- otherwise any click
+      // or text selection anywhere in the card (inputs, the rich text body,
+      // toolbar buttons) risks the browser starting a native drag of the
+      // whole card instead of letting the user interact with that field.
+      card.draggable = false;
       card.innerHTML = buildCardHTML(sec, idx);
       list.appendChild(card);
     });
@@ -963,17 +968,25 @@
   };
 
   /* ── Drag & Drop ── */
+  // Cards are draggable=false by default (set in renderSections) and only
+  // armed for the duration of an actual press-and-drag on the ⠿ handle, so
+  // clicking/selecting text anywhere else in the card (inputs, the rich text
+  // body, toolbar buttons) never risks the browser starting a native drag of
+  // the whole card.
+  document.getElementById('sectionList').addEventListener('mousedown', function(e) {
+    var handle = e.target.closest('.drag-handle');
+    if (!handle) return;
+    var card = handle.closest('.section-card');
+    if (card) card.draggable = true;
+  });
+  function disarmAllCardDragging() {
+    document.querySelectorAll('.section-card').forEach(function(c){ c.draggable = false; });
+  }
+  document.addEventListener('mouseup', disarmAllCardDragging);
+
   document.getElementById('sectionList').addEventListener('dragstart', function(e) {
-    // Don't start a card drag when the user is selecting text inside an
-    // editable field (input, textarea, select, or the rich text body) --
-    // otherwise the whole card hijacks the drag instead of letting the
-    // browser select text normally.
-    if (e.target.closest('input, textarea, select, [contenteditable="true"]')) {
-      e.preventDefault();
-      return;
-    }
     var card = e.target.closest('.section-card');
-    if (!card) return;
+    if (!card || !card.draggable) { e.preventDefault(); return; }
     dragSrc = card.id;
     card.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
@@ -1001,6 +1014,7 @@
   document.getElementById('sectionList').addEventListener('dragend', function() {
     document.querySelectorAll('.section-card').forEach(function(c){ c.classList.remove('dragging','drag-over'); });
     dragSrc = null;
+    disarmAllCardDragging();
   });
 
   /* ── Preview ── */
